@@ -3,36 +3,16 @@
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
         <!-- Sidebar user panel -->
-        <div class="user-panel">
-            <div class="pull-left image">
-                <img src="template/dist/img/121.jpg" class="img-circle" alt="User Image">
-            </div>
-            <div class="pull-left info">
-                <p>Shyam Shrestha</p>
-                <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-            </div>
-        </div>
+
+
         <!-- search form -->
-        <form action="#" method="get" class="sidebar-form">
-            <div class="input-group">
-                <input type="text" name="q" class="form-control" placeholder="Search...">
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
-              </span>
-            </div>
-        </form>
+
         <!-- /.search form -->
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu">
-            <li class="header">MAIN NAVIGATION</li>
-            <li class="active treeview">
-                <a href="#">
-                    <i class="fa fa-dashboard"></i> <span>Dashboard</span> <i class="fa fa-angle-left pull-right"></i>
-                </a>
-                <ul class="treeview-menu">
-                    <li class="active"><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-                    <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
-                </ul>
+
+            <li class="treeview" style="padding-top: 10px; padding-bottom: 10px;">
+                <img src="<?php echo base_url() ?>images/logo/logo.png" class="" alt="User Image" height="70px">
             </li>
             <li class="treeview">
                 <a href="#">
@@ -41,7 +21,8 @@
                     <span class="label label-primary pull-right">4</span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="pages/layout/top-nav.html"><i class="fa fa-plus"></i> Customer Entry</a></li>
+                    <li><a href="<?php echo base_url('customer/newCustomer') ?>"><i class="fa fa-plus"></i> Customer
+                            Entry</a></li>
                     <li><a href="pages/layout/boxed.html"><i class="fa fa-edit"></i> Customer Edit</a></li>
                     <li><a href="pages/layout/fixed.html"><i class="fa fa-user"></i> Customer Priority</a></li>
                     <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-user-md"></i> Customers</a></li>
@@ -49,7 +30,8 @@
             </li>
             <li>
                 <a href="pages/widgets.html">
-                    <i class="fa fa-th"></i> <span>Widgets</span> <small class="label pull-right bg-green">new</small>
+                    <i class="fa fa-th"></i> <span>Widgets</span>
+                    <small class="label pull-right bg-green">new</small>
                 </a>
             </li>
             <li class="treeview">
@@ -141,7 +123,8 @@
                         <ul class="treeview-menu">
                             <li><a href="#"><i class="fa fa-circle-o"></i> Level Two</a></li>
                             <li>
-                                <a href="#"><i class="fa fa-circle-o"></i> Level Two <i class="fa fa-angle-left pull-right"></i></a>
+                                <a href="#"><i class="fa fa-circle-o"></i> Level Two <i
+                                        class="fa fa-angle-left pull-right"></i></a>
                                 <ul class="treeview-menu">
                                     <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
                                     <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
