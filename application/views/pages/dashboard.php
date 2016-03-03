@@ -137,7 +137,7 @@
                         </div><!-- /.item -->
                         <!-- chat item -->
                         <div class="item">
-                            <img src="template/dist/img/user2-160x160.jpg" alt="user image" class="offline">
+                            <img src="<?php echo base_url() ?>template/dist/img/121.jpg" alt="user image" class="offline">
                             <p class="message">
                                 <a href="#" class="name">
                                     <small class="text-muted pull-right"><i class="fa fa-clock-o"></i> 5:30</small>

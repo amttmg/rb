@@ -33,8 +33,10 @@
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
+    <script src="http://localhost/rb/template/plugins/jQuery/jQuery-2.1.4.min.js"></script>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+
     <![endif]-->
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -70,7 +72,7 @@
                                     <li><!-- start message -->
                                         <a href="#">
                                             <div class="pull-left">
-                                                <img src="<?php echo base_url() ?>template/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                                <img src="<?php echo base_url() ?>template/dist/img/121.jpg" class="img-circle" alt="User Image">
                                             </div>
                                             <h4>
                                                 Support Team
