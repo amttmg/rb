@@ -28,6 +28,16 @@
                     <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-user-md"></i> Customers</a></li>
                 </ul>
             </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-android"></i>
+                    <span>Master</span>
+                    <span class="label label-primary pull-right">4</span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="<?php echo base_url('customerpriority') ?>"><i class="fa fa-plus"></i>Customer Priority</a></li>
+                </ul>
+            </li>
 
             <!--            <li>-->
             <!--                <a href="pages/widgets.html">-->
