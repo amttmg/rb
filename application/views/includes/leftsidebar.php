@@ -21,7 +21,7 @@
                     <span class="label label-primary pull-right">4</span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="<?php echo base_url('customer/newCustomer') ?>"><i class="fa fa-plus"></i> Customer
+                    <li><a href="<?php echo base_url('customer') ?>"><i class="fa fa-plus"></i> Customer
                             Entry</a></li>
                     <li><a href="pages/layout/boxed.html"><i class="fa fa-edit"></i> Customer Edit</a></li>
                     <li><a href="pages/layout/fixed.html"><i class="fa fa-user"></i> Customer Priority</a></li>

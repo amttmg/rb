@@ -121,9 +121,10 @@
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <div class="well">
                             <h2>Customer Priority</h2>
-                            <?php foreach ($priorities as $priority): ?>
+                            <?php $count=1; foreach ($priorities as $priority): ?>
+
                                         <div class="form-group">
-                                            <label><?php echo $priority['priority']->title; ?></label>
+                                            <label><?php echo($count) ?>) <?php echo $priority['priority']->title; ?></label>
                                             <?php if ($priority['priority']->multichoice): ?>
                                                 <?php foreach ($priority['options'] as $option): ?>
                                                     <div class="checkbox">
@@ -142,6 +143,7 @@
                                                 <?php endforeach ?>
                                             <?php endif ?>   
                                         </div>
+                                         <?php $count++; ?>
                             <?php endforeach ?>
                             </div><!--end well-->
                         </div>
