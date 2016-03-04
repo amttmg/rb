@@ -24,10 +24,10 @@ class customerpriority extends CI_Controller
             'other_status'=>0,
             'status'=>1
         );
-        echo $this->db->insert('tbl_priorityoptions', $newoption);
+        $this->db->insert('tbl_priorityoptions', $newoption);
        $options= $this->mpriority->getOptions($priorityid);
         $c = 1;
-        foreach ($option as $opt) {
+        foreach ($options as $opt) {
             echo '<p>' . $c . ') ' . $opt->option_title . '</p>';
             $c++;
         }

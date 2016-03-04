@@ -32,12 +32,12 @@
                 <?php $count = 1;
                 foreach ($priorities as $pr) {
                     ?>
-                    <div class="box box-default">
+                    <div class="box box-default collapsed-box">
                         <div class="box-header with-border">
                             <h3 class="box-title"><?php echo $count ?>) <?php echo $pr['priority']->title ?></h3>
 
                             <div class="box-tools pull-right">
-                                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
                                 </button>
                             </div>
                             <!-- /.box-tools -->
@@ -117,7 +117,8 @@
         $.ajax({
             url:'<?php echo base_url('customerpriority/addOption') ?>/'+opt+'/'+id,
             success:function(res){
-                alert(res)
+                $('#txtnewoption' + id).val('');
+                $('#div'+id).html(res);
             }
         })
     });
