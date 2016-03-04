@@ -143,7 +143,7 @@
                                                 <?php endforeach ?>
                                             <?php endif ?>   
                                         </div>
-                                         <?php $count++; ?>
+                                    <?php $count++; ?>
                             <?php endforeach ?>
                             </div><!--end well-->
                         </div>
