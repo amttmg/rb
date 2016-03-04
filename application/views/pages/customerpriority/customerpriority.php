@@ -1,4 +1,6 @@
 <!-- Content Wrapper. Contains page content -->
+
+
 <div class="content-wrapper">
 
 
@@ -108,13 +110,14 @@
 </div><!-- /.modal -->
 
 <script>
+    $('#frnnewopt').validate();
     $('#btnnewpriority').click(function () {
         $('#modalnewpriority').modal('show');
     })
     $('.btnnewoption').click(function () {
         var id = $(this).data('id');
         var opt = $('#txtnewoption' + id).val();
-        if ($('#frnnewopt').valid()) {
+//        if ($('#frnnewopt').valid()) {
             $.ajax({
                 url: '<?php echo base_url('customerpriority/addOption') ?>/' + opt + '/' + id,
                 success: function (res) {
@@ -122,6 +125,6 @@
                     $('#div' + id).html(res);
                 }
             })
-        }
+//        }
     });
 </script>

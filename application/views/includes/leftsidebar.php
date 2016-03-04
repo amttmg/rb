@@ -157,4 +157,5 @@
 </aside>
 <!-- jQuery 2.1.4 -->
 <script src="<?php echo base_url() ?>template/plugins/jQuery/jQuery-2.1.4.min.js"></script>
-<script src="<?php echo base_url() ?>template/plugins/validation/validation.js"></script>
+<script src="<?php echo base_url() ?>template/plugins/validation/jquery.validate.min.js"></script>
+
