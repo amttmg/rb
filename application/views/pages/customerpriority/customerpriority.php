@@ -91,7 +91,7 @@
                         aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">New Customer Priority Entry</h4>
             </div>
-            <form method="post">
+            <?php echo form_open_multipart('customerpriority/add',array('id'=>'myform','method'=>'post')); ?>
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="prioritytitle">Priority Title</label>
@@ -107,7 +107,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <input type="submit" class="btn btn-primary" value="Save" name="submit">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </form>
