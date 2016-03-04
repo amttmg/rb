@@ -44,7 +44,7 @@
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
-                            <div id="<?php echo 'div' .$pr['priority']->priority_id ?>">
+                            <div id="<?php echo 'div' . $pr['priority']->priority_id ?>">
                                 <?php
                                 $c = 1;
                                 foreach ($pr['options'] as $opt) {
@@ -54,8 +54,9 @@
                                 ?>
                             </div>
                             <div class="col-xs-2" style="padding: 5px 5px 0px 0px!important;">
-                                <input type="text" name="opt" class="form-control input-sm" placeholder="new option"
-                                       id="txtnewoption<?php echo $pr['priority']->priority_id ?>">
+                                <form id="frnnewopt">
+                                    <input type="text" name="opt" class="form-control input-sm" placeholder="new option"
+                                           required id="txtnewoption<?php echo $pr['priority']->priority_id ?>"></form>
                             </div>
                             <button class="btn btn-primary btn-sm btnnewoption"
                                     data-id="<?php echo $pr['priority']->priority_id ?>"
@@ -113,13 +114,14 @@
     $('.btnnewoption').click(function () {
         var id = $(this).data('id');
         var opt = $('#txtnewoption' + id).val();
-
-        $.ajax({
-            url:'<?php echo base_url('customerpriority/addOption') ?>/'+opt+'/'+id,
-            success:function(res){
-                $('#txtnewoption' + id).val('');
-                $('#div'+id).html(res);
-            }
-        })
+        if ($('#frnnewopt').valid()) {
+            $.ajax({
+                url: '<?php echo base_url('customerpriority/addOption') ?>/' + opt + '/' + id,
+                success: function (res) {
+                    $('#txtnewoption' + id).val('');
+                    $('#div' + id).html(res);
+                }
+            })
+        }
     });
 </script>
