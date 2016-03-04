@@ -44,7 +44,7 @@ class Customer extends CI_Controller {
             $this->customer->insert();
             $this->session->set_flashdata('message', 'Customer added successfully !');
             //$this->upload_photo();
-            //redirect('customer/index','refresh');
+            redirect('customer/index','refresh');
         } 
         else 
         {
@@ -97,7 +97,7 @@ class Customer extends CI_Controller {
     {
         $config['upload_path'] = './rb/uploads';
         $config['allowed_types'] = 'gif|jpg|png';
-        $config['max_size'] = '100';
+        $config['max_size'] = '1000';
         $config['max_width'] = '1024';
         $config['max_height'] = '768';
 
@@ -114,6 +114,7 @@ class Customer extends CI_Controller {
             $data = array('upload_data' => $this->upload->data());
 
             print_r($data);
+
         }
     }
 }
