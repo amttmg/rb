@@ -10,6 +10,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Customer extends CI_Controller {
 
+    private $image_name="";
+
     public function __construct()
     {
         parent::__construct();
@@ -38,12 +40,12 @@ class Customer extends CI_Controller {
         $this->form_validation->set_rules('marital_status', 'Marital Status', 'trim|required');
         $this->form_validation->set_rules('aniversary_date', 'Aniversary date', 'trim|required');
         $this->form_validation->set_rules('dob', 'DOB', 'trim|required');
+        $this->form_validation->set_rules('photo', 'Photo', 'callback_validate_image');
         $this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
         if ($this->form_validation->run() ==TRUE) 
         {
-            $this->customer->insert();
+            $this->customer->insert($this->image_name);
             $this->session->set_flashdata('message', 'Customer added successfully !');
-            //$this->upload_photo();
             redirect('customer/index','refresh');
         } 
         else 
@@ -72,7 +74,6 @@ class Customer extends CI_Controller {
             {
                 $this->customer->update($id);
                 $this->session->set_flashdata('message', 'Customer added successfully !');
-                //$this->upload_photo();
                 //redirect('customer/index','refresh');
             } 
             else 
@@ -93,28 +94,24 @@ class Customer extends CI_Controller {
     {
 
     }
-    public function upload_photo()
+    public function validate_image()
     {
-        $config['upload_path'] = './rb/uploads';
+        $config['upload_path'] = './uploads/';
         $config['allowed_types'] = 'gif|jpg|png';
         $config['max_size'] = '1000';
-        $config['max_width'] = '1024';
-        $config['max_height'] = '768';
 
         $this->load->library('upload', $config);
 
-        if ( ! $this->upload->do_upload('userfile'))
+        if ( ! $this->upload->do_upload('photo'))
         {
-            $error = array('error' => $this->upload->display_errors());
-
-            print_r($error);
+            
+            $this->form_validation->set_message('validate_image',$this->upload->display_errors());
+            return false;
         }
         else
         {
-            $data = array('upload_data' => $this->upload->data());
-
-            print_r($data);
-
+            $this->image_name=$this->upload->data('file_name');
+           return true;
         }
     }
 }
