@@ -8,24 +8,46 @@ class customerpriority extends CI_Controller
 
         $this->load->model('mpriority');
 
+        $this->load->helper('form');
+        $this->load->library('form_validation');
+
     }
+
     function index()
     {
-        $data['priorities']=$this->mpriority->getPriority();
+
+        $data['priorities'] = $this->mpriority->getPriority();
         $data['title'] = "Customer Priority";
         $data['content'] = $this->load->view('pages/customerpriority/customerpriority', $data, true);
         $this->parser->parse('template/page_template', $data);
     }
-    function addOption($option,$priorityid){
-        $newoption=array(
-            'priority_id'=>$priorityid,
-            'option_title'=>$option,
-            'remarks'=>$option,
-            'other_status'=>0,
-            'status'=>1
+
+    function add()
+    {
+        if (isset($_POST['submit'])) {
+            $newpriority = array(
+                'title' => $_POST['prioritytitle'],
+                'multichoice' => $_POST['mchoice'],
+                'official_status' => 1,
+                'status' => 1,
+            );
+            $this->db->insert('tbl_customerspriority', $newpriority);
+        }
+        redirect('customerpriority');
+
+    }
+
+    function addOption($option, $priorityid)
+    {
+        $newoption = array(
+            'priority_id' => $priorityid,
+            'option_title' => $option,
+            'remarks' => $option,
+            'other_status' => 0,
+            'status' => 1
         );
         $this->db->insert('tbl_priorityoptions', $newoption);
-       $options= $this->mpriority->getOptions($priorityid);
+        $options = $this->mpriority->getOptions($priorityid);
         $c = 1;
         foreach ($options as $opt) {
             echo '<p>' . $c . ') ' . $opt->option_title . '</p>';
