@@ -18,14 +18,16 @@ class Customer extends CI_Controller {
         $this->load->helper('form');
         $this->load->library('form_validation');
         $this->load->model('m_customer','customer');
+        $this->load->model('mpriority');
 
     }
 
     // Display customer entry form
     public function index( $offset = 0 )
     {
+        $data['priorities']=$this->mpriority->getPriority();
         $data['title'] = "Create Customer";
-        $data['content'] = $this->load->view('pages/customers/newcustomer', '', true);
+        $data['content'] = $this->load->view('pages/customers/newcustomer',$data, true);
         $this->parser->parse('template/page_template', $data);
     }
 
@@ -104,7 +106,7 @@ class Customer extends CI_Controller {
 
         if ( ! $this->upload->do_upload('photo'))
         {
-            
+
             $this->form_validation->set_message('validate_image',$this->upload->display_errors());
             return false;
         }
@@ -113,5 +115,10 @@ class Customer extends CI_Controller {
             $this->image_name=$this->upload->data('file_name');
            return true;
         }
+    }
+
+    public function test()
+    {
+        
     }
 }
