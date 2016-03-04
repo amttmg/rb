@@ -15,7 +15,9 @@ class M_customer extends CI_Model {
             $this->db->trans_begin();
 
 		$data=array(
-            'name'=>$this->input->post('name'),
+            'fname'=>$this->input->post('name'),
+            'mname'=>$this->input->post('mname'),
+            'lname'=>$this->input->post('lname'),
             'address'=>$this->input->post('address'),
             'email'=>$this->input->post('email'),
             'phone1'=>$this->input->post('phone1'),
@@ -43,7 +45,9 @@ class M_customer extends CI_Model {
 	public function update($id,$image_name="customer_default.jpeg")
 	{
 		$data=array(
-            'name'=>$this->input->post('name'),
+            'fname'=>$this->input->post('name'),
+            'mname'=>$this->input->post('mname'),
+            'lname'=>$this->input->post('lname'),
             'address'=>$this->input->post('address'),
             'email'=>$this->input->post('email'),
             'phone1'=>$this->input->post('phone1'),

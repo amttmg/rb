@@ -73,7 +73,7 @@
                         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"><!--middle form started-->
                             <div class="form-group">
                                 <label for="">Middle Name</label>
-                                <input type="name" class="form-control" name="mname" id="mname" placeholder="Middle Name " value="<?php echo(set_value('name')) ?>">
+                                <input type="name" class="form-control" name="mname" id="mname" placeholder="Middle Name " value="<?php echo(set_value('mname')) ?>">
                                 <?php echo(form_error('name')) ?>
                             </div>
                             <div class="form-group">
@@ -96,7 +96,7 @@
                         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"><!-- right form started -->
                             <div class="form-group">
                                 <label for="">Last Name</label>
-                                <input type="name" class="form-control" name="lname" id="lname" placeholder="Last Name" value="<?php echo(set_value('name')) ?>">
+                                <input type="name" class="form-control" name="lname" id="lname" placeholder="Last Name" value="<?php echo(set_value('lname')) ?>">
                                 <?php echo(form_error('name')) ?>
                             </div>
                             <div class="form-group">
@@ -114,23 +114,37 @@
                                     <input type="radio" name="marital_status" id="marital_status_no" value="0" checked="">No
                                 </label>
                             </div>
+                            
+                        </div><!-- right form end -->
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <div class="well">
-                            <h2>New Customer Priority</h2>
+                            <h2>Customer Priority</h2>
                             <?php foreach ($priorities as $priority): ?>
                                         <div class="form-group">
                                             <label><?php echo $priority['priority']->title; ?></label>
-                                            <?php foreach ($priority['options'] as $option): ?>
-                                                <div class="checkbox">
-                                                    <label>
-                                                        <input type="checkbox" value="<?php echo($option->option_id); ?>" name=""><?php echo($option->option_title); ?>
-                                                    </label>
-                                                </div>
-                                            <?php endforeach ?>
-                                            
+                                            <?php if ($priority['priority']->multichoice): ?>
+                                                <?php foreach ($priority['options'] as $option): ?>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" value="<?php echo($option->option_id); ?>" name=""><?php echo($option->option_title); ?>
+                                                        </label>
+                                                    </div>
+                                                <?php endforeach ?>
+                                            <?php else: ?>
+                                                <?php foreach ($priority['options'] as $option): ?>
+                                                   <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="<?php echo $priority['priority']->title;  ?>" id="optionsRadios1" value="<?php echo($option->option_id); ?>" checked=""><?php echo($option->option_title); ?>
+                                                        </label>
+                                                    </div>
+                                                <?php endforeach ?>
+                                            <?php endif ?>   
                                         </div>
                             <?php endforeach ?>
-                            </div>
-                        </div><!-- right form end -->
+                            </div><!--end well-->
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-primary pull-right">Submit</button>
                     <?php echo(form_close()) ?>

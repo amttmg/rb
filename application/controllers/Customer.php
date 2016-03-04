@@ -52,8 +52,9 @@ class Customer extends CI_Controller {
         } 
         else 
         {
+            $data['priorities']=$this->mpriority->getPriority();
             $data['title'] = "Create Customer";
-            $data['content'] = $this->load->view('pages/customers/newcustomer', '', true);
+            $data['content'] = $this->load->view('pages/customers/newcustomer',$data, true);
             $this->parser->parse('template/page_template', $data); 
         }
     }
@@ -63,7 +64,8 @@ class Customer extends CI_Controller {
     {
         if ($id) 
         {
-            $this->form_validation->set_rules('name', 'Name', 'trim|required|min_length[5]|max_length[100]');
+            $this->form_validation->set_rules('fname', 'First Name', 'trim|required|min_length[5]|max_length[100]');
+            $this->form_validation->set_rules('lname', 'Last Name', 'trim|required|min_length[5]|max_length[100]');
             $this->form_validation->set_rules('address', 'Address', 'trim|required|min_length[5]|max_length[12]');
             $this->form_validation->set_rules('email', 'Email', 'trim|required|is_unique[tbl_customers.email]');
             $this->form_validation->set_rules('phone1', 'Phone Number', 'trim|required|min_length[10]|max_length[10]');
