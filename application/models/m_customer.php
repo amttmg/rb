@@ -12,6 +12,8 @@ class M_customer extends CI_Model {
 
 	public function insert($image_name='default_customer.jpeg')
 	{
+            $this->db->trans_begin();
+
 		$data=array(
             'name'=>$this->input->post('name'),
             'address'=>$this->input->post('address'),
@@ -27,6 +29,15 @@ class M_customer extends CI_Model {
             'customer_image'=>$image_name,
             );
 		$this->db->insert('tbl_customers',$data);
+
+            if ($this->db->trans_status() === FALSE)
+            {
+                $this->db->trans_rollback();
+            }
+            else
+            {
+                $this->db->trans_commit();
+            }
 	}
 
 	public function update($id,$image_name="customer_default.jpeg")
@@ -46,7 +57,6 @@ class M_customer extends CI_Model {
             );
 		$this->db->update('customers',$data);
 	}
-
 	
 
 }
