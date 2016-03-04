@@ -1,4 +1,5 @@
 <?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * Created by PhpStorm.
@@ -6,13 +7,113 @@
  * Date: 03/02/2016
  * Time: 4:45 PM
  */
-class Customer extends CI_Controller
-{
-    function newCustomer()
+
+class Customer extends CI_Controller {
+
+    public function __construct()
     {
-        $d['d'] = array();
+        parent::__construct();
+        $this->load->helper('form');
+        $this->load->library('form_validation');
+        $this->load->model('m_customer','customer');
+
+    }
+
+    // Display customer entry form
+    public function index( $offset = 0 )
+    {
         $data['title'] = "Create Customer";
-        $data['content'] = $this->load->view('pages/customers/newcustomer', $d, true);
+        $data['content'] = $this->load->view('pages/customers/newcustomer', '', true);
         $this->parser->parse('template/page_template', $data);
+    }
+
+    // Add a new Customer
+    public function add()
+    {
+        $this->form_validation->set_rules('name', 'Name', 'trim|required|min_length[5]|max_length[100]');
+        $this->form_validation->set_rules('address', 'Address', 'trim|required|min_length[5]|max_length[12]');
+        $this->form_validation->set_rules('email', 'Email', 'trim|required|is_unique[tbl_customers.email]');
+        $this->form_validation->set_rules('phone1', 'Phone Number', 'trim|required|min_length[10]|max_length[10]');
+        $this->form_validation->set_rules('gender', 'Gender', 'trim|required');
+        $this->form_validation->set_rules('marital_status', 'Marital Status', 'trim|required');
+        $this->form_validation->set_rules('aniversary_date', 'Aniversary date', 'trim|required');
+        $this->form_validation->set_rules('dob', 'DOB', 'trim|required');
+        $this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
+        if ($this->form_validation->run() ==TRUE) 
+        {
+            $this->customer->insert();
+            $this->session->set_flashdata('message', 'Customer added successfully !');
+            //$this->upload_photo();
+            //redirect('customer/index','refresh');
+        } 
+        else 
+        {
+            $data['title'] = "Create Customer";
+            $data['content'] = $this->load->view('pages/customers/newcustomer', '', true);
+            $this->parser->parse('template/page_template', $data); 
+        }
+    }
+
+    //Update one customer
+    public function update( $id = NULL )
+    {
+        if ($id) 
+        {
+            $this->form_validation->set_rules('name', 'Name', 'trim|required|min_length[5]|max_length[100]');
+            $this->form_validation->set_rules('address', 'Address', 'trim|required|min_length[5]|max_length[12]');
+            $this->form_validation->set_rules('email', 'Email', 'trim|required|is_unique[tbl_customers.email]');
+            $this->form_validation->set_rules('phone1', 'Phone Number', 'trim|required|min_length[10]|max_length[10]');
+            $this->form_validation->set_rules('gender', 'Gender', 'trim|required');
+            $this->form_validation->set_rules('marital_status', 'Marital Status', 'trim|required');
+            $this->form_validation->set_rules('aniversary_date', 'Aniversary date', 'trim|required');
+            $this->form_validation->set_rules('dob', 'DOB', 'trim|required');
+            $this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
+            if ($this->form_validation->run() ==TRUE) 
+            {
+                $this->customer->update($id);
+                $this->session->set_flashdata('message', 'Customer added successfully !');
+                //$this->upload_photo();
+                //redirect('customer/index','refresh');
+            } 
+            else 
+            {
+                $data['title'] = "Create Customer";
+                $data['content'] = $this->load->view('pages/customers/newcustomer', '', true);
+                $this->parser->parse('template/page_template', $data); 
+            }
+        }
+        else
+        {
+            show_404();
+        }
+    }
+
+    //Delete one customer
+    public function delete( $id = NULL )
+    {
+
+    }
+    public function upload_photo()
+    {
+        $config['upload_path'] = './rb/uploads';
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['max_size'] = '100';
+        $config['max_width'] = '1024';
+        $config['max_height'] = '768';
+
+        $this->load->library('upload', $config);
+
+        if ( ! $this->upload->do_upload('userfile'))
+        {
+            $error = array('error' => $this->upload->display_errors());
+
+            print_r($error);
+        }
+        else
+        {
+            $data = array('upload_data' => $this->upload->data());
+
+            print_r($data);
+        }
     }
 }
