@@ -11,7 +11,7 @@ class M_customer extends CI_Model {
 	}
 
 	public function insert($image_name='default_customer.jpeg')
-	{
+	{       //transaction start
             $this->db->trans_begin();
 
 		$data=array(
