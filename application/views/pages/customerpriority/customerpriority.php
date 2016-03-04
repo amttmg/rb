@@ -91,18 +91,26 @@
                         aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">New Customer Priority Entry</h4>
             </div>
-            <div class="modal-body">
-                <form>
+            <form method="post">
+                <div class="modal-body">
                     <div class="form-group">
                         <label for="prioritytitle">Priority Title</label>
                         <input type="text" class="form-control" id="prioritytitle" name="prioritytitle">
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Save</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" checked="1" name="mchoice">
+                                Multichoice Priority
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </form>
         </div>
         <!-- /.modal-content -->
     </div>
@@ -118,13 +126,13 @@
         var id = $(this).data('id');
         var opt = $('#txtnewoption' + id).val();
 //        if ($('#frnnewopt').valid()) {
-            $.ajax({
-                url: '<?php echo base_url('customerpriority/addOption') ?>/' + opt + '/' + id,
-                success: function (res) {
-                    $('#txtnewoption' + id).val('');
-                    $('#div' + id).html(res);
-                }
-            })
+        $.ajax({
+            url: '<?php echo base_url('customerpriority/addOption') ?>/' + opt + '/' + id,
+            success: function (res) {
+                $('#txtnewoption' + id).val('');
+                $('#div' + id).html(res);
+            }
+        })
 //        }
     });
 </script>
