@@ -31,4 +31,6 @@ class mpriority extends CI_Model
         $result = $qry->result();
         return $result;
     }
+
+
 }
