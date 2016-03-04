@@ -38,8 +38,8 @@
                         <?php echo form_open_multipart('customer/add',array('id'=>'myform')); ?>
                                 <div class="form-group">
                                     <label for="">First Name</label>
-                                    <input type="name" class="form-control" name="name" id="name" placeholder="Name" value="<?php echo(set_value('name')) ?>">
-                                    <?php echo(form_error('name')) ?>
+                                    <input type="name" class="form-control" name="fname" id="fname" placeholder="first Name" value="<?php echo(set_value('fname')) ?>">
+                                    <?php echo(form_error('fname')) ?>
                                 </div>
                                 <div class="form-group">
                                     <label for="">Address</label>
@@ -97,7 +97,7 @@
                             <div class="form-group">
                                 <label for="">Last Name</label>
                                 <input type="name" class="form-control" name="lname" id="lname" placeholder="Last Name" value="<?php echo(set_value('lname')) ?>">
-                                <?php echo(form_error('name')) ?>
+                                <?php echo(form_error('lname')) ?>
                             </div>
                             <div class="form-group">
                                 <label for="">Phone 1</label>

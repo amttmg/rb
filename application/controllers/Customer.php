@@ -34,7 +34,8 @@ class Customer extends CI_Controller {
     // Add a new Customer
     public function add()
     {
-        $this->form_validation->set_rules('name', 'Name', 'trim|required|min_length[5]|max_length[100]');
+        $this->form_validation->set_rules('fname', 'First Name', 'trim|required|min_length[5]|max_length[100]');
+        $this->form_validation->set_rules('lname', 'last Name', 'trim|required|min_length[5]|max_length[100]');
         $this->form_validation->set_rules('address', 'Address', 'trim|required|min_length[5]|max_length[12]');
         $this->form_validation->set_rules('email', 'Email', 'trim|required|is_unique[tbl_customers.email]');
         $this->form_validation->set_rules('phone1', 'Phone Number', 'trim|required|min_length[10]|max_length[10]');
