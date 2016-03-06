@@ -35,17 +35,17 @@
                         <?php echo form_open_multipart('customer/add',array('id'=>'myform')); ?>
                                 <div class="form-group">
                                     <label for="">First Name</label>
-                                    <input required type="name" class="form-control" name="fname" id="fname" placeholder="first Name" value="<?php echo(set_value('fname')) ?>">
+                                    <input required type="name" tabindex="1" class="form-control" name="fname" id="fname" placeholder="first Name" value="<?php echo(set_value('fname')) ?>">
                                     <?php echo(form_error('fname')) ?>
                                 </div>
                                 <div class="form-group">
                                     <label for="">Address</label>
-                                    <input required type="text" class="form-control" name="address" id="address" placeholder="Address" value="<?php echo(set_value('address')) ?>">
+                                    <input required type="text" tabindex="4" class="form-control" name="address" id="address" placeholder="Address" value="<?php echo(set_value('address')) ?>">
                                      <?php echo(form_error('address')) ?>
                                 </div>
                                 <div class="form-group">
                                     <label for="">Phone 2</label>
-                                    <input type="text" class="form-control" name="phone2" id="phone2" placeholder="Phone 2" value="<?php echo(set_value('phone2')) ?>">
+                                    <input type="text" tabindex="7" class="form-control" name="phone2" id="phone2" placeholder="Phone 2" value="<?php echo(set_value('phone2')) ?>">
                                     <?php echo(form_error('phone2')) ?>
                                 </div>
                                 <div class="form-group">
@@ -70,17 +70,17 @@
                         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"><!--middle form started-->
                             <div class="form-group">
                                 <label for="">Middle Name</label>
-                                <input type="name" class="form-control" name="mname" id="mname" placeholder="Middle Name " value="<?php echo(set_value('mname')) ?>">
+                                <input type="name" tabindex="2" class="form-control" name="mname" id="mname" placeholder="Middle Name " value="<?php echo(set_value('mname')) ?>">
                                 <?php echo(form_error('name')) ?>
                             </div>
                             <div class="form-group">
                                 <label for="">Email</label>
-                                <input type="email" class="form-control" name="email" id="email" placeholder="Email" value="<?php echo(set_value('email')) ?>">
+                                <input type="email" tabindex="5" class="form-control" name="email" id="email" placeholder="Email" value="<?php echo(set_value('email')) ?>">
                                 <?php echo(form_error('email')) ?>
                             </div>
                             <div class="form-group">
                                 <label>Date of birth</label>
-                                <input required type="date" class="form-control" name="dob" id="dob" placeholder="date of birth" value="<?php echo(set_value('dob')) ?>">
+                                <input required type="date" tabindex="8" class="form-control" name="dob" id="dob" placeholder="date of birth" value="<?php echo(set_value('dob')) ?>">
                                 <?php echo(form_error('dob')) ?>
                             </div>
                             <div class="form-group">
@@ -93,12 +93,12 @@
                         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"><!-- right form started -->
                             <div class="form-group">
                                 <label for="">Last Name</label>
-                                <input required type="name" class="form-control" name="lname" id="lname" placeholder="Last Name" value="<?php echo(set_value('lname')) ?>">
+                                <input required type="name" tabindex="3" class="form-control" name="lname" id="lname" placeholder="Last Name" value="<?php echo(set_value('lname')) ?>">
                                 <?php echo(form_error('lname')) ?>
                             </div>
                             <div class="form-group">
                                 <label for="">Phone 1</label>
-                                <input required type="text" class="form-control" name="phone1" id="phone1" placeholder="Phone 1" value="<?php echo(set_value('phone1')) ?>">
+                                <input required type="text" tabindex="6" class="form-control" name="phone1" id="phone1" placeholder="Phone 1" value="<?php echo(set_value('phone1')) ?>">
                                 <?php echo(form_error('phone1')) ?>
                             </div>
                             
@@ -116,11 +116,11 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                            <div class="well">
                             <h2>Customer Priority</h2>
                             <?php $count=1; foreach ($priorities as $priority): ?><!-- foreach started for priorities -->
 
-                                        <div class="form-group">
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                            <div class="form-group">
                                             <label><?php echo($count) ?>) <?php echo $priority['priority']->title; ?></label>
                                             <?php if ($priority['priority']->multichoice): ?><!-- check if priority is multichoice or not if yes then make chekbox else make radio -->
                                                 <?php foreach ($priority['options'] as $option): ?>
@@ -140,10 +140,11 @@
                                                 <?php endforeach ?><!-- foreach end of options -->
                                             <?php endif ?>   
                                         </div>
+                                        </div>
                                     <?php $count++; ?>
                             <?php endforeach ?><!-- foreach end of priorites -->
-                            </div><!--end well-->
-                        </div>
+                            
+                        </div><!--end col-lg-12 of priorities and options-->
                     </div>
                     <button type="submit" class="btn btn-primary pull-right">Submit</button>
                     <?php echo(form_close()) ?>

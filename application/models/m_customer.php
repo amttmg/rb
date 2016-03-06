@@ -51,7 +51,6 @@ class M_customer extends CI_Model {
                                     'priority_id'=>$priority->priority_id,
                                     'option_id'=>$value
                                     );
-                              echo("checkbox".$value);
                               $this->db->insert('tbl_customerpriorityoption',$data);
                         } 
                   }
@@ -62,7 +61,6 @@ class M_customer extends CI_Model {
                                     'priority_id'=>$priority->priority_id,
                                     'option_id'=>$_POST["$priority->priority_id"]
                                     );
-                        echo("radio=".$_POST["$priority->priority_id"]);
                         $this->db->insert('tbl_customerpriorityoption',$data);
                   }
                   
