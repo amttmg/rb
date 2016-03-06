@@ -116,33 +116,40 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                            <h2>Customer Priority</h2>
-                            <?php $count=1; foreach ($priorities as $priority): ?><!-- foreach started for priorities -->
+                            <div class="box box-default">
+                                <div class="box-header with-border">
+                                  <h2 class="box-title">Customer Priority</h2>
+                                </div><!-- /.box-header -->
+                                <div class="box-body">
+                                <?php $count=1; foreach ($priorities as $priority): ?><!-- foreach started for priorities -->
 
-                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                                            <div class="form-group">
-                                            <label><?php echo($count) ?>) <?php echo $priority['priority']->title; ?></label>
-                                            <?php if ($priority['priority']->multichoice): ?><!-- check if priority is multichoice or not if yes then make chekbox else make radio -->
-                                                <?php foreach ($priority['options'] as $option): ?>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" value="<?php echo($option->option_id); ?>" name="<?php echo($priority['priority']->priority_id); ?>[]"><?php echo($option->option_title); ?>
-                                                        </label>
-                                                    </div>
-                                                <?php endforeach ?>
-                                            <?php else: ?>
-                                                <?php foreach ($priority['options'] as $option): ?><!-- foreach started for options -->
-                                                   <div class="radio">
-                                                        <label>
-                                                            <input type="radio" name="<?php echo $priority['priority']->priority_id;  ?>" id="optionsRadios1" value="<?php echo($option->option_id); ?>" checked=""><?php echo($option->option_title); ?>
-                                                        </label>
-                                                    </div>
-                                                <?php endforeach ?><!-- foreach end of options -->
-                                            <?php endif ?>   
-                                        </div>
-                                        </div>
-                                    <?php $count++; ?>
-                            <?php endforeach ?><!-- foreach end of priorites -->
+                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                                <div class="form-group">
+                                                <label><?php echo($count) ?>) <?php echo $priority['priority']->title; ?></label>
+                                                <?php if ($priority['priority']->multichoice): ?><!-- check if priority is multichoice or not if yes then make chekbox else make radio -->
+                                                    <?php foreach ($priority['options'] as $option): ?>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" value="<?php echo($option->option_id); ?>" name="<?php echo($priority['priority']->priority_id); ?>[]"><?php echo($option->option_title); ?>
+                                                            </label>
+                                                        </div>
+                                                    <?php endforeach ?>
+                                                <?php else: ?>
+                                                    <?php foreach ($priority['options'] as $option): ?><!-- foreach started for options -->
+                                                       <div class="radio">
+                                                            <label>
+                                                                <input type="radio" name="<?php echo $priority['priority']->priority_id;  ?>" id="optionsRadios1" value="<?php echo($option->option_id); ?>" checked=""><?php echo($option->option_title); ?>
+                                                            </label>
+                                                        </div>
+                                                    <?php endforeach ?><!-- foreach end of options -->
+                                                <?php endif ?>   
+                                            </div>
+                                            </div>
+                                        <?php $count++; ?>
+                                <?php endforeach ?><!-- foreach end of priorites -->
+                                </div><!-- /.box-body -->
+                              </div>
+                           
                             
                         </div><!--end col-lg-12 of priorities and options-->
                     </div>
