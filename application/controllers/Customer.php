@@ -49,6 +49,7 @@ class Customer extends CI_Controller {
         {
             $this->customer->insert($this->image_name);
             $this->session->set_flashdata('message', 'Customer added successfully !');
+            //echo("success fully inserted data");
             redirect('customer/index','refresh');
         } 
         else 
@@ -122,6 +123,12 @@ class Customer extends CI_Controller {
 
     public function test()
     {
-        
+        /*$data=1;
+        $checkbox=$_POST["$data"];
+        foreach ($checkbox as $key => $value) {
+            echo($value);
+        }*/
+
+        echo($this->input->post('2'));
     }
 }

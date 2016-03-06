@@ -3,6 +3,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class M_customer extends CI_Model {
 
+      private $customer_id;
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -31,6 +33,41 @@ class M_customer extends CI_Model {
             'customer_image'=>$image_name,
             );
 		$this->db->insert('tbl_customers',$data);
+
+            $this->customer_id=$this->db->insert_id();
+
+            $priorites=$this->get_priority();
+            
+            foreach ($priorites as $priority) 
+            {
+                  if($priority->multichoice==1)
+                  {
+                        $checkbox=$_POST["$priority->priority_id"];
+                        
+                       foreach ($checkbox as $key=>$value) 
+                        {
+                              $data=array(
+                                    'customer_id'=>$this->customer_id,
+                                    'priority_id'=>$priority->priority_id,
+                                    'option_id'=>$value
+                                    );
+                              echo("checkbox".$value);
+                              $this->db->insert('tbl_customerpriorityoption',$data);
+                        } 
+                  }
+                  else
+                  {
+                        $data=array(
+                                    'customer_id'=>$this->customer_id,
+                                    'priority_id'=>$priority->priority_id,
+                                    'option_id'=>$_POST["$priority->priority_id"]
+                                    );
+                        echo("radio=".$_POST["$priority->priority_id"]);
+                        $this->db->insert('tbl_customerpriorityoption',$data);
+                  }
+                  
+            }
+
 
             if ($this->db->trans_status() === FALSE)
             {
@@ -61,6 +98,23 @@ class M_customer extends CI_Model {
             );
 		$this->db->update('customers',$data);
 	}
+
+      public function get_priority()
+      {
+                  $this->db->where('status',1);
+           $query=$this->db->get('tbl_customerspriority');
+           return $query->result();
+      }
+
+      public function get_priorityoptions($priority_id)
+      {
+            $query=$this->db->get('tbl_priorityoptions');
+            return $query->result();
+      }
+      function check_multichoice()
+      {
+
+      }     
 	
 
 }
