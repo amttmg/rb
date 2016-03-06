@@ -1,8 +1,5 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-<script type="text/javascript" src="<?php echo base_url(); ?>js/jquery.validate.min.js"></script>
-
-
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
@@ -38,12 +35,12 @@
                         <?php echo form_open_multipart('customer/add',array('id'=>'myform')); ?>
                                 <div class="form-group">
                                     <label for="">First Name</label>
-                                    <input type="name" class="form-control" name="fname" id="fname" placeholder="first Name" value="<?php echo(set_value('fname')) ?>">
+                                    <input required type="name" class="form-control" name="fname" id="fname" placeholder="first Name" value="<?php echo(set_value('fname')) ?>">
                                     <?php echo(form_error('fname')) ?>
                                 </div>
                                 <div class="form-group">
                                     <label for="">Address</label>
-                                    <input type="text" class="form-control" name="address" id="address" placeholder="Address" value="<?php echo(set_value('address')) ?>">
+                                    <input required type="text" class="form-control" name="address" id="address" placeholder="Address" value="<?php echo(set_value('address')) ?>">
                                      <?php echo(form_error('address')) ?>
                                 </div>
                                 <div class="form-group">
@@ -83,7 +80,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Date of birth</label>
-                                <input type="date" class="form-control" name="dob" id="dob" placeholder="date of birth" value="<?php echo(set_value('dob')) ?>">
+                                <input required type="date" class="form-control" name="dob" id="dob" placeholder="date of birth" value="<?php echo(set_value('dob')) ?>">
                                 <?php echo(form_error('dob')) ?>
                             </div>
                             <div class="form-group">
@@ -96,12 +93,12 @@
                         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"><!-- right form started -->
                             <div class="form-group">
                                 <label for="">Last Name</label>
-                                <input type="name" class="form-control" name="lname" id="lname" placeholder="Last Name" value="<?php echo(set_value('lname')) ?>">
+                                <input required type="name" class="form-control" name="lname" id="lname" placeholder="Last Name" value="<?php echo(set_value('lname')) ?>">
                                 <?php echo(form_error('lname')) ?>
                             </div>
                             <div class="form-group">
                                 <label for="">Phone 1</label>
-                                <input type="text" class="form-control" name="phone1" id="phone1" placeholder="Phone 1" value="<?php echo(set_value('phone1')) ?>">
+                                <input required type="text" class="form-control" name="phone1" id="phone1" placeholder="Phone 1" value="<?php echo(set_value('phone1')) ?>">
                                 <?php echo(form_error('phone1')) ?>
                             </div>
                             
@@ -157,7 +154,7 @@
 </div><!-- /.content-wrapper -->
 <script type="text/javascript">
     
-    $('#myForm').validate({
+    $('#myform').validate({
         rules: {
             name: {
                 required: true,
@@ -186,7 +183,7 @@
             },
             email: {
                 required: "This field is required"
-            }
+            },
             phone1: {
                 required: "This field is required"
             },
