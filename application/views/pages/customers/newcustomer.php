@@ -165,6 +165,7 @@
                             
                         </div><!--end col-lg-12 of priorities and options-->
                     </div>
+                    
                     <button type="submit" class="btn btn-primary pull-right">Submit</button>
                     <?php echo(form_close()) ?>
                 </div>

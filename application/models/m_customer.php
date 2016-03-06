@@ -57,10 +57,10 @@ class M_customer extends CI_Model {
                   else
                   {
                         $data=array(
-                                    'customer_id'=>$this->customer_id,
-                                    'priority_id'=>$priority->priority_id,
-                                    'option_id'=>$_POST["$priority->priority_id"]
-                                    );
+                              'customer_id'=>$this->customer_id,
+                              'priority_id'=>$priority->priority_id,
+                              'option_id'=>$_POST["$priority->priority_id"]
+                              );
                         $this->db->insert('tbl_customerpriorityoption',$data);
                   }
                   
@@ -111,7 +111,7 @@ class M_customer extends CI_Model {
       }
       function check_multichoice()
       {
-            
+
       }     
 	
 
