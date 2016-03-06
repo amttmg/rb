@@ -1,4 +1,17 @@
 <!-- Content Wrapper. Contains page content -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#aniversary_date').hide();
+        $('#marital_status_yes').click(function() {
+             $('#aniversary_date').show();
+        });
+         $('#marital_status_no').click(function() {
+            $('#aniversary_text').val("");
+            $('#aniversary_date').hide();
+        });
+
+    });
+</script>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -51,7 +64,7 @@
                                 <div class="form-group">
                                     <label>Gender</label>
                                     <label class="radio-inline">
-                                        <input type="radio" name="gender" id="male" value="male" checked="checked">Male
+                                        <input type="radio" tabindex="9" name="gender" id="male" value="male" checked="checked">Male
                                     </label>
                                     <label class="radio-inline">
                                         <input type="radio" name="gender" id="female" value="female">Female
@@ -59,8 +72,17 @@
                                     
                                 </div>
                                 <div class="form-group">
+                                    <label>Marital Status</label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="marital_status" tabindex="10" id="marital_status_yes" value="1" checked="">yes
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="marital_status" tabindex="11" id="marital_status_no" value="0" checked="">No
+                                    </label>
+                                </div>
+                                <div class="form-group">
                                     <label>Choose Image</label>
-                                    <input type="file" name="photo">
+                                    <input type="file" name="photo" tabindex="12">
                                     <?php echo(form_error('photo')); ?>
                                 </div>
                                 
@@ -83,9 +105,9 @@
                                 <input required type="date" tabindex="8" class="form-control" name="dob" id="dob" placeholder="date of birth" value="<?php echo(set_value('dob')) ?>">
                                 <?php echo(form_error('dob')) ?>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" id="aniversary_date">
                                 <label>Aniversary Date</label>
-                                <input type="date" class="form-control" name="aniversary_date" id="aniversary_date" placeholder="Aniversary Date" value="<?php echo(set_value('aniversary_date')) ?>">
+                                <input type="date" class="form-control" name="aniversary_date" id="aniversary_text" placeholder="Aniversary Date" value="<?php echo(set_value('aniversary_date')) ?>">
                                 <?php echo(form_error('aniversary_date')) ?>
                             </div>
                         </div><!-- middle form end -->
@@ -100,16 +122,6 @@
                                 <label for="">Phone 1</label>
                                 <input required type="text" tabindex="6" class="form-control" name="phone1" id="phone1" placeholder="Phone 1" value="<?php echo(set_value('phone1')) ?>">
                                 <?php echo(form_error('phone1')) ?>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>Marital Status</label>
-                                <label class="radio-inline">
-                                    <input type="radio" name="marital_status" id="marital_status_yes" value="1" checked="">yes
-                                </label>
-                                <label class="radio-inline">
-                                    <input type="radio" name="marital_status" id="marital_status_no" value="0" checked="">No
-                                </label>
                             </div>
                             
                         </div><!-- right form end -->
@@ -164,15 +176,17 @@
     
     $('#myform').validate({
         rules: {
-            name: {
+            fname: {
                 required: true,
             },
-            address: {
+            lname: {
+                required: true,
+            },
+             address: {
                 required: true,
             },
             email: {
                 required: true,
-                email:true
             },
             phone1: {
                 required: true
@@ -183,8 +197,11 @@
 
         },
         message: {
-            name: {
+            fname: {
                 required: "This field is required"
+            },
+            lname: {
+                required: "This field is required",
             },
             address: {
                 required: "This field is required",

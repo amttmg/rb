@@ -111,7 +111,7 @@ class M_customer extends CI_Model {
       }
       function check_multichoice()
       {
-
+            
       }     
 	
 
