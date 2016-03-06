@@ -121,11 +121,11 @@
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <div class="well">
                             <h2>Customer Priority</h2>
-                            <?php $count=1; foreach ($priorities as $priority): ?>
+                            <?php $count=1; foreach ($priorities as $priority): ?><!-- foreach started for priorities -->
 
                                         <div class="form-group">
                                             <label><?php echo($count) ?>) <?php echo $priority['priority']->title; ?></label>
-                                            <?php if ($priority['priority']->multichoice): ?>
+                                            <?php if ($priority['priority']->multichoice): ?><!-- check if priority is multichoice or not if yes then make chekbox else make radio -->
                                                 <?php foreach ($priority['options'] as $option): ?>
                                                     <div class="checkbox">
                                                         <label>
@@ -134,17 +134,17 @@
                                                     </div>
                                                 <?php endforeach ?>
                                             <?php else: ?>
-                                                <?php foreach ($priority['options'] as $option): ?>
+                                                <?php foreach ($priority['options'] as $option): ?><!-- foreach started for options -->
                                                    <div class="radio">
                                                         <label>
                                                             <input type="radio" name="<?php echo $priority['priority']->title;  ?>" id="optionsRadios1" value="<?php echo($option->option_id); ?>" checked=""><?php echo($option->option_title); ?>
                                                         </label>
                                                     </div>
-                                                <?php endforeach ?>
+                                                <?php endforeach ?><!-- foreach end of options -->
                                             <?php endif ?>   
                                         </div>
                                     <?php $count++; ?>
-                            <?php endforeach ?>
+                            <?php endforeach ?><!-- foreach end of priorites -->
                             </div><!--end well-->
                         </div>
                     </div>
