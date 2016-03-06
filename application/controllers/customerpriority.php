@@ -25,12 +25,19 @@ class customerpriority extends CI_Controller
     function add()
     {
         if (isset($_POST['submit'])) {
+            if(isset($_POST['mchoice'])){
+                $multichoice=1;
+            }else{
+                $multichoice=0;
+            }
+
             $newpriority = array(
                 'title' => $_POST['prioritytitle'],
-                'multichoice' => $_POST['mchoice'],
+                'multichoice' => $multichoice,
                 'official_status' => 1,
                 'status' => 1,
             );
+
             $this->db->insert('tbl_customerspriority', $newpriority);
         }
         redirect('customerpriority');
@@ -41,7 +48,7 @@ class customerpriority extends CI_Controller
     {
         $newoption = array(
             'priority_id' => $priorityid,
-            'option_title' => $option,
+            'option_title' => rawurldecode($option),
             'remarks' => $option,
             'other_status' => 0,
             'status' => 1

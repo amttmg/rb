@@ -55,15 +55,21 @@
                                 }
                                 ?>
                             </div>
-                            <div class="col-xs-2" style="padding: 5px 5px 0px 0px!important;">
-                                <form id="frnnewopt">
-                                    <input type="text" name="opt" class="form-control input-sm" placeholder="new option"
-                                           required id="txtnewoption<?php echo $pr['priority']->priority_id ?>"></form>
+                            <div>
+                                <div class="col-xs-2" style="padding: 5px 5px 0px 0px!important;">
+                                    <form class="frnnewopt">
+                                        <input required type="text" name="opt" class="form-control input-sm"
+                                               placeholder="new option"
+                                               id="txtnewoption<?php echo $pr['priority']->priority_id ?>">
+
+                                        <p class="err" style="color:red"></p>
+                                    </form>
+                                </div>
+                                <button class="btn btn-primary btn-sm btnnewoption"
+                                        data-id="<?php echo $pr['priority']->priority_id ?>"
+                                        style="margin: 5px 5px 0px 0px!important;">Add
+                                </button>
                             </div>
-                            <button class="btn btn-primary btn-sm btnnewoption"
-                                    data-id="<?php echo $pr['priority']->priority_id ?>"
-                                    style="margin: 5px 5px 0px 0px!important;">Add
-                            </button>
                         </div>
                         <!-- /.box-body -->
                     </div>
@@ -91,25 +97,26 @@
                         aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">New Customer Priority Entry</h4>
             </div>
-            <?php echo form_open_multipart('customerpriority/add',array('id'=>'myform','method'=>'post')); ?>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="prioritytitle">Priority Title</label>
-                        <input type="text" class="form-control" id="prioritytitle" name="prioritytitle">
-                    </div>
-                    <div class="form-group">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" checked="1" name="mchoice">
-                                Multichoice Priority
-                            </label>
-                        </div>
+            <?php echo form_open_multipart('customerpriority/add', array('id' => 'myform', 'method' => 'post')); ?>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="prioritytitle">Priority Title</label>
+                    <input type="text" required class="form-control" id="prioritytitle" name="prioritytitle">
+
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" checked="1" name="mchoice">
+                            Multichoice Priority
+                        </label>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <input type="submit" class="btn btn-primary" value="Save" name="submit">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
+            </div>
+            <div class="modal-footer">
+                <input type="submit" class="btn btn-primary" value="Save" name="submit">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
             </form>
         </div>
         <!-- /.modal-content -->
@@ -118,21 +125,26 @@
 </div><!-- /.modal -->
 
 <script>
-    $('#frnnewopt').validate();
+    $('#myform').validate();
     $('#btnnewpriority').click(function () {
         $('#modalnewpriority').modal('show');
     })
     $('.btnnewoption').click(function () {
         var id = $(this).data('id');
         var opt = $('#txtnewoption' + id).val();
-//        if ($('#frnnewopt').valid()) {
-        $.ajax({
-            url: '<?php echo base_url('customerpriority/addOption') ?>/' + opt + '/' + id,
-            success: function (res) {
-                $('#txtnewoption' + id).val('');
-                $('#div' + id).html(res);
-            }
-        })
-//        }
+        if (opt != '') {
+            $(this).parent().find("p").html('');
+            $.ajax({
+                url: '<?php echo base_url('customerpriority/addOption') ?>/' + opt + '/' + id,
+                success: function (res) {
+                    $('#txtnewoption' + id).val('');
+                    $('#div' + id).html(res);
+                }
+            })
+        } else {
+            $(this).parent().find("p").html('This Field is required');
+        }
     });
+
+
 </script>
