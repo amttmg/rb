@@ -41,7 +41,7 @@ class Customer extends CI_Controller {
         $this->form_validation->set_rules('phone1', 'Phone Number', 'trim|required|min_length[10]|max_length[10]');
         $this->form_validation->set_rules('gender', 'Gender', 'trim|required');
         $this->form_validation->set_rules('marital_status', 'Marital Status', 'trim|required');
-        $this->form_validation->set_rules('aniversary_date', 'Aniversary date', 'trim|required');
+        $this->form_validation->set_rules('aniversary_date', 'Aniversary date', 'trim|min_length[10]|max_length[10]');
         $this->form_validation->set_rules('dob', 'DOB', 'trim|required');
         $this->form_validation->set_rules('photo', 'Photo', 'callback_validate_image');
         $this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
@@ -58,6 +58,7 @@ class Customer extends CI_Controller {
             $data['title'] = "Create Customer";
             $data['content'] = $this->load->view('pages/customers/newcustomer',$data, true);
             $this->parser->parse('template/page_template', $data); 
+            echo("validtaion false");
         }
     }
 
@@ -119,6 +120,37 @@ class Customer extends CI_Controller {
             $this->image_name=$this->upload->data('file_name');
            return true;
         }
+    }
+
+    public function insert_family()
+    {
+        $count=0;
+        $data=array();
+        for ($i=1; $i <=5 ; $i++) 
+        { 
+            if ($this->input->post('faname'.$i)) 
+            {
+                $count++;
+                $this->form_validation->set_rules('faname'.$i, 'Name', 'trim|required|min_length[2]|max_length[100]');
+                $this->form_validation->set_rules('faaddress'.$i, 'Address', 'trim|required|min_length[2]|max_length[100]');
+                $this->form_validation->set_rules('faphone'.$i, 'Name', 'trim|required|min_length[8]|max_length[15]');
+                $this->form_validation->set_rules('faphone2'.$i, 'Name', 'trim|min_length[8]|max_length[15]');
+                $this->form_validation->set_rules('farelation'.$i, 'Relation', 'trim|required|min_length[5]|max_length[15]');
+            }  
+        }
+        $this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
+       if ($this->form_validation->run() == FALSE) 
+       {
+            $data['priorities']=$this->mpriority->getPriority();
+            $data['title'] = "Create Customer";
+            $data['content'] = $this->load->view('pages/customers/newcustomer',$data, true);
+            $this->parser->parse('template/page_template', $data); 
+       } 
+       else 
+       {
+          echo("successfully validate");
+       }
+
     }
 
     public function test()
