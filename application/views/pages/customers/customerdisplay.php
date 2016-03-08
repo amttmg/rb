@@ -18,7 +18,7 @@
         <!-- Default box -->
         <div class="box">
             <div class="box-header with-border">
-<!--                <h3 class="box-title">Customers</h3>-->
+
             </div>
             <div class="box-body">
                 <table class="table table-bordered" id="tblcustomers">
@@ -70,14 +70,21 @@
                     </tbody>
                 </table>
             </div>
-            <!-- /.box-body -->
-<!--            <div class="box-footer">-->
-<!--                Footer-->
-<!--            </div>-->
-            <!-- /.box-footer-->
+
         </div>
-        <!-- /.box -->
 
     </section>
     <!-- /.content -->
 </div><!-- /.content-wrapper -->
+<!-- DataTables -->
+
+<script>
+    $('#tblcustomers').DataTable({
+        "paging": true,
+        "lengthChange": true,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "autoWidth": true
+    });
+</script>

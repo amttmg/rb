@@ -43,17 +43,6 @@
 <!-- jQuery 2.1.4 -->
 <script src="<?php echo base_url() ?>template/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 <script src="<?php echo base_url() ?>template/plugins/validation/jquery.validate.min.js"></script>
-<script>
-    $('li>ul>li>a').click(function () {
-        var url = window.location;
-// Will only work if string in href matches with location
-        $('ul.li a[href="' + url + '"]').parent().addClass('active');
-
-// Will also work for relative and absolute hrefs
-        $('ul.nav a').filter(function () {
-            return this.href == url;
-        }).parent().addClass('active');
-    })
-</script>
-
+<script src="<?php echo base_url() ?>template/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="<?php echo base_url() ?>template/plugins/datatables/dataTables.bootstrap.min.js"></script>
 
