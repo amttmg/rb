@@ -6,7 +6,7 @@
  * Date: 03/02/2016
  * Time: 12:55 PM
  */
-class mlogin extends CI_Model
+class Mlogin extends CI_Model
 {
     public function validate()
     {
