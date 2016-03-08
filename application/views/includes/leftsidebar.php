@@ -18,7 +18,7 @@
                 <a href="#">
                     <i class="fa fa-users"></i>
                     <span>Customers</span>
-                    <span class="label label-primary pull-right">4</span>
+
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="<?php echo base_url('customer') ?>"><i class="fa fa-plus"></i> New Customer
@@ -27,14 +27,14 @@
                         </a></li>
                 </ul>
             </li>
-            <li class="treeview">
+            <li class="treeview active">
                 <a href="#">
                     <i class="fa fa-android"></i>
                     <span>Master</span>
-                    <span class="label label-primary pull-right">4</span>
+
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="<?php echo base_url('customerpriority') ?>"><i class="fa fa-plus"></i>Customer Priority</a></li>
+                    <li class="active"><a href="<?php echo base_url('customerpriority') ?>"><i class="fa fa-plus"></i>Customer Priority</a></li>
                 </ul>
             </li>
 
@@ -157,5 +157,6 @@
 <!-- jQuery 2.1.4 -->
 <script src="<?php echo base_url() ?>template/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 <script src="<?php echo base_url() ?>template/plugins/validation/jquery.validate.min.js"></script>
+
 
 
