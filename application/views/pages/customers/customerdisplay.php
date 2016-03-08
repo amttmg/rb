@@ -63,7 +63,7 @@
                             <?php echo $cust->phone1 ?>
                         </td>
                         <td>
-                            <?php echo anchor('#','View Details',array('href'=>'#', 'class'=>'btn btn-primary btn-sm btn-block') ) ?>
+                            <?php echo anchor( base_url('customer/customerdetails/'.$cust->customer_id),'View Details',array('href'=>'#', 'class'=>'btn btn-primary btn-sm btn-block') ) ?>
                         </td>
                     </tr>
                     <?php $cust++; } ?>
