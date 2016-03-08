@@ -6,7 +6,7 @@
  * Date: 03/03/2016
  * Time: 12:13 PM
  */
-class mpriority extends CI_Model
+class Mpriority extends CI_Model
 {
     function getPriority()
     {
