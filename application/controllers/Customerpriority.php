@@ -1,6 +1,6 @@
 <?php
 
-class customerpriority extends CI_Controller
+class Customerpriority extends CI_Controller
 {
     public function __construct()
     {
