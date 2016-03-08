@@ -17,7 +17,7 @@
         <!-- Default box -->
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">Customer Details</h3>
+                <h3 class="box-title"><a href="<?php echo base_url('customer/customers') ?>" class="btn btn-primary btn-sm"> <span class="glyphicon glyphicon-backward"></span> Back</a></h3>
 
             </div>
             <div class="box-body">
