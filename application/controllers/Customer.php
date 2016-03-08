@@ -67,8 +67,8 @@ class Customer extends CI_Controller {
                         $this->db->trans_commit();
                         $this->session->unset_userdata('customer_id');
                         $this->session->set_flashdata('message', 'Customer added successfully !');
-                        echo("success fully inserted data");
-                        //redirect('customer/index','refresh');
+                        //echo("success fully inserted data");
+                        redirect('customer/index','refresh');
                     }
         
         } 
@@ -78,7 +78,7 @@ class Customer extends CI_Controller {
             $data['title'] = "Create Customer";
             $data['content'] = $this->load->view('pages/customers/newcustomer',$data, true);
             $this->parser->parse('template/page_template', $data); 
-            echo("validtaion false");
+
         }
     }
 
@@ -126,6 +126,7 @@ class Customer extends CI_Controller {
         if($image_name)
         {
             $config['upload_path'] = './uploads/';
+            $config['file_name']=uniqid();
             $config['allowed_types'] = 'gif|jpg|png';
             $config['max_size'] = '1000';
 
@@ -154,6 +155,7 @@ class Customer extends CI_Controller {
         else
         {
             $config['upload_path'] = './uploads/';
+            $config['file_name']=uniqid();
             $config['allowed_types'] = 'gif|jpg|png';
             $config['max_size'] = '1000';
 
