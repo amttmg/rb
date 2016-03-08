@@ -127,6 +127,26 @@ class M_customer extends CI_Model
 
     }
 
+    function insert_family($images)
+    {
+
+            foreach ($images as $key => $value) 
+            {
+                  $name="faname".($key+1);
+                  echo($name);
+                 $data=array(
+                        'customer_id'=>$this->session->userdata('customer_id'),
+                        'name'=>$this->input->post('faname'.($key+1)),
+                        'address'=>$this->input->post('faname'.($key+1)),
+                        'phone1'=>$this->input->post('faname'.($key+1)),
+                        'phone2'=>$this->input->post('faname'.($key+1)),
+                        'relation'=>$this->input->post('faname'.($key+1)),
+                        'image_url'=>$value
+                  );
+                 $this->db->insert('tbl_customerfamily',$data);
+            }
+    }    
+
 
 }
 
