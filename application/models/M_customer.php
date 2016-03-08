@@ -112,7 +112,12 @@ class M_customer extends CI_Model {
       function check_multichoice()
       {
 
-      }     
+      }
+
+    public function getCustomers(){
+       $qry= $this->db->get('tbl_customers');
+        return $qry->result();
+    }
 	
 
 }
