@@ -21,8 +21,10 @@
                     <span class="label label-primary pull-right">4</span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="<?php echo base_url('customer') ?>"><i class="fa fa-plus"></i> Customer
-                            Entry</a></li>
+                    <li><a href="<?php echo base_url('customer') ?>"><i class="fa fa-plus"></i> New Customer
+                            </a></li>
+                    <li><a href="<?php echo base_url('customer/customers') ?>"><i class="fa fa-eye"></i> Customers
+                        </a></li>
                 </ul>
             </li>
             <li class="treeview">

@@ -68,7 +68,7 @@
                             <li class="user-header">
                                 <img src="<?php echo base_url() ?>template/dist/img/121.jpg" class="img-circle" alt="User Image">
                                 <p>
-                                    Alexander Pierce - Web Developer
+                                    Amrit Tamang - Software Developer
                                     <small>Member since Nov. 2012</small>
                                 </p>
                             </li>
