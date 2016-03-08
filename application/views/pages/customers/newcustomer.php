@@ -92,7 +92,7 @@
                         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"><!--middle form started-->
                             <div class="form-group">
                                 <label for="">Middle Name</label>
-                                <input type="name" tabindex="2" class="form-control" name="mname" id="mname" placeholder="Middle Name " value="<?php echo(set_value('mname')) ?>">
+                                <input type="name" tabindex="15" class="form-control" name="mname" id="mname" placeholder="Middle Name " value="<?php echo(set_value('mname')) ?>">
                                 <?php echo(form_error('name')) ?>
                             </div>
                             <div class="form-group">
@@ -165,6 +165,157 @@
                             
                         </div><!--end col-lg-12 of priorities and options-->
                     </div>
+
+                    <div class="row"><!-- customer family secton begins -->
+                        <div class="box">
+                              <div class="box-header with-border">
+                                <h3 class="box-title">Customer Family details</h3>
+                                <div class="box-tools pull-right">
+                                  <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
+                                </div>
+                              </div>
+                              <div class="box-body">
+                                     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                                         <label for="">Name</label>
+                                         <div class="form-group">
+                                            <input required type="faname1" tabindex="20" class="form-control" name="faname1" id="faname1" placeholder="family name" value="<?php echo(set_value('faname1')) ?>">
+                                            <?php echo(form_error('faname1')) ?>
+                                        </div>
+                                        <div class="form-group">
+                                            <input required type="faname2" tabindex="26" class="form-control" name="faname2" id="faname2" placeholder="faname2" value="<?php echo(set_value('faname2')) ?>">
+                                            <?php echo(form_error('faname2')) ?>
+                                        </div>
+                                        <div class="form-group">
+                                            <input required type="faname3" tabindex="32" class="form-control" name="faname3" id="faname3" placeholder="faname3" value="<?php echo(set_value('faname3')) ?>">
+                                            <?php echo(form_error('faname3')) ?>
+                                        </div>
+                                        <div class="form-group">
+                                            <input required type="faname4" tabindex="38" class="form-control" name="faname4" id="faname4" placeholder="faname4" value="<?php echo(set_value('faname4')) ?>">
+                                            <?php echo(form_error('faname4')) ?>
+                                        </div>
+                                        <div class="form-group">
+                                            <input required type="faname5" tabindex="44" class="form-control" name="faname5" id="faname5" placeholder="faname5" value="<?php echo(set_value('faname5')) ?>">
+                                            <?php echo(form_error('faname5')) ?>
+                                        </div>
+                                     </div>
+                                     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                                         <label for="">Address</label>
+                                         <div class="form-group">
+                                            <input required type="faaddress1" tabindex="21" class="form-control" name="faaddress1" id="faaddress1" placeholder="faname4" value="<?php echo(set_value('faaddress1')) ?>">
+                                            <?php echo(form_error('faaddress1')) ?>
+                                        </div>
+                                        <div class="form-group">
+                                            <input required type="faaddress1" tabindex="27" class="form-control" name="faaddress1" id="faaddress1" placeholder="faname4" value="<?php echo(set_value('faaddress1')) ?>">
+                                            <?php echo(form_error('faaddress1')) ?>
+                                        </div>
+                                        <div class="form-group">
+                                            <input required type="faaddress1" tabindex="33" class="form-control" name="faaddress1" id="faaddress1" placeholder="faname4" value="<?php echo(set_value('faaddress1')) ?>">
+                                            <?php echo(form_error('faaddress1')) ?>
+                                        </div>
+                                        <div class="form-group">
+                                            <input required type="faaddress1" tabindex="39" class="form-control" name="faaddress1" id="faaddress1" placeholder="faname4" value="<?php echo(set_value('faaddress1')) ?>">
+                                            <?php echo(form_error('faaddress1')) ?>
+                                        </div>
+                                        <div class="form-group">
+                                            <input required type="faaddress1" tabindex="45" class="form-control" name="faaddress1" id="faaddress1" placeholder="faname4" value="<?php echo(set_value('faaddress1')) ?>">
+                                            <?php echo(form_error('faaddress1')) ?>
+                                        </div>
+                                     </div>
+                                     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                                         <label for="">Phone 1</label>
+                                         <div class="form-group">
+                                            <input required type="faphone1" tabindex="22" class="form-control" name="faphone1" id="faphone1" placeholder="faname4" value="<?php echo(set_value('faphone1')) ?>">
+                                            <?php echo(form_error('faphone1')) ?>
+                                        </div>
+                                        <div class="form-group">
+                                            <input required type="faphone1" tabindex="28" class="form-control" name="faphone1" id="faphone1" placeholder="faname4" value="<?php echo(set_value('faphone1')) ?>">
+                                            <?php echo(form_error('faphone1')) ?>
+                                        </div>
+                                        <div class="form-group">
+                                            <input required type="faphone1" tabindex="34" class="form-control" name="faphone1" id="faphone1" placeholder="faname4" value="<?php echo(set_value('faphone1')) ?>">
+                                            <?php echo(form_error('faphone1')) ?>
+                                        </div>
+                                        <div class="form-group">
+                                            <input required type="faphone1" tabindex="40" class="form-control" name="faphone1" id="faphone1" placeholder="faname4" value="<?php echo(set_value('faphone1')) ?>">
+                                            <?php echo(form_error('faphone1')) ?>
+                                        </div>
+                                        <div class="form-group">
+                                            <input required type="faphone1" tabindex="46" class="form-control" name="faphone1" id="faphone1" placeholder="faname4" value="<?php echo(set_value('faphone1')) ?>">
+                                            <?php echo(form_error('faphone1')) ?>
+                                        </div>
+                                     </div>
+                                     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                                         <label for="">Phone 2</label>
+                                         <div class="form-group">
+                                            <input required type="faphone2" tabindex="23" class="form-control" name="faphone2" id="faphone2" placeholder="faname4" value="<?php echo(set_value('faphone2')) ?>">
+                                            <?php echo(form_error('faphone2')) ?>
+                                        </div>
+                                         <div class="form-group">
+                                            <input required type="faphone2" tabindex="29" class="form-control" name="faphone2" id="faphone2" placeholder="faname4" value="<?php echo(set_value('faphone2')) ?>">
+                                            <?php echo(form_error('faphone2')) ?>
+                                        </div>
+                                         <div class="form-group">
+                                            <input required type="faphone2" tabindex="35" class="form-control" name="faphone2" id="faphone2" placeholder="faname4" value="<?php echo(set_value('faphone2')) ?>">
+                                            <?php echo(form_error('faphone2')) ?>
+                                        </div>
+                                         <div class="form-group">
+                                            <input required type="faphone2" tabindex="41" class="form-control" name="faphone2" id="faphone2" placeholder="faname4" value="<?php echo(set_value('faphone2')) ?>">
+                                            <?php echo(form_error('faphone2')) ?>
+                                        </div>
+                                         <div class="form-group">
+                                            <input required type="faphone2" tabindex="47" class="form-control" name="faphone2" id="faphone2" placeholder="faname4" value="<?php echo(set_value('faphone2')) ?>">
+                                            <?php echo(form_error('faphone2')) ?>
+                                        </div>
+                                     </div>
+                                     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                                         <label for="">relation</label>
+                                         <div class="form-group">
+                                            <input required type="farelation1" tabindex="24" class="form-control" name="farelation1" id="farelation1" placeholder="faname4" value="<?php echo(set_value('farelation1')) ?>">
+                                            <?php echo(form_error('farelation1')) ?>
+                                        </div>
+                                        <div class="form-group">
+                                            <input required type="farelation1" tabindex="30" class="form-control" name="farelation1" id="farelation1" placeholder="faname4" value="<?php echo(set_value('farelation1')) ?>">
+                                            <?php echo(form_error('farelation1')) ?>
+                                        </div>
+                                        <div class="form-group">
+                                            <input required type="farelation1" tabindex="36" class="form-control" name="farelation1" id="farelation1" placeholder="faname4" value="<?php echo(set_value('farelation1')) ?>">
+                                            <?php echo(form_error('farelation1')) ?>
+                                        </div>
+                                        <div class="form-group">
+                                            <input required type="farelation1" tabindex="42" class="form-control" name="farelation1" id="farelation1" placeholder="faname4" value="<?php echo(set_value('farelation1')) ?>">
+                                            <?php echo(form_error('farelation1')) ?>
+                                        </div>
+                                        <div class="form-group">
+                                            <input required type="farelation1" tabindex="48" class="form-control" name="farelation1" id="farelation1" placeholder="faname4" value="<?php echo(set_value('farelation1')) ?>">
+                                            <?php echo(form_error('farelation1')) ?>
+                                        </div>
+                                     </div>
+                                     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                                         <label for="">Image</label>
+                                         <div class="form-group">
+                                            <input required type="file" name="photo1" tabindex="25">
+                                            <?php echo(form_error('photo1')); ?>
+                                        </div>
+                                        <div class="form-group">
+                                            <input required type="file" name="photo1" tabindex="31">
+                                            <?php echo(form_error('photo1')); ?>
+                                        </div>
+                                        <div class="form-group">
+                                            <input required type="file" name="photo1" tabindex="37">
+                                            <?php echo(form_error('photo1')); ?>
+                                        </div>
+                                        <div class="form-group">
+                                            <input required type="file" name="photo1" tabindex="43">
+                                            <?php echo(form_error('photo1')); ?>
+                                        </div>
+                                        <div class="form-group">
+                                            <input required type="file" name="photo1" tabindex="49">
+                                            <?php echo(form_error('photo1')); ?>
+                                        </div>
+                                     </div>
+                                <?php echo $this->session->userdata('customer_id'); ?>
+                            </div><!-- /.box -->
+                    </div><!-- customer family secton ends -->
                     
                     <button type="submit" class="btn btn-primary pull-right">Submit</button>
                     <?php echo(form_close()) ?>
