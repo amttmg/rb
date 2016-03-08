@@ -2,7 +2,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-           Customers
+            Customers
             <small></small>
         </h1>
         <ol class="breadcrumb">
@@ -19,18 +19,65 @@
         <div class="box">
             <div class="box-header with-border">
                 <h3 class="box-title">Customers</h3>
-<!--                <div class="box-tools pull-right">-->
-<!--                    <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>-->
-<!--                    <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>-->
-<!--                </div>-->
             </div>
             <div class="box-body">
-               <?php print_r($customers) ?>
-            </div><!-- /.box-body -->
+                <table class="table table-bordered" id="tblcustomers">
+                    <thead>
+                    <tr>
+                        <th>
+                            SN
+                        </th>
+                        <th>
+                            Full Name
+                        </th>
+                        <th>
+                            Address
+                        </th>
+                        <th>
+                            Email
+                        </th>
+                        <th>
+                            Phone
+                        </th>
+                        <th>
+                            Action
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php $count=1; foreach($customers as $cust){ ?>
+                    <tr>
+                        <td>
+                            <?php echo $count ?>
+                        </td>
+                        <td>
+                            <?php echo $cust->fname.' '.$cust->mname.' '.$cust->lname ?>
+                        </td>
+                        <td>
+                            <?php echo $cust->address ?>
+                        </td>
+                        <td>
+                            <?php echo $cust->email ?>
+                        </td>
+                        <td>
+                            <?php echo $cust->phone1 ?>
+                        </td>
+                        <td>
+                            <?php echo anchor('#','View Details',array('href'=>'#', 'class'=>'btn btn-primary btn-sm btn-block') ) ?>
+                        </td>
+                    </tr>
+                    <?php $cust++; } ?>
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.box-body -->
             <div class="box-footer">
                 Footer
-            </div><!-- /.box-footer-->
-        </div><!-- /.box -->
+            </div>
+            <!-- /.box-footer-->
+        </div>
+        <!-- /.box -->
 
-    </section><!-- /.content -->
+    </section>
+    <!-- /.content -->
 </div><!-- /.content-wrapper -->
