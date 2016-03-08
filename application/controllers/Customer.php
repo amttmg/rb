@@ -191,4 +191,19 @@ class Customer extends CI_Controller {
 
         echo($this->input->post('2'));
     }
+
+    //customer display
+    function customers(){
+        $data['title'] = "Customers";
+        $cust['customers']=$this->customer->getCustomers();
+        $data['content'] = $this->load->view('pages/customers/customerdisplay',$cust, true);
+        $this->parser->parse('template/page_template', $data);
+    }
+
+    function customerdetails($id){
+        $data['title'] = "Customers Details";
+        $cust['customer']=$this->customer->getCustomers($id);
+        $data['content'] = $this->load->view('pages/customers/customerdetails',$cust, true);
+        $this->parser->parse('template/page_template', $data);
+    }
 }
