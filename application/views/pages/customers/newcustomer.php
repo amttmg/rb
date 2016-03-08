@@ -45,7 +45,7 @@
                 <div class="box-body">
                     <div class="row">
                         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                        <?php echo form_open_multipart('customer/insert_family',array('id'=>'myform')); ?>
+                        <?php echo form_open_multipart('customer/add',array('id'=>'myform')); ?>
                                 <div class="form-group">
                                     <label for="">First Name</label>
                                     <input required type="name" tabindex="1" class="form-control" name="fname" id="fname" placeholder="first Name" value="<?php echo(set_value('fname')) ?>">
@@ -293,24 +293,24 @@
                                      <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                                          <label for="">Image</label>
                                          <div class="form-group">
-                                            <input required type="file" name="photo1" tabindex="25">
-                                            <?php echo(form_error('photo1')); ?>
+                                            <input required type="file" name="faphoto1" tabindex="25">
+                                            <?php echo(form_error('faphoto1')); ?>
                                         </div>
                                         <div class="form-group">
-                                            <input required type="file" name="photo2" tabindex="31">
-                                            <?php echo(form_error('photo2')); ?>
+                                            <input required type="file" name="faphoto2" tabindex="31">
+                                            <?php echo(form_error('faphoto2')); ?>
                                         </div>
                                         <div class="form-group">
-                                            <input required type="file" name="photo3" tabindex="37">
-                                            <?php echo(form_error('photo3')); ?>
+                                            <input required type="file" name="faphoto3" tabindex="37">
+                                            <?php echo(form_error('faphoto3')); ?>
                                         </div>
                                         <div class="form-group">
-                                            <input required type="file" name="photo4" tabindex="43">
-                                            <?php echo(form_error('photo4')); ?>
+                                            <input required type="file" name="faphoto4" tabindex="43">
+                                            <?php echo(form_error('faphoto4')); ?>
                                         </div>
                                         <div class="form-group">
-                                            <input required type="file" name="photo5" tabindex="49">
-                                            <?php echo(form_error('photo5')); ?>
+                                            <input required type="file" name="faphoto5" tabindex="49">
+                                            <?php echo(form_error('faphoto5')); ?>
                                         </div>
                                      </div>
                                 <?php echo $this->session->userdata('customer_id'); ?>

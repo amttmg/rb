@@ -14,7 +14,7 @@ class M_customer extends CI_Model {
 
 	public function insert($image_name='default_customer.jpeg')
 	{
-            $this->db->trans_begin();
+           
 
 		$data=array(
             'fname'=>$this->input->post('fname'),
@@ -35,6 +35,7 @@ class M_customer extends CI_Model {
 		$this->db->insert('tbl_customers',$data);
 
             $this->customer_id=$this->db->insert_id();
+            $this->session->set_userdata('customer_id',$this->customer_id);
 
             $priorites=$this->get_priority();
             
@@ -42,17 +43,21 @@ class M_customer extends CI_Model {
             {
                   if($priority->multichoice==1)
                   {
-                        $checkbox=$_POST["$priority->priority_id"];
-                        
-                       foreach ($checkbox as $key=>$value) 
+                        if(isset($_POST["$priority->priority_id"]))
                         {
-                              $data=array(
-                                    'customer_id'=>$this->customer_id,
-                                    'priority_id'=>$priority->priority_id,
-                                    'option_id'=>$value
-                                    );
-                              $this->db->insert('tbl_customerpriorityoption',$data);
-                        } 
+                              $checkbox=$_POST["$priority->priority_id"];
+                        
+                               foreach ($checkbox as $key=>$value) 
+                              {
+                                    $data=array(
+                                          'customer_id'=>$this->customer_id,
+                                          'priority_id'=>$priority->priority_id,
+                                          'option_id'=>$value
+                                          );
+                                    $this->db->insert('tbl_customerpriorityoption',$data);
+                              } 
+                        }
+                        
                   }
                   else
                   {
@@ -67,14 +72,7 @@ class M_customer extends CI_Model {
             }
 
 
-            if ($this->db->trans_status() === FALSE)
-            {
-                $this->db->trans_rollback();
-            }
-            else
-            {
-                $this->db->trans_commit();
-            }
+            
 	}
 
 	public function update($id,$image_name="customer_default.jpeg")
@@ -109,9 +107,24 @@ class M_customer extends CI_Model {
             $query=$this->db->get('tbl_priorityoptions');
             return $query->result();
       }
-      function check_multichoice()
+      function insert_family($images)
       {
 
+            foreach ($images as $key => $value) 
+            {
+                  $name="faname".($key+1);
+                  echo($name);
+                 $data=array(
+                        'customer_id'=>$this->session->userdata('customer_id'),
+                        'name'=>$this->input->post('faname'.($key+1)),
+                        'address'=>$this->input->post('faname'.($key+1)),
+                        'phone1'=>$this->input->post('faname'.($key+1)),
+                        'phone2'=>$this->input->post('faname'.($key+1)),
+                        'relation'=>$this->input->post('faname'.($key+1)),
+                        'image_url'=>$value
+                  );
+                 $this->db->insert('tbl_customerfamily',$data);
+            }
       }     
 	
 
