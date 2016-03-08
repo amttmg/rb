@@ -18,7 +18,7 @@
         <!-- Default box -->
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">Customers</h3>
+<!--                <h3 class="box-title">Customers</h3>-->
             </div>
             <div class="box-body">
                 <table class="table table-bordered" id="tblcustomers">
@@ -71,9 +71,9 @@
                 </table>
             </div>
             <!-- /.box-body -->
-            <div class="box-footer">
-                Footer
-            </div>
+<!--            <div class="box-footer">-->
+<!--                Footer-->
+<!--            </div>-->
             <!-- /.box-footer-->
         </div>
         <!-- /.box -->
