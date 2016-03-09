@@ -68,9 +68,9 @@
                             </td>
                             <td>
                                 <?php if ($cust->status == 'pending') { ?>
-                                    <label class="label label-warning"><?php echo $cust->status ?></label>
+                                    <label class="label label-warning"><i class="glyphicon glyphicon-pushpin"></i> <?php echo $cust->status ?></label>
                                 <?php } elseif ($cust->status == 'verified') { ?>
-                                    <label class="label label-success"><?php echo $cust->status ?></label>
+                                    <label class="label label-success"><i class="glyphicon glyphicon-ok"></i> <?php echo $cust->status ?></label>
                                 <?php } ?>
                             </td>
                             <td>
