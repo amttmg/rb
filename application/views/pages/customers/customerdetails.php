@@ -95,7 +95,7 @@
             </div>
             <!-- /.box-body -->
             <div class="box-footer">
-                <a class="btn-success btn btn-sm" href="#"><i class="glyphicon glyphicon-ok"></i> Verify Customer</a>
+                <a class="btn-success btn btn-sm" href="<?php echo(site_url('customer/verify/'.$this->uri->segment(3))) ?>"><i class="glyphicon glyphicon-ok"></i> Verify Customer</a>
                 <a class="btn-primary btn btn-sm" href="#"><i class="glyphicon glyphicon-credit-card"></i> Add Card</a>
             </div>
             <!-- /.box-footer-->
