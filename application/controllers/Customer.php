@@ -136,6 +136,7 @@ class Customer extends CI_Controller {
             {
                 if(stristr($this->upload->display_errors(),'You did not select a file to upload'))
                 {
+                    $this->images[]=$this->image_name;
                     return true;
                 }
                 else
@@ -165,6 +166,7 @@ class Customer extends CI_Controller {
             {
                 if(stristr($this->upload->display_errors(),'You did not select a file to upload'))
                 {
+                    
                     return true;
                 }
                 else
