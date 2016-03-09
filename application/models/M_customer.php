@@ -147,6 +147,17 @@ class M_customer extends CI_Model
             }
     }    
 
+    public function insert_refer($inhouse_refer,$inhouse_refer_id,$existing_customer,$customer_id)
+    {
+        $data=array(
+            'customer_id'=>$customer_id;
+            'inhouse_refer'=>$inhouse_refer;
+            'inhouse_referby_id'=>$inhouse_refer_id,
+            'existingcustomer_referby_id'=>$existing_customer
+            );
+        $this->db->insert('tbl_reference',$data);
+    }
+
 
 }
 
