@@ -40,33 +40,45 @@
                             Phone
                         </th>
                         <th>
+                            Status
+                        </th>
+                        <th>
                             Action
                         </th>
                     </tr>
                     </thead>
                     <tbody>
-                    <?php $count=1; foreach($customers as $cust){ ?>
-                    <tr>
-                        <td>
-                            <?php echo $count ?>
-                        </td>
-                        <td>
-                            <?php echo $cust->fname.' '.$cust->mname.' '.$cust->lname ?>
-                        </td>
-                        <td>
-                            <?php echo $cust->address ?>
-                        </td>
-                        <td>
-                            <?php echo $cust->email ?>
-                        </td>
-                        <td>
-                            <?php echo $cust->phone1 ?>
-                        </td>
-                        <td>
-                            <?php echo anchor( base_url('customer/customerdetails/'.$cust->customer_id),'View Details',array('href'=>'#', 'class'=>'btn btn-primary btn-sm btn-block') ) ?>
-                        </td>
-                    </tr>
-                    <?php $cust++; } ?>
+                    <?php $count = 1;
+                    foreach ($customers as $cust) { ?>
+                        <tr>
+                            <td>
+                                <?php echo $count ?>
+                            </td>
+                            <td>
+                                <?php echo $cust->fname . ' ' . $cust->mname . ' ' . $cust->lname ?>
+                            </td>
+                            <td>
+                                <?php echo $cust->address ?>
+                            </td>
+                            <td>
+                                <?php echo $cust->email ?>
+                            </td>
+                            <td>
+                                <?php echo $cust->phone1 ?>
+                            </td>
+                            <td>
+                                <?php if ($cust->status == 'pending') { ?>
+                                    <label class="label label-warning"><?php echo $cust->status ?></label>
+                                <?php } elseif ($cust->status == 'verified') { ?>
+                                    <label class="label label-success"><?php echo $cust->status ?></label>
+                                <?php } ?>
+                            </td>
+                            <td>
+                                <?php echo anchor(base_url('customer/customerdetails/' . $cust->customer_id), 'View Details', array('href' => '#', 'class' => 'btn btn-primary btn-sm btn-block')) ?>
+                            </td>
+                        </tr>
+                        <?php $cust++;
+                    } ?>
                     </tbody>
                 </table>
             </div>
