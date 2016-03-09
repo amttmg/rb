@@ -1,4 +1,6 @@
 <!-- Content Wrapper. Contains page content -->
+<script type="text/javascript" src="<?php echo(base_url('assets/jquery-ui.js')) ?>"></script>
+<script type="text/javascript" src="<?php echo(base_url('assets/jquery-ui.css')) ?>"></script>
 <script type="text/javascript">
     $(document).ready(function() {
         $('#aniversary_date').hide();
@@ -8,6 +10,17 @@
          $('#marital_status_no').click(function() {
             $('#aniversary_text').val("");
             $('#aniversary_date').hide();
+        });
+
+         $(function() {
+            $( "#reference" ).autocomplete({
+                source: '<?php echo site_url("customer/test"); ?>',
+                select: function (event, ui) {
+                    //alert(ui.item.label);
+                    //$("#txtAllowSearch").val(); // display the selected text
+                     $("#refered_id").val(ui.item.value); // save selected id to hidden input
+            }
+            }).autocomplete( "widget" ).addClass( "list-unstyled panel panel-primary cursor:pointer" );;
         });
 
     });
@@ -123,7 +136,25 @@
                                 <input required type="text" tabindex="6" class="form-control" name="phone1" id="phone1" placeholder="Phone 1" value="<?php echo(set_value('phone1')) ?>">
                                 <?php echo(form_error('phone1')) ?>
                             </div>
-                            
+                            <div class="form-group">
+                                <label>Refered By</label>
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="customer_refer" id="inhouse" value="1" checked="">Inhouse
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="customer_refer" id="existing" value="0">Existing Customer
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                    <div>
+                                    <input required type="text" tabindex="6" class="form-control" name="reference" id="reference" placeholder="" value="<?php echo(set_value('reference')) ?>">
+                                    </div>
+                                    <input type="hidden" name="refered_id" id="refered_id">
+                            </div>
                         </div><!-- right form end -->
                     </div>
                     <div class="row">
