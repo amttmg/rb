@@ -158,10 +158,10 @@ class M_customer extends CI_Model
         $this->db->insert('tbl_reference',$data);
     }
 
-    public function verify_customer($id,$data)
+    public function verify_customer($id,$status)
     {
         $this->db->where('customer_id',$id);
-        $this->db->update('tbl_customers',array('status'=>$data));
+        $this->db->update('tbl_customers',array('status'=>$status));
     }
 
 }

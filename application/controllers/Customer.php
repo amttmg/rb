@@ -20,6 +20,7 @@ class Customer extends CI_Controller {
         $this->load->library('form_validation');
         $this->load->model('m_customer','customer');
         $this->load->model('mpriority');
+        $this->load->helper('notification');
 
     }
 
@@ -200,7 +201,7 @@ class Customer extends CI_Controller {
 
     public function test()
     {
-        $data=array();
+       /* $data=array();
         $this->load->database();
         $this->db->like('fname',$this->input->get('term'));
         $query=$this->db->get('tbl_customers');
@@ -208,7 +209,13 @@ class Customer extends CI_Controller {
         {
            $data[$customer->customer_id]=$customer->fname.":".$customer->customer_id;
         }
-        echo(json_encode($data));
+        echo(json_encode($data));*/
+        
+        if(!pending_customer())
+        {
+            echo("no pending request found");
+        }
+
     }
 
     //customer display
