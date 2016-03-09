@@ -45,6 +45,7 @@ class Customer extends CI_Controller {
         $this->form_validation->set_rules('aniversary_date', 'Aniversary date', 'trim|min_length[10]|max_length[10]');
         $this->form_validation->set_rules('dob', 'DOB', 'trim|required');
         $this->form_validation->set_rules('photo', 'Photo', 'callback_validate_image');
+        //for family section validation
         for ($i=1; $i <=5 ; $i++) 
         { 
             if ($this->input->post('faname'.$i)) 

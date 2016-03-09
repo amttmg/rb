@@ -228,19 +228,19 @@
                                             <?php echo(form_error('faphone1')) ?>
                                         </div>
                                         <div class="form-group">
-                                            <input required type="faphone2" tabindex="28" class="form-control" name="faphone2" id="faphone1" placeholder="phone 1" value="<?php echo(set_value('faphone2')) ?>">
+                                            <input required type="faphone2" tabindex="28" class="form-control" name="faphone2" id="faphone2" placeholder="phone 1" value="<?php echo(set_value('faphone2')) ?>">
                                             <?php echo(form_error('faphone2')) ?>
                                         </div>
                                         <div class="form-group">
-                                            <input required type="faphone3" tabindex="34" class="form-control" name="faphone3" id="faphone1" placeholder="phone 1" value="<?php echo(set_value('faphone3')) ?>">
+                                            <input required type="faphone3" tabindex="34" class="form-control" name="faphone3" id="faphone3" placeholder="phone 1" value="<?php echo(set_value('faphone3')) ?>">
                                             <?php echo(form_error('faphone3')) ?>
                                         </div>
                                         <div class="form-group">
-                                            <input required type="faphone4" tabindex="40" class="form-control" name="faphone4" id="faphone1" placeholder="phone 1" value="<?php echo(set_value('faphone4')) ?>">
+                                            <input required type="faphone4" tabindex="40" class="form-control" name="faphone4" id="faphone4" placeholder="phone 1" value="<?php echo(set_value('faphone4')) ?>">
                                             <?php echo(form_error('faphone4')) ?>
                                         </div>
                                         <div class="form-group">
-                                            <input required type="faphone5" tabindex="46" class="form-control" name="faphone5" id="faphone1" placeholder="phone 1" value="<?php echo(set_value('faphone5')) ?>">
+                                            <input required type="faphone5" tabindex="46" class="form-control" name="faphone5" id="faphone5" placeholder="phone 1" value="<?php echo(set_value('faphone5')) ?>">
                                             <?php echo(form_error('faphone5')) ?>
                                         </div>
                                      </div>
