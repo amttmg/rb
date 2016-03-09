@@ -201,7 +201,7 @@ class Customer extends CI_Controller {
 
     public function test()
     {
-       /* $data=array();
+        $data=array();
         $this->load->database();
         $this->db->like('fname',$this->input->get('term'));
         $query=$this->db->get('tbl_customers');
@@ -209,12 +209,7 @@ class Customer extends CI_Controller {
         {
            $data[$customer->customer_id]=$customer->fname.":".$customer->customer_id;
         }
-        echo(json_encode($data));*/
-        
-        if(!pending_customer())
-        {
-            echo("no pending request found");
-        }
+        echo(json_encode($data));
 
     }
 
