@@ -17,6 +17,12 @@
         <!-- Default box -->
         <div class="box">
             <div class="box-header with-border">
+            <?php if ($this->session->flashdata('message')): ?>
+                        <div class="alert alert-success">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <strong><?php echo($this->session->flashdata('message')); ?></strong> 
+                        </div>
+                    <?php endif ?>
                 <h3 class="box-title"><a href="<?php echo base_url('customer/customers') ?>"
                                          class="btn btn-primary btn-sm"> <span
                             class="glyphicon glyphicon-backward"></span> Back</a></h3>
