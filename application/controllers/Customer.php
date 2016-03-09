@@ -55,10 +55,22 @@ class Customer extends CI_Controller {
         }
         $this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
         if ($this->form_validation->run() ==TRUE) 
-        {
+        {           $existing_customer="";
+                    $inhouse_refer_id="";
+                    if ($this->input->post('customer_refer')==0) 
+                    {
+                        $dt=explode(':', $this->input->post('reference'));
+                        $existing_customer=$dt[1];
+                    }
+                    else
+                    {
+                        $dt=explode(':', $this->input->post('reference'));
+                        $inhouse_refer_id=$dt[1];
+                    }
                     $this->db->trans_begin();
                     $this->customer->insert($this->image_name);
                     $this->customer->insert_family($this->images);
+                    $this->customer->insert_refer($this->input->post('customer_refer'),$inhouse_refer_id,$existing_customer,$this->session->userdata('customer_id'));
                     if ($this->db->trans_status() === FALSE)
                     {
                         $this->db->trans_rollback();
@@ -188,13 +200,15 @@ class Customer extends CI_Controller {
 
     public function test()
     {
-        /*$data=1;
-        $checkbox=$_POST["$data"];
-        foreach ($checkbox as $key => $value) {
-            echo($value);
-        }*/
-
-        echo($this->input->post('2'));
+        $data=array();
+        $this->load->database();
+        $this->db->like('fname',$this->input->get('term'));
+        $query=$this->db->get('tbl_customers');
+        foreach ($query->result() as $customer) 
+        {
+           $data[$customer->customer_id]=$customer->fname.":".$customer->customer_id;
+        }
+        echo(json_encode($data));
     }
 
     //customer display
