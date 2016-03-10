@@ -164,6 +164,11 @@ class M_customer extends CI_Model
         $this->db->update('tbl_customers',array('status'=>$status));
     }
 
+    public function is_varified_customer()
+    {
+        
+    }
+
 }
 
 /* End of file m_customer.php */

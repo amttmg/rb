@@ -236,8 +236,8 @@ class Customer extends CI_Controller {
         }
         else
         {
-            $this->customer->verify_customer($id,"");
-            $this->session->set_flashdata('message', 'Customer successfully varified !');
+            $this->customer->verify_customer($id,"verified");
+            $this->session->set_flashdata('message', 'Customer successfully verified !');
             redirect('customer/customerdetails/'.$id,'refresh');
 
         }

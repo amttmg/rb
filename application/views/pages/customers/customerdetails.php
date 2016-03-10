@@ -1,3 +1,25 @@
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#seemore').click(function() {
+            $.ajax({
+                url: '<?php echo(site_url("")) ?>',
+                type: 'default GET (Other values: POST)',
+                dataType: 'default: Intelligent Guess (Other values: xml, json, script, or html)',
+                data: {param1: 'value1'},
+            })
+            .done(function() {
+                console.log("success");
+            })
+            .fail(function() {
+                console.log("error");
+            })
+            .always(function() {
+                console.log("complete");
+            });
+            
+        });
+    });
+</script>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -101,7 +123,9 @@
             </div>
             <!-- /.box-body -->
             <div class="box-footer">
-                <a class="btn-success btn btn-sm" href="<?php echo(site_url('customer/verify/'.$this->uri->segment(3))) ?>"><i class="glyphicon glyphicon-ok"></i> Verify Customer</a>
+                <?php if($customer->status!='verified') {?>
+                <a class="btn-success btn btn-sm" href="<?php echo(site_url('customer/verify/'.$customer->customer_id)) ?>"><i class="glyphicon glyphicon-ok"></i> Verify Customer</a>
+               <?php } ?>
                 <a class="btn-primary btn btn-sm" href="#"><i class="glyphicon glyphicon-credit-card"></i> Add Card</a>
             </div>
             <!-- /.box-footer-->
