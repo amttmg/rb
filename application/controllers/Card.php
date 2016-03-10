@@ -8,5 +8,8 @@
  */
 class Card extends CI_Controller
 {
+    function addCard()
+    {
 
+    }
 }
