@@ -109,8 +109,9 @@ class M_customer extends CI_Model
 
     public function getCustomers($id = '')
     {
+
         if ($id != '') {
-            $this->db->where('customer_id', $id);
+            $this->db->where('md5(customer_id)', $id);
             $qry = $this->db->get('tbl_customers');
             return $qry->row();
         } else {
