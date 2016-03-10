@@ -13,7 +13,6 @@
                                  $('#families').append('<tr><td>'+val.name+'</td><td>'+val.address+'</td><td>'+val.phone1+'</td><td>'+val.phone2+'</td><td>'+val.relation+'</td><td><img height="30px" src="'+image+'"></td></tr>');
                            });
                         });
-                       
                 }
             })
             .fail(function() {
