@@ -169,6 +169,7 @@
                             class="glyphicon glyphicon-ok"></i> Verify Customer</a>
                 <?php } ?>
                 <button class="btn-primary btn btn-sm" id="btnAddCard"><i class="glyphicon glyphicon-credit-card"></i> Add Card</button>
+                <button class="btn-primary btn btn-sm" id="btncardprint"><i class="glyphicon glyphicon-credit-card"></i> Print Card</button>
             </div>
             <!-- /.box-footer-->
         </div>
@@ -212,9 +213,15 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div>
+<div id="printdiv">
+    hello world
+</div>
 <script>
     $('#btnAddCard').click(function () {
        $('#modaladdcard').modal();
+    })
+    $('#btncardprint').click(function(){
+        $('#printdiv').printElement();
     })
     $('#frmaddcard').validate();
 </script>

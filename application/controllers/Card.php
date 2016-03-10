@@ -16,14 +16,23 @@ class Card extends CI_Controller
         $this->load->model('Mcard', 'card');
     }
 
+    function index()
+    {
+        $card['cards'] = $this->card->getCard();
+        $data['title'] = "Cards";
+        $data['content'] = $this->load->view('pages/customers/newcustomer',$data, true);
+        $this->parser->parse('template/page_template', $data);
+
+    }
+
     function addCard()
     {
-        $result=$this->card->addCard();
-        if($result){
+        $result = $this->card->addCard();
+        if ($result) {
             $this->session->set_flashdata('message', 'Card added successfully !');
-        }else{
+        } else {
             $this->session->set_flashdata('message', 'Card added not successfully !');
         }
-        redirect('customer/customerdetails/'.md5($_POST['customer_id']));
+        redirect('customer/customerdetails/' . md5($_POST['customer_id']));
     }
 }
