@@ -58,7 +58,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="">Enquiry Date</label>
-                        <input required type="date"  class="form-control" name="enquiry_date" id="enquiry_date"
+                        <input required type="date" class="form-control" name="enquiry_date" id="enquiry_date"
                                placeholder="Enquiry date" value="<?php echo(set_value('enquiry_date')) ?>">
                         <?php echo(form_error('enquiry_date')) ?>
                     </div>
@@ -66,7 +66,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="">Enquiry Time</label>
-                        <input type="text"class="form-control" name="enquiry_time" id="enquiry_time"
+                        <input type="text" class="form-control" name="enquiry_time" id="enquiry_time"
                                placeholder="Enquiry Time" value="<?php echo(set_value('enquiry_time')) ?>">
                         <?php echo(form_error('enquiry_time')) ?>
                     </div>
@@ -74,8 +74,17 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="">Enquiry Type</label>
-                        <input required type="text" class="form-control" name="enquiry_type" id="enquiry_type"
-                               placeholder="Enquiry Type" value="<?php echo(set_value('enquiry_type')) ?>">
+                        <select name="enquiry_type" id="enquiry_type" class="form-control">
+                            <option value="">Select Enquiry Type</option>
+                            <?php foreach ($enquiry_type as $type) {
+                                ?>
+                                <option value="<?php echo $type->enquirytype_id ?>"><?php echo $type->enquiry_type ?></option>
+                                <?php
+                            } ?>
+                        </select>
+                        <!--                        <input required type="text" class="form-control" name="enquiry_type" id="enquiry_type"-->
+                        <!--                               placeholder="Enquiry Type" value="-->
+                        <?php //echo(set_value('enquiry_type')) ?><!--">-->
                         <?php echo(form_error('enquiry_type')) ?>
                     </div>
                 </div>
@@ -85,7 +94,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="">Followup Date</label>
-                        <input required type="date"  class="form-control" name="followup_date" id="followup_date"
+                        <input required type="date" class="form-control" name="followup_date" id="followup_date"
                                placeholder="Followup date" value="<?php echo(set_value('followup_date')) ?>">
                         <?php echo(form_error('followup_date')) ?>
                     </div>
@@ -93,7 +102,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="">Enquiry Items</label>
-                        <input type="text"class="form-control" name="enquiry_items" id="enquiry_items"
+                        <input type="text" class="form-control" name="enquiry_items" id="enquiry_items"
                                placeholder="Enquiry Items" value="<?php echo(set_value('enquiry_items')) ?>">
                         <?php echo(form_error('enquiry_items')) ?>
                     </div>
@@ -101,8 +110,10 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="">Intended Purchase Mode</label>
-                        <input required type="text" class="form-control" name="intended_purchasemode" id="intended_purchasemode"
-                               placeholder="Intended Purchase Mode" value="<?php echo(set_value('intended_purchasemode')) ?>">
+                        <input required type="text" class="form-control" name="intended_purchasemode"
+                               id="intended_purchasemode"
+                               placeholder="Intended Purchase Mode"
+                               value="<?php echo(set_value('intended_purchasemode')) ?>">
                         <?php echo(form_error('intended_purchasemode')) ?>
                     </div>
                 </div>
@@ -113,7 +124,7 @@
                 <div class="col-md-2">
                     <div class="form-group">
                         <label for="">Price Min</label>
-                        <input required type="number"  class="form-control" name="price_range_min" id="price_range_min"
+                        <input required type="number" class="form-control" name="price_range_min" id="price_range_min"
                                placeholder="Price Min" value="<?php echo(set_value('price_range_min')) ?>">
                         <?php echo(form_error('price_range_min')) ?>
                     </div>
@@ -121,7 +132,7 @@
                 <div class="col-md-2">
                     <div class="form-group">
                         <label for="">Price Max</label>
-                        <input required type="number"  class="form-control" name="price_range_max" id="price_range_max"
+                        <input required type="number" class="form-control" name="price_range_max" id="price_range_max"
                                placeholder="Price Max" value="<?php echo(set_value('price_range_max')) ?>">
                         <?php echo(form_error('price_range_max')) ?>
                     </div>
@@ -129,7 +140,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="">Reference Image</label>
-                        <input type="file"class="form-control" name="reference_img" id="reference_img"
+                        <input type="file" class="form-control" name="reference_img" id="reference_img"
                                placeholder="Reference Image" value="<?php echo(set_value('reference_img')) ?>">
                         <?php echo(form_error('reference_img')) ?>
                     </div>
@@ -146,10 +157,10 @@
 
             </div>
             <div class="row">
-               <div class="col-md-12">
-                   <button type="submit" class="btn btn-primary btn-sm">Save Enquiry</button>
-                   <button type="submit" class="btn btn-primary btn-sm">Order Product</button>
-               </div>
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-primary btn-sm">Save Enquiry</button>
+                    <button type="submit" class="btn btn-primary btn-sm">Order Product</button>
+                </div>
             </div>
             <?php echo(form_close()) ?>
         </div>
