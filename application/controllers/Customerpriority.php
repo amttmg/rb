@@ -61,4 +61,14 @@ class Customerpriority extends CI_Controller
             $c++;
         }
     }
+
+    public function get_priority()
+    {
+        $this->load->model('m_customer','customer');
+        $master=$this->customer->get_customer_priority($this->input->post('customer_id'));
+        $data['priorities'] = $master;
+        $data['title'] = "Customer Priority";
+        $page = $this->load->view('pages/customers/_priority', $data, true);
+        echo($page);
+    }
 }

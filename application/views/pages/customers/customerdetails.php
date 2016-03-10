@@ -1,14 +1,28 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $('#seemore').click(function() {
+
+            $('#families').empty();
+            $.ajax({
+                url: '<?php echo(site_url("customerpriority/get_priority")) ?>',
+                type: 'POST',
+                data: {customer_id: '<?php echo($this->uri->segment(3)) ?>'},
+                success:function (data) {
+                    $('#priorites').html(data);
+                }
+            })
+            .fail(function() {
+                console.log("error");
+            })
+            
             $.ajax({
                 url: '<?php echo(site_url("customer/customer_all_records")) ?>',
                 type: 'POST',
                 dataType: "json",
                 data: {customer_id: '<?php echo($this->uri->segment(3)) ?>'},
                 success:function (data) {
-                        $('#family_details').show('slow', function() {
-                            $.each(data, function(index, val) {
+                        $('#family_details').slideDown('slow', function() {
+                            $.each(data.families, function(index, val) {
                                 var image="<?php echo base_url('uploads/"+val.image_url+"'); ?>";
                                  $('#families').append('<tr><td>'+val.name+'</td><td>'+val.address+'</td><td>'+val.phone1+'</td><td>'+val.phone2+'</td><td>'+val.relation+'</td><td><img height="30px" src="'+image+'"></td></tr>');
                            });
@@ -122,33 +136,46 @@
                 </div>
                 <a href="#" id="seemore">See More</a>
                 <div class="row" id="family_details" style="display: none">
-                    <div class="col-md-8">
+                    <div class="col-md-12">
                         <div class="box">
-                            <div class="box-header with-border">
-                              <h3 class="box-title">Families</h3>
-                              <div class="box-tools pull-right">
-                                <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse"><i class="fa fa-minus"></i></button>
-                                <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
-                              </div>
+                                <div class="box-header with-border">
+                                  <h3 class="box-title">Priorities</h3>
+                                  <div class="box-tools pull-right">
+                                    <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse"><i class="fa fa-minus"></i></button>
+                                    <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
+                                  </div>
+                                </div>
+                                <div class="box-body" id="priorites" style="display: block;">
+                                
+                                    
+                                </div><!-- /.box-body -->
                             </div>
-                            <div class="box-body" style="display: block;">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Address</th>
-                                            <th>Phone 1</th>
-                                            <th>Phone 2</th>
-                                            <th>Relation</th>
-                                            <th>Photo</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="families">
-                                        
-                                    </tbody>
-                                </table>
-                            </div><!-- /.box-body -->
-                          </div>
+                            <div class="box">
+                                <div class="box-header with-border">
+                                  <h3 class="box-title">Families</h3>
+                                  <div class="box-tools pull-right">
+                                    <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse"><i class="fa fa-minus"></i></button>
+                                    <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
+                                  </div>
+                                </div>
+                                <div class="box-body" style="display: block;">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Address</th>
+                                                <th>Phone 1</th>
+                                                <th>Phone 2</th>
+                                                <th>Relation</th>
+                                                <th>Photo</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="families">
+                                            
+                                        </tbody>
+                                    </table>
+                                </div><!-- /.box-body -->
+                              </div>
                         
                     </div>
                 </div>

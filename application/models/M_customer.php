@@ -164,9 +164,34 @@ class M_customer extends CI_Model
         $this->db->update('tbl_customers',array('status'=>$status));
     }
 
-    public function is_varified_customer()
+    public function get_customer_priority($id)
     {
-        
+       $this->load->database();
+        $this->db->select('*');
+        $this->db->from('tbl_customerpriorityoption');
+        $this->db->join('tbl_customerspriority','tbl_customerspriority.priority_id=tbl_customerpriorityoption.priority_id');
+        $this->db->join('tbl_priorityoptions','tbl_priorityoptions.option_id=tbl_customerpriorityoption.option_id');
+        $this->db->where('tbl_customerpriorityoption.customer_id',$id);
+        $a=$this->db->get();
+        $master=array();
+        $data=array();
+        $test=$this->db->query('select *from tbl_customerspriority');
+        foreach ($test->result() as $key => $value) {
+            $data['priority']=$value->title;
+            $temp_op=array();
+            foreach ($a->result() as $priority) {
+
+                    if($value->priority_id==$priority->priority_id)
+                    {
+                        $temp_op[]=$priority->option_title;
+                    }
+
+            }
+            $data['option']=$temp_op;
+            array_push($master, $data);
+        }
+        return $master;
+
     }
 
 }
