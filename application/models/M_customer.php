@@ -163,10 +163,13 @@ class M_customer extends CI_Model
 
     public function getCustomerID($card_no)
     {
-        $qry = $this->db->query("select customer_id from tbl_cards where card_id=$card_no");
+        $sql="select customer_id from tbl_cards where card_no=$card_no";
+        $qry = $this->db->query($sql);
         $count = $qry->num_rows();
         if ($count > 0) {
             return $qry->row()->customer_id;
+        }else{
+            return 0;
         }
     }
 

@@ -30,7 +30,14 @@ class Enquiry extends CI_Controller
         $this->parser->parse('template/page_template', $data);
     }
     function getCustomer($card_no){
-        $customer=$this->customer->getCustomer($card_no);
+        $customerid=$this->customer->getCustomerID($card_no);
+        if($customerid>0){
+            $customer['customer']=$this->customer->getCustomers($customerid);
+            $data=$this->load->view('pages/enquiry/_enquiryform',$customer, true);
+            echo $data;
+        }else{
+            echo "Customer Not Found";
+        }
 
     }
 }
