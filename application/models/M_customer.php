@@ -13,67 +13,60 @@ class M_customer extends CI_Model
 
     }
 
-    public function insert($image_name='default_customer.jpeg')
+    public function insert($image_name = 'default_customer.jpeg')
     {
-           
 
-        $data=array(
-            'fname'=>$this->input->post('fname'),
-            'mname'=>$this->input->post('mname'),
-            'lname'=>$this->input->post('lname'),
-            'address'=>$this->input->post('address'),
-            'email'=>$this->input->post('email'),
-            'phone1'=>$this->input->post('phone1'),
-            'phone2'=>$this->input->post('phone2'),
-            'gender'=>$this->input->post('gender'),
-            'marital_status'=>$this->input->post('marital_status'),
-            'anniversary_date'=>$this->input->post('aniversary_date'),
-            'dob'=>$this->input->post('dob'),
-            'user_id'=>1,
-            'entry_datetime'=>date('Y-m-d'),
-            'customer_image'=>$image_name,
-            );
-            $this->db->insert('tbl_customers',$data);
 
-            $this->customer_id=$this->db->insert_id();
-            $this->session->set_userdata('customer_id',$this->customer_id);
+        $data = array(
+            'fname' => $this->input->post('fname'),
+            'mname' => $this->input->post('mname'),
+            'lname' => $this->input->post('lname'),
+            'address' => $this->input->post('address'),
+            'email' => $this->input->post('email'),
+            'phone1' => $this->input->post('phone1'),
+            'phone2' => $this->input->post('phone2'),
+            'gender' => $this->input->post('gender'),
+            'marital_status' => $this->input->post('marital_status'),
+            'anniversary_date' => $this->input->post('aniversary_date'),
+            'dob' => $this->input->post('dob'),
+            'user_id' => 1,
+            'entry_datetime' => date('Y-m-d'),
+            'customer_image' => $image_name,
+        );
+        $this->db->insert('tbl_customers', $data);
 
-            $priorites=$this->get_priority();
-            
-            foreach ($priorites as $priority) 
-            {
-                  if($priority->multichoice==1)
-                  {
-                        if(isset($_POST["$priority->priority_id"]))
-                        {
-                              $checkbox=$_POST["$priority->priority_id"];
-                        
-                               foreach ($checkbox as $key=>$value) 
-                              {
-                                    $data=array(
-                                          'customer_id'=>$this->customer_id,
-                                          'priority_id'=>$priority->priority_id,
-                                          'option_id'=>$value
-                                          );
-                                    $this->db->insert('tbl_customerpriorityoption',$data);
-                              } 
-                        }
-                        
-                  }
-                  else
-                  {
-                        $data=array(
-                              'customer_id'=>$this->customer_id,
-                              'priority_id'=>$priority->priority_id,
-                              'option_id'=>$_POST["$priority->priority_id"]
-                              );
-                        $this->db->insert('tbl_customerpriorityoption',$data);
-                  }
-                  
+        $this->customer_id = $this->db->insert_id();
+        $this->session->set_userdata('customer_id', $this->customer_id);
+
+        $priorites = $this->get_priority();
+
+        foreach ($priorites as $priority) {
+            if ($priority->multichoice == 1) {
+                if (isset($_POST["$priority->priority_id"])) {
+                    $checkbox = $_POST["$priority->priority_id"];
+
+                    foreach ($checkbox as $key => $value) {
+                        $data = array(
+                            'customer_id' => $this->customer_id,
+                            'priority_id' => $priority->priority_id,
+                            'option_id' => $value
+                        );
+                        $this->db->insert('tbl_customerpriorityoption', $data);
+                    }
+                }
+
+            } else {
+                $data = array(
+                    'customer_id' => $this->customer_id,
+                    'priority_id' => $priority->priority_id,
+                    'option_id' => $_POST["$priority->priority_id"]
+                );
+                $this->db->insert('tbl_customerpriorityoption', $data);
             }
 
+        }
 
-            
+
     }
 
     public function update($id, $image_name = "customer_default.jpeg")
@@ -130,43 +123,51 @@ class M_customer extends CI_Model
     function insert_family($images)
     {
 
-            foreach ($images as $key => $value) 
-            {
-                  $name="faname".($key+1);
-                  echo($name);
-                 $data=array(
-                        'customer_id'=>$this->session->userdata('customer_id'),
-                        'name'=>$this->input->post('faname'.($key+1)),
-                        'address'=>$this->input->post('faaddress'.($key+1)),
-                        'phone1'=>$this->input->post('faphone'.($key+1)),
-                        'phone2'=>$this->input->post('faphone2'.($key+1)),
-                        'relation'=>$this->input->post('farelation'.($key+1)),
-                        'image_url'=>$value
-                  );
-                 $this->db->insert('tbl_customerfamily',$data);
-            }
-    }    
-
-    public function insert_refer($inhouse_refer,$inhouse_refer_id,$existing_customer,$customer_id)
-    {
-        $data=array(
-            'customer_id'=>$customer_id,
-            'inhouse_refer'=>$inhouse_refer,
-            'inhouse_referby_id'=>$inhouse_refer_id,
-            'existingcustomer_referby_id'=>$existing_customer
+        foreach ($images as $key => $value) {
+            $name = "faname" . ($key + 1);
+            echo($name);
+            $data = array(
+                'customer_id' => $this->session->userdata('customer_id'),
+                'name' => $this->input->post('faname' . ($key + 1)),
+                'address' => $this->input->post('faaddress' . ($key + 1)),
+                'phone1' => $this->input->post('faphone' . ($key + 1)),
+                'phone2' => $this->input->post('faphone2' . ($key + 1)),
+                'relation' => $this->input->post('farelation' . ($key + 1)),
+                'image_url' => $value
             );
-        $this->db->insert('tbl_reference',$data);
+            $this->db->insert('tbl_customerfamily', $data);
+        }
     }
 
-    public function verify_customer($id,$status)
+    public function insert_refer($inhouse_refer, $inhouse_refer_id, $existing_customer, $customer_id)
     {
-        $this->db->where('customer_id',$id);
-        $this->db->update('tbl_customers',array('status'=>$status));
+        $data = array(
+            'customer_id' => $customer_id,
+            'inhouse_refer' => $inhouse_refer,
+            'inhouse_referby_id' => $inhouse_refer_id,
+            'existingcustomer_referby_id' => $existing_customer
+        );
+        $this->db->insert('tbl_reference', $data);
+    }
+
+    public function verify_customer($id, $status)
+    {
+        $this->db->where('customer_id', $id);
+        $this->db->update('tbl_customers', array('status' => $status));
     }
 
     public function is_varified_customer()
     {
-        
+
+    }
+
+    public function getCustomerID($card_no)
+    {
+        $qry = $this->db->query("select customer_id from tbl_cards where card_id=$card_no");
+        $count = $qry->num_rows();
+        if ($count > 0) {
+            return $qry->row()->customer_id;
+        }
     }
 
 }

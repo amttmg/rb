@@ -8,6 +8,16 @@
  */
 class Enquiry extends CI_Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->helper('form');
+        $this->load->library('form_validation');
+        $this->load->model('m_customer','customer');
+        $this->load->model('mpriority');
+        $this->load->helper('notification');
+
+    }
     function index()
     {
         echo "hello";
@@ -18,5 +28,9 @@ class Enquiry extends CI_Controller
         $data['title'] = "Create Customer";
         $data['content'] = $this->load->view('pages/enquiry/newenquiry', '', true);
         $this->parser->parse('template/page_template', $data);
+    }
+    function getCustomer($card_no){
+        $customer=$this->customer->getCustomer($card_no);
+
     }
 }
