@@ -242,4 +242,14 @@ class Customer extends CI_Controller {
 
         }
     }
+
+    public function customer_all_records()
+    {
+        $this->load->database();
+        $this->db->where('customer_id',$this->input->post('customer_id'));
+        $query=$this->db->get("tbl_customerfamily");
+        
+        echo(json_encode($query->result()));
+
+    }
 }
