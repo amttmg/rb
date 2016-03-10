@@ -39,7 +39,7 @@ class Enquiry extends CI_Controller
     {
         $customerid = $this->customer->getCustomerID($card_no);
         if ($customerid > 0) {
-            $customer['customer'] = $this->customer->getCustomers($customerid);
+            $customer['customer'] = $this->customer->getCustomers(md5($customerid));
             $customer['enquiry_type'] = $this->enquiry->getEnquiryType();
             $data = $this->load->view('pages/enquiry/_enquiryform', $customer, true);
             echo $data;

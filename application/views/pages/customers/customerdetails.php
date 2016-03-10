@@ -186,26 +186,29 @@
                         aria-hidden="true">×</span></button>
                 <h4 class="modal-title">Add Card</h4>
             </div>
+            <?php echo form_open('card/addcard', array('id' => 'frmaddcard')); ?>
+            <input type="hidden" name="customer_id" value="<?php echo $customer->customer_id ?>">
             <div class="modal-body">
-                <?php echo form_open('customer/add', array('id' => 'myform')); ?>
+
                 <div class="form-group">
                     <label for="">Please Swap Your Card</label>
-                    <input type="text" class="form-control" name="card_no" id="card_no"
+                    <input required type="text" class="form-control" name="card_no" id="card_no"
                            placeholder="Card No" value="<?php echo(set_value('card_no')) ?>">
                     <?php echo(form_error('card_no')) ?>
                 </div>
                 <div class="form-group">
                     <label for="">Card Issue Date</label>
-                    <input type="date" class="form-control" name="added_date" id="added_date"
+                    <input required type="date" class="form-control" name="added_date" id="added_date"
                             value="<?php echo(set_value('added_date')) ?>">
                     <?php echo(form_error('added_date')) ?>
                 </div>
-                <?php echo(form_close()) ?>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
             </div>
+            <?php echo(form_close()) ?>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div>
@@ -213,4 +216,5 @@
     $('#btnAddCard').click(function () {
        $('#modaladdcard').modal();
     })
+    $('#frmaddcard').validate();
 </script>
