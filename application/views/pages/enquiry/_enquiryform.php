@@ -53,7 +53,7 @@
         <div class="box-header with-border">Enquiry Form</div>
         <div class="box-body">
             <?php echo form_open_multipart('customer/add', array('id' => 'myform')); ?>
-
+<input type="hidden" name="customer_id" value="<?php echo $customer->customer_id ?>">
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
@@ -110,10 +110,10 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="">Intended Purchase Mode</label>
-                        <input required type="text" class="form-control" name="intended_purchasemode"
-                               id="intended_purchasemode"
-                               placeholder="Intended Purchase Mode"
-                               value="<?php echo(set_value('intended_purchasemode')) ?>">
+                       <select name="intended_purchasemode" class="form-control">
+                           <option value="Cash">Cash</option>
+                           <option value="Credit Card">Credit Card</option>
+                       </select>
                         <?php echo(form_error('intended_purchasemode')) ?>
                     </div>
                 </div>
