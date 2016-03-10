@@ -153,7 +153,7 @@ class M_customer extends CI_Model
 
     public function verify_customer($id, $status)
     {
-        $this->db->where('customer_id', $id);
+        $this->db->where('md5(customer_id)', $id);
         $this->db->update('tbl_customers', array('status' => $status));
     }
 

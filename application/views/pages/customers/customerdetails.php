@@ -165,7 +165,7 @@
             <div class="box-footer">
                 <?php if ($customer->status != 'verified') { ?>
                     <a class="btn-success btn btn-sm"
-                       href="<?php echo(site_url('customer/verify/' . $customer->customer_id)) ?>"><i
+                       href="<?php echo(site_url('customer/verify/' . md5($customer->customer_id))) ?>"><i
                             class="glyphicon glyphicon-ok"></i> Verify Customer</a>
                 <?php } ?>
                 <button class="btn-primary btn btn-sm" id="btnAddCard"><i class="glyphicon glyphicon-credit-card"></i> Add Card</button>
