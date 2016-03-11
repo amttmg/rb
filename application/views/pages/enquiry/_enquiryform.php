@@ -21,11 +21,15 @@ $(document).ajaxStart(function() {
             $(this).next().empty();
         });
         $('#save').click(function() {
+            var formData = new FormData($('#myform')[0]);
             $.ajax({
             url: '<?php  echo site_url("enquiry/addEnquiry"); ?>',
             type: 'POST',
             dataType: 'json',
-            data:$('#myform').serialize(),
+            data:formData,
+            cache: false,
+            contentType: false,
+            processData: false,
             success:function(data){
                  $('.overlay').hide();
                 if (data.status==false) 
