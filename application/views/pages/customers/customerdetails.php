@@ -7,7 +7,7 @@
             $.ajax({
                 url: '<?php echo(site_url("customerpriority/get_priority")) ?>',
                 type: 'POST',
-                data: {customer_id: '<?php echo($this->uri->segment(3)) ?>'},
+                data: {customer_id: '<?php echo($customer->customer_id) ?>'},
                 success:function (data) {
                     $('#priorites').html(data);
                 }
@@ -20,7 +20,7 @@
                 url: '<?php echo(site_url("customer/customer_all_records")) ?>',
                 type: 'POST',
                 dataType: "json",
-                data: {customer_id: '<?php echo($this->uri->segment(3)) ?>'},
+                data: {customer_id: '<?php echo($customer->customer_id) ?>'},
                 success:function (data) {
                         $('#family_details').slideDown('slow', function() {
                             $.each(data.families, function(index, val) {
