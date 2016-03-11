@@ -173,6 +173,33 @@ class M_customer extends CI_Model
             return 0;
         }
     }
+    public function get_customer_priority($id)
+    {
+        $priorites=$this->db->query('select *from tbl_customerspriority');
+        $this->db->select('*');
+        $this->db->from('tbl_customerpriorityoption');
+        $this->db->join('tbl_customerspriority','tbl_customerspriority.priority_id=tbl_customerpriorityoption.priority_id');
+        $this->db->join('tbl_priorityoptions','tbl_priorityoptions.option_id=tbl_customerpriorityoption.option_id');
+        $this->db->where('tbl_customerpriorityoption.customer_id',$id);
+        $pr=$this->db->get()->result();
+        $data=array();
+        $master=array();
+        foreach ($priorites->result() as $priority)
+        {
+            $temp=array();
+            $data['priority']=$priority->title;
+           foreach ($pr as $value)
+           {
+               if ($priority->priority_id==$value->priority_id)
+               {
+                   $temp[]=$value->option_title;
+               }
+           }
+           $data['option']=$temp;
+           array_push($master, $data);
+        }
+        return $master;
+    }
 
 }
 
