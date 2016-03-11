@@ -39,6 +39,7 @@
                     </div>
                 </div>
                 <br/>
+
                 <div class="row collapse" id="divcustomer">
 
                 </div>
@@ -64,4 +65,14 @@
         })
 
     })
+    $('#card_no').on('keypress', function (event) {
+        var card_no = $('#card_no').val();
+        $.ajax({
+            url: '<?php echo base_url('Enquiry/getCustomer') ?>/' + card_no,
+            success: function (res) {
+                $('#divcustomer').html(res);
+                $('#divcustomer').collapse('show');
+            }
+        })
+    });
 </script>
