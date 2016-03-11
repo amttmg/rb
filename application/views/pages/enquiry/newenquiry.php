@@ -38,6 +38,13 @@
                         </div>
                     </div>
                 </div>
+                        <?php if ($this->session->flashdata('message')): ?>
+                            <div class="alert alert-success alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <h4>    <i class="icon fa fa-check"></i><?php echo $this->session->flashdata('message'); ?></h4>
+                            </div>
+                        <?php endif ?>
+                  
                 <br/>
 
                 <div class="row collapse" id="divcustomer">

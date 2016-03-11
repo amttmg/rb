@@ -8,6 +8,7 @@
  */
 class Enquiry extends CI_Controller
 {
+    private $image_name="";
     public function __construct()
     {
         parent::__construct();
@@ -17,6 +18,7 @@ class Enquiry extends CI_Controller
         $this->load->model('mpriority');
         $this->load->model('menquiry', 'enquiry');
         $this->load->helper('notification');
+        $this->load->library('form_validation');
 
     }
 
@@ -30,7 +32,40 @@ class Enquiry extends CI_Controller
         $data['content'] = $this->load->view('pages/enquiry/newenquiry', '', true);
         $this->parser->parse('template/page_template', $data);
     }
-    function addEnquiry(){
+    function addEnquiry()
+    {
+        $master['status']=True;
+        $data=array();
+        $master=array();
+        $this->form_validation->set_rules('enquiry_date', 'Enquiry date', 'trim|required');
+        $this->form_validation->set_rules('enquiry_time', 'Enquiry time', 'trim|required');
+        $this->form_validation->set_rules('enquiry_type', 'Enquiry type', 'trim|required');
+        $this->form_validation->set_rules('followup_date', 'Followup date', 'trim|required');
+        $this->form_validation->set_rules('enquiry_items', 'Enquiry items', 'trim|required|min_length[2]|max_length[200]');
+        $this->form_validation->set_rules('intended_purchasemode', 'Intended purchasemode', 'trim|required|min_length[2]|max_length[100]');
+        $this->form_validation->set_rules('price_range_min', 'Price range min', 'trim');
+        $this->form_validation->set_rules('price_range_max', 'Price range max', 'trim');
+        $this->form_validation->set_rules('reference_img', 'Reference image', 'callback_validate_image');
+        $this->form_validation->set_rules('remarks', 'Remarks', 'trim|min_length[2]|max_length[200]');
+        $this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
+        if ($this->form_validation->run()==True) 
+        {
+          $this->enquiry->insert($this->image_name); 
+        }
+        else
+        {
+             $master['status']=false;
+             foreach ($_POST as $key => $value) 
+             {
+                 if (form_error($key)!='') 
+                 {
+                    $data['error_string']=$key;
+                    $data['input_error']=form_error($key);
+                    array_push($master, $data);
+                 }
+             }
+        }
+        echo(json_encode($master));
 
     }
     function getCustomer($card_no)
@@ -45,5 +80,36 @@ class Enquiry extends CI_Controller
             echo "Customer Not Found";
         }
 
+    }
+    public function validate_image()
+    {
+        
+            $config['upload_path'] = './uploads/';
+            $config['file_name']=uniqid();
+            $config['allowed_types'] = 'gif|jpg|png';
+            $config['max_size'] = '1000';
+
+            $this->load->library('upload', $config);
+
+            if ( ! $this->upload->do_upload('reference_img'))
+            {
+                if(stristr($this->upload->display_errors(),'You did not select a file to upload'))
+                {
+                    
+                    return true;
+                }
+                else
+                {
+                    $this->form_validation->set_message('validate_image',$this->upload->display_errors());
+                    return false;
+                }
+                
+            }
+            else
+            {
+                $this->image_name=$this->upload->data('file_name');
+               return true;
+            }
+        
     }
 }

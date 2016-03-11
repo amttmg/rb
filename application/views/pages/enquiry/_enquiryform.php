@@ -1,9 +1,40 @@
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#save').click(function() {
+            $.ajax({
+            url: '<?php  echo site_url("enquiry/addEnquiry"); ?>',
+            type: 'POST',
+            dataType: 'json',
+            data:$('#myform').serialize(),
+            success:function(data){
+                if (data.status==false) 
+                    {
+                        $.each(data, function(index, val) 
+                        {
+                             //$('[name="'+data.error_string+'"]').next().text(val.input_error);
+                            
+                            $('#'+val.error_string).next().html(val.input_error); 
+                            console.log(val.error_string); 
+                            console.log(val.input_error) ;
+                        });
+                    };
+            }
+        })
+        .fail(function() {
+            console.log("error");
+        })
+
+        });
+        
+    });
+</script>
 <div class="col-md-12">
     <div class="box box-info">
         <div class="box-header with-border">Customer Info</div>
         <div class="box-body">
             <div class="col-md-8">
-
+            <div id="data">
+            </div>
                 <table class="table table-bordered">
                     <tr>
                         <td>
@@ -52,14 +83,16 @@
     <div class="box box-info">
         <div class="box-header with-border">Enquiry Form</div>
         <div class="box-body">
-            <?php echo form_open_multipart('customer/add', array('id' => 'myform')); ?>
+            <?php echo form_open_multipart('enquiry/addEnquiry', array('id' => 'myform')); ?>
 <input type="hidden" name="customer_id" value="<?php echo $customer->customer_id ?>">
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="">Enquiry Date</label>
-                        <input required type="date" class="form-control" name="enquiry_date" id="enquiry_date"
+                        <input 
+                         type="date" class="form-control" name="enquiry_date" id="enquiry_date"
                                placeholder="Enquiry date" value="<?php echo(set_value('enquiry_date')) ?>">
+                               <span class="help-block"></span>
                         <?php echo(form_error('enquiry_date')) ?>
                     </div>
                 </div>
@@ -68,6 +101,7 @@
                         <label for="">Enquiry Time</label>
                         <input type="text" class="form-control" name="enquiry_time" id="enquiry_time"
                                placeholder="Enquiry Time" value="<?php echo(set_value('enquiry_time')) ?>">
+                               <span class="help-block"></span>
                         <?php echo(form_error('enquiry_time')) ?>
                     </div>
                 </div>
@@ -85,6 +119,7 @@
                         <!--                        <input required type="text" class="form-control" name="enquiry_type" id="enquiry_type"-->
                         <!--                               placeholder="Enquiry Type" value="-->
                         <?php //echo(set_value('enquiry_type')) ?><!--">-->
+                         <span class="help-block"></span>
                         <?php echo(form_error('enquiry_type')) ?>
                     </div>
                 </div>
@@ -96,6 +131,7 @@
                         <label for="">Followup Date</label>
                         <input required type="date" class="form-control" name="followup_date" id="followup_date"
                                placeholder="Followup date" value="<?php echo(set_value('followup_date')) ?>">
+                                <span class="help-block"></span>
                         <?php echo(form_error('followup_date')) ?>
                     </div>
                 </div>
@@ -104,6 +140,7 @@
                         <label for="">Enquiry Items</label>
                         <input type="text" class="form-control" name="enquiry_items" id="enquiry_items"
                                placeholder="Enquiry Items" value="<?php echo(set_value('enquiry_items')) ?>">
+                                <span class="help-block"></span>
                         <?php echo(form_error('enquiry_items')) ?>
                     </div>
                 </div>
@@ -114,6 +151,7 @@
                            <option value="Cash">Cash</option>
                            <option value="Credit Card">Credit Card</option>
                        </select>
+                        <span class="help-block"></span>
                         <?php echo(form_error('intended_purchasemode')) ?>
                     </div>
                 </div>
@@ -126,6 +164,7 @@
                         <label for="">Price Min</label>
                         <input required type="number" class="form-control" name="price_range_min" id="price_range_min"
                                placeholder="Price Min" value="<?php echo(set_value('price_range_min')) ?>">
+                                <span class="help-block"></span>
                         <?php echo(form_error('price_range_min')) ?>
                     </div>
                 </div>
@@ -134,6 +173,7 @@
                         <label for="">Price Max</label>
                         <input required type="number" class="form-control" name="price_range_max" id="price_range_max"
                                placeholder="Price Max" value="<?php echo(set_value('price_range_max')) ?>">
+                                <span class="help-block"></span>
                         <?php echo(form_error('price_range_max')) ?>
                     </div>
                 </div>
@@ -150,6 +190,7 @@
                         <label for="">Remarks</label>
                         <input required type="text" class="form-control" name="remarks" id="remarks"
                                placeholder="Remarks" value="<?php echo(set_value('remarks')) ?>">
+                                <span class="help-block"></span>
                         <?php echo(form_error('remarks')) ?>
                     </div>
                 </div>
@@ -158,7 +199,7 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <button type="submit" class="btn btn-primary btn-sm">Save Enquiry</button>
+                    <button type="button" id="save"  class="btn btn-primary btn-sm">Save </button>
                     <button type="submit" class="btn btn-primary btn-sm">Order Product</button>
                 </div>
             </div>
