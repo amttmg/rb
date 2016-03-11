@@ -1,3 +1,6 @@
+<script type="text/javascript" src="<?php echo(base_url('assets/jquery.toast.min.js')) ?>"></script>
+<link rel="stylesheet" type="text/css" href="<?php echo(base_url('assets/jquery.toast.min.css')) ?>">
+
 <script type="text/javascript">
     $(document).ready(function() {
         $("input").change(function(){
@@ -28,7 +31,18 @@
                             $('#'+val.error_string).parent().parent().addClass('has-error');
                             
                         });
-                    };
+                    }
+                    else
+                    {
+                        $.toast({
+                            heading: 'Success',
+                            text: data.message,
+                            position: 'mid-center',
+                            stack: false,
+                            icon: 'success'
+                            })
+                        $('#save').prop( "disabled", true );
+                    }
             }
         })
         .fail(function() {
@@ -42,6 +56,9 @@
 <div class="col-md-12">
     <div class="box box-info">
         <div class="box-header with-border">Customer Info</div>
+        <div id="message" style="display:none">
+            <div>successfully saved data</div>
+        </div>
         <div class="box-body">
             <div class="col-md-8">
             <div id="data">

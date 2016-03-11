@@ -50,6 +50,7 @@ class Enquiry extends CI_Controller
         $this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
         if ($this->form_validation->run()==True) 
         {
+            $master['message']="Customer enquiry saved successfully !";
           $this->enquiry->insert($this->image_name); 
         }
         else
