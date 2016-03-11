@@ -1,5 +1,17 @@
 <script type="text/javascript">
     $(document).ready(function() {
+        $("input").change(function(){
+        $(this).parent().parent().removeClass('has-error');
+        $(this).next().empty();
+        });
+        $("textarea").change(function(){
+            $(this).parent().parent().removeClass('has-error');
+            $(this).next().empty();
+        });
+        $("select").change(function(){
+            $(this).parent().parent().removeClass('has-error');
+            $(this).next().empty();
+        });
         $('#save').click(function() {
             $.ajax({
             url: '<?php  echo site_url("enquiry/addEnquiry"); ?>',
@@ -11,11 +23,10 @@
                     {
                         $.each(data, function(index, val) 
                         {
-                             //$('[name="'+data.error_string+'"]').next().text(val.input_error);
                             
                             $('#'+val.error_string).next().html(val.input_error); 
-                            console.log(val.error_string); 
-                            console.log(val.input_error) ;
+                            $('#'+val.error_string).parent().parent().addClass('has-error');
+                            
                         });
                     };
             }
