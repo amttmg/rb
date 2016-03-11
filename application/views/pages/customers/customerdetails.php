@@ -1,3 +1,4 @@
+<script src="<?php echo base_url() ?>template/plugins/print/jQuery.print.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         $('#seemore').click(function () {
@@ -47,17 +48,33 @@
                         <strong><?php echo($this->session->flashdata('message')); ?></strong>
                     </div>
                 <?php endif ?>
-                <h3 class="box-title"><a href="<?php echo base_url('customer/customers') ?>"
-                                         class="btn btn-primary btn-sm"> <span
-                            class="glyphicon glyphicon-backward"></span> Back</a></h3>
-                <label class="label label-info pull-right"><i class="glyphicon glyphicon-ok"></i> Customer is
-                    Verified</label>
+                <h3 class="box-title"></h3>
             </div>
             <div class="box-body">
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-2">
+                        <a href="<?php echo base_url('customer/customers') ?>"
+                           class="btn btn-danger btn-sm btn-block pull-left"> <span
+                                class="glyphicon glyphicon-backward pull-left"></span> Back</a>
+                        <?php if ($customer->status != 'verified') { ?>
+                            <a class="btn-success btn btn-sm btn-block"
+                               href="<?php echo(site_url('customer/verify/' . md5($customer->customer_id))) ?>"><i
+                                    class="glyphicon glyphicon-ok"></i> Verify Customer</a>
+                        <?php } ?>
+                        <button class="btn-primary btn btn-sm btn-block pull-left" id="btnAddCard"><i class="glyphicon glyphicon-credit-card pull-left"></i> Add Card</button>
+                        <button class="btn-primary btn btn-sm btn-block pull-left" id="btncardprint"><i class="glyphicon glyphicon-print pull-left"></i> Print Card</button>
+                        <button class="btn-primary btn btn-sm btn-block pull-left" id="btncardprint"><i class="glyphicon glyphicon-globe pull-left"></i> Card History</button>
+                        <button class="btn-primary btn btn-sm btn-block pull-left" id="btncardprint"><i class="glyphicon glyphicon-edit pull-left"></i> New Enquiry</button>
+                        <button class="btn-primary btn btn-sm btn-block pull-left" id="btncardprint"><i class="glyphicon glyphicon-folder-open pull-left"></i> Enquiry History</button>
+                        <button class="btn-primary btn btn-sm btn-block pull-left" id="btncardprint"><i class="glyphicon glyphicon-edit pull-left"></i> New Order</button>
+                        <button class="btn-primary btn btn-sm btn-block pull-left" id="btncardprint"><i class="glyphicon glyphicon-folder-open pull-left"></i> Order History</button>
 
-                        <table class="table table-bordered">
+
+
+                    </div>
+                    <div class="col-md-7">
+
+                        <table class="table table-bordered" >
                             <tr>
                                 <td>
                                     Full Name
@@ -116,12 +133,21 @@
                                     </td>
                                 </tr>
                             <?php } ?>
+                            <tr>
+                                <td>
+                                    Status
+                                </td>
+                                <td>
+                                   <label class="label-success label"><i class="glyphicon glyphicon-ok"></i> <?php echo $customer->status ?></label>
+                                </td>
+                            </tr>
                         </table>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <img class="image thumbnail"
                              src="<?php echo base_url('uploads/' . $customer->customer_image) ?>" height="200px">
                     </div>
+
                 </div>
                 <a href="#" id="seemore">See More</a>
 
@@ -163,14 +189,14 @@
             </div>
             <!-- /.box-body -->
             <div class="box-footer">
-                <?php if ($customer->status != 'verified') { ?>
-                    <a class="btn-success btn btn-sm"
-                       href="<?php echo(site_url('customer/verify/' . md5($customer->customer_id))) ?>"><i
-                            class="glyphicon glyphicon-ok"></i> Verify Customer</a>
-                <?php } ?>
-                <button class="btn-primary btn btn-sm" id="btnAddCard"><i class="glyphicon glyphicon-credit-card"></i> Add Card</button>
-                <button class="btn-primary btn btn-sm" id="btncardprint"><i class="glyphicon glyphicon-credit-card"></i> Print Card</button>
-            </div>
+<!--                --><?php //if ($customer->status != 'verified') { ?>
+<!--                    <a class="btn-success btn btn-sm"-->
+<!--                       href="--><?php //echo(site_url('customer/verify/' . md5($customer->customer_id))) ?><!--"><i-->
+<!--                            class="glyphicon glyphicon-ok"></i> Verify Customer</a>-->
+<!--                --><?php //} ?>
+<!--                <button class="btn-primary btn btn-sm" id="btnAddCard"><i class="glyphicon glyphicon-credit-card"></i> Add Card</button>-->
+<!--                <button class="btn-primary btn btn-sm" id="btncardprint"><i class="glyphicon glyphicon-credit-card"></i> Print Card</button>-->
+<!--            </div>-->
             <!-- /.box-footer-->
         </div>
         <!-- /.box -->
@@ -206,8 +232,9 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+
             </div>
             <?php echo(form_close()) ?>
         </div><!-- /.modal-content -->
@@ -220,8 +247,6 @@
     $('#btnAddCard').click(function () {
        $('#modaladdcard').modal();
     })
-    $('#btncardprint').click(function(){
-        $('#printdiv').printElement();
-    })
+
     $('#frmaddcard').validate();
 </script>
