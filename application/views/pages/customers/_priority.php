@@ -1,4 +1,4 @@
-//partial view
+
 <?php $count=1; foreach ($priorities as $i=>$priority): ?>
 	<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
 	    <div class="form-group">
