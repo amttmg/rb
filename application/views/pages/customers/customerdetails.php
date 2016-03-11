@@ -6,7 +6,8 @@
         });
         $('#seemore').click(function () {
 
-            $('#families').empty();
+            $('#family_details').toggle("slow",function() {
+                $('#families').empty();
             $.ajax({
                 url: '<?php echo(site_url("customerpriority/get_priority")) ?>',
                 type: 'POST',
@@ -25,17 +26,19 @@
                 dataType: "json",
                 data: {customer_id: '<?php echo($customer->customer_id) ?>'},
                 success: function (data) {
-                    $('#family_details').slideDown('slow', function () {
+                    
                         $.each(data.families, function (index, val) {
                             var image = "<?php echo base_url('uploads/"+val.image_url+"'); ?>";
                             $('#families').append('<tr><td>' + val.name + '</td><td>' + val.address + '</td><td>' + val.phone1 + '</td><td>' + val.phone2 + '</td><td>' + val.relation + '</td><td><img height="30px" src="' + image + '"></td></tr>');
                         });
-                    });
+                   
                 }
             })
                 .fail(function () {
                     console.log("error");
                 })
+            });
+            
         });
     });
 </script>
@@ -82,7 +85,7 @@
                         <button class="btn-primary btn btn-sm btn-block pull-left" id="btncardprint"><i
                                 class="glyphicon glyphicon-print pull-left"></i> Print Card
                         </button>
-                        <button class="btn-primary btn btn-sm btn-block pull-left" id="><i class=" glyphicon
+                        <button class="btn-primary btn btn-sm btn-block pull-left" id=""><i class=" glyphicon
                                 glyphicon-globe pull-left
                         "></i> Card History</button>
                         <button class="btn-primary btn btn-sm btn-block pull-left" id=""><i

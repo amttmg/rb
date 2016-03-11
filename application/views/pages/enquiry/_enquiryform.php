@@ -3,7 +3,6 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-
         $("input").change(function(){
         $(this).parent().parent().removeClass('has-error');
         $(this).next().empty();
@@ -36,7 +35,6 @@
                     else
                     {
                         $.toast({
-                            heading: 'Success',
                             text: data.message,
                             position: 'mid-center',
                             stack: false,
@@ -128,7 +126,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="">Enquiry Time</label>
-                        <input type="text" class="form-control" name="enquiry_time" id="enquiry_time"
+                        <input type="time" class="form-control" name="enquiry_time" id="enquiry_time"
                                placeholder="Enquiry Time" value="<?php echo(set_value('enquiry_time')) ?>">
                                <span class="help-block"></span>
                         <?php echo(form_error('enquiry_time')) ?>
@@ -211,6 +209,7 @@
                         <label for="">Reference Image</label>
                         <input type="file" class="form-control" name="reference_img" id="reference_img"
                                placeholder="Reference Image" value="<?php echo(set_value('reference_img')) ?>">
+                               <span class="help-block"></span>
                         <?php echo(form_error('reference_img')) ?>
                     </div>
                 </div>
@@ -233,6 +232,9 @@
                 </div>
             </div>
             <?php echo(form_close()) ?>
+        </div>
+        <div class="overlay" style="display:none">
+          <i class="fa fa-refresh fa-spin"></i>
         </div>
     </div>
 </div>
