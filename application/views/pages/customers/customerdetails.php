@@ -163,39 +163,48 @@
 
                 </div>
                 <a href="#" id="seemore">See More</a>
-
                 <div class="row" id="family_details" style="display: none">
-                    <div class="col-md-8">
+                    <div class="col-md-12">
                         <div class="box">
-                            <div class="box-header with-border">
-                                <h3 class="box-title">Families</h3>
-
-                                <div class="box-tools pull-right">
-                                    <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
-                                            title="" data-original-title="Collapse"><i class="fa fa-minus"></i></button>
-                                    <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip"
-                                            title="Remove"><i class="fa fa-times"></i></button>
+                                <div class="box-header with-border">
+                                  <h3 class="box-title">Priorities</h3>
+                                  <div class="box-tools pull-right">
+                                    <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse"><i class="fa fa-minus"></i></button>
+                                    <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
+                                  </div>
                                 </div>
+                                <div class="box-body" id="priorites" style="display: block;">
+                                
+                                    
+                                </div><!-- /.box-body -->
                             </div>
-                            <div class="box-body" style="display: block;">
-                                <table class="table table-bordered">
-                                    <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Address</th>
-                                        <th>Phone 1</th>
-                                        <th>Phone 2</th>
-                                        <th>Relation</th>
-                                        <th>Photo</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody id="families">
-
-                                    </tbody>
-                                </table>
-                            </div><!-- /.box-body -->
-                        </div>
-
+                            <div class="box">
+                                <div class="box-header with-border">
+                                  <h3 class="box-title">Families</h3>
+                                  <div class="box-tools pull-right">
+                                    <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse"><i class="fa fa-minus"></i></button>
+                                    <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
+                                  </div>
+                                </div>
+                                <div class="box-body" style="display: block;">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Address</th>
+                                                <th>Phone 1</th>
+                                                <th>Phone 2</th>
+                                                <th>Relation</th>
+                                                <th>Photo</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="families">
+                                            
+                                        </tbody>
+                                    </table>
+                                </div><!-- /.box-body -->
+                              </div>
+                        
                     </div>
                 </div>
 
