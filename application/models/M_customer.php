@@ -175,6 +175,7 @@ class M_customer extends CI_Model
     }
     public function get_customer_priority($id)
     {
+
         $priorites=$this->db->query('select *from tbl_customerspriority');
         $this->db->select('*');
         $this->db->from('tbl_customerpriorityoption');
