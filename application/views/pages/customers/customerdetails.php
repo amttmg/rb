@@ -1,38 +1,41 @@
-<script src="<?php echo base_url() ?>template/plugins/print/jQuery.print.js"></script>
+<script src="<?php echo base_url() ?>template/plugins/print/jquery.printElement.js"></script>
 <script type="text/javascript">
-    $(document).ready(function() {
-        $('#seemore').click(function() {
+    $(document).ready(function () {
+        $("#btncardprint").click(function (e) {
+
+        });
+        $('#seemore').click(function () {
 
             $('#families').empty();
             $.ajax({
                 url: '<?php echo(site_url("customerpriority/get_priority")) ?>',
                 type: 'POST',
                 data: {customer_id: '<?php echo($customer->customer_id) ?>'},
-                success:function (data) {
+                success: function (data) {
                     $('#priorites').html(data);
                 }
             })
-            .fail(function() {
-                console.log("error");
-            })
-            
+                .fail(function () {
+                    console.log("error");
+                })
+
             $.ajax({
                 url: '<?php echo(site_url("customer/customer_all_records")) ?>',
                 type: 'POST',
                 dataType: "json",
                 data: {customer_id: '<?php echo($customer->customer_id) ?>'},
-                success:function (data) {
-                        $('#family_details').slideDown('slow', function() {
-                            $.each(data.families, function(index, val) {
-                                var image="<?php echo base_url('uploads/"+val.image_url+"'); ?>";
-                                 $('#families').append('<tr><td>'+val.name+'</td><td>'+val.address+'</td><td>'+val.phone1+'</td><td>'+val.phone2+'</td><td>'+val.relation+'</td><td><img height="30px" src="'+image+'"></td></tr>');
-                           });
+                success: function (data) {
+                    $('#family_details').slideDown('slow', function () {
+                        $.each(data.families, function (index, val) {
+                            var image = "<?php echo base_url('uploads/"+val.image_url+"'); ?>";
+                            $('#families').append('<tr><td>' + val.name + '</td><td>' + val.address + '</td><td>' + val.phone1 + '</td><td>' + val.phone2 + '</td><td>' + val.relation + '</td><td><img height="30px" src="' + image + '"></td></tr>');
                         });
+                    });
                 }
             })
-            .fail(function() {
-                console.log("error");
-            })
+                .fail(function () {
+                    console.log("error");
+                })
         });
     });
 </script>
@@ -66,28 +69,40 @@
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-2">
-                        <a href="<?php echo base_url('customer/customers') ?>"
-                           class="btn btn-danger btn-sm btn-block pull-left"> <span
-                                class="glyphicon glyphicon-backward pull-left"></span> Back</a>
+                        <a href="<?php echo base_url('customer/customers') ?>" class="btn btn-danger btn-sm btn-block ">
+                            <span class="glyphicon glyphicon-backward pull-left"></span> Back</a>
                         <?php if ($customer->status != 'verified') { ?>
                             <a class="btn-success btn btn-sm btn-block"
                                href="<?php echo(site_url('customer/verify/' . md5($customer->customer_id))) ?>"><i
                                     class="glyphicon glyphicon-ok"></i> Verify Customer</a>
                         <?php } ?>
-                        <button class="btn-primary btn btn-sm btn-block pull-left" id="btnAddCard"><i class="glyphicon glyphicon-credit-card pull-left"></i> Add Card</button>
-                        <button class="btn-primary btn btn-sm btn-block pull-left" id="btncardprint"><i class="glyphicon glyphicon-print pull-left"></i> Print Card</button>
-                        <button class="btn-primary btn btn-sm btn-block pull-left" id="btncardprint"><i class="glyphicon glyphicon-globe pull-left"></i> Card History</button>
-                        <button class="btn-primary btn btn-sm btn-block pull-left" id="btncardprint"><i class="glyphicon glyphicon-edit pull-left"></i> New Enquiry</button>
-                        <button class="btn-primary btn btn-sm btn-block pull-left" id="btncardprint"><i class="glyphicon glyphicon-folder-open pull-left"></i> Enquiry History</button>
-                        <button class="btn-primary btn btn-sm btn-block pull-left" id="btncardprint"><i class="glyphicon glyphicon-edit pull-left"></i> New Order</button>
-                        <button class="btn-primary btn btn-sm btn-block pull-left" id="btncardprint"><i class="glyphicon glyphicon-folder-open pull-left"></i> Order History</button>
-
+                        <button class="btn-primary btn btn-sm btn-block pull-left" id="btnAddCard"><i
+                                class="glyphicon glyphicon-credit-card pull-left"></i> Add Card
+                        </button>
+                        <button class="btn-primary btn btn-sm btn-block pull-left" id="btncardprint"><i
+                                class="glyphicon glyphicon-print pull-left"></i> Print Card
+                        </button>
+                        <button class="btn-primary btn btn-sm btn-block pull-left" id="><i class=" glyphicon
+                                glyphicon-globe pull-left
+                        "></i> Card History</button>
+                        <button class="btn-primary btn btn-sm btn-block pull-left" id=""><i
+                                class="glyphicon glyphicon-edit pull-left"></i> New Enquiry
+                        </button>
+                        <button class="btn-primary btn btn-sm btn-block pull-left" id=""><i
+                                class="glyphicon glyphicon-folder-open pull-left"></i> Enquiry History
+                        </button>
+                        <button class="btn-primary btn btn-sm btn-block pull-left" id=""><i
+                                class="glyphicon glyphicon-edit pull-left"></i> New Order
+                        </button>
+                        <button class="btn-primary btn btn-sm btn-block pull-left" id=""><i
+                                class="glyphicon glyphicon-folder-open pull-left"></i> Order History
+                        </button>
 
 
                     </div>
                     <div class="col-md-7">
 
-                        <table class="table table-bordered" >
+                        <table class="table table-bordered">
                             <tr>
                                 <td>
                                     Full Name
@@ -151,7 +166,8 @@
                                     Status
                                 </td>
                                 <td>
-                                   <label class="label-success label"><i class="glyphicon glyphicon-ok"></i> <?php echo $customer->status ?></label>
+                                    <label class="label-success label"><i
+                                            class="glyphicon glyphicon-ok"></i> <?php echo $customer->status ?></label>
                                 </td>
                             </tr>
                         </table>
@@ -163,65 +179,75 @@
 
                 </div>
                 <a href="#" id="seemore">See More</a>
+
                 <div class="row" id="family_details" style="display: none">
                     <div class="col-md-12">
                         <div class="box">
-                                <div class="box-header with-border">
-                                  <h3 class="box-title">Priorities</h3>
-                                  <div class="box-tools pull-right">
-                                    <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse"><i class="fa fa-minus"></i></button>
-                                    <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
-                                  </div>
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Priorities</h3>
+
+                                <div class="box-tools pull-right">
+                                    <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
+                                            title="" data-original-title="Collapse"><i class="fa fa-minus"></i></button>
+                                    <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip"
+                                            title="Remove"><i class="fa fa-times"></i></button>
                                 </div>
-                                <div class="box-body" id="priorites" style="display: block;">
-                                
-                                    
-                                </div><!-- /.box-body -->
                             </div>
-                            <div class="box">
-                                <div class="box-header with-border">
-                                  <h3 class="box-title">Families</h3>
-                                  <div class="box-tools pull-right">
-                                    <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse"><i class="fa fa-minus"></i></button>
-                                    <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
-                                  </div>
+                            <div class="box-body" id="priorites" style="display: block;">
+
+
+                            </div>
+                            <!-- /.box-body -->
+                        </div>
+                        <div class="box">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Families</h3>
+
+                                <div class="box-tools pull-right">
+                                    <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
+                                            title="" data-original-title="Collapse"><i class="fa fa-minus"></i></button>
+                                    <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip"
+                                            title="Remove"><i class="fa fa-times"></i></button>
                                 </div>
-                                <div class="box-body" style="display: block;">
-                                    <table class="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Address</th>
-                                                <th>Phone 1</th>
-                                                <th>Phone 2</th>
-                                                <th>Relation</th>
-                                                <th>Photo</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="families">
-                                            
-                                        </tbody>
-                                    </table>
-                                </div><!-- /.box-body -->
-                              </div>
-                        
+                            </div>
+                            <div class="box-body" style="display: block;">
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Address</th>
+                                        <th>Phone 1</th>
+                                        <th>Phone 2</th>
+                                        <th>Relation</th>
+                                        <th>Photo</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="families">
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.box-body -->
+                        </div>
+
                     </div>
                 </div>
 
             </div>
             <!-- /.box-body -->
             <div class="box-footer">
-<!--                --><?php //if ($customer->status != 'verified') { ?>
-<!--                    <a class="btn-success btn btn-sm"-->
-<!--                       href="--><?php //echo(site_url('customer/verify/' . md5($customer->customer_id))) ?><!--"><i-->
-<!--                            class="glyphicon glyphicon-ok"></i> Verify Customer</a>-->
-<!--                --><?php //} ?>
-<!--                <button class="btn-primary btn btn-sm" id="btnAddCard"><i class="glyphicon glyphicon-credit-card"></i> Add Card</button>-->
-<!--                <button class="btn-primary btn btn-sm" id="btncardprint"><i class="glyphicon glyphicon-credit-card"></i> Print Card</button>-->
-<!--            </div>-->
-            <!-- /.box-footer-->
-        </div>
-        <!-- /.box -->
+                <!--                --><?php //if ($customer->status != 'verified') { ?>
+                <!--                    <a class="btn-success btn btn-sm"-->
+                <!--                       href="-->
+                <?php //echo(site_url('customer/verify/' . md5($customer->customer_id))) ?><!--"><i-->
+                <!--                            class="glyphicon glyphicon-ok"></i> Verify Customer</a>-->
+                <!--                --><?php //} ?>
+                <!--                <button class="btn-primary btn btn-sm" id="btnAddCard"><i class="glyphicon glyphicon-credit-card"></i> Add Card</button>-->
+                <!--                <button class="btn-primary btn btn-sm" id="btncardprint"><i class="glyphicon glyphicon-credit-card"></i> Print Card</button>-->
+                <!--            </div>-->
+                <!-- /.box-footer-->
+            </div>
+            <!-- /.box -->
 
     </section>
     <!-- /.content -->
@@ -237,6 +263,7 @@
             </div>
             <?php echo form_open('card/addcard', array('id' => 'frmaddcard')); ?>
             <input type="hidden" name="customer_id" value="<?php echo $customer->customer_id ?>">
+
             <div class="modal-body">
 
                 <div class="form-group">
@@ -248,7 +275,7 @@
                 <div class="form-group">
                     <label for="">Card Issue Date</label>
                     <input required type="date" class="form-control" name="added_date" id="added_date"
-                            value="<?php echo(set_value('added_date')) ?>">
+                           value="<?php echo(set_value('added_date')) ?>">
                     <?php echo(form_error('added_date')) ?>
                 </div>
 
@@ -259,16 +286,20 @@
 
             </div>
             <?php echo(form_close()) ?>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
 </div>
 <div id="printdiv">
     hello world
 </div>
 <script>
     $('#btnAddCard').click(function () {
-       $('#modaladdcard').modal();
+        $('#modaladdcard').modal();
     })
-
     $('#frmaddcard').validate();
+
+
+
 </script>
