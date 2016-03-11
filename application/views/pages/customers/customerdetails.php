@@ -1,27 +1,40 @@
 <script src="<?php echo base_url() ?>template/plugins/print/jQuery.print.js"></script>
 <script type="text/javascript">
-    $(document).ready(function () {
-        $('#seemore').click(function () {
+    $(document).ready(function() {
+        $('#seemore').click(function() {
+
+            $('#families').empty();
             $.ajax({
-                    url: '<?php echo(site_url("customer/customer_all_records")) ?>',
-                    type: 'POST',
-                    dataType: "json",
-                    data: {customer_id: '<?php echo($this->uri->segment(3)) ?>'},
-                    success: function (data) {
-                        $('#family_details').show('slow', function () {
-                            $.each(data, function (index, val) {
-                                var image = "<?php echo base_url('uploads/"+val.image_url+"'); ?>";
-                                $('#families').append('<tr><td>' + val.name + '</td><td>' + val.address + '</td><td>' + val.phone1 + '</td><td>' + val.phone2 + '</td><td>' + val.relation + '</td><td><img height="30px" src="' + image + '"></td></tr>');
-                            });
+                url: '<?php echo(site_url("customerpriority/get_priority")) ?>',
+                type: 'POST',
+                data: {customer_id: '<?php echo($this->uri->segment(3)) ?>'},
+                success:function (data) {
+                    $('#priorites').html(data);
+                }
+            })
+            .fail(function() {
+                console.log("error");
+            })
+            
+            $.ajax({
+                url: '<?php echo(site_url("customer/customer_all_records")) ?>',
+                type: 'POST',
+                dataType: "json",
+                data: {customer_id: '<?php echo($this->uri->segment(3)) ?>'},
+                success:function (data) {
+                        $('#family_details').slideDown('slow', function() {
+                            $.each(data.families, function(index, val) {
+                                var image="<?php echo base_url('uploads/"+val.image_url+"'); ?>";
+                                 $('#families').append('<tr><td>'+val.name+'</td><td>'+val.address+'</td><td>'+val.phone1+'</td><td>'+val.phone2+'</td><td>'+val.relation+'</td><td><img height="30px" src="'+image+'"></td></tr>');
+                           });
                         });
-                    }
-                })
-                .fail(function () {
-                    console.log("error");
-                })
+                }
+            })
+            .fail(function() {
+                console.log("error");
+            })
         });
     });
-
 </script>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
