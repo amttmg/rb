@@ -2,6 +2,11 @@
 <link rel="stylesheet" type="text/css" href="<?php echo(base_url('assets/jquery.toast.min.css')) ?>">
 
 <script type="text/javascript">
+$(document).ajaxStart(function() {
+        $('.overlay').show();
+
+    });
+
     $(document).ready(function() {
         $("input").change(function(){
         $(this).parent().parent().removeClass('has-error');
@@ -22,6 +27,7 @@
             dataType: 'json',
             data:$('#myform').serialize(),
             success:function(data){
+                 $('.overlay').hide();
                 if (data.status==false) 
                     {
                         $.each(data, function(index, val) 
