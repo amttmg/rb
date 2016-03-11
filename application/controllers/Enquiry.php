@@ -24,7 +24,6 @@ class Enquiry extends CI_Controller
     {
         echo "hello";
     }
-
     function newEnquiry()
     {
         $data['title'] = "Create Customer";
@@ -34,12 +33,11 @@ class Enquiry extends CI_Controller
     function addEnquiry(){
 
     }
-
     function getCustomer($card_no)
     {
         $customerid = $this->customer->getCustomerID($card_no);
         if ($customerid > 0) {
-            $customer['customer'] = $this->customer->getCustomers($customerid);
+            $customer['customer'] = $this->customer->getCustomers(md5($customerid));
             $customer['enquiry_type'] = $this->enquiry->getEnquiryType();
             $data = $this->load->view('pages/enquiry/_enquiryform', $customer, true);
             echo $data;
