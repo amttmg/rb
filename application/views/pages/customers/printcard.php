@@ -14,18 +14,16 @@
 </style>
 <div class="aa">
     <p><button id="print_btn" >Print</button></p>
-
         <div id="print" class="print_area" style="width:336px; margin: 0px auto; height:100px;font-weight:400;">
             <div class="dataprint" id="dataprint"
                  style="float:right; margin-top:100px; color:#000; margin-right:10px; letter-spacing: 2px;">
                 <?php echo $card->card_no; ?><br/>
-                <?php echo $customer->fname; ?><br/>
-                <?php echo $customer->lname; ?>&nbsp;<?php echo $customer->email; ?><br/>
-                <?php echo $customer->dob; ?><br/>
+                <?php echo $customer->fname.' '.$customer->mname.' '.$customer->lname; ?><br/>
+               <?php echo $customer->email; ?><br/>
+                <?php echo $customer->phone1; ?><br/>
                 <?php echo $customer->dob; ?><br/>
             </div>
         </div>
-
 </div>
 
 <script>
