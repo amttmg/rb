@@ -45,6 +45,7 @@ $(document).ajaxStart(function() {
                     }
                     else
                     {
+                        $('#save').prop('disabled', true);
                         $.toast({
                             text: data.message,
                             position: 'mid-center',
@@ -56,6 +57,7 @@ $(document).ajaxStart(function() {
                                  .val('')
                                  .removeAttr('checked')
                                  .removeAttr('selected');
+                                 $('#save').prop('disabled', false);
                                 }
                             })
                     }
