@@ -2,10 +2,7 @@
 <link rel="stylesheet" type="text/css" href="<?php echo(base_url('assets/jquery.toast.min.css')) ?>">
 
 <script type="text/javascript">
-$(document).ajaxStart(function() {
-        $('.overlay').show();
 
-    });
 
     $(document).ready(function() {
         $("input").change(function(){
@@ -32,15 +29,15 @@ $(document).ajaxStart(function() {
             processData: false,
             success:function(data){
                  $('.overlay').hide();
-                if (data.status==false) 
+                if (data.status==false)
                     {
-                        $.each(data, function(index, val) 
+                        $.each(data, function(index, val)
                         {
-                            
-                            $('#'+val.error_string).next().html(val.input_error); 
+
+                            $('#'+val.error_string).next().html(val.input_error);
                             $('#'+val.error_string).parent().parent().addClass('has-error');
                             console.log(val.input_error);
-                            
+
                         });
                     }
                     else
@@ -68,7 +65,7 @@ $(document).ajaxStart(function() {
         })
 
         });
-        
+
     });
 </script>
 <div class="col-md-12">
@@ -135,7 +132,7 @@ $(document).ajaxStart(function() {
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="">Enquiry Date</label>
-                        <input 
+                        <input
                          type="date" class="form-control" name="enquiry_date" id="enquiry_date"
                                placeholder="Enquiry date" value="<?php echo(set_value('enquiry_date')) ?>">
                                <span class="help-block"></span>
@@ -252,8 +249,6 @@ $(document).ajaxStart(function() {
             </div>
             <?php echo(form_close()) ?>
         </div>
-        <div class="overlay" style="display:none">
-          <i class="fa fa-refresh fa-spin"></i>
-        </div>
+
     </div>
 </div>

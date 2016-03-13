@@ -17,6 +17,9 @@
 
         <!-- Default box -->
         <div class="box box-info">
+            <div class="overlay" style="display:none">
+                <i class="fa fa-refresh fa-spin"></i>
+            </div>
             <div class="box-header with-border">
                 <h3 class="box-title">Enter Customer Code or Swap Smart Card</h3>
 
@@ -33,18 +36,18 @@
                         <div class="form-inline">
                             <div class="form-group">
                                 <input name="cardno" type="text" class="form-control" id="card_no">
-                                <button class="btn btn-primary" id="btnsearch">Search</button>
+                                <!--                                <button class="btn btn-primary" id="btnsearch">Search</button>-->
                             </div>
                         </div>
                     </div>
                 </div>
-                        <?php if ($this->session->flashdata('message')): ?>
-                            <div class="alert alert-success alert-dismissable">
-                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                <h4>    <i class="icon fa fa-check"></i><?php echo $this->session->flashdata('message'); ?></h4>
-                            </div>
-                        <?php endif ?>
-                  
+                <?php if ($this->session->flashdata('message')): ?>
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-check"></i><?php echo $this->session->flashdata('message'); ?></h4>
+                    </div>
+                <?php endif ?>
+
                 <br/>
 
                 <div class="row collapse" id="divcustomer">
@@ -61,25 +64,22 @@
     <!-- /.content -->
 </div><!-- /.content-wrapper -->
 <script>
-    $('#btnsearch').click(function () {
-        var card_no = $('#card_no').val();
-        $.ajax({
-            url: '<?php echo base_url('Enquiry/getCustomer') ?>/' + card_no,
-            success: function (res) {
-                $('#divcustomer').html(res);
-                $('#divcustomer').collapse('show');
+    $(document).ready(function () {
+        $(document).ajaxStart(function () {
+            $('.overlay').show();
+        });
+        $('#card_no').on('keypress', function (event) {
+            if (event.keyCode == 13) {
+                var card_no = $('#card_no').val();
+                $.ajax({
+                    url: '<?php echo base_url('Enquiry/getCustomer') ?>/' + card_no,
+                    success: function (res) {
+                        $('.overlay').hide();
+                        $('#divcustomer').html(res);
+                        $('#divcustomer').collapse('show');
+                    }
+                })
             }
-        })
-
+        });
     })
-    $('#card_no').on('keypress', function (event) {
-        var card_no = $('#card_no').val();
-        $.ajax({
-            url: '<?php echo base_url('Enquiry/getCustomer') ?>/' + card_no,
-            success: function (res) {
-                $('#divcustomer').html(res);
-                $('#divcustomer').collapse('show');
-            }
-        })
-    });
 </script>
