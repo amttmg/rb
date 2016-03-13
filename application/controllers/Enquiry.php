@@ -113,4 +113,11 @@ class Enquiry extends CI_Controller
             }
         
     }
+    public function enquirydetails()
+    {
+        $data['enquirydetails']=$this->enquiry->get_details();
+        $data['title'] = "Enquiry deatails";
+        $data['content'] = $this->load->view('pages/enquiry/enquirydetails', $data, true);
+        $this->parser->parse('template/page_template', $data);
+    }
 }

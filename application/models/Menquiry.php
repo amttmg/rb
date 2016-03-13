@@ -36,4 +36,13 @@ class Menquiry extends CI_Model
     		);
     	$this->db->insert('tbl_enquiry',$data);
     }
+    public function get_details()
+    {
+        $this->db->select('*');
+        $this->db->from('tbl_enquiry');
+        $this->db->join('tbl_customers','tbl_customers.customer_id=tbl_enquiry.customer_id');
+        $this->db->join('tbl_enquirytype','tbl_enquirytype.enquirytype_id=tbl_enquiry.enquiry_type');
+        $this->db->order_by('enquiry_date','desc');
+        return $this->db->get()->result();
+    }
 }
