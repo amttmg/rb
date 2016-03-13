@@ -35,7 +35,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li class="list"><a href="<?php echo base_url('enquiry/newEnquiry') ?>"><i class="fa fa-plus"></i>New Enquery</a></li>
-                    <li class="list"><a href="<?php echo base_url('enquiry') ?>"><i class="fa fa-plus"></i>View Enqueryes</a></li>
+                    <li class="list"><a href="<?php echo base_url('enquiry/enquirydetails') ?>"><i class="fa fa-plus"></i>View Enqueryes</a></li>
                 </ul>
             </li>
             <li class="treeview">
