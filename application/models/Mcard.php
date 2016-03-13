@@ -18,11 +18,18 @@ class Mcard extends CI_Model
             'enteredby' => 'amt',
             'status' => '1'
         );
-       $res=$this->db->insert('tbl_cards',$newCard);
-        if($res){
+        $res = $this->db->insert('tbl_cards', $newCard);
+        if ($res) {
             return true;
-        }else{
+        } else {
             return false;
         }
+    }
+
+    public function getCard($customer_id)
+    {
+        $this->db->where('customer_id', $customer_id);
+        $card = $this->db->get('tbl_cards');
+        return $card->row();
     }
 }

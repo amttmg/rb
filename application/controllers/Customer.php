@@ -19,6 +19,7 @@ class Customer extends CI_Controller {
         $this->load->helper('form');
         $this->load->library('form_validation');
         $this->load->model('m_customer','customer');
+        $this->load->model('mcard','card');
         $this->load->model('mpriority');
         $this->load->helper('notification');
 
@@ -255,6 +256,12 @@ class Customer extends CI_Controller {
         $data['priorities']=array('a'=>'a');
         array_push($query1, $data);
         echo(json_encode($query1));
+    }
+
+    public function printCard($customer_id){
+        $data['customer']=$this->customer->getCustomers(md5($customer_id));
+        $data['card']=$this->card->getCard($customer_id);
+        $this->load->view('pages/customers/printcard', $data);
     }
 
 }
