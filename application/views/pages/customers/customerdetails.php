@@ -313,13 +313,7 @@
     $('#frmaddcard').validate();
     $('#btncardprint').click(function ()
     {
-        $.ajax({
-            url:'<?php echo base_url('customer/printCard/'.$customer->customer_id) ?>',
-            success:function(res){
-                $('#printpage').html(res);
-                $('#printmodal').modal('show');
-            }
-        })
+        window.open("<?php echo base_url('customer/printcard/'.$customer->customer_id) ?>", "_blank", " width=500, height=300");
 
     })
 
