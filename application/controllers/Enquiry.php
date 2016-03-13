@@ -24,7 +24,10 @@ class Enquiry extends CI_Controller
 
     function index()
     {
-        echo "hello";
+        $data['enquirydetails']=$this->enquiry->get_details();
+        $data['title'] = "Enquiry deatails";
+        $data['content'] = $this->load->view('pages/enquiry/enquirydetails', $data, true);
+        $this->parser->parse('template/page_template', $data);
     }
     function newEnquiry()
     {
@@ -112,12 +115,5 @@ class Enquiry extends CI_Controller
                return true;
             }
         
-    }
-    public function enquirydetails()
-    {
-        $data['enquirydetails']=$this->enquiry->get_details();
-        $data['title'] = "Enquiry deatails";
-        $data['content'] = $this->load->view('pages/enquiry/enquirydetails', $data, true);
-        $this->parser->parse('template/page_template', $data);
     }
 }
