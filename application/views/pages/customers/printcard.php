@@ -1,8 +1,11 @@
 <script src="<?php echo base_url() ?>template/plugins/print/jquery-1.8.3.js"></script>
+<script type="text/javascript">
+    var jv2 = $.noConflict(true);
+</script>
 <script src="<?php echo base_url() ?>template/plugins/print/jquery.printElement.js"></script>
 <style>
 
-    .print_area{background-image:url(../assets/image/resampledimage_front.jpg);}
+   /* .print_area{background-image:url(../assets/image/resampledimage_front.jpg);}*/
     .aa{ margin: 0px auto;width: 300px;}*/
 </style>
 <div class="aa">
@@ -20,7 +23,7 @@
 
 <script>
     $("#print_btn").click(function(e) {
-        $("#print").printElement({
+        jv2("#print").printElement({
             overrideElementCSS:[
                 '../css/printing.css',
                 { href:'../css/printing.css',media:'print'}]

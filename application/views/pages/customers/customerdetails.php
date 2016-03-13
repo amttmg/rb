@@ -1,4 +1,3 @@
-<script src="<?php echo base_url() ?>template/plugins/print/jquery.printElement.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         $("#btncardprint").click(function (e) {
@@ -6,39 +5,39 @@
         });
         $('#seemore').click(function () {
 
-            $('#family_details').toggle("slow",function() {
+            $('#family_details').toggle("slow", function () {
                 $('#families').empty();
-            $.ajax({
-                url: '<?php echo(site_url("customerpriority/get_priority")) ?>',
-                type: 'POST',
-                data: {customer_id: '<?php echo($customer->customer_id) ?>'},
-                success: function (data) {
-                    $('#priorites').html(data);
-                }
-            })
-                .fail(function () {
-                    console.log("error");
+                $.ajax({
+                    url: '<?php echo(site_url("customerpriority/get_priority")) ?>',
+                    type: 'POST',
+                    data: {customer_id: '<?php echo($customer->customer_id) ?>'},
+                    success: function (data) {
+                        $('#priorites').html(data);
+                    }
                 })
+                    .fail(function () {
+                        console.log("error");
+                    })
 
-            $.ajax({
-                url: '<?php echo(site_url("customer/customer_all_records")) ?>',
-                type: 'POST',
-                dataType: "json",
-                data: {customer_id: '<?php echo($customer->customer_id) ?>'},
-                success: function (data) {
-                    
+                $.ajax({
+                    url: '<?php echo(site_url("customer/customer_all_records")) ?>',
+                    type: 'POST',
+                    dataType: "json",
+                    data: {customer_id: '<?php echo($customer->customer_id) ?>'},
+                    success: function (data) {
+
                         $.each(data.families, function (index, val) {
                             var image = "<?php echo base_url('uploads/"+val.image_url+"'); ?>";
                             $('#families').append('<tr><td>' + val.name + '</td><td>' + val.address + '</td><td>' + val.phone1 + '</td><td>' + val.phone2 + '</td><td>' + val.relation + '</td><td><img height="30px" src="' + image + '"></td></tr>');
                         });
-                   
-                }
-            })
-                .fail(function () {
-                    console.log("error");
+
+                    }
                 })
+                    .fail(function () {
+                        console.log("error");
+                    })
             });
-            
+
         });
     });
 </script>
@@ -87,7 +86,8 @@
                         </button>
                         <button class="btn-primary btn btn-sm btn-block pull-left" id=""><i class=" glyphicon
                                 glyphicon-globe pull-left
-                        "></i> Card History</button>
+                        "></i> Card History
+                        </button>
                         <button class="btn-primary btn btn-sm btn-block pull-left" id=""><i
                                 class="glyphicon glyphicon-edit pull-left"></i> New Enquiry
                         </button>
@@ -294,15 +294,34 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
-<div id="printdiv">
-    hello world
-</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="printmodal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body clearfix" id="printpage">
+
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div><!-- /.modal -->
 <script>
     $('#btnAddCard').click(function () {
         $('#modaladdcard').modal();
     })
     $('#frmaddcard').validate();
+    $('#btncardprint').click(function ()
+    {
+        $.ajax({
+            url:'<?php echo base_url('customer/printCard/'.$customer->customer_id) ?>',
+            success:function(res){
+                $('#printpage').html(res);
+                $('#printmodal').modal('show');
+            }
+        })
 
+    })
 
 
 </script>

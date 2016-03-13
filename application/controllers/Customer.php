@@ -258,10 +258,14 @@ class Customer extends CI_Controller {
         echo(json_encode($query1));
     }
 
-    public function printCard($customer_id){
-        $data['customer']=$this->customer->getCustomers(md5($customer_id));
-        $data['card']=$this->card->getCard($customer_id);
-        $this->load->view('pages/customers/printcard', $data);
+    public function printCard($customer_id=''){
+        if($customer_id!='') {
+            $data['customer'] = $this->customer->getCustomers(md5($customer_id));
+            $data['card'] = $this->card->getCard($customer_id);
+            echo $this->load->view('pages/customers/printcard', $data, true);
+        }else{
+            echo "Customer Not Found";
+        }
     }
 
 }
