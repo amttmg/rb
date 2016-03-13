@@ -10,12 +10,16 @@ class Mcard extends CI_Model
 {
     public function addCard()
     {
+        $customer_id = $this->input->post('customer_id');
+        $updaterec = array("status" => '0');
+        $this->db->where('customer_id', $customer_id);
+        $this->db->update('tbl_cards', $updaterec);
 
         $newCard = array(
             'customer_id' => $this->input->post('customer_id'),
             'card_no' => $this->input->post('card_no'),
             'added_date' => $this->input->post('added_date'),
-            'entrydate' => date('y-d-m'),
+            'entrydate' => date('Y-m-d'),
             'enteredby' => 'amt',
             'status' => '1'
         );
@@ -34,14 +38,16 @@ class Mcard extends CI_Model
         $card = $this->db->get('tbl_cards');
         return $card->row();
     }
-    public function hasCard($customer_id){
+
+    public function hasCard($customer_id)
+    {
         $this->db->where('md5(customer_id)', ($customer_id));
         $this->db->where('status', 1);
         $card = $this->db->get('tbl_cards');
-       if($card->num_rows()>0){
-           return 1;
-       }else{
-           return 0;
-       }
+        if ($card->num_rows() > 0) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 }
