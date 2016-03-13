@@ -39,6 +39,7 @@ $(document).ajaxStart(function() {
                             
                             $('#'+val.error_string).next().html(val.input_error); 
                             $('#'+val.error_string).parent().parent().addClass('has-error');
+                            console.log(val.input_error);
                             
                         });
                     }
@@ -48,9 +49,15 @@ $(document).ajaxStart(function() {
                             text: data.message,
                             position: 'mid-center',
                             stack: false,
-                            icon: 'success'
+                            icon: 'success',
+                            afterHidden: function () {
+                                $(':input','#myform')
+                                 .not(':button, :submit, :reset, :hidden')
+                                 .val('')
+                                 .removeAttr('checked')
+                                 .removeAttr('selected');
+                                }
                             })
-                        $('#save').prop( "disabled", true );
                     }
             }
         })
