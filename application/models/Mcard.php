@@ -10,6 +10,7 @@ class Mcard extends CI_Model
 {
     public function addCard()
     {
+
         $newCard = array(
             'customer_id' => $this->input->post('customer_id'),
             'card_no' => $this->input->post('card_no'),
@@ -29,7 +30,18 @@ class Mcard extends CI_Model
     public function getCard($customer_id)
     {
         $this->db->where('customer_id', $customer_id);
+        $this->db->where('status', 1);
         $card = $this->db->get('tbl_cards');
         return $card->row();
+    }
+    public function hasCard($customer_id){
+        $this->db->where('md5(customer_id)', ($customer_id));
+        $this->db->where('status', 1);
+        $card = $this->db->get('tbl_cards');
+       if($card->num_rows()>0){
+           return 1;
+       }else{
+           return 0;
+       }
     }
 }

@@ -225,6 +225,7 @@ class Customer extends CI_Controller {
     function customerdetails($id){
         $data['title'] = "Customers Details";
         $cust['customer']=$this->customer->getCustomers($id);
+        $cust['hascard']=$this->card->hasCard($id);
         if(count($cust['customer'])>0){
         $data['content'] = $this->load->view('pages/customers/customerdetails',$cust, true);
         $this->parser->parse('template/page_template', $data);

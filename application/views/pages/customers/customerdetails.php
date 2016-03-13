@@ -78,16 +78,26 @@
                                href="<?php echo(site_url('customer/verify/' . md5($customer->customer_id))) ?>"><i
                                     class="glyphicon glyphicon-ok"></i> Verify Customer</a>
                         <?php } ?>
+
                         <button class="btn-primary btn btn-sm btn-block pull-left" id="btnAddCard"><i
-                                class="glyphicon glyphicon-credit-card pull-left"></i> Add Card
+                                class="glyphicon glyphicon-credit-card pull-left"></i>
+                            <?php if ($hascard) {
+                                echo "Update Card";
+                            } else {
+                                echo "Add Card";
+                            } ?>
                         </button>
-                        <button class="btn-primary btn btn-sm btn-block pull-left" id="btncardprint"><i
-                                class="glyphicon glyphicon-print pull-left"></i> Print Card
-                        </button>
-                        <button class="btn-primary btn btn-sm btn-block pull-left" id=""><i class=" glyphicon
-                                glyphicon-globe pull-left
-                        "></i> Card History
-                        </button>
+                        <?php if ($hascard) {
+                            ?>
+                            <button class="btn-primary btn btn-sm btn-block pull-left" id="btncardprint"><i
+                                    class="glyphicon glyphicon-print pull-left"></i> Print Card
+                            </button>
+                            <button class="btn-primary btn btn-sm btn-block pull-left" id=""><i class=" glyphicon glyphicon-folder-open pull-left"></i> Card History
+                            </button>
+                            <?php
+                        } ?>
+
+
                         <button class="btn-primary btn btn-sm btn-block pull-left" id=""><i
                                 class="glyphicon glyphicon-edit pull-left"></i> New Enquiry
                         </button>
@@ -109,6 +119,7 @@
                             <tr>
                                 <td>
                                     Full Name
+
                                 </td>
                                 <td>
                                     <?php echo $customer->fname . ' ' . $customer->mname . ' ' . $customer->lname ?>
@@ -311,8 +322,7 @@
         $('#modaladdcard').modal();
     })
     $('#frmaddcard').validate();
-    $('#btncardprint').click(function ()
-    {
+    $('#btncardprint').click(function () {
         window.open("<?php echo base_url('customer/printcard/'.$customer->customer_id) ?>", "_blank", " width=500, height=300");
 
     })
