@@ -8,31 +8,31 @@
             $('#family_details').toggle("slow", function () {
                 $('#families').empty();
                 $.ajax({
-                    url: '<?php echo(site_url("customerpriority/get_priority")) ?>',
-                    type: 'POST',
-                    data: {customer_id: '<?php echo($customer->customer_id) ?>'},
-                    success: function (data) {
-                        $('#priorites').html(data);
-                    }
-                })
+                        url: '<?php echo(site_url("customerpriority/get_priority")) ?>',
+                        type: 'POST',
+                        data: {customer_id: '<?php echo($customer->customer_id) ?>'},
+                        success: function (data) {
+                            $('#priorites').html(data);
+                        }
+                    })
                     .fail(function () {
                         console.log("error");
                     })
 
                 $.ajax({
-                    url: '<?php echo(site_url("customer/customer_all_records")) ?>',
-                    type: 'POST',
-                    dataType: "json",
-                    data: {customer_id: '<?php echo($customer->customer_id) ?>'},
-                    success: function (data) {
+                        url: '<?php echo(site_url("customer/customer_all_records")) ?>',
+                        type: 'POST',
+                        dataType: "json",
+                        data: {customer_id: '<?php echo($customer->customer_id) ?>'},
+                        success: function (data) {
 
-                        $.each(data.families, function (index, val) {
-                            var image = "<?php echo base_url('uploads/"+val.image_url+"'); ?>";
-                            $('#families').append('<tr><td>' + val.name + '</td><td>' + val.address + '</td><td>' + val.phone1 + '</td><td>' + val.phone2 + '</td><td>' + val.relation + '</td><td><img height="30px" src="' + image + '"></td></tr>');
-                        });
+                            $.each(data.families, function (index, val) {
+                                var image = "<?php echo base_url('uploads/"+val.image_url+"'); ?>";
+                                $('#families').append('<tr><td>' + val.name + '</td><td>' + val.address + '</td><td>' + val.phone1 + '</td><td>' + val.phone2 + '</td><td>' + val.relation + '</td><td><img height="30px" src="' + image + '"></td></tr>');
+                            });
 
-                    }
-                })
+                        }
+                    })
                     .fail(function () {
                         console.log("error");
                     })
@@ -92,7 +92,8 @@
                             <button class="btn-primary btn btn-sm btn-block pull-left" id="btncardprint"><i
                                     class="glyphicon glyphicon-print pull-left"></i> Print Card
                             </button>
-                            <button class="btn-primary btn btn-sm btn-block pull-left" id=""><i class=" glyphicon glyphicon-folder-open pull-left"></i> Card History
+                            <button class="btn-primary btn btn-sm btn-block pull-left" id="btncardhistory"><i
+                                    class=" glyphicon glyphicon-folder-open pull-left"></i> Card History
                             </button>
                             <?php
                         } ?>
@@ -306,10 +307,47 @@
     <!-- /.modal-dialog -->
 </div>
 
-<div class="modal fade" tabindex="-1" role="dialog" id="printmodal">
+<div class="modal fade" tabindex="-1" role="dialog" id="cardhistory">
     <div class="modal-dialog">
+
         <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">×</span></button>
+                <h4 class="modal-title">Card History</h4>
+            </div>
             <div class="modal-body clearfix" id="printpage">
+                <table class="table table-bordered">
+                    <thead>
+                    <td>
+                        Card No
+                    </td>
+                    <td>
+                        Issue date
+                    </td>
+                    <td>
+                        Status
+                    </td>
+                    </thead>
+                    <?php foreach ($cards as $card) {
+                        ?>
+                        <tr>
+                            <td>
+                                <?php echo $card->card_no ?>
+                            </td>
+                            <td>
+                                <?php echo $card->added_date ?>
+                            </td>
+                            <td>
+                                <?php echo $card->status ?>
+                            </td>
+                        </tr>
+                        <?php
+                    } ?>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
 
             </div>
         </div>
@@ -324,7 +362,9 @@
     $('#frmaddcard').validate();
     $('#btncardprint').click(function () {
         window.open("<?php echo base_url('customer/printcard/'.$customer->customer_id) ?>", "_blank", " width=500, height=300");
-
+    })
+    $('#btncardhistory').click(function () {
+        $('#cardhistory').modal('show');
     })
 
 

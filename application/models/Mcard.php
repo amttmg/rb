@@ -39,6 +39,14 @@ class Mcard extends CI_Model
         return $card->row();
     }
 
+    public function getAllCards($customer_id)
+    {
+        $this->db->where('md5(customer_id)', $customer_id);
+        $this->db->order_by('added_date','desc');
+        $card = $this->db->get('tbl_cards');
+        return $card->result();
+    }
+
     public function hasCard($customer_id)
     {
         $this->db->where('md5(customer_id)', ($customer_id));
