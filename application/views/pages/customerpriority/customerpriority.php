@@ -19,6 +19,9 @@
 
     <!-- Main content -->
     <section class="content">
+        <div class="overlay" style="display:none">
+            <i class="fa fa-refresh fa-spin"></i>
+        </div>
         <div class="box box-info" style="position: relative;">
             <div class="box-header ui-sortable-handle" style="cursor: move;">
                 <i class="fa fa-user"></i>
@@ -133,6 +136,11 @@
 </div><!-- /.modal -->
 
 <script>
+    $(document).ready(function(){
+        $(document).ajaxStart(function () {
+            $('.overlay').show();
+        });
+    })
     $('#myform').validate();
     $('#btnnewpriority').click(function () {
         $('#modalnewpriority').modal('show');
@@ -149,6 +157,7 @@
                     $('#txtnewoption' + id).val('');
                     $('#txtnewoptionremarks' + id).val('');
                     $('#div' + id).html(res);
+                    $('.overlay').hide();
                 }
             })
         } else {
