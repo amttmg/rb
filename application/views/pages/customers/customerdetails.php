@@ -28,7 +28,7 @@
 
                             $.each(data.families, function (index, val) {
                                 var image = "<?php echo base_url('uploads/"+val.image_url+"'); ?>";
-                                $('#families').append('<tr><td>' + val.name + '</td><td>' + val.address + '</td><td>' + val.phone1 + '</td><td>' + val.phone2 + '</td><td>' + val.relation + '</td><td><img height="30px" src="' + image + '"></td></tr>');
+                                $('#families').append('<tr><td>' + val.name + '</td><td>' + val.address + '</td><td>' + val.phone1 + '</td><td>' + val.phone2 + '</td><td>' + val.relation + '</td><td><img height="30px" src="' + image + '"></td><td><div class="btn-group"><button class="btn btn-primary btn-sm">Edit</button><button class="btn btn-danger btn-sm">Remove</button></div></td></tr>');
                             });
 
                         }
@@ -76,7 +76,7 @@
                         <?php if ($customer->status != 'verified') { ?>
                             <a class="btn-success btn btn-sm btn-block"
                                href="<?php echo(site_url('customer/verify/' . md5($customer->customer_id))) ?>"><i
-                                    class="glyphicon glyphicon-ok"></i> Verify Customer</a>
+                                    class="glyphicon glyphicon-ok pull-left"></i> Verify Customer</a>
                         <?php } ?>
 
                         <button class="btn-primary btn btn-sm btn-block pull-left" id="btnAddCard"><i
@@ -99,18 +99,18 @@
                         } ?>
 
 
-                        <button class="btn-primary btn btn-sm btn-block pull-left" id=""><i
+                        <button class="btn-primary btn btn-sm btn-block pull-left" id="btnnewenq"><i
                                 class="glyphicon glyphicon-edit pull-left"></i> New Enquiry
                         </button>
                         <button class="btn-primary btn btn-sm btn-block pull-left" id="btnenqhostory"><i
                                 class="glyphicon glyphicon-folder-open pull-left"></i> Enquiry History
                         </button>
-                        <button class="btn-primary btn btn-sm btn-block pull-left" id=""><i
-                                class="glyphicon glyphicon-edit pull-left"></i> New Order
-                        </button>
-                        <button class="btn-primary btn btn-sm btn-block pull-left" id=""><i
-                                class="glyphicon glyphicon-folder-open pull-left"></i> Order History
-                        </button>
+<!--                        <button class="btn-primary btn btn-sm btn-block pull-left" id=""><i-->
+<!--                                class="glyphicon glyphicon-edit pull-left"></i> New Order-->
+<!--                        </button>-->
+<!--                        <button class="btn-primary btn btn-sm btn-block pull-left" id=""><i-->
+<!--                                class="glyphicon glyphicon-folder-open pull-left"></i> Order History-->
+<!--                        </button>-->
 
 
                     </div>
@@ -194,6 +194,11 @@
 
                 </div>
                 <a href="#" id="seemore">See More</a>
+               <div class="btn-group pull-right">
+
+                   <a href="#" id="btneditcustomer" class=" btn btn-primary btn-sm"><i class="glyphicon glyphicon-edit"></i> Edit</a>
+                   <a href="#" id="deactive" class=" btn btn-danger btn-sm"><i class="glyphicon glyphicon-remove"></i> Deactive</a>
+                   </div>
 
                 <div class="row" id="family_details" style="display: none">
                     <div class="col-md-12">
@@ -226,6 +231,7 @@
                                 </div>
                             </div>
                             <div class="box-body" style="display: block;">
+                                <button class="btn btn-primary btn-sm">Add New</button></br>
                                 <table class="table table-bordered">
                                     <thead>
                                     <tr>
@@ -235,6 +241,7 @@
                                         <th>Phone 2</th>
                                         <th>Relation</th>
                                         <th>Photo</th>
+                                        <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody id="families">
@@ -422,6 +429,163 @@
     </div>
     <!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<div class="modal fade" id="newEnquiry">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">New Enquery</h4>
+            </div>
+            <div class="modal-body">
+                <?php echo form_open_multipart('enquiry/addEnquiry', array('id' => 'myform')); ?>
+                <input type="hidden" name="customer_id" value="<?php echo $customer->customer_id ?>">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="">Enquiry Date</label>
+                            <input
+                                type="date" class="form-control" name="enquiry_date" id="enquiry_date"
+                                placeholder="Enquiry date" value="<?php echo(set_value('enquiry_date')) ?>">
+                            <span class="help-block"></span>
+                            <?php echo(form_error('enquiry_date')) ?>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="">Enquiry Time</label>
+                            <input type="time" class="form-control" name="enquiry_time" id="enquiry_time"
+                                   placeholder="Enquiry Time" value="<?php echo(set_value('enquiry_time')) ?>">
+                            <span class="help-block"></span>
+                            <?php echo(form_error('enquiry_time')) ?>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="">Enquiry Type</label>
+                            <select name="enquiry_type" id="enquiry_type" class="form-control">
+                                <option value="">Select Enquiry Type</option>
+                                <?php foreach ($enquiry_type as $type) {
+                                    ?>
+                                    <option value="<?php echo $type->enquirytype_id ?>"><?php echo $type->enquiry_type ?></option>
+                                    <?php
+                                } ?>
+                            </select>
+                            <!--                        <input required type="text" class="form-control" name="enquiry_type" id="enquiry_type"-->
+                            <!--                               placeholder="Enquiry Type" value="-->
+                            <?php //echo(set_value('enquiry_type')) ?><!--">-->
+                            <span class="help-block"></span>
+                            <?php echo(form_error('enquiry_type')) ?>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="">Followup Date</label>
+                            <input required type="date" class="form-control" name="followup_date" id="followup_date"
+                                   placeholder="Followup date" value="<?php echo(set_value('followup_date')) ?>">
+                            <span class="help-block"></span>
+                            <?php echo(form_error('followup_date')) ?>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="">Enquiry Items</label>
+                            <input type="text" class="form-control" name="enquiry_items" id="enquiry_items"
+                                   placeholder="Enquiry Items" value="<?php echo(set_value('enquiry_items')) ?>">
+                            <span class="help-block"></span>
+                            <?php echo(form_error('enquiry_items')) ?>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="">Intended Purchase Mode</label>
+                            <select name="intended_purchasemode" class="form-control">
+                                <option value="Cash">Cash</option>
+                                <option value="Credit Card">Credit Card</option>
+                            </select>
+                            <span class="help-block"></span>
+                            <?php echo(form_error('intended_purchasemode')) ?>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="">Price Min</label>
+                            <input required type="number" class="form-control" name="price_range_min" id="price_range_min"
+                                   placeholder="Price Min" value="<?php echo(set_value('price_range_min')) ?>">
+                            <span class="help-block"></span>
+                            <?php echo(form_error('price_range_min')) ?>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="">Price Max</label>
+                            <input required type="number" class="form-control" name="price_range_max" id="price_range_max"
+                                   placeholder="Price Max" value="<?php echo(set_value('price_range_max')) ?>">
+                            <span class="help-block"></span>
+                            <?php echo(form_error('price_range_max')) ?>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="">Reference Image</label>
+                            <input type="file" class="form-control" name="reference_img" id="reference_img"
+                                   placeholder="Reference Image" value="<?php echo(set_value('reference_img')) ?>">
+                            <span class="help-block"></span>
+                            <?php echo(form_error('reference_img')) ?>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="">Remarks</label>
+                            <input required type="text" class="form-control" name="remarks" id="remarks"
+                                   placeholder="Remarks" value="<?php echo(set_value('remarks')) ?>">
+                            <span class="help-block"></span>
+                            <?php echo(form_error('remarks')) ?>
+                        </div>
+                    </div>
+
+
+                </div>
+                <?php echo(form_close()) ?>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="save">Save changes</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id=editcustomer>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                <p>One fine body&hellip;</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <script>
     $('#btnAddCard').click(function () {
         $('#modaladdcard').modal();
@@ -437,5 +601,61 @@
         $('#enqhistor').modal('show');
     })
 
+    $('#btnnewenq').click(function(){
+        $('#newEnquiry').modal('show');
+    })
+    $('#btneditcustomer').click(function(){
+        $('#editcustomer').modal('show')
+    })
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("input").change(function(){
+            $(this).parent().parent().removeClass('has-error');
+            $(this).next().empty();
+        });
+        $("textarea").change(function(){
+            $(this).parent().parent().removeClass('has-error');
+            $(this).next().empty();
+        });
+        $("select").change(function(){
+            $(this).parent().parent().removeClass('has-error');
+            $(this).next().empty();
+        });
+        $('#save').click(function() {
+            var formData = new FormData($('#myform')[0]);
+            $.ajax({
+                url: '<?php  echo site_url("enquiry/addEnquiry"); ?>',
+                type: 'POST',
+                dataType: 'json',
+                data:formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success:function(data){
+                    if (data.status==false)
+                    {
+                        $.each(data, function(index, val)
+                        {
+
+                            $('#'+val.error_string).next().html(val.input_error);
+                            $('#'+val.error_string).parent().parent().addClass('has-error');
+
+
+                        });
+                    }
+                    else
+                    {
+//                        window.location.replace("<?php //echo base_url('customer/customerdetails/'.md5($customer->customer_id)) ?>//");
+                        location.reload();
+                    }
+                }
+            })
+                .fail(function() {
+                    console.log("error");
+                })
+
+        });
+    });
 
 </script>

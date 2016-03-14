@@ -44,12 +44,12 @@ class Customerpriority extends CI_Controller
 
     }
 
-    function addOption($option, $priorityid)
+    function addOption($option, $priorityid, $remarks)
     {
         $newoption = array(
             'priority_id' => $priorityid,
             'option_title' => rawurldecode($option),
-            'remarks' => $option,
+            'remarks' => rawurldecode($remarks),
             'other_status' => 0,
             'status' => 1
         );
@@ -57,7 +57,7 @@ class Customerpriority extends CI_Controller
         $options = $this->mpriority->getOptions($priorityid);
         $c = 1;
         foreach ($options as $opt) {
-            echo '<p>' . $c . ') ' . $opt->option_title . '</p>';
+            echo '<p>' . $c . ') ' . $opt->option_title .' - '.rawurldecode($opt->remarks). '</p>';
             $c++;
         }
     }

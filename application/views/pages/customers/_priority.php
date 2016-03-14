@@ -7,6 +7,7 @@
 	            <?php foreach ($priority['option'] as $option): ?>
 	            	<li><?php echo($option) ?></li>
 	            <?php endforeach ?>
+                <li><a href="#"><i class="glyphicon glyphicon-edit"></i> Edit</a></li>
 	        </ul>
 	    </div>
 	</div>	

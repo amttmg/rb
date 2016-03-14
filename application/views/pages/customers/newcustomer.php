@@ -196,7 +196,6 @@
                             
                         </div><!--end col-lg-12 of priorities and options-->
                     </div>
-
                     <div class="row1"><!-- customer family secton begins -->
                         <div class="box">
                               <div class="box-header with-border">
