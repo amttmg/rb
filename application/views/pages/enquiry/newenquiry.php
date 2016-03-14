@@ -35,7 +35,7 @@
                     <div class="col-md-12">
                         <div class="form-inline">
                             <div class="form-group">
-                                <input name="cardno" type="text" class="form-control" id="card_no">
+                                <input name="cardno" type="number" class="form-control" id="card_no">
                                 <!--                                <button class="btn btn-primary" id="btnsearch">Search</button>-->
                             </div>
                         </div>
