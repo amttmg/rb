@@ -667,6 +667,14 @@
 </div><!-- /.modal -->
 
 <script>
+    $('#marital_status_no').click(function() {
+        $('#anniversary_date').val('');
+        $('#aniversary_date').hide();
+    });
+    $('#marital_status_yes').click(function() {
+        $('#aniversary_date').show();
+    });
+
     $('#btnAddCard').click(function () {
         $('#modaladdcard').modal();
     })
