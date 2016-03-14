@@ -173,7 +173,7 @@
                                                     <?php foreach ($priority['options'] as $option): ?>
                                                         <div class="checkbox">
                                                             <label>
-                                                                <input type="checkbox" value="<?php echo($option->option_id); ?>" name="<?php echo($priority['priority']->priority_id); ?>[]"><?php echo($option->option_title); ?>
+                                                                <input type="checkbox" value="<?php echo($option->option_id); ?>" name="<?php echo($priority['priority']->priority_id); ?>[]"><?php echo($option->option_title.'-'.$option->remarks); ?>
                                                             </label>
                                                         </div>
                                                     <?php endforeach ?>
@@ -181,7 +181,7 @@
                                                     <?php foreach ($priority['options'] as $option): ?><!-- foreach started for options -->
                                                        <div class="radio">
                                                             <label>
-                                                                <input type="radio" name="<?php echo $priority['priority']->priority_id;  ?>" id="optionsRadios1" value="<?php echo($option->option_id); ?>" checked=""><?php echo($option->option_title); ?>
+                                                                <input type="radio" name="<?php echo $priority['priority']->priority_id;  ?>" id="optionsRadios1" value="<?php echo($option->option_id); ?>" checked=""><?php echo($option->option_title.'-'.$option->remarks); ?>
                                                             </label>
                                                         </div>
                                                     <?php endforeach ?><!-- foreach end of options -->
