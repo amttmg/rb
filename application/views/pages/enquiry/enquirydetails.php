@@ -32,7 +32,7 @@
                             SN
                         </th>
                         <th>
-                            Customer Name
+                          Name
                         </th>
                         <th>
                             Enquiry item
@@ -41,7 +41,7 @@
                             Enquiry type
                         </th>
                         <th>
-                           Intended purchase mode
+                          purchase mode
                         </th>
                         <th>
                             Enquiry date
@@ -50,10 +50,10 @@
                             followup date
                         </th>
                         <th>
-                            Min price range
+                            Min price
                         </th>
                         <th>
-                            Max price range
+                            Max price
                         </th>
                         <th>
                             Action
