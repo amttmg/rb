@@ -1,6 +1,6 @@
 
 <?php $count=1; foreach ($priorities as $i=>$priority): ?>
-	<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+	<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
 	    <div class="form-group">
 	        <h4><?php echo($count) ?>)<?php echo($priority['priority']) ?></h4>
 	        <ul class="list-unstyled" id="options">
