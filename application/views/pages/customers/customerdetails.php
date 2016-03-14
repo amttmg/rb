@@ -71,10 +71,10 @@
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-2">
-                        <a href="<?php echo base_url('customer/customers') ?>" class="btn btn-danger btn-sm btn-block ">
+                        <a href="<?php echo base_url('customer/customers') ?>" class="btn btn-warning btn-sm btn-block ">
                             <span class="glyphicon glyphicon-backward pull-left"></span> Back</a>
                         <?php if ($customer->status != 'verified') { ?>
-                            <a class="btn-success btn btn-sm btn-block"
+                            <a class="btn-success btn btn-sm btn-block" onclick="return confirm('Are you sure want to verify this customer?')"
                                href="<?php echo(site_url('customer/verify/' . md5($customer->customer_id))) ?>"><i
                                     class="glyphicon glyphicon-ok pull-left"></i> Verify Customer</a>
                         <?php } ?>
@@ -197,7 +197,6 @@
                <div class="btn-group pull-right">
 
                    <a href="#" id="btneditcustomer" class=" btn btn-primary btn-sm"><i class="glyphicon glyphicon-edit"></i> Edit</a>
-                   <a href="#" id="deactive" class=" btn btn-danger btn-sm"><i class="glyphicon glyphicon-remove"></i> Deactive</a>
                    </div>
 
                 <div class="row" id="family_details" style="display: none">
