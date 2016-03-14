@@ -166,7 +166,7 @@
                                 <div class="box-body">
                                 <?php $count=1; foreach ($priorities as $priority): ?><!-- foreach started for priorities -->
 
-                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                                                 <div class="form-group">
                                                 <label><?php echo($count) ?>) <?php echo $priority['priority']->title; ?></label>
                                                 <?php if ($priority['priority']->multichoice): ?><!-- check if priority is multichoice or not if yes then make chekbox else make radio -->
