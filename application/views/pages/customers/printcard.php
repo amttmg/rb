@@ -21,7 +21,7 @@
                 <?php echo $customer->fname.' '.$customer->mname.' '.$customer->lname; ?><br/>
                <?php echo $customer->email; ?><br/>
                 <?php echo $customer->phone1; ?><br/>
-                <?php echo $customer->dob; ?><br/>
+                <?php echo $card->added_date; ?><br/>
             </div>
         </div>
 </div>
