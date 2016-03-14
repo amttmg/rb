@@ -194,7 +194,12 @@
 
                 </div>
                 <a href="#" id="seemore">See More</a>
-                <a href="#" id="Edit" class="pull-right btn btn-primary btn-sm">Edit</a>
+               <div class="btn-group pull-right">
+
+                   <a href="#" id="Edit" class=" btn btn-primary btn-sm"><i class="glyphicon glyphicon-edit"></i> Edit</a>
+                   <a href="#" id="deactive" class=" btn btn-danger btn-sm"><i class="glyphicon glyphicon-remove"></i> Deactive</a>
+                   </div>
+
                 <div class="row" id="family_details" style="display: none">
                     <div class="col-md-12">
                         <div class="box">
