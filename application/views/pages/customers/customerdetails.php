@@ -102,7 +102,7 @@
                         <button class="btn-primary btn btn-sm btn-block pull-left" id=""><i
                                 class="glyphicon glyphicon-edit pull-left"></i> New Enquiry
                         </button>
-                        <button class="btn-primary btn btn-sm btn-block pull-left" id=""><i
+                        <button class="btn-primary btn btn-sm btn-block pull-left" id="btnenqhostory"><i
                                 class="glyphicon glyphicon-folder-open pull-left"></i> Enquiry History
                         </button>
                         <button class="btn-primary btn btn-sm btn-block pull-left" id=""><i
@@ -355,6 +355,73 @@
     </div>
     <!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<div class="modal fade" tabindex="-1" role="dialog" id="enqhistor">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">×</span></button>
+                <h4 class="modal-title">Enquiry History</h4>
+            </div>
+            <div class="modal-body clearfix" id="printpage">
+                <table class="table table-bordered">
+                    <thead>
+                    <td>
+                       Date Time
+                    </td>
+                    <td>
+                        Enquiry Type
+                    </td>
+                    <td>
+                       Followup Date
+                    </td>
+                    <td>
+                        Enquiry Items
+                    </td>
+                    <td>
+                        Price Min
+                    </td>
+                    <td>
+                        Price Max
+                    </td>
+                    </thead>
+                    <?php foreach ($enquiry as $enq) {
+                        ?>
+                        <tr>
+                            <td>
+                                <?php echo $enq->enquiry_date.' '.$enq->enquiry_time ?>
+                            </td>
+                            <td>
+                                <?php echo $enq->enquiry_type ?>
+                            </td>
+                            <td>
+                                <?php echo $enq->followup_date ?>
+                            </td>
+                            <td>
+                                <?php echo $enq->enquiry_items ?>
+                            </td>
+                            <td>
+                                <?php echo $enq->price_range_min ?>
+                            </td>
+                            <td>
+                                <?php echo $enq->price_range_max ?>
+                            </td>
+                        </tr>
+                        <?php
+                    } ?>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div><!-- /.modal -->
 <script>
     $('#btnAddCard').click(function () {
         $('#modaladdcard').modal();
@@ -365,6 +432,9 @@
     })
     $('#btncardhistory').click(function () {
         $('#cardhistory').modal('show');
+    })
+    $('#btnenqhostory').click(function(){
+        $('#enqhistor').modal('show');
     })
 
 
