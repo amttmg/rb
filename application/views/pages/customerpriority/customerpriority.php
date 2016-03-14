@@ -50,25 +50,33 @@
                                 <?php
                                 $c = 1;
                                 foreach ($pr['options'] as $opt) {
-                                    echo '<p>' . $c . ') ' . $opt->option_title . '</p>';
+                                    echo '<p>' . $c . ') ' . $opt->option_title .' - '.rawurldecode($opt->remarks). '</p>';
                                     $c++;
                                 }
                                 ?>
                             </div>
                             <div>
                                 <div class="col-xs-2" style="padding: 5px 5px 0px 0px!important;">
-                                    <form class="frnnewopt">
-                                        <input required type="text" name="opt" class="form-control input-sm"
-                                               placeholder="new option"
-                                               id="txtnewoption<?php echo $pr['priority']->priority_id ?>">
+                                    <form class="frnnewopt form-inline">
+                                        <div class="form-group">
+                                            <input required type="text" name="opt" class="form-control input-sm"
+                                                   placeholder="new option"
+                                                   id="txtnewoption<?php echo $pr['priority']->priority_id ?>">
+                                            <p class="err" style="color:red"></p>
+                                        </div>
+                                       <div class="form-group">
+                                           <input required type="text" name="optremarks" class="form-control input-sm"
+                                                  placeholder="new option remarks"
+                                                  id="txtnewoptionremarks<?php echo $pr['priority']->priority_id ?>">
+                                       </div>
 
-                                        <p class="err" style="color:red"></p>
                                     </form>
+                                    <button class="btn btn-primary btn-sm btnnewoption"
+                                            data-id="<?php echo $pr['priority']->priority_id ?>"
+                                            style="margin: 5px 5px 0px 0px!important;">Add
+                                    </button>
                                 </div>
-                                <button class="btn btn-primary btn-sm btnnewoption"
-                                        data-id="<?php echo $pr['priority']->priority_id ?>"
-                                        style="margin: 5px 5px 0px 0px!important;">Add
-                                </button>
+
                             </div>
                         </div>
                         <!-- /.box-body -->
@@ -132,12 +140,14 @@
     $('.btnnewoption').click(function () {
         var id = $(this).data('id');
         var opt = $('#txtnewoption' + id).val();
+        var optremarks = $('#txtnewoptionremarks' + id).val();
         if (opt != '') {
             $(this).parent().find("p").html('');
             $.ajax({
-                url: '<?php echo base_url('customerpriority/addOption') ?>/' + opt + '/' + id,
+                url: '<?php echo base_url('customerpriority/addOption') ?>/' + opt + '/' + id+'/'+optremarks,
                 success: function (res) {
                     $('#txtnewoption' + id).val('');
+                    $('#txtnewoptionremarks' + id).val('');
                     $('#div' + id).html(res);
                 }
             })
