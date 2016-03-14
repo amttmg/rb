@@ -69,7 +69,7 @@ class M_customer extends CI_Model
 
     }
 
-    public function update($id, $image_name = "customer_default.jpeg")
+    public function update($id)
     {
         $data = array(
             'fname' => $this->input->post('name'),

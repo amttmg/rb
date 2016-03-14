@@ -89,9 +89,13 @@ class Customer extends CI_Controller
     }
 
     //Update one customer
-    public function update($id = NULL)
+    public function update($id='')
     {
-        if ($id) {
+        $master['status'] = True;
+        $data = array();
+        $master = array();
+        if ($id) 
+        {
             $this->form_validation->set_rules('fname', 'First Name', 'trim|required|min_length[5]|max_length[100]');
             $this->form_validation->set_rules('lname', 'Last Name', 'trim|required|min_length[5]|max_length[100]');
             $this->form_validation->set_rules('address', 'Address', 'trim|required|min_length[5]|max_length[12]');
@@ -102,17 +106,24 @@ class Customer extends CI_Controller
             $this->form_validation->set_rules('aniversary_date', 'Aniversary date', 'trim|required');
             $this->form_validation->set_rules('dob', 'DOB', 'trim|required');
             $this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
-            if ($this->form_validation->run() == TRUE) {
+            if ($this->form_validation->run() == True) 
+            {
+                $master['message'] = "Customer updated successfully !";
                 $this->customer->update($id);
-                $this->session->set_flashdata('message', 'Customer added successfully !');
-                //redirect('customer/index','refresh');
-            } else {
-                $data['title'] = "Create Customer";
-                $data['content'] = $this->load->view('pages/customers/newcustomer', '', true);
-                $this->parser->parse('template/page_template', $data);
+            } else 
+            {
+                $master['status'] = false;
+                foreach ($_POST as $key => $value) 
+                {
+                    if (form_error($key) != '') 
+                    {
+                        $data['error_string'] = $key;
+                        $data['input_error'] = form_error($key);
+                        array_push($master, $data);
+                    }
+                }
             }
-        } else {
-            show_404();
+            echo(json_encode($master));
         }
     }
 
@@ -207,6 +218,7 @@ class Customer extends CI_Controller
         } else {
             show_404();
         }
+        
     }
 
     public function verify($id = "")
@@ -240,6 +252,12 @@ class Customer extends CI_Controller
         } else {
             echo "Customer Not Found";
         }
+    }
+    public function get_customer($id)
+    {
+         $customer=$this->customer->getCustomers($id);
+        echo(json_encode($customer));
+        
     }
 
 }
