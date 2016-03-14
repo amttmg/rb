@@ -200,6 +200,7 @@ class Customer extends CI_Controller
         $cust['hascard'] = $this->card->hasCard($id);
         $cust['cards'] = $this->card->getAllCards($id);
         $cust['enquiry'] = $this->enquiry->getEnquiry($id);
+        $cust['enquiry_type'] = $this->enquiry->getEnquiryType();
         if (count($cust['customer']) > 0) {
             $data['content'] = $this->load->view('pages/customers/customerdetails', $cust, true);
             $this->parser->parse('template/page_template', $data);
