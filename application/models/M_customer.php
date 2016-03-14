@@ -72,7 +72,7 @@ class M_customer extends CI_Model
     public function update($id)
     {
         $data = array(
-            'fname' => $this->input->post('name'),
+            'fname' => $this->input->post('fname'),
             'mname' => $this->input->post('mname'),
             'lname' => $this->input->post('lname'),
             'address' => $this->input->post('address'),
@@ -81,12 +81,12 @@ class M_customer extends CI_Model
             'phone2' => $this->input->post('phone2'),
             'gender' => $this->input->post('gender'),
             'marital_status' => $this->input->post('marital_status'),
-            'anniversary_date' => $this->input->post('aniversary_date'),
+            'anniversary_date' => $this->input->post('anniversary_date'),
             'dob' => $this->input->post('dob'),
             'user_id' => 1,
-            'customer_image' => $image_name,
         );
-        $this->db->update('customers', $data);
+        $this->db->where('customer_id',$id);
+        $this->db->update('tbl_customers', $data);
     }
 
     public function get_priority()

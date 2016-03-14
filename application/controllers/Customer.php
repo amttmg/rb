@@ -96,14 +96,13 @@ class Customer extends CI_Controller
         $master = array();
         if ($id) 
         {
-            $this->form_validation->set_rules('fname', 'First Name', 'trim|required|min_length[5]|max_length[100]');
-            $this->form_validation->set_rules('lname', 'Last Name', 'trim|required|min_length[5]|max_length[100]');
-            $this->form_validation->set_rules('address', 'Address', 'trim|required|min_length[5]|max_length[12]');
-            $this->form_validation->set_rules('email', 'Email', 'trim|required|is_unique[tbl_customers.email]');
+            $this->form_validation->set_rules('fname', 'First Name', 'trim|required|min_length[2]|max_length[100]');
+            $this->form_validation->set_rules('lname', 'Last Name', 'trim|required|min_length[2]|max_length[100]');
+            $this->form_validation->set_rules('address', 'Address', 'trim|required|min_length[2]|max_length[64]');
+            $this->form_validation->set_rules('email', 'Email', 'trim|required');
             $this->form_validation->set_rules('phone1', 'Phone Number', 'trim|required|min_length[10]|max_length[10]');
             $this->form_validation->set_rules('gender', 'Gender', 'trim|required');
             $this->form_validation->set_rules('marital_status', 'Marital Status', 'trim|required');
-            $this->form_validation->set_rules('aniversary_date', 'Aniversary date', 'trim|required');
             $this->form_validation->set_rules('dob', 'DOB', 'trim|required');
             $this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
             if ($this->form_validation->run() == True) 

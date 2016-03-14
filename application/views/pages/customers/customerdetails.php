@@ -576,19 +576,22 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                        <?php echo form_open_multipart('customer/update',array('id'=>'customer_edit_form')); ?>
+                        <?php echo form_open('customer/update',array('id'=>'customer_edit_form')); ?>
                         <input type="hidden" name="customer_id" id="update_customer" >
                         <div class="form-group">
                             <label for="">First Name</label>
                             <input required type="name" tabindex="1" class="form-control" name="fname" id="fname" placeholder="first Name">
+                            <span></span>
                             </div>
                         <div class="form-group">
                             <label for="">Address</label>
                             <input required type="text" tabindex="4" class="form-control" name="address" id="address" placeholder="Address">
+                             <span></span>
                         </div>
                         <div class="form-group">
                             <label for="">Phone 2</label>
                             <input type="text" tabindex="7" class="form-control" name="phone2" id="phone2" placeholder="Phone 2">
+                             <span></span>
                         </div>
                         <div class="form-group">
                             <label>Marital Status</label><br/>
@@ -598,6 +601,7 @@
                             <label class="radio-inline">
                                 <input type="radio" name="marital_status" tabindex="11" id="marital_status_no" value="0" >No
                             </label>
+                             <span></span>
                         </div>
 
 
@@ -608,20 +612,22 @@
                         <div class="form-group">
                             <label for="">Middle Name</label>
                             <input type="name" tabindex="15" class="form-control" name="mname" id="mname" placeholder="Middle Name ">
-                            
+                             <span></span>
                         </div>
                         <div class="form-group">
                             <label for="">Email</label>
                             <input type="email" tabindex="5" class="form-control" name="email" id="email" placeholder="Email" >
-                            
+                             <span></span>
                         </div>
                         <div class="form-group">
                             <label>Date of birth</label>
                             <input required type="date" tabindex="8" class="form-control" name="dob" id="dob" placeholder="date of birth">
+                             <span></span>
                         </div>
                         <div class="form-group" id="aniversary_date">
                             <label>Aniversary Date</label>
                             <input type="date" class="form-control" name="anniversary_date" id="anniversary_date" placeholder="Aniversary Date">
+                             <span></span>
                         </div>
                     </div><!-- middle form end -->
 
@@ -629,12 +635,12 @@
                         <div class="form-group">
                             <label for="">Last Name</label>
                             <input required type="name" tabindex="3" class="form-control" name="lname" id="lname" placeholder="Last Name" value="<?php echo(set_value('lname')) ?>">
-                            <?php echo(form_error('lname')) ?>
+                             <span></span>
                         </div>
                         <div class="form-group">
                             <label for="">Phone 1</label>
                             <input required type="text" tabindex="6" class="form-control" name="phone1" id="phone1" placeholder="Phone 1" value="<?php echo(set_value('phone1')) ?>">
-                            <?php echo(form_error('phone1')) ?>
+                            <span></span>
                         </div>
                         <div class="form-group">
                             <label>Gender</label><br/>
@@ -721,9 +727,11 @@
             })
             $('#editcustomer').modal('show');
     })
+    
 </script>
 <script type="text/javascript">
     $(document).ready(function() {
+
         $("input").change(function(){
             $(this).parent().parent().removeClass('has-error');
             $(this).next().empty();
@@ -736,6 +744,43 @@
             $(this).parent().parent().removeClass('has-error');
             $(this).next().empty();
         });
+        //thsi function is used for update customer
+
+        $('#btn_customer_edit').click(function() {
+            var formData1 = new FormData($('#customer_edit_form')[0]);
+            $.ajax({
+                url: '<?php  echo site_url("customer/update/"); ?>'+'/'+$('#customer_id').val(),
+                type: 'POST',
+                dataType: 'json',
+                data: formData1,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success:function(data){
+
+                    if (data.status==false)
+                    {
+                        $.each(data, function(index, val)
+                        {
+                            $('#'+val.error_string).next().html(val.input_error);
+                            $('#'+val.error_string).parent().parent().addClass('has-error');
+
+                        });
+                    }
+                    else
+                    {
+//                        window.location.replace("<?php //echo base_url('customer/customerdetails/'.md5($customer->customer_id)) ?>//");
+                        location.reload();
+                    }
+                }
+            })
+                .fail(function() {
+                    console.log("error");
+                })
+
+        });
+
+        //this function is used for saving custmer enquiry
         $('#save').click(function() {
             var formData = new FormData($('#myform')[0]);
             $.ajax({
