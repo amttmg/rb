@@ -7,6 +7,7 @@
 	            <?php foreach ($priority['option'] as $option): ?>
 	            	<li><?php echo($option) ?></li>
 	            <?php endforeach ?>
+                <li><a href="#">Edit</a></li>
 	        </ul>
 	    </div>
 	</div>	

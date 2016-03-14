@@ -28,7 +28,7 @@
 
                             $.each(data.families, function (index, val) {
                                 var image = "<?php echo base_url('uploads/"+val.image_url+"'); ?>";
-                                $('#families').append('<tr><td>' + val.name + '</td><td>' + val.address + '</td><td>' + val.phone1 + '</td><td>' + val.phone2 + '</td><td>' + val.relation + '</td><td><img height="30px" src="' + image + '"></td></tr>');
+                                $('#families').append('<tr><td>' + val.name + '</td><td>' + val.address + '</td><td>' + val.phone1 + '</td><td>' + val.phone2 + '</td><td>' + val.relation + '</td><td><img height="30px" src="' + image + '"></td><td><div class="btn-group"><button class="btn btn-primary btn-sm">Edit</button><button class="btn btn-danger btn-sm">Remove</button></div></td></tr>');
                             });
 
                         }
@@ -105,12 +105,12 @@
                         <button class="btn-primary btn btn-sm btn-block pull-left" id="btnenqhostory"><i
                                 class="glyphicon glyphicon-folder-open pull-left"></i> Enquiry History
                         </button>
-                        <button class="btn-primary btn btn-sm btn-block pull-left" id=""><i
-                                class="glyphicon glyphicon-edit pull-left"></i> New Order
-                        </button>
-                        <button class="btn-primary btn btn-sm btn-block pull-left" id=""><i
-                                class="glyphicon glyphicon-folder-open pull-left"></i> Order History
-                        </button>
+<!--                        <button class="btn-primary btn btn-sm btn-block pull-left" id=""><i-->
+<!--                                class="glyphicon glyphicon-edit pull-left"></i> New Order-->
+<!--                        </button>-->
+<!--                        <button class="btn-primary btn btn-sm btn-block pull-left" id=""><i-->
+<!--                                class="glyphicon glyphicon-folder-open pull-left"></i> Order History-->
+<!--                        </button>-->
 
 
                     </div>
@@ -194,7 +194,7 @@
 
                 </div>
                 <a href="#" id="seemore">See More</a>
-
+                <a href="#" id="Edit" class="pull-right btn btn-primary btn-sm">Edit</a>
                 <div class="row" id="family_details" style="display: none">
                     <div class="col-md-12">
                         <div class="box">
@@ -226,6 +226,7 @@
                                 </div>
                             </div>
                             <div class="box-body" style="display: block;">
+                                <button class="btn btn-primary btn-sm">Add New</button></br>
                                 <table class="table table-bordered">
                                     <thead>
                                     <tr>
@@ -235,6 +236,7 @@
                                         <th>Phone 2</th>
                                         <th>Relation</th>
                                         <th>Photo</th>
+                                        <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody id="families">
