@@ -53,4 +53,17 @@ class Menquiry extends CI_Model
         $this->db->where('md5(customer_id)', $customer_id);
         return $this->db->get('tbl_enquiry')->result();
     }
+
+    public function enable_enquiry($id)
+    {   
+        $this->db->where('enquiry_id',$id);
+        $this->db->update('tbl_enquiry',array('en_status'=>1));
+    }
+
+    public function disable_enquiry($id)
+    {
+        $this->db->where('enquiry_id',$id);
+        $this->db->update('tbl_enquiry',array('en_status'=>0));
+    }
+
 }
