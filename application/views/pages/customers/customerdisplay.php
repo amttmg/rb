@@ -83,7 +83,7 @@
                                 <?php echo anchor(base_url('customer/customerdetails/' . md5($cust->customer_id)), 'View Details', array('href' => '#', 'class' => 'btn btn-primary btn-sm btn-block')) ?>
                             </td>
                         </tr>
-                        <?php $cust++;
+                        <?php $count++;
                     } ?>
                     </tbody>
                 </table>
