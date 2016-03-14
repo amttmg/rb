@@ -71,10 +71,10 @@
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-2">
-                        <a href="<?php echo base_url('customer/customers') ?>" class="btn btn-danger btn-sm btn-block ">
+                        <a href="<?php echo base_url('customer/customers') ?>" class="btn btn-warning btn-sm btn-block ">
                             <span class="glyphicon glyphicon-backward pull-left"></span> Back</a>
                         <?php if ($customer->status != 'verified') { ?>
-                            <a class="btn-success btn btn-sm btn-block"
+                            <a class="btn-success btn btn-sm btn-block" onclick="return confirm('Are you sure want to verify this customer?')"
                                href="<?php echo(site_url('customer/verify/' . md5($customer->customer_id))) ?>"><i
                                     class="glyphicon glyphicon-ok pull-left"></i> Verify Customer</a>
                         <?php } ?>
@@ -197,7 +197,6 @@
                <div class="btn-group pull-right">
 
                    <a href="#" id="btneditcustomer" class=" btn btn-primary btn-sm"><i class="glyphicon glyphicon-edit"></i> Edit</a>
-                   <a href="#" id="deactive" class=" btn btn-danger btn-sm"><i class="glyphicon glyphicon-remove"></i> Deactive</a>
                    </div>
 
                 <div class="row" id="family_details" style="display: none">
@@ -571,14 +570,92 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Modal title</h4>
+                <h4 class="modal-title">Customer Edit</h4>
             </div>
             <div class="modal-body">
-                <p>One fine body&hellip;</p>
+                <div class="row">
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                        <?php echo form_open_multipart('customer/add',array('id'=>'myform')); ?>
+                        <div class="form-group">
+                            <label for="">First Name</label>
+                            <input required type="name" tabindex="1" class="form-control" name="fname" id="fname" placeholder="first Name" value="<?php echo(set_value('fname')) ?>">
+                            <?php echo(form_error('fname')) ?>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Address</label>
+                            <input required type="text" tabindex="4" class="form-control" name="address" id="address" placeholder="Address" value="<?php echo(set_value('address')) ?>">
+                            <?php echo(form_error('address')) ?>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Phone 2</label>
+                            <input type="text" tabindex="7" class="form-control" name="phone2" id="phone2" placeholder="Phone 2" value="<?php echo(set_value('phone2')) ?>">
+                            <?php echo(form_error('phone2')) ?>
+                        </div>
+                        <div class="form-group">
+                            <label>Marital Status</label><br/>
+                            <label class="radio-inline">
+                                <input type="radio" name="marital_status" tabindex="10" id="marital_status_yes" value="1" checked="">yes
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="marital_status" tabindex="11" id="marital_status_no" value="0" checked="">No
+                            </label>
+                        </div>
+
+
+
+                    </div><!--col-lg-6 (left side form end)-->
+
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"><!--middle form started-->
+                        <div class="form-group">
+                            <label for="">Middle Name</label>
+                            <input type="name" tabindex="15" class="form-control" name="mname" id="mname" placeholder="Middle Name " value="<?php echo(set_value('mname')) ?>">
+                            <?php echo(form_error('name')) ?>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Email</label>
+                            <input type="email" tabindex="5" class="form-control" name="email" id="email" placeholder="Email" value="<?php echo(set_value('email')) ?>">
+                            <?php echo(form_error('email')) ?>
+                        </div>
+                        <div class="form-group">
+                            <label>Date of birth</label>
+                            <input required type="date" tabindex="8" class="form-control" name="dob" id="dob" placeholder="date of birth" value="<?php echo(set_value('dob')) ?>">
+                            <?php echo(form_error('dob')) ?>
+                        </div>
+                        <div class="form-group" id="aniversary_date">
+                            <label>Aniversary Date</label>
+                            <input type="date" class="form-control" name="aniversary_date" id="aniversary_text" placeholder="Aniversary Date" value="<?php echo(set_value('aniversary_date')) ?>">
+                            <?php echo(form_error('aniversary_date')) ?>
+                        </div>
+                    </div><!-- middle form end -->
+
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"><!-- right form started -->
+                        <div class="form-group">
+                            <label for="">Last Name</label>
+                            <input required type="name" tabindex="3" class="form-control" name="lname" id="lname" placeholder="Last Name" value="<?php echo(set_value('lname')) ?>">
+                            <?php echo(form_error('lname')) ?>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Phone 1</label>
+                            <input required type="text" tabindex="6" class="form-control" name="phone1" id="phone1" placeholder="Phone 1" value="<?php echo(set_value('phone1')) ?>">
+                            <?php echo(form_error('phone1')) ?>
+                        </div>
+                        <div class="form-group">
+                            <label>Gender</label><br/>
+                            <label class="radio-inline">
+                                <input type="radio" tabindex="9" name="gender" id="male" value="male" checked="checked">Male
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="gender" id="female" value="female">Female
+                            </label>
+
+                        </div>
+                    </div><!-- right form end -->
+                </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
             </div>
         </div>
         <!-- /.modal-content -->
@@ -610,6 +687,14 @@
 </script>
 <script type="text/javascript">
     $(document).ready(function() {
+        $('#aniversary_date').hide();
+        $('#marital_status_yes').click(function() {
+            $('#aniversary_date').show();
+        });
+        $('#marital_status_no').click(function() {
+            $('#aniversary_text').val("");
+            $('#aniversary_date').hide();
+        });
         $("input").change(function(){
             $(this).parent().parent().removeClass('has-error');
             $(this).next().empty();
