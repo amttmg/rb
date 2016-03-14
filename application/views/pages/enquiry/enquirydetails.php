@@ -238,11 +238,9 @@ $('.btnedit').click(function(event) {
     var enqid= $(this).data('enquiryid');
     $.ajax({
         url: '<?php echo site_url("enquiry/get_enquiry"); ?>'+'/'+enqid,
-        type: 'POST',
-        dataType: 'json',
-        data: {param1: 'value1'},
         success:function (data) {
-            console.log(data);
+           var obj= jQuery.parseJSON(data);
+            alert(obj.enquiry_date);
         }
     })
     .fail(function() {

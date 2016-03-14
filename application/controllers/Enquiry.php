@@ -140,8 +140,8 @@ class Enquiry extends CI_Controller
     {
         $this->load->database();
         $this->db->where('enquiry_id',$id);
-        $data=$this->db->get('tbl_enquiry')->result();
-        echo(json_encode($data));
+        $data=$this->db->get('tbl_enquiry')->row();
+       echo json_encode($data);
     }
 
 
