@@ -114,4 +114,36 @@ class Enquiry extends CI_Controller
         }
 
     }
+    public function edit_enquiry($id='',$status='')
+    {
+        if(!$id)
+        {
+            show_404();
+        }
+        //run when enquiry need to be disabled
+        if($status==1)
+        {
+            $this->enquiry->disable_enquiry($id);
+        }
+        else//run when enquiry need to be enabled
+        {   
+            $this->enquiry->enable_enquiry($id);
+        }
+        
+        redirect('enquiry','refresh');
+    }
+    public function update_enquiry($value='')
+    {
+        
+    }
+    public function get_enquiry($id)
+    {
+        $this->load->database();
+        $this->db->where('enquiry_id',$id);
+        $data=$this->db->get('tbl_enquiry')->row();
+       echo json_encode($data);
+    }
+
+
+    
 }
