@@ -1,5 +1,50 @@
 <script type="text/javascript">
-    
+     $(document).ready(function() {
+        $("textarea").change(function(){
+            $(this).parent().parent().removeClass('has-error');
+            $(this).next().empty();
+        });
+        $("select").change(function(){
+            $(this).parent().parent().removeClass('has-error');
+            $(this).next().empty();
+        });
+        $('#btn_update').click(function() {
+            var formData = new FormData($('#myform')[0]);
+            $.ajax({
+            url: '<?php  echo site_url("enquiry/update_enquiry"); ?>',
+            type: 'POST',
+            dataType: 'json',
+            data:formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success:function(data){
+                 $('.overlay').hide();
+                if (data.status==false)
+                    {
+                        $.each(data, function(index, val)
+                        {
+
+                            $('#'+val.error_string).next().html(val.input_error);
+                            $('#'+val.error_string).parent().parent().addClass('has-error');
+                            console.log(val.input_error);
+
+                        });
+                    }
+                    else
+                    {
+                        $('#save').prop('disabled', true);
+                        location.reload();
+                    }
+            }
+        })
+        .fail(function() {
+            console.log("error");
+        })
+
+        });
+
+    });
 </script>
 
 <div class="content-wrapper">
@@ -105,6 +150,7 @@
                     </div>
                     <div class="modal-body">
                         <?php echo form_open_multipart('enquiry/addEnquiry', array('id' => 'myform')); ?>
+                        <input type="hidden" name="enquiry_id" id="enquiry_id">
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <div class="form-group">
@@ -221,7 +267,7 @@
                                         <?php echo(form_close()) ?>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary">Update</button>
+                        <button type="button" class="btn btn-primary" id="btn_update">Update</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                 </div>
@@ -236,11 +282,15 @@
 <script>
 $('.btnedit').click(function(event) {
     var enqid= $(this).data('enquiryid');
+    $('#enquiry_id').val(enqid);
     $.ajax({
         url: '<?php echo site_url("enquiry/get_enquiry"); ?>'+'/'+enqid,
         success:function (data) {
            var obj= jQuery.parseJSON(data);
-            alert(obj.enquiry_date);
+            $.each(obj, function(index, val) {
+                 $('#'+index).val(val);
+            });
+            $('#editEnquiry').modal('show');
         }
     })
     .fail(function() {

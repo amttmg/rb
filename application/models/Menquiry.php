@@ -38,6 +38,23 @@ class Menquiry extends CI_Model
         $this->db->insert('tbl_enquiry', $data);
     }
 
+    public function update($id)
+    {
+         $data = array(
+            'enquiry_date' => $this->input->post('enquiry_date'),
+            'enquiry_time' => $this->input->post('enquiry_time'),
+            'enquiry_type' => $this->input->post('enquiry_type'),
+            'followup_date' => $this->input->post('followup_date'),
+            'enquiry_items' => $this->input->post('enquiry_items'),
+            'intended_purchasemode' => $this->input->post('intended_purchasemode'),
+            'price_range_min' => $this->input->post('price_range_min'),
+            'price_range_max' => $this->input->post('price_range_max'),
+            'remarks' => $this->input->post('remarks')
+        );
+         $this->db->where('enquiry_id',$id);
+         $this->db->update('tbl_enquiry',$data);
+    }
+
     public function get_details()
     {
         $this->db->select('*');

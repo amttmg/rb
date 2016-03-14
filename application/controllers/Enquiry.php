@@ -26,6 +26,7 @@ class Enquiry extends CI_Controller
     function index()
     {
         $data['enquirydetails'] = $this->enquiry->get_details();
+        $data['enquiry_type'] = $this->enquiry->getEnquiryType();
         $data['title'] = "Enquiry deatails";
         $data['content'] = $this->load->view('pages/enquiry/enquirydetails', $data, true);
         $this->parser->parse('template/page_template', $data);
@@ -132,9 +133,37 @@ class Enquiry extends CI_Controller
         
         redirect('enquiry','refresh');
     }
-    public function update_enquiry($value='')
+    public function update_enquiry()
     {
-        
+        $master['status'] = True;
+        $data = array();
+        $master = array();
+        $this->form_validation->set_rules('enquiry_date', 'Enquiry date', 'trim|required');
+        $this->form_validation->set_rules('enquiry_time', 'Enquiry time', 'trim|required');
+        $this->form_validation->set_rules('enquiry_type', 'Enquiry type', 'trim|required');
+        $this->form_validation->set_rules('followup_date', 'Followup date', 'trim|required');
+        $this->form_validation->set_rules('enquiry_items', 'Enquiry items', 'trim|required|min_length[2]|max_length[200]');
+        $this->form_validation->set_rules('intended_purchasemode', 'Intended purchasemode', 'trim|required|min_length[2]|max_length[100]');
+        $this->form_validation->set_rules('price_range_min', 'Price range min', 'trim');
+        $this->form_validation->set_rules('price_range_max', 'Price range max', 'trim');
+        //$this->form_validation->set_rules('reference_img', 'Reference image', 'callback_validate_image');
+        $this->form_validation->set_rules('remarks', 'Remarks', 'trim|min_length[2]|max_length[200]');
+        $this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
+        if ($this->form_validation->run() == True) {
+            $id=$this->input->post('enquiry_id');
+            $master['message'] = "Customer update successfully !";
+            $this->enquiry->update($id);
+        } else {
+            $master['status'] = false;
+            foreach ($_POST as $key => $value) {
+                if (form_error($key) != '') {
+                    $data['error_string'] = $key;
+                    $data['input_error'] = form_error($key);
+                    array_push($master, $data);
+                }
+            }
+        }
+        echo(json_encode($master));
     }
     public function get_enquiry($id)
     {
