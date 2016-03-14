@@ -243,15 +243,15 @@
                                                     <?php echo(form_error('price_range_max')) ?>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="">Reference Image</label>
-                                                    <input type="file" class="form-control" name="reference_img" id="reference_img"
-                                                           placeholder="Reference Image" value="<?php echo(set_value('reference_img')) ?>">
-                                                           <span class="help-block"></span>
-                                                    <?php echo(form_error('reference_img')) ?>
-                                                </div>
-                                            </div>
+<!--                                            <div class="col-md-4">-->
+<!--                                                <div class="form-group">-->
+<!--                                                    <label for="">Reference Image</label>-->
+<!--                                                    <input type="file" class="form-control" name="reference_img" id="reference_img"-->
+<!--                                                           placeholder="Reference Image" value="--><?php //echo(set_value('reference_img')) ?><!--">-->
+<!--                                                           <span class="help-block"></span>-->
+<!--                                                    --><?php //echo(form_error('reference_img')) ?>
+<!--                                                </div>-->
+<!--                                            </div>-->
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="">Remarks</label>

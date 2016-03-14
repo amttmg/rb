@@ -39,7 +39,7 @@
                     ?>
                     <div class="box box-default collapsed-box">
                         <div class="box-header with-border">
-                            <h3 class="box-title"><?php echo $count ?>) <?php echo $pr['priority']->title ?></h3>
+                            <h3 class="box-title"><?php echo $count ?>. <?php echo $pr['priority']->title ?></h3>
 
                             <div class="box-tools pull-right">
                                 <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
@@ -53,7 +53,7 @@
                                 <?php
                                 $c = 1;
                                 foreach ($pr['options'] as $opt) {
-                                    echo '<p>' . $c . ') ' . $opt->option_title .' - '.rawurldecode($opt->remarks). '</p>';
+                                    echo '<li>'. $opt->option_title .' - '.rawurldecode($opt->remarks). '</li>';
                                     $c++;
                                 }
                                 ?>
