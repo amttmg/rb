@@ -120,7 +120,17 @@ class M_customer extends CI_Model
         }
 
     }
+    public function getCustomersWithCard($id = '')
+    {
 
+        if ($id != '') {
+           show_404();
+        } else {
+            $qry = $this->db->query('select *, ifnull((select card_no from tbl_cards where tbl_cards.customer_id=tbl_customers.customer_id and tbl_cards.status=1), \'No card\') as card_no from tbl_customers');
+            return $qry->result();
+        }
+
+    }
     function insert_family($images)
     {
 

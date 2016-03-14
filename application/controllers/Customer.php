@@ -217,7 +217,7 @@ class Customer extends CI_Controller {
     //customer display
     function customers(){
         $data['title'] = "Customers";
-        $cust['customers']=$this->customer->getCustomers();
+        $cust['customers']=$this->customer->getCustomersWithCard();
         $data['content'] = $this->load->view('pages/customers/customerdisplay',$cust, true);
         $this->parser->parse('template/page_template', $data);
     }

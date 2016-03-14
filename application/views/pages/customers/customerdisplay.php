@@ -40,6 +40,9 @@
                             Phone
                         </th>
                         <th>
+                            Card No
+                        </th>
+                        <th>
                             Status
                         </th>
                         <th>
@@ -65,6 +68,9 @@
                             </td>
                             <td>
                                 <?php echo $cust->phone1 ?>
+                            </td>
+                            <td>
+                                <?php echo $cust->card_no ?>
                             </td>
                             <td>
                                 <?php if ($cust->status == 'pending') { ?>
