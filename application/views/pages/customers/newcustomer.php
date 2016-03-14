@@ -105,7 +105,7 @@
                         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"><!--middle form started-->
                             <div class="form-group">
                                 <label for="">Middle Name</label>
-                                <input type="name" tabindex="15" class="form-control" name="mname" id="mname" placeholder="Middle Name " value="<?php echo(set_value('mname')) ?>">
+                                <input type="name" tabindex="2" class="form-control" name="mname" id="mname" placeholder="Middle Name " value="<?php echo(set_value('mname')) ?>">
                                 <?php echo(form_error('name')) ?>
                             </div>
                             <div class="form-group">
@@ -151,7 +151,7 @@
                             </div>
                             <div class="form-group">
                                     <div>
-                                    <input required type="text" tabindex="6" class="form-control" name="reference" id="reference" placeholder="" value="<?php echo(set_value('reference')) ?>">
+                                    <input required type="text" tabindex="9" class="form-control" name="reference" id="reference" placeholder="" value="<?php echo(set_value('reference')) ?>">
                                     </div>
                                     <input type="hidden" name="refered_id" id="refered_id">
                             </div>

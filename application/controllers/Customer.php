@@ -134,7 +134,7 @@ class Customer extends CI_Controller
 
             if (!$this->upload->do_upload($image_name)) {
                 if (stristr($this->upload->display_errors(), 'You did not select a file to upload')) {
-                    $this->images[] = $this->image_name;
+                    $this->images[]="";
                     return true;
                 } else {
                     $this->form_validation->set_message('validate_image', $this->upload->display_errors());
