@@ -76,7 +76,7 @@
                         <?php if ($customer->status != 'verified') { ?>
                             <a class="btn-success btn btn-sm btn-block"
                                href="<?php echo(site_url('customer/verify/' . md5($customer->customer_id))) ?>"><i
-                                    class="glyphicon glyphicon-ok"></i> Verify Customer</a>
+                                    class="glyphicon glyphicon-ok pull-left"></i> Verify Customer</a>
                         <?php } ?>
 
                         <button class="btn-primary btn btn-sm btn-block pull-left" id="btnAddCard"><i
