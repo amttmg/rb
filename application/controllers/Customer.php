@@ -58,12 +58,17 @@ class Customer extends CI_Controller
         if ($this->form_validation->run() == TRUE) {
             $existing_customer = "";
             $inhouse_refer_id = "";
-            if ($this->input->post('customer_refer') == 0) {
-                $dt = explode(':', $this->input->post('reference'));
-                $existing_customer = $dt[1];
-            } else {
-                $dt = explode(':', $this->input->post('reference'));
-                $inhouse_refer_id = $dt[1];
+            if($this->input->post('refered_id'))
+            {
+                if ($this->input->post('customer_refer') == 0) 
+                {
+                    $dt = explode(':', $this->input->post('reference'));
+                    $existing_customer = $dt[1];
+                } else 
+                {
+                    $dt = explode(':', $this->input->post('reference'));
+                    $inhouse_refer_id = $dt[1];
+                }
             }
             $this->db->trans_begin();
             $this->customer->insert($this->image_name);
