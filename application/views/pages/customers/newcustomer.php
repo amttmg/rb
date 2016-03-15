@@ -244,7 +244,7 @@
                                     <label for="">Name</label>
 
                                     <div class="form-group">
-                                        <input required type="faname1" tabindex="20" class="form-control" name="faname1"
+                                        <input  type="faname1" tabindex="20" class="form-control" name="faname1"
                                                id="faname1" placeholder="family name"
                                                value="<?php echo(set_value('faname1')) ?>">
                                         <?php echo(form_error('faname1')) ?>
@@ -254,7 +254,7 @@
                                     <label for="">Address</label>
 
                                     <div class="form-group">
-                                        <input required type="faaddress1" tabindex="21" class="form-control"
+                                        <input  type="faaddress1" tabindex="21" class="form-control"
                                                name="faaddress1" id="faaddress1" placeholder="address"
                                                value="<?php echo(set_value('faaddress1')) ?>">
                                         <?php echo(form_error('faaddress1')) ?>
@@ -264,7 +264,7 @@
                                     <label for="">Phone 1</label>
 
                                     <div class="form-group">
-                                        <input required type="faphone1" tabindex="22" class="form-control"
+                                        <input  type="faphone1" tabindex="22" class="form-control"
                                                name="faphone1" id="faphone1" placeholder="phone 1"
                                                value="<?php echo(set_value('faphone1')) ?>">
                                         <?php echo(form_error('faphone1')) ?>
@@ -274,7 +274,7 @@
                                     <label for="">Phone 2</label>
 
                                     <div class="form-group">
-                                        <input required type="faphone21" tabindex="23" class="form-control"
+                                        <input  type="faphone21" tabindex="23" class="form-control"
                                                name="faphone21" id="faphone21" placeholder="phone 2"
                                                value="<?php echo(set_value('faphone21')) ?>">
                                         <?php echo(form_error('faphone21')) ?>
@@ -284,7 +284,7 @@
                                     <label for="">relation</label>
 
                                     <div class="form-group">
-                                        <input required type="farelation1" tabindex="24" class="form-control"
+                                        <input  type="farelation1" tabindex="24" class="form-control"
                                                name="farelation1" id="farelation1" placeholder="Relation"
                                                value="<?php echo(set_value('farelation1')) ?>">
                                         <?php echo(form_error('farelation1')) ?>
@@ -294,7 +294,7 @@
                                     <label for="">Image</label>
 
                                     <div class="form-group">
-                                        <input required type="file" name="faphoto1" tabindex="25">
+                                        <input  type="file" name="faphoto1" tabindex="25">
                                         <?php echo(form_error('faphoto1')); ?>
                                     </div>
                                 </div>
@@ -303,7 +303,7 @@
                             <div class="row"><!-- family second row start -->
                                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                                     <div class="form-group">
-                                        <input required type="faname2" tabindex="26" class="form-control" name="faname2"
+                                        <input  type="faname2" tabindex="26" class="form-control" name="faname2"
                                                id="faname2" placeholder="family name"
                                                value="<?php echo(set_value('faname2')) ?>">
                                         <?php echo(form_error('faname2')) ?>
@@ -311,7 +311,7 @@
                                 </div>
                                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                                     <div class="form-group">
-                                        <input required type="faaddress2" tabindex="27" class="form-control"
+                                        <input  type="faaddress2" tabindex="27" class="form-control"
                                                name="faaddress2" id="faaddress2" placeholder="address"
                                                value="<?php echo(set_value('faaddress2')) ?>">
                                         <?php echo(form_error('faaddress2')) ?>
@@ -319,7 +319,7 @@
                                 </div>
                                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                                     <div class="form-group">
-                                        <input required type="faphone2" tabindex="28" class="form-control"
+                                        <input  type="faphone2" tabindex="28" class="form-control"
                                                name="faphone2" id="faphone2" placeholder="phone 1"
                                                value="<?php echo(set_value('faphone2')) ?>">
                                         <?php echo(form_error('faphone2')) ?>
@@ -327,7 +327,7 @@
                                 </div>
                                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                                     <div class="form-group">
-                                        <input required type="faphone22" tabindex="29" class="form-control"
+                                        <input  type="faphone22" tabindex="29" class="form-control"
                                                name="faphone22" id="faphone22" placeholder="phone 2"
                                                value="<?php echo(set_value('faphone22')) ?>">
                                         <?php echo(form_error('faphone22')) ?>
@@ -335,7 +335,7 @@
                                 </div>
                                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                                     <div class="form-group">
-                                        <input required type="farelation2" tabindex="30" class="form-control"
+                                        <input  type="farelation2" tabindex="30" class="form-control"
                                                name="farelation2" id="farelation2" placeholder="Relation"
                                                value="<?php echo(set_value('farelation2')) ?>">
                                         <?php echo(form_error('farelation2')) ?>
@@ -343,7 +343,7 @@
                                 </div>
                                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                                     <div class="form-group">
-                                        <input required type="file" name="faphoto2" tabindex="31">
+                                        <input  type="file" name="faphoto2" tabindex="31">
                                         <?php echo(form_error('faphoto2')); ?>
                                     </div>
                                 </div>
@@ -352,7 +352,7 @@
                             <div class="row"><!-- family third row start -->
                                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                                     <div class="form-group">
-                                        <input required type="faname3" tabindex="32" class="form-control" name="faname3"
+                                        <input  type="faname3" tabindex="32" class="form-control" name="faname3"
                                                id="faname3" placeholder="family name"
                                                value="<?php echo(set_value('faname3')) ?>">
                                         <?php echo(form_error('faname3')) ?>
@@ -360,7 +360,7 @@
                                 </div>
                                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                                     <div class="form-group">
-                                        <input required type="faaddress3" tabindex="33" class="form-control"
+                                        <input  type="faaddress3" tabindex="33" class="form-control"
                                                name="faaddress3" id="faaddress3" placeholder="address"
                                                value="<?php echo(set_value('faaddress3')) ?>">
                                         <?php echo(form_error('faaddress3')) ?>
@@ -368,7 +368,7 @@
                                 </div>
                                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                                     <div class="form-group">
-                                        <input required type="faphone3" tabindex="34" class="form-control"
+                                        <input  type="faphone3" tabindex="34" class="form-control"
                                                name="faphone3" id="faphone3" placeholder="phone 1"
                                                value="<?php echo(set_value('faphone3')) ?>">
                                         <?php echo(form_error('faphone3')) ?>
@@ -376,7 +376,7 @@
                                 </div>
                                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                                     <div class="form-group">
-                                        <input required type="faphone23" tabindex="35" class="form-control"
+                                        <input  type="faphone23" tabindex="35" class="form-control"
                                                name="faphone23" id="faphone23" placeholder="phone 2"
                                                value="<?php echo(set_value('faphone23')) ?>">
                                         <?php echo(form_error('faphone23')) ?>
@@ -384,7 +384,7 @@
                                 </div>
                                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                                     <div class="form-group">
-                                        <input required type="farelation3" tabindex="36" class="form-control"
+                                        <input  type="farelation3" tabindex="36" class="form-control"
                                                name="farelation3" id="farelation3" placeholder="Relation"
                                                value="<?php echo(set_value('farelation3')) ?>">
                                         <?php echo(form_error('farelation3')) ?>
@@ -392,7 +392,7 @@
                                 </div>
                                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                                     <div class="form-group">
-                                        <input required type="file" name="faphoto3" tabindex="37">
+                                        <input  type="file" name="faphoto3" tabindex="37">
                                         <?php echo(form_error('faphoto3')); ?>
                                     </div>
                                 </div>
@@ -401,7 +401,7 @@
                             <div class="row"><!-- family fourth row start -->
                                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                                     <div class="form-group">
-                                        <input required type="faname4" tabindex="38" class="form-control" name="faname4"
+                                        <input  type="faname4" tabindex="38" class="form-control" name="faname4"
                                                id="faname4" placeholder="family name"
                                                value="<?php echo(set_value('faname4')) ?>">
                                         <?php echo(form_error('faname4')) ?>
@@ -409,7 +409,7 @@
                                 </div>
                                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                                     <div class="form-group">
-                                        <input required type="faaddress4" tabindex="39" class="form-control"
+                                        <input  type="faaddress4" tabindex="39" class="form-control"
                                                name="faaddress4" id="faaddress4" placeholder="address"
                                                value="<?php echo(set_value('faaddress4')) ?>">
                                         <?php echo(form_error('faaddress4')) ?>
@@ -417,7 +417,7 @@
                                 </div>
                                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                                     <div class="form-group">
-                                        <input required type="faphone4" tabindex="40" class="form-control"
+                                        <input  type="faphone4" tabindex="40" class="form-control"
                                                name="faphone4" id="faphone4" placeholder="phone 1"
                                                value="<?php echo(set_value('faphone4')) ?>">
                                         <?php echo(form_error('faphone4')) ?>
@@ -425,7 +425,7 @@
                                 </div>
                                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                                     <div class="form-group">
-                                        <input required type="faphone24" tabindex="41" class="form-control"
+                                        <input  type="faphone24" tabindex="41" class="form-control"
                                                name="faphone24" id="faphone24" placeholder="phone 2"
                                                value="<?php echo(set_value('faphone24')) ?>">
                                         <?php echo(form_error('faphone24')) ?>
@@ -433,7 +433,7 @@
                                 </div>
                                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                                     <div class="form-group">
-                                        <input required type="farelation4" tabindex="42" class="form-control"
+                                        <input  type="farelation4" tabindex="42" class="form-control"
                                                name="farelation4" id="farelation4" placeholder="Relation"
                                                value="<?php echo(set_value('farelation4')) ?>">
                                         <?php echo(form_error('farelation4')) ?>
@@ -441,7 +441,7 @@
                                 </div>
                                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                                     <div class="form-group">
-                                        <input required type="file" name="faphoto4" tabindex="43">
+                                        <input  type="file" name="faphoto4" tabindex="43">
                                         <?php echo(form_error('faphoto4')); ?>
                                     </div>
                                 </div>
@@ -450,7 +450,7 @@
                             <div class="row">
                                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                                     <div class="form-group">
-                                        <input required type="faname5" tabindex="44" class="form-control" name="faname5"
+                                        <input  type="faname5" tabindex="44" class="form-control" name="faname5"
                                                id="faname5" placeholder="family name"
                                                value="<?php echo(set_value('faname5')) ?>">
                                         <?php echo(form_error('faname5')) ?>
@@ -458,7 +458,7 @@
                                 </div>
                                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                                     <div class="form-group">
-                                        <input required type="faaddress5" tabindex="45" class="form-control"
+                                        <input  type="faaddress5" tabindex="45" class="form-control"
                                                name="faaddress5" id="faaddress5" placeholder="address"
                                                value="<?php echo(set_value('faaddress5')) ?>">
                                         <?php echo(form_error('faaddress5')) ?>
@@ -466,7 +466,7 @@
                                 </div>
                                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                                     <div class="form-group">
-                                        <input required type="faphone5" tabindex="46" class="form-control"
+                                        <input  type="faphone5" tabindex="46" class="form-control"
                                                name="faphone5" id="faphone5" placeholder="phone 1"
                                                value="<?php echo(set_value('faphone5')) ?>">
                                         <?php echo(form_error('faphone5')) ?>
@@ -474,7 +474,7 @@
                                 </div>
                                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                                     <div class="form-group">
-                                        <input required type="faphone25" tabindex="47" class="form-control"
+                                        <input  type="faphone25" tabindex="47" class="form-control"
                                                name="faphone25" id="faphone25" placeholder="phone 2"
                                                value="<?php echo(set_value('faphone25')) ?>">
                                         <?php echo(form_error('faphone25')) ?>
@@ -482,7 +482,7 @@
                                 </div>
                                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                                     <div class="form-group">
-                                        <input required type="farelation5" tabindex="48" class="form-control"
+                                        <input  type="farelation5" tabindex="48" class="form-control"
                                                name="farelation5" id="farelation5" placeholder="Relation"
                                                value="<?php echo(set_value('farelation5')) ?>">
                                         <?php echo(form_error('farelation5')) ?>
@@ -490,7 +490,7 @@
                                 </div>
                                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                                     <div class="form-group">
-                                        <input required type="file" name="faphoto5" tabindex="49">
+                                        <input  type="file" name="faphoto5" tabindex="49">
                                         <?php echo(form_error('faphoto5')); ?>
                                     </div>
                                 </div>
