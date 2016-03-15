@@ -263,5 +263,39 @@ class Customer extends CI_Controller
         echo(json_encode($customer));
         
     }
+    //call when need to add new family member
+    public function add_new_family($id)
+    {
+        $master['status'] = True;
+        $data = array();
+        $master = array();
+        $this->form_validation->set_rules('name', 'Family name', 'trim|required|min_length[2]|max_length[64]');
+        $this->form_validation->set_rules('address', 'Family address', 'trim|min_length[2]|max_length[64]');
+        $this->form_validation->set_rules('phone1', 'Phone 1', 'trim|min_length[2]|max_length[15]');
+        $this->form_validation->set_rules('phone2', 'Phone 2', 'trim|min_length[2]|max_length[15]');
+        $this->form_validation->set_rules('relation', 'Relation', 'trim|required|min_length[2]|max_length[64]');
+        $this->form_validation->set_rules('photo', 'Photo', 'callback_validate_image');
+        $this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
+        if ($this->form_validation->run() == True) 
+        {
+            $master['message'] = "New family member added successfully !";
+            $this->customer->add_new_family($id,$this->image_name);
+        } 
+        else 
+        {
+            $master['status'] = false;
+            foreach ($_POST as $key => $value) 
+            {
+                if (form_error($key) != '') 
+                {
+                    $data['error_string'] = $key;
+                    $data['input_error'] = form_error($key);
+                    array_push($master, $data);
+                }
+            }
+            
+        }
+        echo(json_encode($master));
+    }
 
 }

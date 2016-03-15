@@ -230,7 +230,7 @@
                                 </div>
                             </div>
                             <div class="box-body" style="display: block;">
-                                <button class="btn btn-primary btn-sm">Add New</button></br>
+                                <button class="btn btn-primary btn-sm" id="btn_addfamily">Add New</button></br>
                                 <table class="table table-bordered">
                                     <thead>
                                     <tr>
@@ -652,6 +652,7 @@
                             </label>
 
                         </div>
+                        <?php echo form_close(); ?>
                     </div><!-- right form end -->
                 </div>
             </div>
@@ -665,6 +666,56 @@
     </div>
     <!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<div class="modal fade" tabindex="-1" role="dialog" id="addfamily">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Add new family member</h4>
+            </div>
+            <div class="modal-body">
+                <?php echo(form_open_multipart('customer/add_new_family',array('id'=>'add_new_family_form'))) ?>
+                        <div class="form-group">
+                            <label for="">name</label>
+                            <input type="text" name="name" class="form-control" id="name" placeholder="Name">
+                            <span></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="">address</label>
+                            <input type="text" name="address" class="form-control" id="address" placeholder="address">
+                            <span></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Phone 1</label>
+                            <input type="text" name="phone1" class="form-control" id="phone1" placeholder="Phone 1">
+                            <span></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Phone 2</label>
+                            <input type="text" name="phone2" class="form-control" id="phone2" placeholder="Phone 2">
+                            <span></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Relation</label>
+                            <input type="text" name="relation" class="form-control" id="relation" placeholder="Relation">
+                            <span></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Photo</label>
+                            <input type="file" name="photo" id="photo">
+                            <span></span>
+                        </div>
+
+                <?php echo(form_close()) ?>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="btn_save_family">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
     $('#marital_status_no').click(function() {
@@ -735,6 +786,14 @@
             })
             $('#editcustomer').modal('show');
     })
+    //its open modal for add family
+    $('#btn_addfamily').click(function() {
+        $('#addfamily').modal('show');
+    });
+    //its calls ajax for save new family
+    $('#btn_save_family').click(function(event) {
+        
+    });
     
 </script>
 <script type="text/javascript">
@@ -822,6 +881,42 @@
                     console.log("error");
                 })
 
+        });
+
+        //its calls ajax for save new family
+        $('#btn_save_family').click(function(event) {
+
+            var formData = new FormData($('#add_new_family_form')[0]);
+            $.ajax({
+                url: '<?php  echo site_url("customer/add_new_family/"); ?>'+'/'+$('#customer_id').val(),
+                type: 'POST',
+                dataType: 'json',
+                data:formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success:function(data){
+                    if (data.status==false)
+                    {
+                        $.each(data, function(index, val)
+                        {
+
+                            $('#'+val.error_string).next().html(val.input_error);
+                            $('#'+val.error_string).parent().parent().addClass('has-error');
+
+                        });
+                    }
+                    else
+                    {
+//                        window.location.replace("<?php //echo base_url('customer/customerdetails/'.md5($customer->customer_id)) ?>//");
+                        location.reload();
+                    }
+                }
+            })
+            .fail(function() {
+                console.log("error");
+            })
+            
         });
     });
 
