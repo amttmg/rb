@@ -180,7 +180,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="">Enquiry Items</label>
+                        <label for="">Enquired Model No</label>
                         <input type="text" class="form-control" name="enquiry_items" id="enquiry_items"
                                placeholder="Enquiry Items" value="<?php echo(set_value('enquiry_items')) ?>">
                                 <span class="help-block"></span>
