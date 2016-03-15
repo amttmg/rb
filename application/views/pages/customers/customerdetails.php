@@ -28,7 +28,7 @@
 
                             $.each(data.families, function (index, val) {
                                 var image = "<?php echo base_url('uploads/"+val.image_url+"'); ?>";
-                                $('#families').append('<tr><td>' + val.name + '</td><td>' + val.address + '</td><td>' + val.phone1 + '</td><td>' + val.phone2 + '</td><td>' + val.relation + '</td><td><img height="30px" src="' + image + '"></td><td><div class="btn-group"><button class="btn btn-primary btn-sm">Edit</button><button class="btn btn-danger btn-sm">Remove</button></div></td></tr>');
+                                $('#families').append('<tr><td>' + val.name + '</td><td>' + val.address + '</td><td>' + val.phone1 + '</td><td>' + val.phone2 + '</td><td>' + val.relation + '</td><td><img height="30px" src="' + image + '"></td><td><div class="btn-group"><button class="btnEditFamily btn btn-primary btn-sm" data-familyid="'+val.id+'" >Edit</button><button class="btn btn-danger btn-sm">Remove</button></div></td></tr>');
                             });
 
                         }
@@ -710,8 +710,28 @@
                 <?php echo(form_close()) ?>
             </div>
             <div class="modal-footer">
+            <span class="label label-success pull-left" style="display:none" id="message">New family member added successfully !</span>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary" id="btn_save_family">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal for edit family member -->
+<div class="modal fade" abindex="-1" role="dialog" id="edit_family">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
             </div>
         </div>
     </div>
@@ -790,9 +810,9 @@
     $('#btn_addfamily').click(function() {
         $('#addfamily').modal('show');
     });
-    //its calls ajax for save new family
-    $('#btn_save_family').click(function(event) {
-        
+
+    $('.btnEditFamily').click(function() {
+       alert("hello");
     });
     
 </script>
@@ -909,6 +929,10 @@
                     else
                     {
 //                        window.location.replace("<?php //echo base_url('customer/customerdetails/'.md5($customer->customer_id)) ?>//");
+                        $('#btn_save_family').prop('disable',true);
+                        $('#message').show('fast',function(){
+                             setTimeout(sample, 2000);
+                        })
                         location.reload();
                     }
                 }
