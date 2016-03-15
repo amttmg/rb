@@ -211,6 +211,20 @@ class M_customer extends CI_Model
         }
         return $master;
     }
+    //model runs when ajax call(add singel family member at once)
+    public function add_new_family($customer_id,$image)
+    {
+        $data=array(
+            'customer_id'=>$customer_id,
+            'name'=>$this->input->post('name'),
+            'address'=>$this->input->post('address'),
+            'phone1'=>$this->input->post('phone1'),
+            'phone2'=>$this->input->post('phone2'),
+            'relation'=>$this->input->post('relation'),
+            'image_url'=>$image,
+            );
+        $this->db->insert('tbl_customerfamily',$data);
+    }
 
 }
 
