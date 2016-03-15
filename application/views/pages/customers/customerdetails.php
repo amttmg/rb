@@ -283,7 +283,8 @@
                 <h4 class="modal-title">Add Card</h4>
             </div>
             <?php echo form_open('card/addcard', array('id' => 'frmaddcard')); ?>
-            <input type="hidden" name="customer_id" value="<?php echo $customer->customer_id ?>">
+            <input type="hidden" name="customer_id" id="customer_id" value="<?php echo $customer->customer_id ?>">
+            <input type="hidden" name="md5_customer_id" id="md5_customer_id" value="<?php echo(md5($customer->customer_id)); ?>">
 
             <div class="modal-body">
 
@@ -564,7 +565,7 @@
     </div>
 </div>
 
-<div class="modal fade" tabindex="-1" role="dialog" id=editcustomer>
+<div class="modal fade" tabindex="-1" role="dialog" id="editcustomer">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -575,30 +576,32 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                        <?php echo form_open_multipart('customer/add',array('id'=>'myform')); ?>
+                        <?php echo form_open('customer/update',array('id'=>'customer_edit_form')); ?>
+                        <input type="hidden" name="customer_id" id="update_customer" >
                         <div class="form-group">
                             <label for="">First Name</label>
-                            <input required type="name" tabindex="1" class="form-control" name="fname" id="fname" placeholder="first Name" value="<?php echo(set_value('fname')) ?>">
-                            <?php echo(form_error('fname')) ?>
-                        </div>
+                            <input required type="name" tabindex="1" class="form-control" name="fname" id="fname" placeholder="first Name">
+                            <span></span>
+                            </div>
                         <div class="form-group">
                             <label for="">Address</label>
-                            <input required type="text" tabindex="4" class="form-control" name="address" id="address" placeholder="Address" value="<?php echo(set_value('address')) ?>">
-                            <?php echo(form_error('address')) ?>
+                            <input required type="text" tabindex="4" class="form-control" name="address" id="address" placeholder="Address">
+                             <span></span>
                         </div>
                         <div class="form-group">
                             <label for="">Phone 2</label>
-                            <input type="text" tabindex="7" class="form-control" name="phone2" id="phone2" placeholder="Phone 2" value="<?php echo(set_value('phone2')) ?>">
-                            <?php echo(form_error('phone2')) ?>
+                            <input type="text" tabindex="7" class="form-control" name="phone2" id="phone2" placeholder="Phone 2">
+                             <span></span>
                         </div>
                         <div class="form-group">
                             <label>Marital Status</label><br/>
                             <label class="radio-inline">
-                                <input type="radio" name="marital_status" tabindex="10" id="marital_status_yes" value="1" checked="">yes
+                                <input type="radio" name="marital_status" tabindex="10" id="marital_status_yes" value="1" >yes
                             </label>
                             <label class="radio-inline">
-                                <input type="radio" name="marital_status" tabindex="11" id="marital_status_no" value="0" checked="">No
+                                <input type="radio" name="marital_status" tabindex="11" id="marital_status_no" value="0" >No
                             </label>
+                             <span></span>
                         </div>
 
 
@@ -608,23 +611,23 @@
                     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"><!--middle form started-->
                         <div class="form-group">
                             <label for="">Middle Name</label>
-                            <input type="name" tabindex="15" class="form-control" name="mname" id="mname" placeholder="Middle Name " value="<?php echo(set_value('mname')) ?>">
-                            <?php echo(form_error('name')) ?>
+                            <input type="name" tabindex="15" class="form-control" name="mname" id="mname" placeholder="Middle Name ">
+                             <span></span>
                         </div>
                         <div class="form-group">
                             <label for="">Email</label>
-                            <input type="email" tabindex="5" class="form-control" name="email" id="email" placeholder="Email" value="<?php echo(set_value('email')) ?>">
-                            <?php echo(form_error('email')) ?>
+                            <input type="email" tabindex="5" class="form-control" name="email" id="email" placeholder="Email" >
+                             <span></span>
                         </div>
                         <div class="form-group">
                             <label>Date of birth</label>
-                            <input required type="date" tabindex="8" class="form-control" name="dob" id="dob" placeholder="date of birth" value="<?php echo(set_value('dob')) ?>">
-                            <?php echo(form_error('dob')) ?>
+                            <input required type="date" tabindex="8" class="form-control" name="dob" id="dob" placeholder="date of birth">
+                             <span></span>
                         </div>
                         <div class="form-group" id="aniversary_date">
                             <label>Aniversary Date</label>
-                            <input type="date" class="form-control" name="aniversary_date" id="aniversary_text" placeholder="Aniversary Date" value="<?php echo(set_value('aniversary_date')) ?>">
-                            <?php echo(form_error('aniversary_date')) ?>
+                            <input type="date" class="form-control" name="anniversary_date" id="anniversary_date" placeholder="Aniversary Date">
+                             <span></span>
                         </div>
                     </div><!-- middle form end -->
 
@@ -632,17 +635,17 @@
                         <div class="form-group">
                             <label for="">Last Name</label>
                             <input required type="name" tabindex="3" class="form-control" name="lname" id="lname" placeholder="Last Name" value="<?php echo(set_value('lname')) ?>">
-                            <?php echo(form_error('lname')) ?>
+                             <span></span>
                         </div>
                         <div class="form-group">
                             <label for="">Phone 1</label>
                             <input required type="text" tabindex="6" class="form-control" name="phone1" id="phone1" placeholder="Phone 1" value="<?php echo(set_value('phone1')) ?>">
-                            <?php echo(form_error('phone1')) ?>
+                            <span></span>
                         </div>
                         <div class="form-group">
                             <label>Gender</label><br/>
                             <label class="radio-inline">
-                                <input type="radio" tabindex="9" name="gender" id="male" value="male" checked="checked">Male
+                                <input type="radio" tabindex="9" name="gender" id="male" value="male">Male
                             </label>
                             <label class="radio-inline">
                                 <input type="radio" name="gender" id="female" value="female">Female
@@ -653,7 +656,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-primary" id="btn_customer_edit">Save changes</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 
             </div>
@@ -664,6 +667,14 @@
 </div><!-- /.modal -->
 
 <script>
+    $('#marital_status_no').click(function() {
+        $('#anniversary_date').val('');
+        $('#aniversary_date').hide();
+    });
+    $('#marital_status_yes').click(function() {
+        $('#aniversary_date').show();
+    });
+
     $('#btnAddCard').click(function () {
         $('#modaladdcard').modal();
     })
@@ -682,19 +693,53 @@
         $('#newEnquiry').modal('show');
     })
     $('#btneditcustomer').click(function(){
-        $('#editcustomer').modal('show')
+        
+            var customer_id=$('#md5_customer_id').val();
+            $.ajax({
+                url: '<?php echo site_url("customer/get_customer"); ?>'+'/'+customer_id,
+                type: 'POST',
+                dataType: 'json',
+                success:function(data)
+                {
+                    console.log(data);
+                    if(data.marital_status=='1')
+                    {
+                        $('#marital_status_yes').prop('checked', true);
+                        $('#aniversary_date').show();
+                    }
+                    else
+                    {
+                        $('#marital_status_no').prop('checked', true);
+                        $('#aniversary_date').hide();
+                    }
+                    if(data.gender=='male')
+                    {
+                        $('#male').prop('checked', true);
+                    }
+                    else
+                    {
+                        $('#female').prop('checked', true);
+                    }
+                    $.each(data, function(index, val) {
+                          $('#'+index).val(val);
+                          
+
+                    });
+                }
+            })
+            .done(function() {
+                console.log("success");
+            })
+            .fail(function() {
+                console.log("error");
+            })
+            $('#editcustomer').modal('show');
     })
+    
 </script>
 <script type="text/javascript">
     $(document).ready(function() {
-        $('#aniversary_date').hide();
-        $('#marital_status_yes').click(function() {
-            $('#aniversary_date').show();
-        });
-        $('#marital_status_no').click(function() {
-            $('#aniversary_text').val("");
-            $('#aniversary_date').hide();
-        });
+
         $("input").change(function(){
             $(this).parent().parent().removeClass('has-error');
             $(this).next().empty();
@@ -707,6 +752,43 @@
             $(this).parent().parent().removeClass('has-error');
             $(this).next().empty();
         });
+        //thsi function is used for update customer
+
+        $('#btn_customer_edit').click(function() {
+            var formData1 = new FormData($('#customer_edit_form')[0]);
+            $.ajax({
+                url: '<?php  echo site_url("customer/update/"); ?>'+'/'+$('#customer_id').val(),
+                type: 'POST',
+                dataType: 'json',
+                data: formData1,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success:function(data){
+
+                    if (data.status==false)
+                    {
+                        $.each(data, function(index, val)
+                        {
+                            $('#'+val.error_string).next().html(val.input_error);
+                            $('#'+val.error_string).parent().parent().addClass('has-error');
+
+                        });
+                    }
+                    else
+                    {
+//                        window.location.replace("<?php //echo base_url('customer/customerdetails/'.md5($customer->customer_id)) ?>//");
+                        location.reload();
+                    }
+                }
+            })
+                .fail(function() {
+                    console.log("error");
+                })
+
+        });
+
+        //this function is used for saving custmer enquiry
         $('#save').click(function() {
             var formData = new FormData($('#myform')[0]);
             $.ajax({
