@@ -257,7 +257,7 @@
                                                 <td><?php echo $family->phone1; ?></td>
                                                 <td><?php echo $family->phone2; ?></td>
                                                 <td><?php echo $family->relation ?></td>
-                                                <td><img src="uploads/<?php echo($family->image_url) ?>"></td>
+                                                <td><img src="<?php echo(base_url('uploads/'.$family->image_url)) ?> " width="20px"></td>
                                                 <td><button class="btnFamilyEdit btn btn-primary" data-familyid="<?php echo($family->id) ?>">Edit</button></td>
                                             </tr>
                                         <?php endforeach ?>
@@ -768,7 +768,7 @@
                 <h4 class="modal-title">Family Edit form</h4>
             </div>
             <div class="modal-body">
-                <?php echo(form_open_multipart('',array('id'=>'family_edit_form'))) ?>
+                <?php echo(form_open_multipart('family/update/'.$customer->customer_id,array('id'=>'family_edit_form'))) ?>
                 <input type="hidden" name="family_id" id="family_id">
                     <div class="form-group">
                         <label for="">Name</label>
@@ -777,7 +777,7 @@
                     </div>
                     <div class="form-group">
                         <label for="">Address</label>
-                        <input type="text" name="faname" class="form-control" id="faname" placeholder="Address">
+                        <input type="text" name="faaddress" class="form-control" id="faaddress" placeholder="Address">
                         <span></span>
                     </div>
                     <div class="form-group">
@@ -797,16 +797,15 @@
                     </div>
                     <div class="form-group">
                         <label for="">Photo</label>
-                        <input type="file" name="photo" id="photo">
+                        <input type="file" name="faphoto" id="faphoto">
                         <span></span>
                     </div>
-                
-                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="btn_update_family_member">Save changes</button>
+                <button type="submit" class="btn btn-primary">update</button>
             </div>
+            </form>
         </div>
     </div>
 </div>
@@ -891,22 +890,15 @@
             contentType: false,
             processData: false,
             success: function (data){
-                console.log(data);
                 $.each(data[0], function(index, val) {
                      $('#fa'+index).val(val);
                 });
             }
         })
-        .done(function() {
-            console.log("success");
-        })
         .fail(function() {
             console.log("error");
         });
-    $('#edit_family').modal('show');
-        
-        
-        
+        $('#edit_family').modal('show');
     });
 
 </script>
@@ -924,30 +916,6 @@
             $(this).parent().parent().removeClass('has-error');
             $(this).next().empty();
         });
-        //this fuction is used for update family member
-        $('#btn_update_family_member').click(function(event) {
-            var formData3 = new FormData($('#family_edit_form')[0]);
-            $.ajax({
-                url: '<?php echo(site_url("family/update")) ?>',
-                type: 'POST',
-                dataType: 'json',
-                data: formData3,
-                success: function(data){
-                    console.log(data);
-                }
-            })
-            .done(function() {
-                console.log("success");
-            })
-            .fail(function() {
-                console.log("error");
-            })
-            .always(function() {
-                console.log("complete");
-            });
-            
-        });
-
         //thsi function is used for update customer
 
         $('#btn_customer_edit').click(function () {
