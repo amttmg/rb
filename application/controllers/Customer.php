@@ -210,6 +210,8 @@ class Customer extends CI_Controller
 
     function customerdetails($id)
     {
+        $this->db->where('md5(customer_id)',$id);
+        $cust['customer_family'] = $this->db->get("tbl_customerfamily")->result();
         $data['title'] = "Customers Details";
         $cust['customer'] = $this->customer->getCustomers($id);
         $cust['hascard'] = $this->card->hasCard($id);

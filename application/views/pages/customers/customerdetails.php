@@ -6,40 +6,41 @@
         $('#seemore').click(function () {
 
             $('#family_details').toggle("slow", function () {
-                $('#families').empty();
+                //$('#families').empty();
                 $.ajax({
-                        url: '<?php echo(site_url("customerpriority/get_priority")) ?>',
-                        type: 'POST',
-                        data: {customer_id: '<?php echo($customer->customer_id) ?>'},
-                        success: function (data) {
-                            $('#priorites').html(data);
-                        }
-                    })
+                    url: '<?php echo(site_url("customerpriority/get_priority")) ?>',
+                    type: 'POST',
+                    data: {customer_id: '<?php echo($customer->customer_id) ?>'},
+                    success: function (data) {
+                        $('#priorites').html(data);
+                    }
+                })
                     .fail(function () {
                         console.log("error");
                     })
 
-                $.ajax({
-                        url: '<?php echo(site_url("customer/customer_all_records")) ?>',
-                        type: 'POST',
-                        dataType: "json",
-                        data: {customer_id: '<?php echo($customer->customer_id) ?>'},
-                        success: function (data) {
+                /*$.ajax({
+                    url: '<?php echo(site_url("customer/customer_all_records")) ?>',
+                    type: 'POST',
+                    dataType: "json",
+                    data: {customer_id: '<?php echo($customer->customer_id) ?>'},
+                    success: function (data) {
 
-                            $.each(data.families, function (index, val) {
-                                var image = "<?php echo base_url('uploads/"+val.image_url+"'); ?>";
-                                $('#families').append('<tr><td>' + val.name + '</td><td>' + val.address + '</td><td>' + val.phone1 + '</td><td>' + val.phone2 + '</td><td>' + val.relation + '</td><td><img height="30px" src="' + image + '"></td><td><div class="btn-group"><button class="btnEditFamily btn btn-primary btn-sm" data-familyid="'+val.id+'" >Edit</button><button class="btn btn-danger btn-sm">Remove</button></div></td></tr>');
-                            });
+                        $.each(data.families, function (index, val) {
+                            var image = "<?php echo base_url('uploads/"+val.image_url+"'); ?>";
+                            $('#families').append('<tr><td>' + val.name + '</td><td>' + val.address + '</td><td>' + val.phone1 + '</td><td>' + val.phone2 + '</td><td>' + val.relation + '</td><td><img height="30px" src="' + image + '"></td><td><a href="#" class="btnEditFamily"><span class="label label-primary">Edit</span></a></td></tr>');
+                        });
 
-                        }
-                    })
+                    }
+                })
                     .fail(function () {
                         console.log("error");
-                    })
+                    })*/
             });
 
         });
     });
+
 </script>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -71,10 +72,12 @@
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-2">
-                        <a href="<?php echo base_url('customer/customers') ?>" class="btn btn-warning btn-sm btn-block ">
+                        <a href="<?php echo base_url('customer/customers') ?>"
+                           class="btn btn-warning btn-sm btn-block ">
                             <span class="glyphicon glyphicon-backward pull-left"></span> Back</a>
                         <?php if ($customer->status != 'verified') { ?>
-                            <a class="btn-success btn btn-sm btn-block" onclick="return confirm('Are you sure want to verify this customer?')"
+                            <a class="btn-success btn btn-sm btn-block"
+                               onclick="return confirm('Are you sure want to verify this customer?')"
                                href="<?php echo(site_url('customer/verify/' . md5($customer->customer_id))) ?>"><i
                                     class="glyphicon glyphicon-ok pull-left"></i> Verify Customer</a>
                         <?php } ?>
@@ -105,12 +108,12 @@
                         <button class="btn-primary btn btn-sm btn-block pull-left" id="btnenqhostory"><i
                                 class="glyphicon glyphicon-folder-open pull-left"></i> Enquiry History
                         </button>
-<!--                        <button class="btn-primary btn btn-sm btn-block pull-left" id=""><i-->
-<!--                                class="glyphicon glyphicon-edit pull-left"></i> New Order-->
-<!--                        </button>-->
-<!--                        <button class="btn-primary btn btn-sm btn-block pull-left" id=""><i-->
-<!--                                class="glyphicon glyphicon-folder-open pull-left"></i> Order History-->
-<!--                        </button>-->
+                        <!--                        <button class="btn-primary btn btn-sm btn-block pull-left" id=""><i-->
+                        <!--                                class="glyphicon glyphicon-edit pull-left"></i> New Order-->
+                        <!--                        </button>-->
+                        <!--                        <button class="btn-primary btn btn-sm btn-block pull-left" id=""><i-->
+                        <!--                                class="glyphicon glyphicon-folder-open pull-left"></i> Order History-->
+                        <!--                        </button>-->
 
 
                     </div>
@@ -194,10 +197,12 @@
 
                 </div>
                 <a href="#" id="seemore">See More</a>
-               <div class="btn-group pull-right">
 
-                   <a href="#" id="btneditcustomer" class=" btn btn-primary btn-sm"><i class="glyphicon glyphicon-edit"></i> Edit</a>
-                   </div>
+                <div class="btn-group pull-right">
+
+                    <a href="#" id="btneditcustomer" class=" btn btn-primary btn-sm"><i
+                            class="glyphicon glyphicon-edit"></i> Edit</a>
+                </div>
 
                 <div class="row" id="family_details" style="display: none">
                     <div class="col-md-12">
@@ -230,7 +235,8 @@
                                 </div>
                             </div>
                             <div class="box-body" style="display: block;">
-                                <button class="btn btn-primary btn-sm" id="btn_addfamily">Add New</button></br>
+                                <button class="btn btn-primary btn-sm" id="btn_addfamily">Add New</button>
+                                </br>
                                 <table class="table table-bordered">
                                     <thead>
                                     <tr>
@@ -244,9 +250,25 @@
                                     </tr>
                                     </thead>
                                     <tbody id="families">
-
+                                        <?php foreach ($customer_family as $family): ?>
+                                            <tr>
+                                                <td><?php echo $family->name; ?></td>
+                                                <td><?php echo $family->address; ?></td>
+                                                <td><?php echo $family->phone1; ?></td>
+                                                <td><?php echo $family->phone2; ?></td>
+                                                <td><?php echo $family->relation ?></td>
+                                                <td><img src="uploads/<?php echo($family->image_url) ?>"></td>
+                                                <td><button class="btnFamilyEdit btn btn-primary" data-familyid="<?php echo($family->id) ?>">Edit</button></td>
+                                            </tr>
+                                        <?php endforeach ?>
                                     </tbody>
+
                                 </table>
+                                <script>
+                                    $(".btnEditFamily").click(function (e) {
+                                        alert('hello');
+                                    })
+                                </script>
                             </div>
                             <!-- /.box-body -->
                         </div>
@@ -284,7 +306,8 @@
             </div>
             <?php echo form_open('card/addcard', array('id' => 'frmaddcard')); ?>
             <input type="hidden" name="customer_id" id="customer_id" value="<?php echo $customer->customer_id ?>">
-            <input type="hidden" name="md5_customer_id" id="md5_customer_id" value="<?php echo(md5($customer->customer_id)); ?>">
+            <input type="hidden" name="md5_customer_id" id="md5_customer_id"
+                   value="<?php echo(md5($customer->customer_id)); ?>">
 
             <div class="modal-body">
 
@@ -376,13 +399,13 @@
                 <table class="table table-bordered">
                     <thead>
                     <td>
-                       Date Time
+                        Date Time
                     </td>
                     <td>
                         Enquiry Type
                     </td>
                     <td>
-                       Followup Date
+                        Followup Date
                     </td>
                     <td>
                         Enquiry Items
@@ -398,7 +421,7 @@
                         ?>
                         <tr>
                             <td>
-                                <?php echo $enq->enquiry_date.' '.$enq->enquiry_time ?>
+                                <?php echo $enq->enquiry_date . ' ' . $enq->enquiry_time ?>
                             </td>
                             <td>
                                 <?php echo $enq->enquiry_type ?>
@@ -440,6 +463,7 @@
             <div class="modal-body">
                 <?php echo form_open_multipart('enquiry/addEnquiry', array('id' => 'myform')); ?>
                 <input type="hidden" name="customer_id" value="<?php echo $customer->customer_id ?>">
+
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
@@ -467,7 +491,8 @@
                                 <option value="">Select Enquiry Type</option>
                                 <?php foreach ($enquiry_type as $type) {
                                     ?>
-                                    <option value="<?php echo $type->enquirytype_id ?>"><?php echo $type->enquiry_type ?></option>
+                                    <option
+                                        value="<?php echo $type->enquirytype_id ?>"><?php echo $type->enquiry_type ?></option>
                                     <?php
                                 } ?>
                             </select>
@@ -517,7 +542,8 @@
                     <div class="col-md-2">
                         <div class="form-group">
                             <label for="">Price Min</label>
-                            <input required type="number" class="form-control" name="price_range_min" id="price_range_min"
+                            <input required type="number" class="form-control" name="price_range_min"
+                                   id="price_range_min"
                                    placeholder="Price Min" value="<?php echo(set_value('price_range_min')) ?>">
                             <span class="help-block"></span>
                             <?php echo(form_error('price_range_min')) ?>
@@ -526,7 +552,8 @@
                     <div class="col-md-2">
                         <div class="form-group">
                             <label for="">Price Max</label>
-                            <input required type="number" class="form-control" name="price_range_max" id="price_range_max"
+                            <input required type="number" class="form-control" name="price_range_max"
+                                   id="price_range_max"
                                    placeholder="Price Max" value="<?php echo(set_value('price_range_max')) ?>">
                             <span class="help-block"></span>
                             <?php echo(form_error('price_range_max')) ?>
@@ -576,70 +603,83 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                        <?php echo form_open('customer/update',array('id'=>'customer_edit_form')); ?>
-                        <input type="hidden" name="customer_id" id="update_customer" >
+                        <?php echo form_open('customer/update', array('id' => 'customer_edit_form')); ?>
+                        <input type="hidden" name="customer_id" id="update_customer">
+
                         <div class="form-group">
                             <label for="">First Name</label>
-                            <input required type="name" tabindex="1" class="form-control" name="fname" id="fname" placeholder="first Name">
+                            <input required type="name" tabindex="1" class="form-control" name="fname" id="fname"
+                                   placeholder="first Name">
                             <span></span>
-                            </div>
+                        </div>
                         <div class="form-group">
                             <label for="">Address</label>
-                            <input required type="text" tabindex="4" class="form-control" name="address" id="address" placeholder="Address">
-                             <span></span>
+                            <input required type="text" tabindex="4" class="form-control" name="address" id="address"
+                                   placeholder="Address">
+                            <span></span>
                         </div>
                         <div class="form-group">
                             <label for="">Phone 2</label>
-                            <input type="text" tabindex="7" class="form-control" name="phone2" id="phone2" placeholder="Phone 2">
-                             <span></span>
+                            <input type="text" tabindex="7" class="form-control" name="phone2" id="phone2"
+                                   placeholder="Phone 2">
+                            <span></span>
                         </div>
                         <div class="form-group">
                             <label>Marital Status</label><br/>
                             <label class="radio-inline">
-                                <input type="radio" name="marital_status" tabindex="10" id="marital_status_yes" value="1" >yes
+                                <input type="radio" name="marital_status" tabindex="10" id="marital_status_yes"
+                                       value="1">yes
                             </label>
                             <label class="radio-inline">
-                                <input type="radio" name="marital_status" tabindex="11" id="marital_status_no" value="0" >No
+                                <input type="radio" name="marital_status" tabindex="11" id="marital_status_no"
+                                       value="0">No
                             </label>
-                             <span></span>
+                            <span></span>
                         </div>
 
 
-
-                    </div><!--col-lg-6 (left side form end)-->
+                    </div>
+                    <!--col-lg-6 (left side form end)-->
 
                     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"><!--middle form started-->
                         <div class="form-group">
                             <label for="">Middle Name</label>
-                            <input type="name" tabindex="15" class="form-control" name="mname" id="mname" placeholder="Middle Name ">
-                             <span></span>
+                            <input type="name" tabindex="15" class="form-control" name="mname" id="mname"
+                                   placeholder="Middle Name ">
+                            <span></span>
                         </div>
                         <div class="form-group">
                             <label for="">Email</label>
-                            <input type="email" tabindex="5" class="form-control" name="email" id="email" placeholder="Email" >
-                             <span></span>
+                            <input type="email" tabindex="5" class="form-control" name="email" id="email"
+                                   placeholder="Email">
+                            <span></span>
                         </div>
                         <div class="form-group">
                             <label>Date of birth</label>
-                            <input required type="date" tabindex="8" class="form-control" name="dob" id="dob" placeholder="date of birth">
-                             <span></span>
+                            <input required type="date" tabindex="8" class="form-control" name="dob" id="dob"
+                                   placeholder="date of birth">
+                            <span></span>
                         </div>
                         <div class="form-group" id="aniversary_date">
                             <label>Aniversary Date</label>
-                            <input type="date" class="form-control" name="anniversary_date" id="anniversary_date" placeholder="Aniversary Date">
-                             <span></span>
+                            <input type="date" class="form-control" name="anniversary_date" id="anniversary_date"
+                                   placeholder="Aniversary Date">
+                            <span></span>
                         </div>
-                    </div><!-- middle form end -->
+                    </div>
+                    <!-- middle form end -->
 
                     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"><!-- right form started -->
                         <div class="form-group">
                             <label for="">Last Name</label>
-                            <input required type="name" tabindex="3" class="form-control" name="lname" id="lname" placeholder="Last Name" value="<?php echo(set_value('lname')) ?>">
-                             <span></span>
+                            <input required type="name" tabindex="3" class="form-control" name="lname" id="lname"
+                                   placeholder="Last Name" value="<?php echo(set_value('lname')) ?>">
+                            <span></span>
                         </div>
                         <div class="form-group">
                             <label for="">Phone 1</label>
-                            <input required type="text" tabindex="6" class="form-control" name="phone1" id="phone1" placeholder="Phone 1" value="<?php echo(set_value('phone1')) ?>">
+                            <input required type="text" tabindex="6" class="form-control" name="phone1" id="phone1"
+                                   placeholder="Phone 1" value="<?php echo(set_value('phone1')) ?>">
                             <span></span>
                         </div>
                         <div class="form-group">
@@ -653,7 +693,8 @@
 
                         </div>
                         <?php echo form_close(); ?>
-                    </div><!-- right form end -->
+                    </div>
+                    <!-- right form end -->
                 </div>
             </div>
             <div class="modal-footer">
@@ -675,42 +716,42 @@
                 <h4 class="modal-title">Add new family member</h4>
             </div>
             <div class="modal-body">
-                <?php echo(form_open_multipart('customer/add_new_family',array('id'=>'add_new_family_form'))) ?>
-                        <div class="form-group">
-                            <label for="">name</label>
-                            <input type="text" name="name" class="form-control" id="name" placeholder="Name">
-                            <span></span>
-                        </div>
-                        <div class="form-group">
-                            <label for="">address</label>
-                            <input type="text" name="address" class="form-control" id="address" placeholder="address">
-                            <span></span>
-                        </div>
-                        <div class="form-group">
-                            <label for="">Phone 1</label>
-                            <input type="text" name="phone1" class="form-control" id="phone1" placeholder="Phone 1">
-                            <span></span>
-                        </div>
-                        <div class="form-group">
-                            <label for="">Phone 2</label>
-                            <input type="text" name="phone2" class="form-control" id="phone2" placeholder="Phone 2">
-                            <span></span>
-                        </div>
-                        <div class="form-group">
-                            <label for="">Relation</label>
-                            <input type="text" name="relation" class="form-control" id="relation" placeholder="Relation">
-                            <span></span>
-                        </div>
-                        <div class="form-group">
-                            <label for="">Photo</label>
-                            <input type="file" name="photo" id="photo">
-                            <span></span>
-                        </div>
+                <?php echo(form_open_multipart('customer/add_new_family', array('id' => 'add_new_family_form'))) ?>
+                <div class="form-group">
+                    <label for="">name</label>
+                    <input type="text" name="name" class="form-control" id="name" placeholder="Name">
+                    <span></span>
+                </div>
+                <div class="form-group">
+                    <label for="">address</label>
+                    <input type="text" name="address" class="form-control" id="address" placeholder="address">
+                    <span></span>
+                </div>
+                <div class="form-group">
+                    <label for="">Phone 1</label>
+                    <input type="text" name="phone1" class="form-control" id="phone1" placeholder="Phone 1">
+                    <span></span>
+                </div>
+                <div class="form-group">
+                    <label for="">Phone 2</label>
+                    <input type="text" name="phone2" class="form-control" id="phone2" placeholder="Phone 2">
+                    <span></span>
+                </div>
+                <div class="form-group">
+                    <label for="">Relation</label>
+                    <input type="text" name="relation" class="form-control" id="relation" placeholder="Relation">
+                    <span></span>
+                </div>
+                <div class="form-group">
+                    <label for="">Photo</label>
+                    <input type="file" name="photo" id="photo">
+                    <span></span>
+                </div>
 
                 <?php echo(form_close()) ?>
             </div>
             <div class="modal-footer">
-            <span class="label label-success pull-left" style="display:none" id="message">New family member added successfully !</span>
+                <span class="label label-success pull-left" style="display:none" id="message">New family member added successfully !</span>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary" id="btn_save_family">Save changes</button>
             </div>
@@ -724,25 +765,58 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Modal title</h4>
+                <h4 class="modal-title">Family Edit form</h4>
             </div>
             <div class="modal-body">
+                <?php echo(form_open_multipart('',array('id'=>'family_edit_form'))) ?>
+                <input type="hidden" name="family_id" id="family_id">
+                    <div class="form-group">
+                        <label for="">Name</label>
+                        <input type="name" name="faname" class="form-control" id="faname" placeholder="Name">
+                        <span></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Address</label>
+                        <input type="text" name="faname" class="form-control" id="faname" placeholder="Address">
+                        <span></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Phone 1</label>
+                        <input type="number" name="faphone1" class="form-control" id="faphone1" placeholder="Phone 1">
+                        <span></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Phone 2</label>
+                        <input type="number" name="faphone2" class="form-control" id="faphone2" placeholder="Phone 2">
+                        <span></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="">relation</label>
+                        <input type="text" name="farelation" class="form-control" id="farelation" placeholder="Phone 2">
+                        <span></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Photo</label>
+                        <input type="file" name="photo" id="photo">
+                        <span></span>
+                    </div>
                 
+                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-primary" id="btn_update_family_member">Save changes</button>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    $('#marital_status_no').click(function() {
+    $('#marital_status_no').click(function () {
         $('#anniversary_date').val('');
         $('#aniversary_date').hide();
     });
-    $('#marital_status_yes').click(function() {
+    $('#marital_status_yes').click(function () {
         $('#aniversary_date').show();
     });
 
@@ -756,46 +830,110 @@
     $('#btncardhistory').click(function () {
         $('#cardhistory').modal('show');
     })
-    $('#btnenqhostory').click(function(){
+    $('#btnenqhostory').click(function () {
         $('#enqhistor').modal('show');
     })
 
-    $('#btnnewenq').click(function(){
+    $('#btnnewenq').click(function () {
         $('#newEnquiry').modal('show');
     })
-    $('#btneditcustomer').click(function(){
+    $('#btneditcustomer').click(function () {
+
+        var customer_id = $('#md5_customer_id').val();
+        $.ajax({
+            url: '<?php echo site_url("customer/get_customer"); ?>' + '/' + customer_id,
+            type: 'POST',
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                if (data.marital_status == '1') {
+                    $('#marital_status_yes').prop('checked', true);
+                    $('#aniversary_date').show();
+                }
+                else {
+                    $('#marital_status_no').prop('checked', true);
+                    $('#aniversary_date').hide();
+                }
+                if (data.gender == 'male') {
+                    $('#male').prop('checked', true);
+                }
+                else {
+                    $('#female').prop('checked', true);
+                }
+                $.each(data, function (index, val) {
+                    $('#' + index).val(val);
+
+
+                });
+            }
+        })
+            .done(function () {
+                console.log("success");
+            })
+            .fail(function () {
+                console.log("error");
+            })
+        $('#editcustomer').modal('show');
+    })
+    //its open modal for add family
+    $('#btn_addfamily').click(function () {
+        $('#addfamily').modal('show');
+    });
+    //its open modal for family edit
+    $('.btnFamilyEdit').click(function() {
+        var temp=$(this).data('familyid');
+        $('#family_id').val(temp);
+        $.ajax({
+            url: '<?php  echo site_url("family/get_family/"); ?>' + '/' +temp,
+            type: 'POST',
+            dataType: 'json',
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (data){
+                console.log(data);
+                $.each(data[0], function(index, val) {
+                     $('#fa'+index).val(val);
+                });
+            }
+        })
+        .done(function() {
+            console.log("success");
+        })
+        .fail(function() {
+            console.log("error");
+        });
+    $('#edit_family').modal('show');
         
-            var customer_id=$('#md5_customer_id').val();
+        
+        
+    });
+
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("input").change(function () {
+            $(this).parent().parent().removeClass('has-error');
+            $(this).next().empty();
+        });
+        $("textarea").change(function () {
+            $(this).parent().parent().removeClass('has-error');
+            $(this).next().empty();
+        });
+        $("select").change(function () {
+            $(this).parent().parent().removeClass('has-error');
+            $(this).next().empty();
+        });
+        //this fuction is used for update family member
+        $('#btn_update_family_member').click(function(event) {
+            var formData3 = new FormData($('#family_edit_form')[0]);
             $.ajax({
-                url: '<?php echo site_url("customer/get_customer"); ?>'+'/'+customer_id,
+                url: '<?php echo(site_url("family/update")) ?>',
                 type: 'POST',
                 dataType: 'json',
-                success:function(data)
-                {
+                data: formData3,
+                success: function(data){
                     console.log(data);
-                    if(data.marital_status=='1')
-                    {
-                        $('#marital_status_yes').prop('checked', true);
-                        $('#aniversary_date').show();
-                    }
-                    else
-                    {
-                        $('#marital_status_no').prop('checked', true);
-                        $('#aniversary_date').hide();
-                    }
-                    if(data.gender=='male')
-                    {
-                        $('#male').prop('checked', true);
-                    }
-                    else
-                    {
-                        $('#female').prop('checked', true);
-                    }
-                    $.each(data, function(index, val) {
-                          $('#'+index).val(val);
-                          
-
-                    });
                 }
             })
             .done(function() {
@@ -804,143 +942,113 @@
             .fail(function() {
                 console.log("error");
             })
-            $('#editcustomer').modal('show');
-    })
-    //its open modal for add family
-    $('#btn_addfamily').click(function() {
-        $('#addfamily').modal('show');
-    });
+            .always(function() {
+                console.log("complete");
+            });
+            
+        });
 
-    $('.btnEditFamily').click(function() {
-       alert("hello");
-    });
-    
-</script>
-<script type="text/javascript">
-    $(document).ready(function() {
-
-        $("input").change(function(){
-            $(this).parent().parent().removeClass('has-error');
-            $(this).next().empty();
-        });
-        $("textarea").change(function(){
-            $(this).parent().parent().removeClass('has-error');
-            $(this).next().empty();
-        });
-        $("select").change(function(){
-            $(this).parent().parent().removeClass('has-error');
-            $(this).next().empty();
-        });
         //thsi function is used for update customer
 
-        $('#btn_customer_edit').click(function() {
+        $('#btn_customer_edit').click(function () {
             var formData1 = new FormData($('#customer_edit_form')[0]);
             $.ajax({
-                url: '<?php  echo site_url("customer/update/"); ?>'+'/'+$('#customer_id').val(),
+                url: '<?php  echo site_url("customer/update/"); ?>' + '/' + $('#customer_id').val(),
                 type: 'POST',
                 dataType: 'json',
                 data: formData1,
                 cache: false,
                 contentType: false,
                 processData: false,
-                success:function(data){
+                success: function (data) {
 
-                    if (data.status==false)
-                    {
-                        $.each(data, function(index, val)
-                        {
-                            $('#'+val.error_string).next().html(val.input_error);
-                            $('#'+val.error_string).parent().parent().addClass('has-error');
+                    if (data.status == false) {
+                        $.each(data, function (index, val) {
+                            $('#' + val.error_string).next().html(val.input_error);
+                            $('#' + val.error_string).parent().parent().addClass('has-error');
 
                         });
                     }
-                    else
-                    {
+                    else {
 //                        window.location.replace("<?php //echo base_url('customer/customerdetails/'.md5($customer->customer_id)) ?>//");
                         location.reload();
                     }
                 }
             })
-                .fail(function() {
+                .fail(function () {
                     console.log("error");
                 })
 
         });
 
         //this function is used for saving custmer enquiry
-        $('#save').click(function() {
+        $('#save').click(function () {
             var formData = new FormData($('#myform')[0]);
             $.ajax({
                 url: '<?php  echo site_url("enquiry/addEnquiry"); ?>',
                 type: 'POST',
                 dataType: 'json',
-                data:formData,
+                data: formData,
                 cache: false,
                 contentType: false,
                 processData: false,
-                success:function(data){
-                    if (data.status==false)
-                    {
-                        $.each(data, function(index, val)
-                        {
+                success: function (data) {
+                    if (data.status == false) {
+                        $.each(data, function (index, val) {
 
-                            $('#'+val.error_string).next().html(val.input_error);
-                            $('#'+val.error_string).parent().parent().addClass('has-error');
+                            $('#' + val.error_string).next().html(val.input_error);
+                            $('#' + val.error_string).parent().parent().addClass('has-error');
 
 
                         });
                     }
-                    else
-                    {
+                    else {
 //                        window.location.replace("<?php //echo base_url('customer/customerdetails/'.md5($customer->customer_id)) ?>//");
                         location.reload();
                     }
                 }
             })
-                .fail(function() {
+                .fail(function () {
                     console.log("error");
                 })
 
         });
 
         //its calls ajax for save new family
-        $('#btn_save_family').click(function(event) {
+        $('#btn_save_family').click(function (event) {
 
             var formData = new FormData($('#add_new_family_form')[0]);
             $.ajax({
-                url: '<?php  echo site_url("customer/add_new_family/"); ?>'+'/'+$('#customer_id').val(),
+                url: '<?php  echo site_url("customer/add_new_family/"); ?>' + '/' + $('#customer_id').val(),
                 type: 'POST',
                 dataType: 'json',
-                data:formData,
+                data: formData,
                 cache: false,
                 contentType: false,
                 processData: false,
-                success:function(data){
-                    if (data.status==false)
-                    {
-                        $.each(data, function(index, val)
-                        {
+                success: function (data) {
+                    if (data.status == false) {
+                        $.each(data, function (index, val) {
 
-                            $('#'+val.error_string).next().html(val.input_error);
-                            $('#'+val.error_string).parent().parent().addClass('has-error');
+                            $('#' + val.error_string).next().html(val.input_error);
+                            $('#' + val.error_string).parent().parent().addClass('has-error');
 
                         });
                     }
-                    else
-                    {
+                    else {
 //                        window.location.replace("<?php //echo base_url('customer/customerdetails/'.md5($customer->customer_id)) ?>//");
-                        $('#btn_save_family').prop('disable',true);
-                        $('#message').show('fast',function(){
-                             setTimeout(sample, 2000);
+                        $('#btn_save_family').prop('disable', true);
+                        $('#message').show('fast', function () {
+                            setTimeout(sample, 2000);
                         })
                         location.reload();
                     }
                 }
             })
-            .fail(function() {
-                console.log("error");
-            })
-            
+                .fail(function () {
+                    console.log("error");
+                })
+
         });
     });
 
