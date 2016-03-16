@@ -7,14 +7,20 @@
                 <h4 class="modal-title">Edit priorities</h4>
             </div>
             <div class="modal-body">
+            	<?php echo(form_open('priority/update',array('id'=>'priority_update_form'))) ?>
+            	<input type="hidden" name="modal_customer_id" id="modal_customer_id">
+                <input type="hidden" name="modal_priority_id" id="modal_priority_id">
+                <input type="hidden" name="modal_multichoice" id="modal_multichoice">
                 <div class="form-group">
                         <label id="modal_priority_title"></label>
                         <div id="modal_options">
                         </div>
-            </div>
+            	</div>
+            	<?php form_close(); ?>
             <div class="modal-footer">
+            	<div class="pull-left" id="modal_message"></div>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-primary" id="btn_priority_update">Save changes</button>
             </div>
         </div>
     </div>
@@ -48,6 +54,9 @@
 		var multichoice=temp[1];
 		var priority_title=temp[2];
 		var customer_priority_info='';
+		$('#modal_customer_id').val($('#customer_id').val());
+		$('#modal_priority_id').val(priority_id);
+		$('#modal_multichoice').val(multichoice);
 		$.ajax({
 			url: '<?php echo(site_url("priority/get_options")) ?>'+'/'+priority_id,
 			type: 'POST',
@@ -63,9 +72,23 @@
 				else
 				{
 					$.each(data, function(index, val) {
-						$('#modal_options').append('<div class="radio"><label><input type="radio" name="'+val.priority_id+'" id="optionsRadios1" value="'+val.option_id+'" checked="">'+val.option_title+'</label></div>');
+						$('#modal_options').append('<div class="radio"><label><input type="radio" name="'+val.priority_id+'" id="'+val.option_id+'" value="'+val.option_id+'" checked="">'+val.option_title+'</label></div>');
 					});
 				}
+
+				$.ajax({
+					url: '<?php echo(site_url("priority/option_info")) ?>'+'/'+$('#customer_id').val(),
+					type: 'POST',
+					dataType: 'json',
+					success:function(data){
+						$.each(data, function(index, val) {
+							 $('#'+val.option_id).prop('checked',true);
+						});
+					}
+				})
+				.fail(function() {
+					console.log("error");
+				});
 				
 				$('#editPriorityModal').modal('show')
 			}
@@ -74,20 +97,26 @@
 			console.log("error");
 		});
 
+		
+	})
+
+	$('#btn_priority_update').click(function() {
 		$.ajax({
-			url: '<?php echo(site_url("priority/option_info")) ?>'+'/'+$('#customer_id').val(),
+			url: '<?php echo(site_url("priority/update")) ?>',
 			type: 'POST',
-			dataType: 'json',
+			data: $('#priority_update_form').serialize(),
 			success:function(data){
-				$.each(data, function(index, val) {
-					 $('#'+val.option_id).attr('checked',true);
-				});
+				if (data.status==true) 
+				{
+					$('#modal_message').html('<span class="label label-success">Priority updated successfully !</span>');			
+				};
 			}
 		})
 		.fail(function() {
 			console.log("error");
 		});
-	})
+		
+	});
 
 </script>
 								
