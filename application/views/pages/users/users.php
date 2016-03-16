@@ -2,7 +2,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Group Management
+            Users Management
             <small>it all starts here</small>
         </h1>
         <ol class="breadcrumb">
@@ -18,7 +18,7 @@
         <!-- Default box -->
         <div class="box">
             <div class="box-header with-border">
-                <button class="btn btn-primary btn-sm" id="btnnewgroup"><i class="fa fa-plus"></i> New Group</button>
+                <button class="btn btn-primary btn-sm" id="btnnewgroup"><i class="fa fa-plus"></i> New User</button>
 
                 <div class="box-tools pull-right">
                     <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i
@@ -38,7 +38,22 @@
                             Name
                         </th>
                         <th>
-                            Description
+                            UserName
+                        </th>
+                        <th>
+                            Phone
+                        </th>
+                        <th>
+                            Email
+                        </th>
+                        <th>
+                            Created On
+                        </th>
+                        <th>
+                            Last Login
+                        </th>
+                        <th>
+                            Status
                         </th>
                         <th>
                             Action
@@ -47,27 +62,38 @@
                     </thead>
                     <tbody>
                     <?php $count = 1;
-                    foreach ($groups as $group) {
+                    foreach ($users as $user) {
                         ?>
                         <tr>
                             <td>
-                                <?php echo $count ?>
+                               <?php echo $count ?>
                             </td>
                             <td>
-                                <?php echo $group->name ?>
+                                <?php echo $user->first_name.' '.$user->last_name ?>
                             </td>
                             <td>
-                                <?php echo $group->description ?>
+                                <?php echo $user->username ?>
                             </td>
                             <td>
-                                <button class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Edit</button>
-                                <button class="btn btn-warning btn-sm"><i class="glyphicon glyphicon-remove"></i>
-                                    Deactive
-                                </button>
+                                <?php echo $user->phone ?>
+                            </td>
+                            <td>
+                                <?php echo $user->email ?>
+                            </td>
+                            <td>
+                                <?php echo $user->created_on ?>
+                            </td>
+                            <td>
+                                <?php echo $user->last_login ?>
+                            </td>
+                            <td>
+                                <?php echo $user->active ?>
+                            </td>
+                            <td>
+
                             </td>
                         </tr>
                         <?php
-                        $count++;
                     } ?>
                     </tbody>
                 </table>

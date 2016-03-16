@@ -57,8 +57,8 @@
 
                 </a>
                 <ul class="treeview-menu">
-                    <li class="list"><a href="<?php echo base_url('customerpriority') ?>"><i class="fa fa-user"></i>Users Management</a></li>
-                    <li class="list"><a href="<?php echo base_url('customerpriority') ?>"><i class="fa fa-users"></i>Group Management</a></li>
+                    <li class="list"><a href="<?php echo base_url('users/users') ?>"><i class="fa fa-user"></i>Users Management</a></li>
+                    <li class="list"><a href="<?php echo base_url('users/group') ?>"><i class="fa fa-users"></i>Group Management</a></li>
                 </ul>
             </li>
 
