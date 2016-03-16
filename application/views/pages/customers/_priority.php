@@ -18,7 +18,7 @@
             	</div>
             	<?php form_close(); ?>
             <div class="modal-footer">
-            	<div class="pull-left" id="modal_message"></div>
+            	<span class="label label-success pull-left" style="display:none" id="priority_message">New family member added successfully !</span>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary" id="btn_priority_update">Save changes</button>
             </div>
@@ -108,7 +108,9 @@
 			success:function(data){
 				if (data.status==true) 
 				{
-					$('#modal_message').html('<span class="label label-success">Priority updated successfully !</span>');			
+					  location.reload();
+					$('#priority_message').show();
+
 				};
 			}
 		})
