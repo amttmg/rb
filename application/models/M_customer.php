@@ -15,8 +15,7 @@ class M_customer extends CI_Model
 
     public function insert($image_name = 'default_customer.jpeg')
     {
-
-
+        $customer_code = 'RB-100'.($this->getMaxCustomerid()+1);
         $data = array(
             'fname' => $this->input->post('fname'),
             'mname' => $this->input->post('mname'),
@@ -32,6 +31,7 @@ class M_customer extends CI_Model
             'user_id' => 1,
             'entry_datetime' => date('Y-m-d'),
             'customer_image' => $image_name,
+            'customer_code'=>$customer_code
         );
         $this->db->insert('tbl_customers', $data);
 
@@ -85,7 +85,7 @@ class M_customer extends CI_Model
             'dob' => $this->input->post('dob'),
             'user_id' => 1,
         );
-        $this->db->where('customer_id',$id);
+        $this->db->where('customer_id', $id);
         $this->db->update('tbl_customers', $data);
     }
 
@@ -120,17 +120,19 @@ class M_customer extends CI_Model
         }
 
     }
+
     public function getCustomersWithCard($id = '')
     {
 
         if ($id != '') {
-           show_404();
+            show_404();
         } else {
             $qry = $this->db->query('select *, ifnull((select card_no from tbl_cards where tbl_cards.customer_id=tbl_customers.customer_id and tbl_cards.status=1), \'No card\') as card_no from tbl_customers');
             return $qry->result();
         }
 
     }
+
     function insert_family($images)
     {
 
@@ -174,56 +176,63 @@ class M_customer extends CI_Model
 
     public function getCustomerID($card_no)
     {
-        $sql="select customer_id from tbl_cards where card_no=$card_no";
+        $sql = "select customer_id from tbl_cards where card_no=$card_no";
         $qry = $this->db->query($sql);
         $count = $qry->num_rows();
         if ($count > 0) {
             return $qry->row()->customer_id;
-        }else{
+        } else {
             return 0;
         }
     }
+
     public function get_customer_priority($id)
     {
 
-        $priorites=$this->db->query('select *from tbl_customerspriority');
+        $priorites = $this->db->query('select *from tbl_customerspriority');
         $this->db->select('*');
         $this->db->from('tbl_customerpriorityoption');
-        $this->db->join('tbl_customerspriority','tbl_customerspriority.priority_id=tbl_customerpriorityoption.priority_id');
-        $this->db->join('tbl_priorityoptions','tbl_priorityoptions.option_id=tbl_customerpriorityoption.option_id');
-        $this->db->where('tbl_customerpriorityoption.customer_id',$id);
-        $pr=$this->db->get()->result();
-        $data=array();
-        $master=array();
-        foreach ($priorites->result() as $priority)
-        {
-            $temp=array();
-            $data['priority']=$priority->title;
-           foreach ($pr as $value)
-           {
-               if ($priority->priority_id==$value->priority_id)
-               {
-                   $temp[]=$value->option_title;
-               }
-           }
-           $data['option']=$temp;
-           array_push($master, $data);
+        $this->db->join('tbl_customerspriority', 'tbl_customerspriority.priority_id=tbl_customerpriorityoption.priority_id');
+        $this->db->join('tbl_priorityoptions', 'tbl_priorityoptions.option_id=tbl_customerpriorityoption.option_id');
+        $this->db->where('tbl_customerpriorityoption.customer_id', $id);
+        $pr = $this->db->get()->result();
+        $data = array();
+        $master = array();
+        foreach ($priorites->result() as $priority) {
+            $temp = array();
+            $data['priority'] = $priority->title;
+            foreach ($pr as $value) {
+                if ($priority->priority_id == $value->priority_id) {
+                    $temp[] = $value->option_title;
+                }
+            }
+            $data['option'] = $temp;
+            array_push($master, $data);
         }
         return $master;
     }
+
     //model runs when ajax call(add singel family member at once)
-    public function add_new_family($customer_id,$image)
+    public function add_new_family($customer_id, $image)
     {
-        $data=array(
-            'customer_id'=>$customer_id,
-            'name'=>$this->input->post('name'),
-            'address'=>$this->input->post('address'),
-            'phone1'=>$this->input->post('phone1'),
-            'phone2'=>$this->input->post('phone2'),
-            'relation'=>$this->input->post('relation'),
-            'image_url'=>$image,
-            );
-        $this->db->insert('tbl_customerfamily',$data);
+        $data = array(
+            'customer_id' => $customer_id,
+            'name' => $this->input->post('name'),
+            'address' => $this->input->post('address'),
+            'phone1' => $this->input->post('phone1'),
+            'phone2' => $this->input->post('phone2'),
+            'relation' => $this->input->post('relation'),
+            'image_url' => $image,
+        );
+        $this->db->insert('tbl_customerfamily', $data);
+    }
+
+    public function getMaxCustomerid()
+    {
+        $this->db->select('max(customer_id) as customer_id');
+        $qry = $this->db->get('tbl_customers');
+        $data = $qry->row();
+        return $data->customer_id;
     }
 
 }
