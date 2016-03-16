@@ -67,7 +67,7 @@
 <!--                        <ul class="dropdown-menu">-->
 <!--                          <li class="header">You have 10 notifications</li>-->
 <!--                          <li>-->
-<!--                            <!-- inner menu: contains the actual data -->-->
+<!--                            <!-- inner menu: contains the actual data -->
 <!--                            <ul class="menu">-->
 <!--                                --><?php //if (pending_customer()): ?>
 <!--                                    <li>-->
@@ -105,7 +105,10 @@
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img src="<?php echo base_url() ?>template/dist/img/121.jpg" class="user-image" alt="User Image">
-                            <span class="hidden-xs"><?php echo $this->session->userdata('username') ?></span>
+                            <span class="hidden-xs"><?php
+                                $user=($this->ion_auth->user()->row());
+                                echo $user->username;
+                                 ?></span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
