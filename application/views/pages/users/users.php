@@ -18,7 +18,7 @@
         <!-- Default box -->
         <div class="box">
             <div class="box-header with-border">
-                <button class="btn btn-primary btn-sm" id="btnnewgroup"><i class="fa fa-plus"></i> New User</button>
+                <button class="btn btn-primary btn-sm" id="btnnewuser"><i class="fa fa-plus"></i> New User</button>
 
                 <div class="box-tools pull-right">
                     <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i
@@ -47,6 +47,9 @@
                             Email
                         </th>
                         <th>
+                            Group
+                        </th>
+                        <th>
                             Created On
                         </th>
                         <th>
@@ -66,10 +69,10 @@
                         ?>
                         <tr>
                             <td>
-                               <?php echo $count ?>
+                                <?php echo $count ?>
                             </td>
                             <td>
-                                <?php echo $user->first_name.' '.$user->last_name ?>
+                                <?php echo $user->first_name . ' ' . $user->last_name ?>
                             </td>
                             <td>
                                 <?php echo $user->username ?>
@@ -81,16 +84,23 @@
                                 <?php echo $user->email ?>
                             </td>
                             <td>
-                                <?php echo $user->created_on ?>
+                                <?php echo($this->ion_auth->get_users_groups($user->id)->row()->name); ?>
                             </td>
-                            <td>
-                                <?php echo $user->last_login ?>
-                            </td>
-                            <td>
-                                <?php echo $user->active ?>
-                            </td>
-                            <td>
 
+                            <td>
+                                <?php echo unix_to_human($user->created_on) ?>
+                            </td>
+                            <td>
+                                <?php echo unix_to_human($user->last_login) ?>
+                            </td>
+                            <td>
+                                <?php echo ($user->active == 1) ? 'Actve' : 'Inactive' ?>
+                            </td>
+                            <td>
+                                <a href="#" class="btnuseredit" data-userid="<?php echo $user->id ?>"><label
+                                        class="label label-primary">Edit</label></a>
+                                <a href="#" class="btnuserdisable" data-userid="<?php echo $user->id ?>"><label
+                                        class="label label-warning">Disable</label></a>
                             </td>
                         </tr>
                         <?php
@@ -110,160 +120,60 @@
     <!-- /.content -->
 </div><!-- /.content-wrapper -->
 
-<div class="modal fade" tabindex="-1" data-keyboard="false" data-backdrop="static" role="dialog" id='modalnewgroup'>
+<div class="modal fade" tabindex="-1" data-keyboard="false" data-backdrop="static" role="dialog" id='modalnewuser'>
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">New Group</h4>
+                <h4 class="modal-title">New Users</h4>
             </div>
-            <?php echo form_open() ?>
-            <div class="modal-body clearfix">
+            <?php echo form_open('', array('id' => 'frmnewuser')) ?>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>First Name</label>
+                    <input required type="text" name="first_name" id="first_name" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Last Name</label>
+                    <input required type="text" name="last_name" id="last_name" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Username</label>
+                    <input required type="text" name="identity" id="identity" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input required type="text" name="email" id="email" class="form-control">
+                </div>
 
                 <div class="form-group">
-                    <label>Group name</label>
-                    <input type="text" name="group_name" id="group_name" class="form-control">
+                    <label>Password</label>
+                    <input required type="password" name="password" id="password" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label>Group Description</label>
-                    <input type="text" name="description" id="description" class="form-control">
+                    <label>Confirm Password</label>
+                    <input required type="password" name="password_confirm" id="password_confirm" class="form-control">
                 </div>
-                <div class="form-group col-md-6">
-
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox">
-                            Checkbox 1
-                        </label>
-                    </div>
-                    <div class="checkbox ">
-                        <label>
-                            <input type="checkbox">
-                            Checkbox 1
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox">
-                            Checkbox 1
-                        </label>
-                    </div>
-                    <div class="checkbox ">
-                        <label>
-                            <input type="checkbox">
-                            Checkbox 1
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox">
-                            Checkbox 1
-                        </label>
-                    </div>
-                    <div class="checkbox ">
-                        <label>
-                            <input type="checkbox">
-                            Checkbox 1
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox">
-                            Checkbox 1
-                        </label>
-                    </div>
-                    <div class="checkbox ">
-                        <label>
-                            <input type="checkbox">
-                            Checkbox 1
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox">
-                            Checkbox 1
-                        </label>
-                    </div>
-                    <div class="checkbox ">
-                        <label>
-                            <input type="checkbox">
-                            Checkbox 1
-                        </label>
-                    </div>
-
-
-                </div>
-                <div class="form-group col-md-6">
-
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox">
-                            Checkbox 1
-                        </label>
-                    </div>
-                    <div class="checkbox ">
-                        <label>
-                            <input type="checkbox">
-                            Checkbox 1
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox">
-                            Checkbox 1
-                        </label>
-                    </div>
-                    <div class="checkbox ">
-                        <label>
-                            <input type="checkbox">
-                            Checkbox 1
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox">
-                            Checkbox 1
-                        </label>
-                    </div>
-                    <div class="checkbox ">
-                        <label>
-                            <input type="checkbox">
-                            Checkbox 1
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox">
-                            Checkbox 1
-                        </label>
-                    </div>
-                    <div class="checkbox ">
-                        <label>
-                            <input type="checkbox">
-                            Checkbox 1
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox">
-                            Checkbox 1
-                        </label>
-                    </div>
-                    <div class="checkbox ">
-                        <label>
-                            <input type="checkbox">
-                            Checkbox 1
-                        </label>
-                    </div>
-
-
+                <div class="form-group">
+                    <label>User Group</label>
+                    <select required name="group" class="form-control">
+                        <option value="">Select Group</option>
+                        <?php
+                        $groups = $this->ion_auth->groups()->result();
+                        foreach ($groups as $group) {
+                            ?>
+                            <option value="<?php echo $group->id ?>"><?php echo $group->name ?></option>
+                            <?php
+                        }
+                        ?>
+                    </select>
                 </div>
             </div>
             <div class="modal-footer">
-                <input type="hidden" name="submit" value="1">
-                <button type="submit" name="" class="btn btn-primary">Save</button>
+                <button type="submit" class="btn btn-primary">Save</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
             </div>
             <?php echo form_close() ?>
         </div>
@@ -273,7 +183,31 @@
 </div><!-- /.modal -->
 
 <script>
-    $('#btnnewgroup').click(function () {
-        $('#modalnewgroup').modal('show');
+    $('#btnnewuser').click(function () {
+        $('#modalnewuser').modal('show');
     })
+    $('#frmnewuser').validate({
+        rules: {
+            password: "required",
+            password_confirm: {
+                equalTo: "#password"
+            }
+        },
+
+        highlight: function (element) {
+            $(element).closest('.form-group').addClass('has-error');
+        },
+        unhighlight: function (element) {
+            $(element).closest('.form-group').removeClass('has-error');
+        },
+        errorElement: 'span',
+        errorClass: 'help-block',
+        errorPlacement: function (error, element) {
+            if (element.parent('.input-group').length) {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
 </script>
