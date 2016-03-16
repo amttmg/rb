@@ -201,6 +201,8 @@ class M_customer extends CI_Model
         foreach ($priorites->result() as $priority) {
             $temp = array();
             $data['priority'] = $priority->title;
+            $data['priority_id'] = $priority->priority_id;
+            $data['multichoice']=$priority->multichoice;
             foreach ($pr as $value) {
                 if ($priority->priority_id == $value->priority_id) {
                     $temp[] = $value->option_title;
