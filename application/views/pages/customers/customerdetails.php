@@ -874,11 +874,11 @@
             })
         $('#editcustomer').modal('show');
     })
-    //its open modal for add family
+    //it opens the modal for add family
     $('#btn_addfamily').click(function () {
         $('#addfamily').modal('show');
     });
-    //its open modal for family edit
+    //it opens the modal for family edit
     $('.btnFamilyEdit').click(function() {
         var temp=$(this).data('familyid');
         $('#family_id').val(temp);
