@@ -196,7 +196,7 @@
                     </div>
 
                 </div>
-                <a href="#" id="seemore">See More</a>
+                <button class="btn btn-link" id="seemore">See More</button>
 
                 <div class="btn-group pull-right">
 
