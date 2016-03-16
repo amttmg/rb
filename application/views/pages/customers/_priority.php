@@ -18,7 +18,7 @@
             	</div>
             	<?php form_close(); ?>
             <div class="modal-footer">
-            	<span class="label label-success pull-left" style="display:none" id="priority_message">New family member added successfully !</span>
+            	<span class="label label-success pull-left" style="display:none" id="priority_message">Priority edited successfully !</span>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary" id="btn_priority_update">Save changes</button>
             </div>
@@ -104,12 +104,14 @@
 		$.ajax({
 			url: '<?php echo(site_url("priority/update")) ?>',
 			type: 'POST',
+			dataType:'json',
 			data: $('#priority_update_form').serialize(),
 			success:function(data){
+				console.log(data.status);
 				if (data.status==true) 
 				{
-					  location.reload();
 					$('#priority_message').show();
+					 location.reload();
 
 				};
 			}
