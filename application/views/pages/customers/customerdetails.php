@@ -3,10 +3,15 @@
         $("#btncardprint").click(function (e) {
 
         });
+        var flip = 0;
         $('#seemore').click(function () {
-
-            $('#family_details').toggle("slow", function () {
-                //$('#families').empty();
+            flip++;
+            if (flip % 2 === 0) {
+                $("html, body").animate({scrollTop: 0}, 1000);
+                $('#seemore').html("See More <i class='glyphicon glyphicon-arrow-down'></i>");
+            } else {
+                $("html, body").animate({scrollTop: 400}, 1000);
+                $('#seemore').html("Less <i class='glyphicon glyphicon-arrow-up'></i>");
                 $.ajax({
                     url: '<?php echo(site_url("customerpriority/get_priority")) ?>',
                     type: 'POST',
@@ -18,24 +23,9 @@
                     .fail(function () {
                         console.log("error");
                     })
+            }
+            $('#family_details').toggle("slow", function () {
 
-                /*$.ajax({
-                    url: '<?php echo(site_url("customer/customer_all_records")) ?>',
-                    type: 'POST',
-                    dataType: "json",
-                    data: {customer_id: '<?php echo($customer->customer_id) ?>'},
-                    success: function (data) {
-
-                        $.each(data.families, function (index, val) {
-                            var image = "<?php echo base_url('uploads/"+val.image_url+"'); ?>";
-                            $('#families').append('<tr><td>' + val.name + '</td><td>' + val.address + '</td><td>' + val.phone1 + '</td><td>' + val.phone2 + '</td><td>' + val.relation + '</td><td><img height="30px" src="' + image + '"></td><td><a href="#" class="btnEditFamily"><span class="label label-primary">Edit</span></a></td></tr>');
-                        });
-
-                    }
-                })
-                    .fail(function () {
-                        console.log("error");
-                    })*/
             });
 
         });
@@ -196,7 +186,7 @@
                     </div>
 
                 </div>
-                <button class="btn btn-link" id="seemore">See More</button>
+                <button class="btn btn-primary btn-xs" id="seemore">See More <i class="glyphicon glyphicon-arrow-down"></i></button>
 
                 <div class="btn-group pull-right">
 
@@ -250,17 +240,22 @@
                                     </tr>
                                     </thead>
                                     <tbody id="families">
-                                        <?php foreach ($customer_family as $family): ?>
-                                            <tr>
-                                                <td><?php echo $family->name; ?></td>
-                                                <td><?php echo $family->address; ?></td>
-                                                <td><?php echo $family->phone1; ?></td>
-                                                <td><?php echo $family->phone2; ?></td>
-                                                <td><?php echo $family->relation ?></td>
-                                                <td><img src="<?php echo(base_url('uploads/'.$family->image_url)) ?> " width="20px"></td>
-                                                <td><button class="btnFamilyEdit btn btn-primary" data-familyid="<?php echo($family->id) ?>">Edit</button></td>
-                                            </tr>
-                                        <?php endforeach ?>
+                                    <?php foreach ($customer_family as $family): ?>
+                                        <tr>
+                                            <td><?php echo $family->name; ?></td>
+                                            <td><?php echo $family->address; ?></td>
+                                            <td><?php echo $family->phone1; ?></td>
+                                            <td><?php echo $family->phone2; ?></td>
+                                            <td><?php echo $family->relation ?></td>
+                                            <td><img src="<?php echo(base_url('uploads/' . $family->image_url)) ?> "
+                                                     width="20px"></td>
+                                            <td>
+                                                <button class="btnFamilyEdit btn btn-primary"
+                                                        data-familyid="<?php echo($family->id) ?>">Edit
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach ?>
                                     </tbody>
 
                                 </table>
@@ -768,38 +763,39 @@
                 <h4 class="modal-title">Family Edit form</h4>
             </div>
             <div class="modal-body">
-                <?php echo(form_open_multipart('family/update/'.$customer->customer_id,array('id'=>'family_edit_form'))) ?>
+                <?php echo(form_open_multipart('family/update/' . $customer->customer_id, array('id' => 'family_edit_form'))) ?>
                 <input type="hidden" name="family_id" id="family_id">
-                    <div class="form-group">
-                        <label for="">Name</label>
-                        <input type="name" name="faname" class="form-control" id="faname" placeholder="Name">
-                        <span></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Address</label>
-                        <input type="text" name="faaddress" class="form-control" id="faaddress" placeholder="Address">
-                        <span></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Phone 1</label>
-                        <input type="number" name="faphone1" class="form-control" id="faphone1" placeholder="Phone 1">
-                        <span></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Phone 2</label>
-                        <input type="number" name="faphone2" class="form-control" id="faphone2" placeholder="Phone 2">
-                        <span></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="">relation</label>
-                        <input type="text" name="farelation" class="form-control" id="farelation" placeholder="Phone 2">
-                        <span></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Photo</label>
-                        <input type="file" name="faphoto" id="faphoto">
-                        <span></span>
-                    </div>
+
+                <div class="form-group">
+                    <label for="">Name</label>
+                    <input type="name" name="faname" class="form-control" id="faname" placeholder="Name">
+                    <span></span>
+                </div>
+                <div class="form-group">
+                    <label for="">Address</label>
+                    <input type="text" name="faaddress" class="form-control" id="faaddress" placeholder="Address">
+                    <span></span>
+                </div>
+                <div class="form-group">
+                    <label for="">Phone 1</label>
+                    <input type="number" name="faphone1" class="form-control" id="faphone1" placeholder="Phone 1">
+                    <span></span>
+                </div>
+                <div class="form-group">
+                    <label for="">Phone 2</label>
+                    <input type="number" name="faphone2" class="form-control" id="faphone2" placeholder="Phone 2">
+                    <span></span>
+                </div>
+                <div class="form-group">
+                    <label for="">relation</label>
+                    <input type="text" name="farelation" class="form-control" id="farelation" placeholder="Phone 2">
+                    <span></span>
+                </div>
+                <div class="form-group">
+                    <label for="">Photo</label>
+                    <input type="file" name="faphoto" id="faphoto">
+                    <span></span>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -879,25 +875,25 @@
         $('#addfamily').modal('show');
     });
     //it opens the modal for family edit
-    $('.btnFamilyEdit').click(function() {
-        var temp=$(this).data('familyid');
+    $('.btnFamilyEdit').click(function () {
+        var temp = $(this).data('familyid');
         $('#family_id').val(temp);
         $.ajax({
-            url: '<?php  echo site_url("family/get_family/"); ?>' + '/' +temp,
+            url: '<?php  echo site_url("family/get_family/"); ?>' + '/' + temp,
             type: 'POST',
             dataType: 'json',
             cache: false,
             contentType: false,
             processData: false,
-            success: function (data){
-                $.each(data[0], function(index, val) {
-                     $('#fa'+index).val(val);
+            success: function (data) {
+                $.each(data[0], function (index, val) {
+                    $('#fa' + index).val(val);
                 });
             }
         })
-        .fail(function() {
-            console.log("error");
-        });
+            .fail(function () {
+                console.log("error");
+            });
         $('#edit_family').modal('show');
     });
 
