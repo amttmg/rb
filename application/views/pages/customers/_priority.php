@@ -35,7 +35,7 @@
 	            	<li><?php echo($option) ?></li>
 	            <?php endforeach ?>
                 <li>
-				<a class="btn_priority_edit" href="#" data-priorityid="<?php echo ($priority['priority_id'].','.$priority['multichoice'].','.$priority['priority']) ?>"><i class="glyphicon glyphicon-edit"></i> Edit</a>
+				<button class="btn_priority_edit btn btn-link" data-priorityid="<?php echo ($priority['priority_id'].','.$priority['multichoice'].','.$priority['priority']) ?>"><i class="glyphicon glyphicon-edit"></i> Edit</button>
 	        </ul>
 	    </div>
 	</div>	
