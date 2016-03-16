@@ -60,8 +60,8 @@
                                 <?php echo $group->description ?>
                             </td>
                             <td>
-                                <button class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Edit</button>
-                                <button class="btn btn-warning btn-sm"><i class="glyphicon glyphicon-remove"></i>
+                                <button class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Edit</button>
+                                <button class="btn btn-warning btn-xs"><i class="glyphicon glyphicon-remove"></i>
                                     Deactive
                                 </button>
                             </td>
@@ -92,147 +92,30 @@
                         aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">New Group</h4>
             </div>
-            <?php echo form_open() ?>
+            <?php echo form_open('', array('id'=>'frmnewgroup')) ?>
             <div class="modal-body clearfix">
 
                 <div class="form-group">
                     <label>Group name</label>
-                    <input type="text" name="group_name" id="group_name" class="form-control">
+                    <input required type="text" name="group_name" id="group_name" class="form-control">
                 </div>
                 <div class="form-group">
                     <label>Group Description</label>
-                    <input type="text" name="description" id="description" class="form-control">
+                    <input required type="text" name="description" id="description" class="form-control">
                 </div>
                 <div class="form-group col-md-6">
-
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox">
-                            Checkbox 1
-                        </label>
-                    </div>
-                    <div class="checkbox ">
-                        <label>
-                            <input type="checkbox">
-                            Checkbox 1
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox">
-                            Checkbox 1
-                        </label>
-                    </div>
-                    <div class="checkbox ">
-                        <label>
-                            <input type="checkbox">
-                            Checkbox 1
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox">
-                            Checkbox 1
-                        </label>
-                    </div>
-                    <div class="checkbox ">
-                        <label>
-                            <input type="checkbox">
-                            Checkbox 1
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox">
-                            Checkbox 1
-                        </label>
-                    </div>
-                    <div class="checkbox ">
-                        <label>
-                            <input type="checkbox">
-                            Checkbox 1
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox">
-                            Checkbox 1
-                        </label>
-                    </div>
-                    <div class="checkbox ">
-                        <label>
-                            <input type="checkbox">
-                            Checkbox 1
-                        </label>
-                    </div>
-
-
+                    <?php foreach ($functions as $function) {
+                       ?>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="functions[]" value=" <?php echo $function->function_id ?>">
+                                <?php echo $function->function ?>
+                            </label>
+                        </div>
+                    <?php
+                    } ?>
                 </div>
-                <div class="form-group col-md-6">
 
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox">
-                            Checkbox 1
-                        </label>
-                    </div>
-                    <div class="checkbox ">
-                        <label>
-                            <input type="checkbox">
-                            Checkbox 1
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox">
-                            Checkbox 1
-                        </label>
-                    </div>
-                    <div class="checkbox ">
-                        <label>
-                            <input type="checkbox">
-                            Checkbox 1
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox">
-                            Checkbox 1
-                        </label>
-                    </div>
-                    <div class="checkbox ">
-                        <label>
-                            <input type="checkbox">
-                            Checkbox 1
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox">
-                            Checkbox 1
-                        </label>
-                    </div>
-                    <div class="checkbox ">
-                        <label>
-                            <input type="checkbox">
-                            Checkbox 1
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox">
-                            Checkbox 1
-                        </label>
-                    </div>
-                    <div class="checkbox ">
-                        <label>
-                            <input type="checkbox">
-                            Checkbox 1
-                        </label>
-                    </div>
-
-
-                </div>
             </div>
             <div class="modal-footer">
                 <input type="hidden" name="submit" value="1">
@@ -250,4 +133,5 @@
     $('#btnnewgroup').click(function () {
         $('#modalnewgroup').modal('show');
     })
+    $('#frmnewgroup').validate();
 </script>

@@ -35,12 +35,16 @@ class Users extends CI_Controller
                 $this->users->createGroup();
                 if ($this->db->trans_status() === FALSE) {
                     $this->db->trans_rollback();
+                } else {
+                    $this->db->trans_commit();
                 }
             }
         }
         $groups['groups'] = $this->ion_auth->groups()->result();
+        $groups['functions'] = $this->users->getFunctions();
         $content['content'] = $this->load->view('pages/users/group', $groups, true);
         $content['title'] = 'Group management';
         $this->parser->parse('template/page_template', $content);
+
     }
 }
