@@ -18,9 +18,9 @@
             	</div>
             	<?php form_close(); ?>
             <div class="modal-footer">
-            	<span class="label label-success pull-left" style="display:none" id="priority_message">Priority edited successfully !</span>
+            	<span class="label label-success pull-left" style="display:none" id="priority_message">Priority updated successfully !</span>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="btn_priority_update">Save changes</button>
+                <button type="button" class="btn btn-primary" id="btn_priority_update">Update</button>
             </div>
         </div>
     </div>
@@ -101,6 +101,8 @@
 	})
 
 	$('#btn_priority_update').click(function() {
+		$('#btn_priority_update').text('updating.......');
+		$('#btn_priority_update').prop('disable',true);
 		$.ajax({
 			url: '<?php echo(site_url("priority/update")) ?>',
 			type: 'POST',
@@ -110,6 +112,7 @@
 				console.log(data.status);
 				if (data.status==true) 
 				{
+					$('#btn_priority_update').text('Update');
 					$('#priority_message').show();
 					 location.reload();
 
