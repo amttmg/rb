@@ -21,7 +21,7 @@
 
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="<?php echo base_url('customer') ?>"><i class="fa fa-plus"></i> New Customer
+                    <li><a href="<?php echo base_url('customer') ?>"><i class="fa fa-user-plus"></i> New Customer
                         </a></li>
                     <li><a href="<?php echo base_url('customer/customers') ?>"><i class="fa fa-eye"></i> Customers
                         </a></li>
@@ -29,13 +29,13 @@
             </li>
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-android"></i>
+                    <i class="fa fa-external-link"></i>
                     <span>Enquiry</span>
 
                 </a>
                 <ul class="treeview-menu">
                     <li class="list"><a href="<?php echo base_url('enquiry/newEnquiry') ?>"><i class="fa fa-plus"></i>New Enquiry</a></li>
-                    <li class="list"><a href="<?php echo base_url('enquiry') ?>"><i class="fa fa-plus"></i>View Enquiryes</a></li>
+                    <li class="list"><a href="<?php echo base_url('enquiry') ?>"><i class="fa fa-eye"></i>View Enquiryes</a></li>
                 </ul>
             </li>
             <li class="treeview">
@@ -45,8 +45,20 @@
 
                 </a>
                 <ul class="treeview-menu">
-                    <li class="list"><a href="<?php echo base_url('customerpriority') ?>"><i class="fa fa-plus"></i>Customer
+                    <li class="list"><a href="<?php echo base_url('customerpriority') ?>"><i class="fa fa-info-circle"></i>Customer
                             Priority</a></li>
+                </ul>
+            </li>
+
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-android"></i>
+                    <span>User Management</span>
+
+                </a>
+                <ul class="treeview-menu">
+                    <li class="list"><a href="<?php echo base_url('customerpriority') ?>"><i class="fa fa-user"></i>Users Management</a></li>
+                    <li class="list"><a href="<?php echo base_url('customerpriority') ?>"><i class="fa fa-users"></i>Group Management</a></li>
                 </ul>
             </li>
 
