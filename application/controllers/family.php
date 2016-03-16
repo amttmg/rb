@@ -20,7 +20,7 @@ class Family extends CI_Controller {
 		$this->form_validation->set_rules('faphoto', 'Photo', 'callback_validate_image');
 		if ($this->form_validation->run() == TRUE) 
 		{
-			if($this->image_status='yes')
+			if($this->image_status=='yes')
 			{
 				$this->family->update_with_image($this->image_name);
 			}
@@ -70,6 +70,7 @@ class Family extends CI_Controller {
                     return true;
                 } else {
                     $this->form_validation->set_message('validate_image', $this->upload->display_errors());
+                    $this->image_status='no';
                     return false;
                 }
 
