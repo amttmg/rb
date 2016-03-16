@@ -66,13 +66,13 @@
 				if(multichoice=='1')
 				{
 					$.each(data, function(index, val) {
-						$('#modal_options').append('<div class="checkbox"><label><input type="checkbox" name="'+val.priority_id+'[]" value="'+val.option_id+'" id="'+val.option_id+'">'+val.option_title+'</label></div>');
+						$('#modal_options').append('<div class="checkbox"><label><input type="checkbox" name="'+val.priority_id+'[]" value="'+val.option_id+'" id="'+val.option_id+'">'+val.option_title+'-'+val.remarks+'</label></div>');
 					});
 				}
 				else
 				{
 					$.each(data, function(index, val) {
-						$('#modal_options').append('<div class="radio"><label><input type="radio" name="'+val.priority_id+'" id="'+val.option_id+'" value="'+val.option_id+'" checked="">'+val.option_title+'</label></div>');
+						$('#modal_options').append('<div class="radio"><label><input type="radio" name="'+val.priority_id+'" id="'+val.option_id+'" value="'+val.option_id+'" checked="">'+val.option_title+'-'+val.remarks+'</label></div>');
 					});
 				}
 
