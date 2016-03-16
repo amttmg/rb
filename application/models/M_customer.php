@@ -15,7 +15,7 @@ class M_customer extends CI_Model
 
     public function insert($image_name = 'default_customer.jpeg')
     {
-        $customer_code = 'RB-0000'.($this->getMaxCustomerid()+1);
+        $customer_code = 'RB-100'.($this->getMaxCustomerid()+1);
         $data = array(
             'fname' => $this->input->post('fname'),
             'mname' => $this->input->post('mname'),

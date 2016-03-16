@@ -20,4 +20,12 @@ class Users extends CI_Controller
     {
 
     }
+
+    function group()
+    {
+        $groups['groups']=$this->ion_auth->groups()->result();
+        $content['content']=$this->load->view('pages/users/group', $groups, true);
+        $content['title']='Group management';
+        $this->parser->parse('template/page_template', $content);
+    }
 }
