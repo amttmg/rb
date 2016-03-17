@@ -102,7 +102,7 @@
 
 	$('#btn_priority_update').click(function() {
 		$('#btn_priority_update').text('updating.......');
-		$('#btn_priority_update').prop('disable',true);
+		$('#btn_priority_update').prop('disabled',true);
 		$.ajax({
 			url: '<?php echo(site_url("priority/update")) ?>',
 			type: 'POST',
