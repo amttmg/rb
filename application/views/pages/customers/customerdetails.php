@@ -364,7 +364,7 @@
                                 <?php echo $card->added_date ?>
                             </td>
                             <td>
-                                <?php echo $card->status ?>
+                                <?php echo ($card->status==1)?'Active':'Inactive' ?>
                             </td>
                         </tr>
                         <?php
