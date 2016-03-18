@@ -48,6 +48,8 @@
                             Priority</a></li>
                     <li class="list"><a href="<?php echo base_url('metal') ?>"><i class="fa fa-info-circle"></i>Metal
                     </a></li>
+                    <li class="list"><a href="<?php echo base_url('stone') ?>"><i class="fa fa-info-circle"></i>Stone
+                    </a></li>
                 </ul>
             </li>
 
