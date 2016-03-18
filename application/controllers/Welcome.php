@@ -11,6 +11,7 @@ class Welcome extends CI_Controller
             $remember=1;
             $result = $this->ion_auth->login($this->input->post('username'), $this->input->post('password'), $remember);
             if (!$result) {
+                $this->ion_auth->increase_login_attempts($this->input->post('username'));
                 $msg['msg']="Username or password is incorrect";
                 $this->load->view('template/login', $msg);
             } else {

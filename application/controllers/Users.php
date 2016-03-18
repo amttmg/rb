@@ -76,4 +76,8 @@ class Users extends CI_Controller
         }
        redirect("users/group");
     }
+
+    function createUser(){
+
+    }
 }

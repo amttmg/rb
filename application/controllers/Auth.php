@@ -781,7 +781,6 @@ class Auth extends CI_Controller {
 		$this->_render_page('auth/edit_group', $this->data);
 	}
 
-
 	function _get_csrf_nonce()
 	{
 		$this->load->helper('string');
