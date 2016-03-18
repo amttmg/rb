@@ -47,7 +47,7 @@
                                         <th><?php echo($stone->size) ?></th>
                                         <th>
                                             <div class="btn-group">
-                                            <button type="button" class="btn_edit_metal btn btn-info" data-stoneid="<?php echo($stone->stone_id) ?>">Edit</button>
+                                            <button type="button" class="btn_edit_stone btn btn-info" data-stoneid="<?php echo($stone->stone_id) ?>">Edit</button>
                                             <button type="button" class="btn btn-info">Action</button>
                                             </div>
                                         </th>
@@ -103,9 +103,55 @@
                 </form>
             </div>
             <div class="modal-footer">
-            <span class="label label-success pull-left" id="stone_save_message" style="display:none">Metal updated successfully !</span>
+            <span class="label label-success pull-left" id="stone_save_message" style="display:none">Stone inserted successfully !</span>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary" id="btn_save_stone">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal for edit stone -->
+<div class="modal fade" id="mdl_edit_stone">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                <form action="" method="POST" role="form" id="edit_stone_form">
+                    <div class="form-group">
+                        <label for="">Lot Number</label>
+                        <input type="text" name="lot_no" class="form-control" id="lot_no" placeholder="Input field">
+                        <span></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Type</label>
+                        <input type="text" name="type" class="form-control" id="type" placeholder="Input field">
+                        <span></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Color</label>
+                        <input type="text" name="color" class="form-control" id="color" placeholder="Input field">
+                        <span></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Clarity</label>
+                        <input type="text" name="clarity" class="form-control" id="clarity" placeholder="Input field">
+                        <span></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Size</label>
+                        <input type="text" name="size" class="form-control" id="size" placeholder="Input field">
+                        <span></span>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+            <span class="label label-success pull-left" id="stone_update_message" style="display:none">Stone inserted successfully !</span>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="btn_update_stone">Update</button>
             </div>
         </div>
     </div>
@@ -114,8 +160,29 @@
 <script type="text/javascript">
     $(document).ready(function() {
         //open modal for insert new stones
+        var stone_id;
         $('#btn_add_new_stone').click(function() {
             $('#mdl_add_new_stone').modal('show');
+        });
+
+        $('.btn_edit_stone').click(function() {
+            stone_id=$(this).data('stoneid');
+            $.ajax({
+                url: '<?php echo(site_url("stone/get_stone")) ?>'+'/'+stone_id,
+                type: 'POST',
+                dataType:'json',
+                success:function(data)
+                {
+                    $.each(data[0], function(index, val) {
+                         $('#edit_stone_form #'+index).val(val);
+                    });
+                }
+            })
+            .fail(function() {
+                console.log("error");
+            });
+            $('#mdl_edit_stone').modal('show');
+
         });
 
         /*function starts for dealing with errors*/
@@ -165,7 +232,39 @@
                console.log("error");
            });
         });
-
+        
+        /*edit stone*/
+        $('#btn_update_stone').click(function() {
+            $('#btn_update_stone').prop('disabled',true);
+            $('#btn_update_stone').text('Updating......');
+            $.ajax({
+                url: '<?php echo(site_url("stone/update")) ?>'+'/'+stone_id,
+                type: 'POST',
+                dataType: 'json',
+                data: $('#edit_stone_form').serialize(),
+                success:function(data)
+                {
+                    if(data.status==true)
+                    {
+                        $('#stone_update_message').show();
+                        location.reload();
+                    }
+                    else
+                    {
+                        $('#btn_update_stone').prop('disabled',false);
+                        $('#btn_update_stone').text('Update');
+                        $.each(data, function(index, val) {
+                             $('#edit_stone_form #'+val.error_string).next().html(val.input_error);
+                            $('#edit_stone_form #'+val.error_string).parent().parent().addClass('has-error');
+                        });
+                    }
+                }
+            })
+            .fail(function() {
+                console.log("error");
+            });
+        });
+        /*end edit stone*/
     });
 
     $('#tblstones').DataTable({
