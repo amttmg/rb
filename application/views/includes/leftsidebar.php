@@ -42,11 +42,12 @@
                 <a href="#">
                     <i class="fa fa-android"></i>
                     <span>Master</span>
-
                 </a>
                 <ul class="treeview-menu">
                     <li class="list"><a href="<?php echo base_url('customerpriority') ?>"><i class="fa fa-info-circle"></i>Customer
                             Priority</a></li>
+                    <li class="list"><a href="<?php echo base_url('metal') ?>"><i class="fa fa-info-circle"></i>Metal
+                    </a></li>
                 </ul>
             </li>
 
