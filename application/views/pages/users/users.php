@@ -28,6 +28,12 @@
                 </div>
             </div>
             <div class="box-body">
+                <?php if ($this->session->flashdata('message')): ?>
+                    <div class="alert alert-success">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <strong><?php echo($this->session->flashdata('message')); ?></strong>
+                    </div>
+                <?php endif ?>
                 <table class="table table-bordered">
                     <thead>
                     <tr>
@@ -128,7 +134,7 @@
                         aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">New Users</h4>
             </div>
-            <?php echo form_open('', array('id' => 'frmnewuser')) ?>
+            <?php echo form_open('users/createUser', array('id' => 'frmnewuser')) ?>
             <div class="modal-body">
                 <div class="form-group">
                     <label>First Name</label>
@@ -141,6 +147,10 @@
                 <div class="form-group">
                     <label>Username</label>
                     <input required type="text" name="identity" id="identity" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Phone</label>
+                    <input required type="text" name="phone" id="phone" class="form-control">
                 </div>
                 <div class="form-group">
                     <label>Email</label>
