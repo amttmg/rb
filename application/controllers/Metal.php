@@ -19,7 +19,7 @@ class Metal extends CI_Controller {
         $this->parser->parse('template/page_template', $data);
 	}
 
-	public function add($id='')
+	public function add()
 	{
 		$master['status'] = True;
         $data = array();
