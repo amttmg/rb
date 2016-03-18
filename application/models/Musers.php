@@ -28,4 +28,26 @@ class Musers extends CI_Model
         $this->db->where('status', '1');
         return $this->db->get('tbl_functions')->result();
     }
+
+    function editGroup(){
+        $function = $this->input->post('functions');
+        $group_id=$this->input->post('group_id');
+        $group_update = $this->ion_auth->update_group($group_id ,$this->input->post('group_name'), $this->input->post('description'));
+        $this->removeFunctions($group_id);
+       if($group_update){
+           foreach ($function as $fun) {
+               $newfunctiongroup = array(
+                   'group_id' => $group_id,
+                   'function_id' => $fun,
+                   'status' => 1
+               );
+               $this->db->insert('function_group', $newfunctiongroup);
+           }
+       }
+
+    }
+    function removeFunctions($group_id){
+        $this->db->where('group_id',$group_id );
+        $this->db->delete('function_group');
+    }
 }

@@ -47,4 +47,33 @@ class Users extends CI_Controller
         $this->parser->parse('template/page_template', $content);
 
     }
+
+    function getGroup($id)
+    {
+        $group = $this->ion_auth->group($id)->row();
+        echo json_encode($group);
+    }
+
+    function getGroupFunctions($id)
+    {
+        $this->db->where('group_id', $id);
+        $functions = $this->db->get('function_group')->result();
+        echo json_encode($functions);
+    }
+
+    function editGroup()
+    {
+        $this->form_validation->set_rules('group_name', 'Group Name', 'trim|required|min_length[2]|max_length[100]');
+        $this->form_validation->set_rules('description', 'Description', 'trim|required|min_length[2]|max_length[100]');
+        if ($this->form_validation->run() == TRUE) {
+            $this->db->trans_begin();
+            $this->users->editGroup();
+            if ($this->db->trans_status() === FALSE) {
+                $this->db->trans_rollback();
+            } else {
+                $this->db->trans_commit();
+            }
+        }
+       redirect("users/group");
+    }
 }
