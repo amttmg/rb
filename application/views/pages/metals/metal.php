@@ -23,7 +23,7 @@
                 </div>
                 <div class="box-body">
                   <div class="table-responsive">
-                      <table class="table table-hover">
+                      <table class="table table-hover" id="tblmetals">
                           <thead>
                               <tr>
                                   <th>SN.</th>
@@ -215,4 +215,13 @@
         });
        /* end edit metal form*/
     });
+
+$('#tblmetals').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": true
+        });
 </script>
