@@ -5,7 +5,6 @@ class Welcome extends CI_Controller
 {
     public function index()
     {
-        checkSession();
         if (isset($_POST['submit'])) {
             $this->load->model('mlogin');
             $remember=1;

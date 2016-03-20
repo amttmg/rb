@@ -158,14 +158,6 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Password</label>
-                    <input required type="password" name="password" id="password" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label>Confirm Password</label>
-                    <input required type="password" name="password_confirm" id="password_confirm" class="form-control">
-                </div>
-                <div class="form-group">
                     <label>User Group</label>
                     <select required name="group" class="form-control">
                         <option value="">Select Group</option>
