@@ -10,7 +10,9 @@ class M_metal extends CI_Model {
 	public function insert()
 	{
 		$data=array(
-			'metal'=>$this->input->post('metalname')
+			'metal'=>$this->input->post('metalname'),
+			'metal_type'=>$this->input->post('metaltype'),
+			'unit'=>$this->input->post('unit')
 			);
 		$this->db->insert('tbl_metals',$data);
 	}
@@ -33,8 +35,13 @@ class M_metal extends CI_Model {
 
 	public function update($id)
 	{
+		$data=array(
+			'metal'=>$this->input->post('metal'),
+			'metal_type'=>$this->input->post('metaltype'),
+			'unit'=>$this->input->post('unit')
+			);
 		$this->db->where('metal_id',$id);
-		$this->db->update('tbl_metals',array('metal'=>$this->input->post('metal')));
+		$this->db->update('tbl_metals',$data);
 	}
 
 	

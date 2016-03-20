@@ -24,7 +24,9 @@ class Metal extends CI_Controller {
 		$master['status'] = True;
         $data = array();
         $master = array();
-		$this->form_validation->set_rules('metalname', 'Metal Name', 'trim|required|is_unique[tbl_metals.metal]|min_length[2]|max_length[64]');
+		$this->form_validation->set_rules('metalname', 'Metal Name', 'trim|required|is_unique[tbl_metals.metal]|max_length[64]');
+		$this->form_validation->set_rules('metaltype', 'Metal Type', 'callback_dropdown_fun');
+		$this->form_validation->set_rules('unit', 'Unit', 'trim|required|max_length[64]');
 		$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
 
 		if ($this->form_validation->run() == True) 
@@ -57,7 +59,9 @@ class Metal extends CI_Controller {
 		$master['status'] = True;
         $data = array();
         $master = array();
-		$this->form_validation->set_rules('metal', 'Metal Name', 'trim|required|min_length[2]|max_length[64]');
+		$this->form_validation->set_rules('metal', 'Metal Name', 'trim|required|max_length[64]');
+		$this->form_validation->set_rules('metaltype', 'Metal Type', 'callback_dropdown_fun');
+		$this->form_validation->set_rules('unit', 'Unit', 'trim|required|max_length[64]');
 		$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
 
 		if ($this->form_validation->run() == True) 
@@ -84,6 +88,16 @@ class Metal extends CI_Controller {
 	public function get_metal($id)
 	{
 		echo(json_encode($this->metal->get_metals($id)));
+	}
+
+	public function dropdown_fun($value)
+	{
+		if($value=='0')
+		{
+			$this->form_validation->set_message('dropdown_fun', 'Please select metal type ');
+			return false;
+		}
+		return true;
 	}
 
 }
