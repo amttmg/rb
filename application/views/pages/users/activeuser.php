@@ -17,7 +17,7 @@
 
     <div class="panel panel-default">
         <div class="panel-heading"><h2 class="panel-title">New Password</h2></div>
-        <form action="<?php echo base_url('users/setPassword') ?>" method="post" id="frmsetpassword">
+        <form action="<?php echo base_url('users/setPassword/'.$this->uri->segment(3).'/'.$this->uri->segment(4).'/'.$this->uri->segment(5)) ?>" method="post" id="frmsetpassword">
             <div class="panel-body">
 
                 <div class="form-group">
@@ -25,11 +25,13 @@
                     <input type="hidden" name="id" value="<?php echo $id ?>">
                     <input type="hidden" name="code" value="<?php echo $code ?>">
                     <input type="hidden" name="identity" value="<?php echo $identity ?>">
-                    <input type="text" name="password" id="password" class="form-control">
+                    <input type="text" name="password" id="password" class="form-control" value="<?php echo(set_value('password')) ?>">
+                    <?php echo(form_error('password')) ?>
                 </div>
                 <div class="form-group">
                     <label>Confirm Password</label>
-                    <input type="text" name="confpassword" id="confpassword" class="form-control">
+                    <input type="text" name="confpassword" id="confpassword" class="form-control" value="<?php echo(set_value('confpassword')) ?>">
+                    <?php echo(form_error('confpassword')) ?>
                 </div>
 
             </div>

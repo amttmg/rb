@@ -132,25 +132,35 @@ class Users extends CI_Controller
 
     }
 
-    function setPassword()
+    function setPassword($id, $identity, $code)
     {
-        $id = $this->input->post('id');
-        $code = $this->input->post('code');
-        $password = $this->input->post('password');
-        $identity = $this->input->post('identity');
-        $activation = $this->ion_auth->activate($id, $code);
-        if ($activation) {
-            $change = $this->ion_auth->reset_password($identity, $password);
-            if ($change) {
-                $this->session->set_flashdata('message', $this->ion_auth->messages());
-                redirect('welcome','refresh');
+        $this->form_validation->set_rules('password', $this->lang->line('change_password_validation_new_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[confpassword]');
+        $this->form_validation->set_rules('confpassword', $this->lang->line('change_password_validation_new_password_confirm_label'), 'required');
+        $this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
+        if ($this->form_validation->run() == true) {
+            $id = $this->input->post('id');
+            $code = $this->input->post('code');
+            $password = $this->input->post('password');
+            $identity = $this->input->post('identity');
+            $activation = $this->ion_auth->activate($id, $code);
+            if ($activation) {
+                $change = $this->ion_auth->reset_password($identity, $password);
+                if ($change) {
+                    $this->session->set_flashdata('message', $this->ion_auth->messages());
+                    redirect('welcome', 'refresh');
+                } else {
+                    $this->session->set_flashdata('message', $this->ion_auth->errors());
+                    redirect('welcome', 'refresh');
+                }
             } else {
                 $this->session->set_flashdata('message', $this->ion_auth->errors());
-                redirect('welcome','refresh');
+                redirect('welcome', 'refresh');
             }
         }else{
-            $this->session->set_flashdata('message', $this->ion_auth->errors());
-            redirect('welcome','refresh');
+            $data['id'] = $id;
+            $data['code'] = $code;
+            $data['identity'] = $identity;
+            $this->load->view('pages/users/activeuser', $data);
         }
     }
 }
