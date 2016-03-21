@@ -150,11 +150,17 @@ class Users extends CI_Controller
                     redirect('welcome', 'refresh');
                 } else {
                     $this->session->set_flashdata('message', $this->ion_auth->errors());
-                    redirect('welcome', 'refresh');
+                    $data['id'] = $id;
+                    $data['code'] = $code;
+                    $data['identity'] = $identity;
+                    $this->load->view('pages/users/activeuser', $data);
                 }
             } else {
                 $this->session->set_flashdata('message', $this->ion_auth->errors());
-                redirect('welcome', 'refresh');
+                $data['id'] = $id;
+                $data['code'] = $code;
+                $data['identity'] = $identity;
+                $this->load->view('pages/users/activeuser', $data);
             }
         }else{
             $data['id'] = $id;

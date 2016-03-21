@@ -19,7 +19,7 @@
         <div class="panel-heading"><h2 class="panel-title">New Password</h2></div>
         <form action="<?php echo base_url('users/setPassword/'.$this->uri->segment(3).'/'.$this->uri->segment(4).'/'.$this->uri->segment(5)) ?>" method="post" id="frmsetpassword">
             <div class="panel-body">
-
+                <?php if ($this->session->flashdata('message')); ?>
                 <div class="form-group">
                     <label>New Password</label>
                     <input type="hidden" name="id" value="<?php echo $id ?>">
