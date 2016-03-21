@@ -29,10 +29,11 @@ class Product extends CI_Controller {
         $data = array();
         $master = array();
 		$this->form_validation->set_rules('model_no', 'Model Number', 'trim|required|max_length[64]');
-		$this->form_validation->set_rules('category', 'Category', 'trim|required');
+		$this->form_validation->set_rules('category', 'Category', 'callback_dropdown_fun');
 		$this->form_validation->set_rules('grossweight', 'Net weight', 'trim|required');
 		$this->form_validation->set_rules('netweight', 'price', 'trim');
 		$this->form_validation->set_rules('price', 'price', 'trim');
+		$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
 		if ($this->form_validation->run() == TRUE) 
 		{
 			$this->db->trans_start();
@@ -78,7 +79,7 @@ class Product extends CI_Controller {
 					}
 				}
 			}
-
+			//if all transation success then insert data to database otherwise rollback
 			$this->db->trans_complete();
 			$master['status'] = True;
 				
@@ -99,8 +100,16 @@ class Product extends CI_Controller {
 		echo(json_encode($master));
 		
 	}
-	
 
+	public function dropdown_fun($value)
+	{
+		if($value=='0')
+		{
+			$this->form_validation->set_message('dropdown_fun', 'Please select product category');
+			return false;
+		}
+		return true;
+	}
 }
 
 /* End of file Products.php */
