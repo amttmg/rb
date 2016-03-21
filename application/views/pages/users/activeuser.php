@@ -14,23 +14,26 @@
 
     <div class="panel panel-default">
         <div class="panel-heading"><h2 class="panel-title">New Password</h2></div>
-        <div class="panel-body">
+        <form action="<?php echo base_url('users/setPassword') ?>" method="post">
+            <div class="panel-body">
 
-            <div class="form-group">
-                <label>New Password</label>
-                <input type="hidden" name="identity" value="<?php echo $user->identity ?>">
-                <input type="text" name="new" id="new" class="form-control">
-            </div>
-            <div class="form-group">
-                <label>Confirm Password</label>
-                <input type="text" name="new_confirm" id="new_confirm" class="form-control">
-            </div>
+                <div class="form-group">
+                    <label>New Password</label>
+                    <input type="hidden" name="id" value="<?php echo $id ?>">
+                    <input type="hidden" name="code" value="<?php echo $code ?>">
+                    <input type="hidden" name="identity" value="<?php echo $identity ?>">
+                    <input type="text" name="password" id="password" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="text" name="confpassword" id="confpassword" class="form-control">
+                </div>
 
-        </div>
-        <div class="panel-footer">
-            <button type="submit" class="btn btn-primary btn-sm">Active Account</button>
-            <button type="submit" class="btn btn-primary btn-sm">Login Page</button>
-        </div>
+            </div>
+            <div class="panel-footer">
+                <button type="submit" class="btn btn-primary btn-sm">Active Account</button>
+            </div>
+        </form>
     </div>
 </div>
 </body>

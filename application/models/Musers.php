@@ -29,25 +29,45 @@ class Musers extends CI_Model
         return $this->db->get('tbl_functions')->result();
     }
 
-    function editGroup(){
+    function editGroup()
+    {
         $function = $this->input->post('functions');
-        $group_id=$this->input->post('group_id');
-        $group_update = $this->ion_auth->update_group($group_id ,$this->input->post('group_name'), $this->input->post('description'));
+        $group_id = $this->input->post('group_id');
+        $group_update = $this->ion_auth->update_group($group_id, $this->input->post('group_name'), $this->input->post('description'));
         $this->removeFunctions($group_id);
-       if($group_update){
-           foreach ($function as $fun) {
-               $newfunctiongroup = array(
-                   'group_id' => $group_id,
-                   'function_id' => $fun,
-                   'status' => 1
-               );
-               $this->db->insert('function_group', $newfunctiongroup);
-           }
-       }
+        if ($group_update) {
+            foreach ($function as $fun) {
+                $newfunctiongroup = array(
+                    'group_id' => $group_id,
+                    'function_id' => $fun,
+                    'status' => 1
+                );
+                $this->db->insert('function_group', $newfunctiongroup);
+            }
+        }
 
     }
-    function removeFunctions($group_id){
-        $this->db->where('group_id',$group_id );
+
+    function removeFunctions($group_id)
+    {
+        $this->db->where('group_id', $group_id);
         $this->db->delete('function_group');
+    }
+
+    function getUser($identity)
+    {
+        $this->db->where('username', $identity);
+        return $this->db->get('users')->row();
+    }
+    function checkCode($id, $code){
+        $this->db->where('id', $id);
+        $this->db->where('activation_code', $code);
+        $result= $this->db->get('users');
+        if($result->num_rows()>0){
+            return true;
+        }else{
+            return false;
+        }
+
     }
 }
