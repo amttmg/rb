@@ -120,4 +120,32 @@ class Users extends CI_Controller
             redirect('users');
         }
     }
+
+    function activeUser($id, $code=false){
+        if ($code !== false)
+        {
+            $activation = $this->ion_auth->activate($id, $code);
+        }
+        if($activation){
+            $user['user'] = $this->ion_auth->users($id)->row();
+            $this->load->view('pages/users/activeuser', $user);
+        }
+    }
+
+    function changePassword(){
+        $identity = $this->session->userdata('identity');
+
+        $change = $this->ion_auth->change_password("password123", $this->input->post('new'));
+
+        if ($change)
+        {
+            $this->session->set_flashdata('message', $this->ion_auth->messages());
+            $this->logout();
+        }
+        else
+        {
+            $this->session->set_flashdata('message', $this->ion_auth->errors());
+            redirect('users/activeUser', 'refresh');
+        }
+    }
 }
