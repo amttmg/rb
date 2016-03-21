@@ -140,18 +140,17 @@ class Users extends CI_Controller
         $identity = $this->input->post('identity');
         $activation = $this->ion_auth->activate($id, $code);
         if ($activation) {
-            echo $this->ion_auth->messages();
             $change = $this->ion_auth->reset_password($identity, $password);
             if ($change) {
                 $this->session->set_flashdata('message', $this->ion_auth->messages());
-                redirect('welcome');
+                redirect('welcome','refresh');
             } else {
                 $this->session->set_flashdata('message', $this->ion_auth->errors());
-                redirect('welcome');
+                redirect('welcome','refresh');
             }
         }else{
             $this->session->set_flashdata('message', $this->ion_auth->errors());
-            redirect('welcome');
+            redirect('welcome','refresh');
         }
     }
 }
