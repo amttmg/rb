@@ -1,6 +1,9 @@
 <html>
 <head>
+
     <link rel="stylesheet" href="<?php echo base_url() ?>template/bootstrap/css/bootstrap.min.css">
+    <script src="<?php echo base_url() ?>template/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="<?php echo base_url() ?>template/plugins/validation/jquery.validate.min.js"></script>
 </head>
 <title>
 
@@ -14,7 +17,7 @@
 
     <div class="panel panel-default">
         <div class="panel-heading"><h2 class="panel-title">New Password</h2></div>
-        <form action="<?php echo base_url('users/setPassword') ?>" method="post">
+        <form action="<?php echo base_url('users/setPassword') ?>" method="post" id="frmsetpassword">
             <div class="panel-body">
 
                 <div class="form-group">
@@ -38,3 +41,17 @@
 </div>
 </body>
 </html>
+<script>
+    $('#frmsetpassword').validate({
+            rule: {
+                password: {
+                    required: true
+                },
+                confpassword: {
+                    required: true
+                }
+
+            }
+        }
+    );
+</script>
