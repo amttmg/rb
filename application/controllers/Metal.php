@@ -84,12 +84,11 @@ class Metal extends CI_Controller {
 		}
 		echo(json_encode($master));
 	}
-
+	//exatract one metal details for fill form according to metal id supplied
 	public function get_metal($id)
 	{
 		echo(json_encode($this->metal->get_metals($id)));
 	}
-
 	public function dropdown_fun($value)
 	{
 		if($value=='0')
