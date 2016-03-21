@@ -65,6 +65,7 @@
                     <?php
                     }
                     ?>
+                    <?php if ($this->session->flashdata('message')); ?>
                 </div>
                 <!-- /.col -->
                 <div class="col-xs-4">
