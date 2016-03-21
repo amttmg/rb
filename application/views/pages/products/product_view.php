@@ -194,11 +194,12 @@
       }); 
       //add data to metal grid
       $('#add_metalto_grid').click(function() {
-        $('#metal_grid').append('<tr><td>'+$('#metal_dropdown').html()+'</td><td>'+$('#unit').html()+'</td><td>'+$('#weight').html()+'</td><td><button type="button" class="remove">X</button></td></tr>');
+
+        $('#metal_grid').append('<tr><td>'+$('#metal_dropdown').html()+'</td><td>'+$('#unit').html()+'</td><td>'+$('#weight').html()+'</td><td><button class="remove btn btn-info btn-sm" data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa fa-times"></i></button></td></tr>');
       });
 
       $('#add_stoneto_togr').click(function() {
-        $('#stone_grid').append('<tr><td>'+$('#stone_dropdown').html()+'</td><td>'+$('#pcs').html()+'</td><td>'+$('#cts').html()+'</td><td><button type="button" class="remove">X</button></td></tr>');
+        $('#stone_grid').append('<tr><td>'+$('#stone_dropdown').html()+'</td><td>'+$('#pcs').html()+'</td><td>'+$('#cts').html()+'</td><td><button class="remove btn btn-info btn-sm" data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa fa-times"></i></button></td></tr>');
       });
       $("body").on("click",'.remove', function() {
         $(this).closest('tr').remove();
