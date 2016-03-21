@@ -46,12 +46,15 @@ class Product extends CI_Controller {
 			if($metal)
 			{
 				foreach ($metal as $key=>$value) {
-					$data=array(
+					if($value)
+					{
+						$data=array(
 						'metal_id'=>$value,
 						'product_id'=>$product_id,
 						'weight'=>$weight[$key]
 						);
-					$this->db->insert('tbl_metal_details',$data);
+						$this->db->insert('tbl_metal_details',$data);
+					}
 				}
 			}
 
@@ -63,13 +66,16 @@ class Product extends CI_Controller {
 			{
 				foreach ($stone as $key => $value) {
 					
-					$data=array(
+					if($value)
+					{
+						$data=array(
 						'stone_id'=>$value,
 						'product_id'=>$product_id,
 						'pcs'=>$pcs[$key],
 						'cts'=>$cts[$key]
 						);
-					$this->db->insert('tbl_stone_details',$data);
+						$this->db->insert('tbl_stone_details',$data);
+					}
 				}
 			}
 
