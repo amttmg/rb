@@ -50,6 +50,10 @@
                     </a></li>
                     <li class="list"><a href="<?php echo base_url('stone') ?>"><i class="fa fa-info-circle"></i>Stone
                     </a></li>
+                    <li class="list"><a href="<?php echo base_url('category') ?>"><i class="fa fa-info-circle"></i>Product Category
+                    </a></li>
+                    <li class="list"><a href="<?php echo base_url('product') ?>"><i class="fa fa-info-circle"></i>Products
+                    </a></li>
                 </ul>
             </li>
 
