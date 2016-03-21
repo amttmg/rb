@@ -15,7 +15,7 @@
           <!-- Default box -->
             <div class="box">
                 <div class="box-header with-border">
-                <h3 class="box-title"><button type="button" class="btn btn-primary" id="btn_add_new_metal"><i class="fa fa-plus"></i>button</button></h3>
+                <h3 class="box-title"><button type="button" class="btn btn-primary" id="btn_add_new_metal"><i class="fa fa-plus"></i>Add New</button></h3>
                   <div class="box-tools pull-right">
                     <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
                     <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
@@ -28,6 +28,8 @@
                               <tr>
                                   <th>SN.</th>
                                   <th>Metal Name</th>
+                                  <th>Metal Type</th>
+                                  <th>Unit</th>
                                   <th>Action</th>
                               </tr>
                           </thead>
@@ -37,6 +39,8 @@
                                 <tr>
                                     <td><?php echo $count; ?></td>
                                     <td><?php echo($metal->metal) ?></td>
+                                    <th><?php echo($metal->metal_type) ?></th>
+                                    <th><?php echo($metal->unit) ?></th>
                                     <td><div class="btn-group">
                                         <button type="button" class="btn_edit_metal btn btn-info" data-metalid="<?php echo($metal->metal_id) ?>">Edit</button>
                                         <button type="button" class="btn btn-info">Action</button>
@@ -72,6 +76,20 @@
                             <input type="text" name="metalname" class="form-control" id="metalname" placeholder="Metal name">
                             <span></span>
                         </div>
+                        <div class="form-group">
+                            <label>Metal Type</label>
+                              <select class="form-control" name="metaltype" id="metaltype">
+                                <option value="0">Choose Metal Type</option>
+                                <option value="gold">Gold</option>
+                                <option value="silver">Silver</option>
+                              </select>
+                              <span></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Unit</label>
+                            <input type="text" name="unit" class="form-control" id="unit" placeholder="Metal Type">
+                            <span></span>
+                        </div>
                     </form>
             </div>
             <div class="modal-footer">
@@ -96,6 +114,20 @@
                         <div class="form-group">
                             <label for="">Metal Name</label>
                             <input type="text" name="metal" class="form-control" id="metal" placeholder="Metal name">
+                            <span></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Metal Type</label>
+                              <select class="form-control" name="metaltype" id="metaltype">
+                                <option value="0">Choose Metal Type</option>
+                                <option value="gold">Gold</option>
+                                <option value="silver">Silver</option>
+                              </select>
+                              <span></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Unit</label>
+                            <input type="text" name="unit" class="form-control" id="unit" placeholder="Metal Type">
                             <span></span>
                         </div>
                 </form>
@@ -124,7 +156,9 @@
                 type: 'POST',
                 dataType: 'json',
                 success:function (data) {
-                    $('#metal').val(data[0].metal);
+                    $('#edit_metal_form #metal').val(data[0].metal);
+                    $('#edit_metal_form #metaltype').val(data[0].metal_type);
+                    $('#edit_metal_form #unit').val(data[0].unit);
                 }
             })
             .fail(function() {
