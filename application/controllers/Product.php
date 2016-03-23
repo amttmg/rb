@@ -45,8 +45,9 @@ class Product extends CI_Controller {
 			$product_id=$this->product->insert_product($this->image_name);
 
 			/*insert metal details*/
-			if(!empty($this->input->post('metal')))
+			if(!empty($_POST['metal']))
 			{
+				$metal=$_POST['metal'];
 				$weight=$_POST['weight'];
 				foreach ($metal as $key=>$value) {
 						$data=array(
@@ -59,14 +60,13 @@ class Product extends CI_Controller {
 			}
 
 			/*insert stone details*/
-			if(!empty($this->input->post('stone')))
+			if(!empty($_POST['stone']))
 			{
 				$pcs=$_POST['pcs'];
 				$cts=$_POST['cts'];
+				$stone=$_POST['stone'];
+
 				foreach ($stone as $key => $value) {
-					
-					if($value)
-					{
 						$data=array(
 						'stone_id'=>$value,
 						'product_id'=>$product_id,
@@ -74,7 +74,6 @@ class Product extends CI_Controller {
 						'cts'=>$cts[$key]
 						);
 						$this->db->insert('tbl_stone_details',$data);
-					}
 				}
 			}
 			//if all transation success then insert data to database otherwise rollback
