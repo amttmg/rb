@@ -3,6 +3,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Product extends CI_Controller {
 
+	private $image_name='';
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -30,16 +32,17 @@ class Product extends CI_Controller {
         $master = array();
 		$this->form_validation->set_rules('model_no', 'Model Number', 'trim|required|max_length[64]');
 		$this->form_validation->set_rules('category', 'Category', 'callback_dropdown_fun');
-		$this->form_validation->set_rules('grossweight', 'Net weight', 'trim|required');
-		$this->form_validation->set_rules('netweight', 'price', 'trim');
-		$this->form_validation->set_rules('price', 'price', 'trim');
+		$this->form_validation->set_rules('grossweight', 'Gross weight', 'trim|required');
+		$this->form_validation->set_rules('netweight', 'Net weight', 'trim|required');
+		$this->form_validation->set_rules('price', 'Price', 'trim|required');
+		$this->form_validation->set_rules('photo', 'Photo', 'callback_validate_image');
 		$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
 		if ($this->form_validation->run() == TRUE) 
 		{
 			$this->db->trans_start();
 
 			/*insert product and return product id*/
-			$product_id=$this->product->insert_product();
+			$product_id=$this->product->insert_product($this->image_name);
 
 			/*insert metal details*/
 			$metal=$_POST['metal'];
@@ -99,6 +102,29 @@ class Product extends CI_Controller {
 		}
 		echo(json_encode($master));
 		
+	}
+
+	public function validate_image()
+	{
+			$config['upload_path'] = './uploads/';
+            $config['file_name'] = uniqid();
+            $config['allowed_types'] = 'gif|jpg|png';
+            $config['max_size'] = '1000';
+
+            $this->load->library('upload', $config);
+
+            if (!$this->upload->do_upload('photo')) {
+                if (stristr($this->upload->display_errors(), 'You did not select a file to upload')) {
+                    return true;
+                } else {
+                    $this->form_validation->set_message('validate_image', $this->upload->display_errors());
+                    return false;
+                }
+
+            } else {
+                $this->image_name = $this->upload->data('file_name');
+                return true;
+            }
 	}
 
 	public function dropdown_fun($value)
