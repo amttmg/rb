@@ -45,7 +45,7 @@
                 <form action="<?php echo('product/add') ?>" method="POST" role="form" id="product_add_form">
                     <div class="form-group">
                         <label for="">Model Number</label>
-                        <input type="text" name="model_no" class="form-control" id="model_no" placeholder="Input field">
+                        <input type="text" name="model_no" class="form-control" id="model_no" placeholder="Model Number">
                         <span></span>
                     </div>
                     <div class="form-group">
@@ -138,12 +138,12 @@
                                                 </td>
                                                 <td width="120">
                                                     <div class="form-group" id="pcs">
-                                                        <input type="text" name="pcs[]" class="pcs form-control" value=""  title="">
+                                                        <input type="number" name="pcs[]" class="pcs form-control" value=""  title="">
                                                     </div>
                                                 </td>
                                                 <td width="120">
                                                     <div class="form-group" id="cts">
-                                                        <input type="text" name="cts[]" class="cts form-control" value=""   title="">
+                                                        <input type="number" name="cts[]" class="cts form-control" value=""   title="">
                                                     </div>
                                                 </td>
                                                 <td>
@@ -162,19 +162,22 @@
                     </div>
                     <div class="form-group">
                         <label for="">Gross Weight</label>
-                        <input type="text" name="grossweight" class="form-control" id="grossweight" placeholder="Input field">
+                        <input type="number" name="grossweight" class="form-control" id="grossweight" placeholder="Gross Weight">
+                        <span></span>
                     </div>
                     <div class="form-group">
                         <label for="">Net Weight</label>
-                        <input type="text" name="netweight"  class="form-control" id="netweight" placeholder="Input field">
+                        <input type="number" name="netweight"  class="form-control" id="netweight" placeholder="Net Weight">
+                        <span></span>
                     </div>
                     <div class="form-group">
                         <label for="">Price</label>
-                        <input type="text" name="price" class="form-control" id="price" placeholder="Input field">
+                        <input type="text" name="price" class="form-control" id="price" placeholder="Price">
+                        <span></span>
                     </div>
                     <div class="form-group">
                         <label for="">Image</label>
-                        <input type="file" class="form-control" id="" placeholder="Input field">
+                        <input type="file" name="photo" id="photo">
                     </div>
                 
             </div>
