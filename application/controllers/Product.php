@@ -45,33 +45,28 @@ class Product extends CI_Controller {
 			$product_id=$this->product->insert_product($this->image_name);
 
 			/*insert metal details*/
-			$metal=$_POST['metal'];
-			$weight=$_POST['weight'];
-			if($metal)
+			if(!empty($_POST['metal']))
 			{
+				$metal=$_POST['metal'];
+				$weight=$_POST['weight'];
 				foreach ($metal as $key=>$value) {
-					if($value)
-					{
 						$data=array(
 						'metal_id'=>$value,
 						'product_id'=>$product_id,
 						'weight'=>$weight[$key]
 						);
 						$this->db->insert('tbl_metal_details',$data);
-					}
 				}
 			}
 
 			/*insert stone details*/
-			$stone=$_POST['stone'];
-			$pcs=$_POST['pcs'];
-			$cts=$_POST['cts'];
-			if($stone)
+			if(!empty($_POST['stone']))
 			{
+				$pcs=$_POST['pcs'];
+				$cts=$_POST['cts'];
+				$stone=$_POST['stone'];
+
 				foreach ($stone as $key => $value) {
-					
-					if($value)
-					{
 						$data=array(
 						'stone_id'=>$value,
 						'product_id'=>$product_id,
@@ -79,7 +74,6 @@ class Product extends CI_Controller {
 						'cts'=>$cts[$key]
 						);
 						$this->db->insert('tbl_stone_details',$data);
-					}
 				}
 			}
 			//if all transation success then insert data to database otherwise rollback
