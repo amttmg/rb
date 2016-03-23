@@ -73,8 +73,8 @@
                                         <table class="table">
                                            <thead>
                                                <tr>
+                                                    <th>Metal Type</th>
                                                    <th>Metal</th>
-                                                   <th>unit</th>
                                                    <th>Weight</th>
                                                    <th></th>
                                                </tr>
@@ -83,22 +83,26 @@
                                                <tbody id="metal_grid">
                                             <tr>
                                                 <td>
+                                                  <div class="form-group" id="metal_dropdown">
+                                                          <select name="m_metaltype" id="m_metaltype" class="form-control" required="required">
+                                                              <?php foreach ($metal_type as $metal): ?>
+                                                                  <option value=""><?php echo($metal->metal_type) ?></option>
+                                                              <?php endforeach ?>
+                                                          </select>
+                                                          <span></span>
+                                                      </div>
+                                                  
+                                                </td>
+                                                <td>
                                                     <div class="form-group" id="metal_dropdown">
                                                         <select name="m_metal" id="m_metal" class="form-control" required="required">
                                                             <option value="0">--Select metal--</option>
-                                                            <?php foreach ($metals as $metal): ?>
-                                                                <option value="<?php echo($metal->metal_id) ?>"><?php echo($metal->metal) ?></option>
-                                                            <?php endforeach ?>
+                                                            
                                                         </select>
                                                         <span></span>
                                                     </div>
                                                 </td>
-                                                <td>
-                                                    <div class="form-group" id="unit">
-                                                        <input type="text" name="m_unit" id="m_unit" class="form-control" placeholder="Unit" >
-                                                        <span></span>
-                                                    </div>
-                                                </td>
+                                                
                                                 <td>
                                                     <div class="form-group" id="weight">
                                                         <input type="text" name="m_weight" id="m_weight" class="form-control" placeholder="Weight" >
@@ -221,6 +225,8 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function() {
+      var selected_value=$('#m_metaltype').find("option:selected").text()
+      fill_metal_combo(selected_value);//functon for fill metal combobox when page first load
       $('#btn_add_new_product').click(function() {
           $('#mdl_add_products').modal('show');
       }); 
@@ -244,7 +250,7 @@
           }
           else
           {
-              $('#metal_grid').append('<tr class="success"><td><input type="hidden" name="metal[]" value="'+$('#m_metal').val()+'">'+$('#m_metal').find("option:selected").text()+'</td><td><input type="hidden" name="unit[]" value="'+$('#m_unit').val()+'">'+$('#m_unit').val()+'</td><td><input type="hidden" name="weight[]" value="'+$('#m_weight').val()+'">'+$('#m_weight').val()+'</td><td><button class="remove btn btn-info btn-sm" data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa fa-times"></i></button></td></tr>');
+            $('#metal_grid').append('<tr class="success"><td>'+$('#m_metaltype').find("option:selected").text()+'</td><td><input type="hidden" name="metal[]" value="'+$('#m_metal').val()+'">'+$('#m_metal').find("option:selected").text()+'</td><td><input type="hidden" name="weight[]" value="'+$('#m_weight').val()+'">'+$('#m_weight').val()+'</td><td><a href="#" class="remove"><span class="label label-danger">Remove</span></a></td></tr>');
               $('#m_metal').val('0');
               $('#m_unit').val('');
               $('#m_weight').val('');
@@ -272,7 +278,7 @@
           }
           else
           {
-              $('#stone_grid').append('<tr class="success"><td><input type="hidden" name="stone[]" value="'+$('#m_stone').val()+'">'+$('#m_stone').find("option:selected").text()+'</td><td><input type="hidden" name="pcs[]" value="'+$('#m_pcs').val()+'">'+$('#m_pcs').val()+'</td><td><input type="hidden" name="cts[]" value="'+$('#m_cts').val()+'">'+$('#m_cts').val()+'</td><td><button class="remove btn btn-warning btn-sm" data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa fa-times"></i></button></td></tr>');
+              $('#stone_grid').append('<tr class="success"><td><input type="hidden" name="stone[]" value="'+$('#m_stone').val()+'">'+$('#m_stone').find("option:selected").text()+'</td><td><input type="hidden" name="pcs[]" value="'+$('#m_pcs').val()+'">'+$('#m_pcs').val()+'</td><td><input type="hidden" name="cts[]" value="'+$('#m_cts').val()+'">'+$('#m_cts').val()+'</td><td><a href="#" class="remove"><span class="label label-danger">Remove</span></a></td></tr>');
               //reseting value of input field
               $('#m_stone').val('0');
               $('#m_pcs').val('');
@@ -296,15 +302,26 @@
             $(this).parent().parent().removeClass('has-error');
             $(this).next().empty();
         });
+        $('#m_metaltype').change(function() {
+            var selected_value=$('#m_metaltype').find("option:selected").text()
+            if($('#m_metaltype').val()!=='0')
+            {
+              fill_metal_combo(selected_value);
+            }
+        });
         /*functon ends for dealing errors*/
       $('#btn_product_add').click(function() {
+          var formData = new FormData($('#product_add_form')[0]);
             $(this).prop('disabled',true);
             $(this).text('Saving........');
           $.ajax({
               url: '<?php echo(site_url("product/add")) ?>',
               type: 'POST',
               dataType: 'json',
-              data: $('#product_add_form').serialize(),
+              cache: false,
+              contentType: false,
+              processData: false,
+              data: formData,/*$('#product_add_form').serialize(),*/
               success:function(data)
               {
                 console.log(data);
@@ -331,4 +348,31 @@
       });
 
     });
+
+function fill_metal_combo(metal_type)
+{
+  $.ajax({
+                url: '<?php echo("product/fill_metal_combo") ?>'+'/'+metal_type,
+                type: 'POST',
+                dataType: 'json',
+                success:function(data)
+                {
+                  $('#m_metal').empty();
+                  $('#m_metal').append('<option value="0">--Please select metal--</option>');
+                  $.each(data, function(index, val) {
+                    var temp_opt='<option value="'+val.metal_id+'">'+val.metal+'</option>';
+                    $('#m_metal').append(temp_opt);
+                  });
+                }
+              })
+              .done(function() {
+                console.log("success");
+              })
+              .fail(function() {
+                console.log("error");
+              })
+              .always(function() {
+                console.log("complete");
+              });
+}
 </script>

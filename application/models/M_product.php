@@ -8,18 +8,20 @@ class M_product extends CI_Model {
 		parent::__construct();
 		$this->load->database();
 	}
-	public function insert_product()
+	public function insert_product($image)
 	{
 		$data=array(
 			'category_id'=>$this->input->post('category'),
 			'model_no'=>$this->input->post('model_no'),
 			'gross_weight'=>$this->input->post('grossweight'),
 			'net_weight'=>$this->input->post('netweight'),
-			'price'=>$this->input->post('price')
+			'price'=>$this->input->post('price'),
+			'image_url'=>$image
 			);
 		$this->db->insert('tbl_products',$data);
 		return $this->db->insert_id();
 	}
+
 
 	
 

@@ -19,6 +19,7 @@ class Product extends CI_Controller {
 		$this->load->model('m_product_category','product_category');//load model for get product category to fill dropdown box
 		$view_data['product_categories']=$this->product_category->get_product_category();
 		$view_data['metals']=$this->metal->get_metals();
+		$view_data['metal_type']=$this->metal->get_metaltype();
 		$view_data['stones']=$this->stone->get_stones();
 		$data['title'] = "Products";
         $data['content'] = $this->load->view('pages/products/product_view',$view_data, true);
@@ -130,6 +131,14 @@ class Product extends CI_Controller {
 		}
 		return true;
 	}
+
+	public function fill_metal_combo($value)
+	{
+		$this->db->where('metal_type',$value);
+		$metal_combo=$this->db->get('tbl_metals')->result();
+		echo(json_encode($metal_combo));
+	}
+
 }
 
 /* End of file Products.php */
