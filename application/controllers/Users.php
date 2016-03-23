@@ -117,7 +117,7 @@ class Users extends CI_Controller
             $group = array($this->input->post('group'));
             if ($this->ion_auth->register($identity, $password, $email, $additional_data, $group)) {
                 $master['message'] = "Customer enquiry saved successfully !";
-            }else{
+            } else {
                 $master['message'] = "Not regestered";
             }
         } else {
@@ -148,7 +148,7 @@ class Users extends CI_Controller
 
     }
 
-    function setPassword($id, $identity, $code)
+    function setPassword($identity, $id, $code)
     {
         $this->form_validation->set_rules('password', $this->lang->line('change_password_validation_new_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[confpassword]');
         $this->form_validation->set_rules('confpassword', $this->lang->line('change_password_validation_new_password_confirm_label'), 'required');
@@ -183,6 +183,44 @@ class Users extends CI_Controller
             $data['code'] = $code;
             $data['identity'] = $identity;
             $this->load->view('pages/users/activeuser', $data);
+        }
+    }
+
+    // activate the user
+    function activate($id = '')
+    {
+        if ($id == '') {
+            show_404();
+        } else {
+            $activation = $this->ion_auth->activate($id);
+            if ($activation) {
+                // redirect them to the auth page
+                $this->session->set_flashdata('message', $this->ion_auth->messages());
+                redirect("users", 'refresh');
+            } else {
+                // redirect them to the forgot password page
+                $this->session->set_flashdata('message', $this->ion_auth->errors());
+                redirect("users", 'refresh');
+            }
+        }
+    }
+
+    // deactivate the user
+    function deactivate($id = '')
+    {
+        if ($id == '') {
+            show_404();
+        } else {
+            $deactive = $this->ion_auth->deactivate($id);
+            if ($deactive) {
+                // redirect them to the auth page
+                $this->session->set_flashdata('message', $this->ion_auth->messages());
+                redirect("users", 'refresh');
+            } else {
+                // redirect them to the forgot password page
+                $this->session->set_flashdata('message', $this->ion_auth->errors());
+                redirect("users", 'refresh');
+            }
         }
     }
 }

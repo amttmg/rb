@@ -1,4 +1,3 @@
-
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -35,7 +34,7 @@
                         <strong><?php echo($this->session->flashdata('message')); ?></strong>
                     </div>
                 <?php endif ?>
-                <table class="table table-bordered">
+                <table class="table table-bordered tbl_users">
                     <thead>
                     <tr>
                         <th>
@@ -102,13 +101,23 @@
                                 <?php echo unix_to_human($user->last_login) ?>
                             </td>
                             <td>
-                                <?php echo ($user->active == 1) ? 'Actve' : 'Inactive' ?>
+                                <?php if ($user->active) { ?>
+                                    <label class="label label-primary"> <?php echo ($user->active == 1) ? 'Actve' : 'Inactive' ?></label>
+                                <?php } else { ?>
+                                    <label class="label label-danger"> <?php echo ($user->active == 1) ? 'Actve' : 'Inactive' ?></label>
+                                <?php } ?>
+
                             </td>
                             <td>
-                                <a href="#" class="btnuseredit" data-userid="<?php echo $user->id ?>"><label
-                                        class="label label-primary">Edit</label></a>
-                                <a href="#" class="btnuserdisable" data-userid="<?php echo $user->id ?>"><label
-                                        class="label label-warning">Disable</label></a>
+                                <a href="#" class="btn btn-xs btn-primary btn-block"><i class="fa fa-edit"></i> Edit</a>
+                                <a href="#" class="btn btn-xs btn-primary btn-block"><i class="fa fa-refresh"></i> Reset</a>
+                                <?php if ($user->active) { ?>
+                                    <a href="<?php echo base_url('users/deactivate/' . $user->id) ?>"
+                                       class="btn btn-xs btn-danger btn-block"><i class="fa fa-recycle"></i> Deactive</a>
+                                <?php } else { ?>
+                                    <a href="<?php echo base_url('users/activate/' . $user->id) ?>"
+                                       class="btn btn-xs btn-info btn-block"><i class="fa fa-recycle"></i> Active</a>
+                                <?php } ?>
                             </td>
                         </tr>
                         <?php
@@ -285,4 +294,14 @@
             }
         });
     });
+
+    $('.tbl_users').DataTable({
+        "paging": true,
+        "lengthChange": true,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "autoWidth": true
+    });
+
 </script>
