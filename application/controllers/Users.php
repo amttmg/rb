@@ -80,7 +80,9 @@ class Users extends CI_Controller
 
     function createUser()
     {
-
+        $master['status'] = True;
+        $data = array();
+        $master = array();
         $tables = $this->config->item('tables', 'ion_auth');
         $identity_column = $this->config->item('identity', 'ion_auth');
         $this->data['identity_column'] = $identity_column;
@@ -96,9 +98,11 @@ class Users extends CI_Controller
         }
         $this->form_validation->set_rules('phone', $this->lang->line('create_user_validation_phone_label'), 'trim');
         $this->form_validation->set_rules('company', $this->lang->line('create_user_validation_company_label'), 'trim');
-        //$this->form_validation->set_rules('password', $this->lang->line('create_user_validation_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
-        // $this->form_validation->set_rules('password_confirm', $this->lang->line('create_user_validation_password_confirm_label'), 'required');
+        $this->form_validation->set_rules('phone', $this->lang->line('create_user_validation_phone_label'), 'required');
 
+        $this->form_validation->set_rules('group', 'Group', 'trim|required');
+
+        $this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
         if ($this->form_validation->run() == true) {
             $email = strtolower($this->input->post('email'));
             $identity = ($identity_column === 'email') ? $email : $this->input->post('identity');
@@ -110,12 +114,24 @@ class Users extends CI_Controller
                 'company' => $this->input->post('company'),
                 'phone' => $this->input->post('phone'),
             );
+            $group = array($this->input->post('group'));
+            if ($this->ion_auth->register($identity, $password, $email, $additional_data, $group)) {
+                $master['message'] = "Customer enquiry saved successfully !";
+            }else{
+                $master['message'] = "Not regestered";
+            }
+        } else {
+            $master['status'] = false;
+            foreach ($_POST as $key => $value) {
+                if (form_error($key) != '') {
+                    $data['error_string'] = $key;
+                    $data['input_error'] = form_error($key);
+                    array_push($master, $data);
+                }
+            }
         }
-        $group = array($this->input->post('group'));
-        if ($this->form_validation->run() == true && $this->ion_auth->register($identity, $password, $email, $additional_data, $group)) {
-            $this->session->set_flashdata('message', $this->ion_auth->messages());
-            redirect('users');
-        }
+        echo json_encode($master);
+
     }
 
     function activeUser($identity, $id, $code = false)
@@ -162,7 +178,7 @@ class Users extends CI_Controller
                 $data['identity'] = $identity;
                 $this->load->view('pages/users/activeuser', $data);
             }
-        }else{
+        } else {
             $data['id'] = $id;
             $data['code'] = $code;
             $data['identity'] = $identity;
