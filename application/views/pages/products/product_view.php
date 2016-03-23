@@ -63,6 +63,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                 <div class="panel panel-default">
                                     <div class="panel-body">
+                                      <div class="table-responsive table-bordered">
                                         <table class="table">
                                            <thead>
                                                <tr>
@@ -75,24 +76,27 @@
                                            <tbody>
                                                <tbody id="metal_grid">
                                             <tr>
-                                                <td width="200">
+                                                <td>
                                                     <div class="form-group" id="metal_dropdown">
-                                                        <select name="metal[]" class="metal form-control" required="required">
-                                                            <option value="">--Select metal--</option>
+                                                        <select name="m_metal" id="m_metal" class="form-control" required="required">
+                                                            <option value="0">--Select metal--</option>
                                                             <?php foreach ($metals as $metal): ?>
                                                                 <option value="<?php echo($metal->metal_id) ?>"><?php echo($metal->metal) ?></option>
                                                             <?php endforeach ?>
                                                         </select>
+                                                        <span></span>
                                                     </div>
                                                 </td>
-                                                <td width="150">
+                                                <td>
                                                     <div class="form-group" id="unit">
-                                                        <input type="text" name="unit[]" class="unit form-control" >
+                                                        <input type="text" name="m_unit" id="m_unit" class="form-control" placeholder="Unit" >
+                                                        <span></span>
                                                     </div>
                                                 </td>
-                                                <td width="150">
+                                                <td>
                                                     <div class="form-group" id="weight">
-                                                        <input type="text" name="weight[]" class="weight form-control" >
+                                                        <input type="text" name="m_weight" id="m_weight" class="form-control" placeholder="Weight" >
+                                                        <span></span>
                                                     </div>
                                                 </td>
                                                 <td>
@@ -105,6 +109,7 @@
                                         </tbody>
                                            </tbody>
                                        </table>
+                                       </div>
                                     </div>
                                 </div>
                             </div>
@@ -128,27 +133,30 @@
                                             <tr>
                                                 <td width="200">
                                                     <div class="form-group" id="stone_dropdown">
-                                                        <select name="stone[]" class="stone form-control" required="required">
-                                                            <option value="">--select lot no--</option>
+                                                        <select name="m_stone" id="m_stone" class="form-control" required="required">
+                                                            <option value="0">--select lot no--</option>
                                                              <?php foreach ($stones as $stone): ?>
                                                                 <option value="<?php echo($stone->stone_id) ?>"><?php echo($stone->lot_no) ?></option>
                                                              <?php endforeach ?>
                                                         </select>
-                                                    </div>
-                                                </td>
-                                                <td width="120">
-                                                    <div class="form-group" id="pcs">
-                                                        <input type="number" name="pcs[]" class="pcs form-control" value=""  title="">
-                                                    </div>
-                                                </td>
-                                                <td width="120">
-                                                    <div class="form-group" id="cts">
-                                                        <input type="number" name="cts[]" class="cts form-control" value=""   title="">
+                                                        <span></span>
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="form-group">
-                                                        <button type="button" class="btn btn-warning" id="add_stoneto_togr">Add</button>
+                                                        <input type="number" name="m_pcs" id="m_pcs" class="form-control" value="" placeholder="Pcs">
+                                                        <span></span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <input type="number" name="m_cts" id="m_cts" class="form-control" value="" placeholder="Cts">
+                                                        <span></span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div>
+                                                        <button type="button" class="btn btn-warning" id="add_stoneto_togrid">Add</button>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -197,12 +205,59 @@
       }); 
       //add data to metal grid
       $('#add_metalto_grid').click(function() {
+          if($('#m_metal').val()==='0' || $('#m_unit').val()==='' || $('#m_weight').val()==='')
+          {
+              if ($('#m_metal').val()==='0') 
+              {
+                $('#m_metal').next().html('<p class="text-warning">Please select metal</p>');
+              }
+              if($('#m_unit').val()==='')
+              {
+                $('#m_unit').next().html('<p class="text-warning">Unit field is empty !</p>');
+              }
+              if($('#m_weight').val()==='')
+              {
+                $('#m_weight').next().html('<p class="text-warning">Weight field is empty !</p>');
+              }
 
-        $('#metal_grid').append('<tr><td>'+$('#metal_dropdown').html()+'</td><td>'+$('#unit').html()+'</td><td>'+$('#weight').html()+'</td><td><button class="remove btn btn-info btn-sm" data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa fa-times"></i></button></td></tr>');
+          }
+          else
+          {
+              $('#metal_grid').append('<tr class="success"><td><input type="hidden" name="metal[]" value="'+$('#m_metal').val()+'">'+$('#m_metal').find("option:selected").text()+'</td><td><input type="hidden" name="unit[]" value="'+$('#m_unit').val()+'">'+$('#m_unit').val()+'</td><td><input type="hidden" name="weight[]" value="'+$('#m_weight').val()+'">'+$('#m_weight').val()+'</td><td><button class="remove btn btn-info btn-sm" data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa fa-times"></i></button></td></tr>');
+              $('#m_metal').val('0');
+              $('#m_unit').val('');
+              $('#m_weight').val('');
+          }
+        
       });
 
-      $('#add_stoneto_togr').click(function() {
-        $('#stone_grid').append('<tr><td>'+$('#stone_dropdown').html()+'</td><td>'+$('#pcs').html()+'</td><td>'+$('#cts').html()+'</td><td><button class="remove btn btn-info btn-sm" data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa fa-times"></i></button></td></tr>');
+      $('#add_stoneto_togrid').click(function() {
+
+        if($('#m_stone').val()==='0' || $('#m_pcs').val()==='' || $('#m_cts').val()==='')
+          {
+              if ($('#m_stone').val()==='0') 
+              {
+                $('#m_stone').next().html('<p class="text-warning">Please select stone</p>');
+              }
+              if($('#m_pcs').val()==='')
+              {
+                $('#m_pcs').next().html('<p class="text-warning">Pcs field is empty !</p>');
+              }
+              if($('#m_cts').val()==='')
+              {
+                $('#m_cts').next().html('<p class="text-warning">Cts field is empty !</p>');
+              }
+
+          }
+          else
+          {
+              $('#stone_grid').append('<tr class="success"><td><input type="hidden" name="stone[]" value="'+$('#m_stone').val()+'">'+$('#m_stone').find("option:selected").text()+'</td><td><input type="hidden" name="pcs[]" value="'+$('#m_pcs').val()+'">'+$('#m_pcs').val()+'</td><td><input type="hidden" name="cts[]" value="'+$('#m_cts').val()+'">'+$('#m_cts').val()+'</td><td><button class="remove btn btn-info btn-sm" data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa fa-times"></i></button></td></tr>');
+              //reseting value of input field
+              $('#m_stone').val('0');
+              $('#m_pcs').val('');
+              $('#m_cts').val('');
+          }
+              
       });
       $("body").on("click",'.remove', function() {
         $(this).closest('tr').remove();
