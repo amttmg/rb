@@ -43,20 +43,26 @@
             </div>
             <div class="modal-body">
                 <form action="<?php echo('product/add') ?>" method="POST" role="form" id="product_add_form">
-                    <div class="form-group">
-                        <label for="">Model Number</label>
-                        <input type="text" name="model_no" class="form-control" id="model_no" placeholder="Model Number">
-                        <span></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Category</label>
-                        <select name="category" id="category" class="form-control">
-                            <option value="0">-- Select Category --</option>
-                            <?php foreach ($product_categories as $category): ?>
-                                <option value="<?php echo($category->category_id) ?>"><?php echo($category->category) ?></option>
-                            <?php endforeach ?>
-                        </select>
-                        <span></span>
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label for="">Model Number</label>
+                                <input type="text" name="model_no" class="form-control" id="model_no" placeholder="Model Number">
+                                <span></span>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <div class="form-group">
+                                  <label for="">Category</label>
+                                  <select name="category" id="category" class="form-control">
+                                      <option value="0">-- Select Category --</option>
+                                      <?php foreach ($product_categories as $category): ?>
+                                          <option value="<?php echo($category->category_id) ?>"><?php echo($category->category) ?></option>
+                                      <?php endforeach ?>
+                                  </select>
+                                  <span></span>
+                              </div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <div class="row">
@@ -101,7 +107,7 @@
                                                 </td>
                                                 <td>
                                                     <div class="form-group">
-                                                        <button type="button" class="btn btn-warning" id="add_metalto_grid">Add</button>
+                                                        <button type="button" class="btn btn-primary" id="add_metalto_grid">Add</button>
                                                     </div>
                                                 </td>
                                                 
@@ -156,7 +162,7 @@
                                                 </td>
                                                 <td>
                                                     <div>
-                                                        <button type="button" class="btn btn-warning" id="add_stoneto_togrid">Add</button>
+                                                        <button type="button" class="btn btn-primary" id="add_stoneto_togrid">Add</button>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -168,24 +174,39 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="">Gross Weight</label>
-                        <input type="number" name="grossweight" class="form-control" id="grossweight" placeholder="Gross Weight">
-                        <span></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Net Weight</label>
-                        <input type="number" name="netweight"  class="form-control" id="netweight" placeholder="Net Weight">
-                        <span></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Price</label>
-                        <input type="text" name="price" class="form-control" id="price" placeholder="Price">
-                        <span></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Image</label>
-                        <input type="file" name="photo" id="photo">
+                    <div class="row">
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                            <div class="form-group">
+                              <label for="">Gross Weight</label>
+                              <input type="number" name="grossweight" class="form-control" id="grossweight" placeholder="Gross Weight">
+                              <span></span>
+                            </div>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                            <div class="form-group">
+                                <label for="">Net Weight</label>
+                                <input type="number" name="netweight"  class="form-control" id="netweight" placeholder="Net Weight">
+                                <span></span>
+                            </div>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                            <div class="form-group">
+                                <label for="">Weight loss</label>
+                                <input type="number" name="weight_loss"  class="form-control" id="weight_loss" placeholder="Net Weight">
+                                <span></span>
+                            </div>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                            <div class="form-group">
+                                <label for="">Price</label>
+                                <input type="text" name="price" class="form-control" id="price" placeholder="Price">
+                                <span></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Image</label>
+                            <input type="file" name="photo" id="photo">
+                        </div>
                     </div>
                 
             </div>
@@ -251,7 +272,7 @@
           }
           else
           {
-              $('#stone_grid').append('<tr class="success"><td><input type="hidden" name="stone[]" value="'+$('#m_stone').val()+'">'+$('#m_stone').find("option:selected").text()+'</td><td><input type="hidden" name="pcs[]" value="'+$('#m_pcs').val()+'">'+$('#m_pcs').val()+'</td><td><input type="hidden" name="cts[]" value="'+$('#m_cts').val()+'">'+$('#m_cts').val()+'</td><td><button class="remove btn btn-info btn-sm" data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa fa-times"></i></button></td></tr>');
+              $('#stone_grid').append('<tr class="success"><td><input type="hidden" name="stone[]" value="'+$('#m_stone').val()+'">'+$('#m_stone').find("option:selected").text()+'</td><td><input type="hidden" name="pcs[]" value="'+$('#m_pcs').val()+'">'+$('#m_pcs').val()+'</td><td><input type="hidden" name="cts[]" value="'+$('#m_cts').val()+'">'+$('#m_cts').val()+'</td><td><button class="remove btn btn-warning btn-sm" data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa fa-times"></i></button></td></tr>');
               //reseting value of input field
               $('#m_stone').val('0');
               $('#m_pcs').val('');
