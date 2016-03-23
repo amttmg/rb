@@ -44,6 +44,11 @@ class M_metal extends CI_Model {
 		$this->db->update('tbl_metals',$data);
 	}
 
+	public function get_metaltype()
+	{
+		return $this->db->query('select distinct(metal_type) from tbl_metals')->result();
+	}
+
 	
 
 }
