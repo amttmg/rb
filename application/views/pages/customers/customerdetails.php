@@ -186,12 +186,14 @@
                     </div>
 
                 </div>
-                <button class="btn btn-primary btn-xs" id="seemore">See More <i class="glyphicon glyphicon-arrow-down"></i></button>
+                <button class="btn btn-primary btn-xs" id="seemore">See More <i
+                        class="glyphicon glyphicon-arrow-down"></i></button>
 
                 <div class="btn-group pull-right">
-
-                    <a href="#" id="btneditcustomer" class=" btn btn-primary btn-sm"><i
-                            class="glyphicon glyphicon-edit"></i> Edit</a>
+                    <?php if(checkaccess(2)){ ?>
+                        <a href="#" id="btneditcustomer" class=" btn btn-primary btn-sm"><i
+                                class="glyphicon glyphicon-edit"></i> Edit</a>
+                    <?php } ?>
                 </div>
 
                 <div class="row" id="family_details" style="display: none">
@@ -241,20 +243,20 @@
                                     </thead>
                                     <tbody id="families">
                                     <?php foreach ($customer_family as $family): ?>
-                                        <tr>
-                                            <td><?php echo $family->name; ?></td>
-                                            <td><?php echo $family->address; ?></td>
-                                            <td><?php echo $family->phone1; ?></td>
-                                            <td><?php echo $family->phone2; ?></td>
-                                            <td><?php echo $family->relation ?></td>
-                                            <td><img src="<?php echo(base_url('uploads/' . $family->image_url)) ?> "
-                                                     width="20px"></td>
-                                            <td>
-                                                <button class="btnFamilyEdit btn btn-primary"
-                                                        data-familyid="<?php echo($family->id) ?>">Edit
-                                                </button>
-                                            </td>
-                                        </tr>
+                                    <tr>
+                                        <td><?php echo $family->name; ?></td>
+                                        <td><?php echo $family->address; ?></td>
+                                        <td><?php echo $family->phone1; ?></td>
+                                        <td><?php echo $family->phone2; ?></td>
+                                        <td><?php echo $family->relation ?></td>
+                                        <td><img src="<?php echo (base_url('uploads/' . $family->image_url)) ?> "
+                                                 width="20px"></td>
+                                        <td>
+                                            <button class="btnFamilyEdit btn btn-primary"
+                                                    data-familyid="<?php echo ($family->id) ?>">Edit
+                                            </button>
+                                        </td>
+                                    </tr>
                                     <?php endforeach ?>
                                     </tbody>
 
@@ -302,21 +304,21 @@
             <?php echo form_open('card/addcard', array('id' => 'frmaddcard')); ?>
             <input type="hidden" name="customer_id" id="customer_id" value="<?php echo $customer->customer_id ?>">
             <input type="hidden" name="md5_customer_id" id="md5_customer_id"
-                   value="<?php echo(md5($customer->customer_id)); ?>">
+                   value="<?php echo (md5($customer->customer_id)); ?>">
 
             <div class="modal-body">
 
                 <div class="form-group">
                     <label for="">Please Swap Your Card</label>
                     <input required type="text" class="form-control" name="card_no" id="card_no"
-                           placeholder="Card No" value="<?php echo(set_value('card_no')) ?>">
-                    <?php echo(form_error('card_no')) ?>
+                           placeholder="Card No" value="<?php echo (set_value('card_no')) ?>">
+                    <?php echo (form_error('card_no')) ?>
                 </div>
                 <div class="form-group">
                     <label for="">Card Issue Date</label>
                     <input required type="date" class="form-control" name="added_date" id="added_date"
-                           value="<?php echo(set_value('added_date')) ?>">
-                    <?php echo(form_error('added_date')) ?>
+                           value="<?php echo (set_value('added_date')) ?>">
+                    <?php echo (form_error('added_date')) ?>
                 </div>
 
             </div>
@@ -325,7 +327,7 @@
                 <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
 
             </div>
-            <?php echo(form_close()) ?>
+            <?php echo (form_close()) ?>
         </div>
         <!-- /.modal-content -->
     </div>
@@ -355,19 +357,19 @@
                     </td>
                     </thead>
                     <?php foreach ($cards as $card) {
-                        ?>
-                        <tr>
-                            <td>
-                                <?php echo $card->card_no ?>
-                            </td>
-                            <td>
-                                <?php echo $card->added_date ?>
-                            </td>
-                            <td>
-                                <?php echo ($card->status==1)?'Active':'Inactive' ?>
-                            </td>
-                        </tr>
-                        <?php
+                    ?>
+                    <tr>
+                        <td>
+                            <?php echo $card->card_no ?>
+                        </td>
+                        <td>
+                            <?php echo $card->added_date ?>
+                        </td>
+                        <td>
+                            <?php echo ($card->status==1)?'Active':'Inactive' ?>
+                        </td>
+                    </tr>
+                    <?php
                     } ?>
                 </table>
             </div>
@@ -413,28 +415,28 @@
                     </td>
                     </thead>
                     <?php foreach ($enquiry as $enq) {
-                        ?>
-                        <tr>
-                            <td>
-                                <?php echo $enq->enquiry_date . ' ' . $enq->enquiry_time ?>
-                            </td>
-                            <td>
-                                <?php echo $enq->enquiry_type ?>
-                            </td>
-                            <td>
-                                <?php echo $enq->followup_date ?>
-                            </td>
-                            <td>
-                                <?php echo $enq->enquiry_items ?>
-                            </td>
-                            <td>
-                                <?php echo $enq->price_range_min ?>
-                            </td>
-                            <td>
-                                <?php echo $enq->price_range_max ?>
-                            </td>
-                        </tr>
-                        <?php
+                    ?>
+                    <tr>
+                        <td>
+                            <?php echo $enq->enquiry_date . ' ' . $enq->enquiry_time ?>
+                        </td>
+                        <td>
+                            <?php echo $enq->enquiry_type ?>
+                        </td>
+                        <td>
+                            <?php echo $enq->followup_date ?>
+                        </td>
+                        <td>
+                            <?php echo $enq->enquiry_items ?>
+                        </td>
+                        <td>
+                            <?php echo $enq->price_range_min ?>
+                        </td>
+                        <td>
+                            <?php echo $enq->price_range_max ?>
+                        </td>
+                    </tr>
+                    <?php
                     } ?>
                 </table>
             </div>
@@ -465,18 +467,18 @@
                             <label for="">Enquiry Date</label>
                             <input
                                 type="date" class="form-control" name="enquiry_date" id="enquiry_date"
-                                placeholder="Enquiry date" value="<?php echo(set_value('enquiry_date')) ?>">
+                                placeholder="Enquiry date" value="<?php echo (set_value('enquiry_date')) ?>">
                             <span class="help-block"></span>
-                            <?php echo(form_error('enquiry_date')) ?>
+                            <?php echo (form_error('enquiry_date')) ?>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="">Enquiry Time</label>
                             <input type="time" class="form-control" name="enquiry_time" id="enquiry_time"
-                                   placeholder="Enquiry Time" value="<?php echo(set_value('enquiry_time')) ?>">
+                                   placeholder="Enquiry Time" value="<?php echo (set_value('enquiry_time')) ?>">
                             <span class="help-block"></span>
-                            <?php echo(form_error('enquiry_time')) ?>
+                            <?php echo (form_error('enquiry_time')) ?>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -485,17 +487,17 @@
                             <select name="enquiry_type" id="enquiry_type" class="form-control">
                                 <option value="">Select Enquiry Type</option>
                                 <?php foreach ($enquiry_type as $type) {
-                                    ?>
-                                    <option
-                                        value="<?php echo $type->enquirytype_id ?>"><?php echo $type->enquiry_type ?></option>
-                                    <?php
+                                ?>
+                                <option
+                                    value="<?php echo $type->enquirytype_id ?>"><?php echo $type->enquiry_type ?></option>
+                                <?php
                                 } ?>
                             </select>
                             <!--                        <input required type="text" class="form-control" name="enquiry_type" id="enquiry_type"-->
                             <!--                               placeholder="Enquiry Type" value="-->
                             <?php //echo(set_value('enquiry_type')) ?><!--">-->
                             <span class="help-block"></span>
-                            <?php echo(form_error('enquiry_type')) ?>
+                            <?php echo (form_error('enquiry_type')) ?>
                         </div>
                     </div>
 
@@ -505,18 +507,18 @@
                         <div class="form-group">
                             <label for="">Followup Date</label>
                             <input required type="date" class="form-control" name="followup_date" id="followup_date"
-                                   placeholder="Followup date" value="<?php echo(set_value('followup_date')) ?>">
+                                   placeholder="Followup date" value="<?php echo (set_value('followup_date')) ?>">
                             <span class="help-block"></span>
-                            <?php echo(form_error('followup_date')) ?>
+                            <?php echo (form_error('followup_date')) ?>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="">Enquiry Items</label>
                             <input type="text" class="form-control" name="enquiry_items" id="enquiry_items"
-                                   placeholder="Enquiry Items" value="<?php echo(set_value('enquiry_items')) ?>">
+                                   placeholder="Enquiry Items" value="<?php echo (set_value('enquiry_items')) ?>">
                             <span class="help-block"></span>
-                            <?php echo(form_error('enquiry_items')) ?>
+                            <?php echo (form_error('enquiry_items')) ?>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -527,7 +529,7 @@
                                 <option value="Credit Card">Credit Card</option>
                             </select>
                             <span class="help-block"></span>
-                            <?php echo(form_error('intended_purchasemode')) ?>
+                            <?php echo (form_error('intended_purchasemode')) ?>
                         </div>
                     </div>
 
@@ -539,9 +541,9 @@
                             <label for="">Price Min</label>
                             <input required type="number" class="form-control" name="price_range_min"
                                    id="price_range_min"
-                                   placeholder="Price Min" value="<?php echo(set_value('price_range_min')) ?>">
+                                   placeholder="Price Min" value="<?php echo (set_value('price_range_min')) ?>">
                             <span class="help-block"></span>
-                            <?php echo(form_error('price_range_min')) ?>
+                            <?php echo (form_error('price_range_min')) ?>
                         </div>
                     </div>
                     <div class="col-md-2">
@@ -549,33 +551,33 @@
                             <label for="">Price Max</label>
                             <input required type="number" class="form-control" name="price_range_max"
                                    id="price_range_max"
-                                   placeholder="Price Max" value="<?php echo(set_value('price_range_max')) ?>">
+                                   placeholder="Price Max" value="<?php echo (set_value('price_range_max')) ?>">
                             <span class="help-block"></span>
-                            <?php echo(form_error('price_range_max')) ?>
+                            <?php echo (form_error('price_range_max')) ?>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="">Reference Image</label>
                             <input type="file" class="form-control" name="reference_img" id="reference_img"
-                                   placeholder="Reference Image" value="<?php echo(set_value('reference_img')) ?>">
+                                   placeholder="Reference Image" value="<?php echo (set_value('reference_img')) ?>">
                             <span class="help-block"></span>
-                            <?php echo(form_error('reference_img')) ?>
+                            <?php echo (form_error('reference_img')) ?>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="">Remarks</label>
                             <input required type="text" class="form-control" name="remarks" id="remarks"
-                                   placeholder="Remarks" value="<?php echo(set_value('remarks')) ?>">
+                                   placeholder="Remarks" value="<?php echo (set_value('remarks')) ?>">
                             <span class="help-block"></span>
-                            <?php echo(form_error('remarks')) ?>
+                            <?php echo (form_error('remarks')) ?>
                         </div>
                     </div>
 
 
                 </div>
-                <?php echo(form_close()) ?>
+                <?php echo (form_close()) ?>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" id="save">Save changes</button>
@@ -668,13 +670,13 @@
                         <div class="form-group">
                             <label for="">Last Name</label>
                             <input required type="name" tabindex="3" class="form-control" name="lname" id="lname"
-                                   placeholder="Last Name" value="<?php echo(set_value('lname')) ?>">
+                                   placeholder="Last Name" value="<?php echo (set_value('lname')) ?>">
                             <span></span>
                         </div>
                         <div class="form-group">
                             <label for="">Phone 1</label>
                             <input required type="text" tabindex="6" class="form-control" name="phone1" id="phone1"
-                                   placeholder="Phone 1" value="<?php echo(set_value('phone1')) ?>">
+                                   placeholder="Phone 1" value="<?php echo (set_value('phone1')) ?>">
                             <span></span>
                         </div>
                         <div class="form-group">
@@ -711,39 +713,39 @@
                 <h4 class="modal-title">Add new family member</h4>
             </div>
             <div class="modal-body">
-                <?php echo(form_open_multipart('customer/add_new_family', array('id' => 'add_new_family_form'))) ?>
-                <div class="form-group">
-                    <label for="">name</label>
-                    <input type="text" name="name" class="form-control" id="name" placeholder="Name">
-                    <span></span>
-                </div>
-                <div class="form-group">
-                    <label for="">address</label>
-                    <input type="text" name="address" class="form-control" id="address" placeholder="address">
-                    <span></span>
-                </div>
-                <div class="form-group">
-                    <label for="">Phone 1</label>
-                    <input type="text" name="phone1" class="form-control" id="phone1" placeholder="Phone 1">
-                    <span></span>
-                </div>
-                <div class="form-group">
-                    <label for="">Phone 2</label>
-                    <input type="text" name="phone2" class="form-control" id="phone2" placeholder="Phone 2">
-                    <span></span>
-                </div>
-                <div class="form-group">
-                    <label for="">Relation</label>
-                    <input type="text" name="relation" class="form-control" id="relation" placeholder="Relation">
-                    <span></span>
-                </div>
-                <div class="form-group">
-                    <label for="">Photo</label>
-                    <input type="file" name="photo" id="photo">
-                    <span></span>
-                </div>
+                <?php echo (form_open_multipart('customer/add_new_family', array('id' => 'add_new_family_form'))) ?>
+                    <div class="form-group">
+                        <label for="">name</label>
+                        <input type="text" name="name" class="form-control" id="name" placeholder="Name">
+                        <span></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="">address</label>
+                        <input type="text" name="address" class="form-control" id="address" placeholder="address">
+                        <span></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Phone 1</label>
+                        <input type="text" name="phone1" class="form-control" id="phone1" placeholder="Phone 1">
+                        <span></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Phone 2</label>
+                        <input type="text" name="phone2" class="form-control" id="phone2" placeholder="Phone 2">
+                        <span></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Relation</label>
+                        <input type="text" name="relation" class="form-control" id="relation" placeholder="Relation">
+                        <span></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Photo</label>
+                        <input type="file" name="photo" id="photo">
+                        <span></span>
+                    </div>
 
-                <?php echo(form_close()) ?>
+                <?php echo (form_close()) ?>
             </div>
             <div class="modal-footer">
                 <span class="label label-success pull-left" style="display:none" id="message">New family member added successfully !</span>
@@ -763,7 +765,7 @@
                 <h4 class="modal-title">Family Edit form</h4>
             </div>
             <div class="modal-body">
-                <?php echo(form_open_multipart('family/update/' . $customer->customer_id, array('id' => 'family_edit_form'))) ?>
+                <?php echo (form_open_multipart('family/update/' . $customer->customer_id, array('id' => 'family_edit_form'))) ?>
                 <input type="hidden" name="family_id" id="family_id">
 
                 <div class="form-group">

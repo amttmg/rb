@@ -5,6 +5,10 @@ class Welcome extends CI_Controller
 {
     public function index()
     {
+        if ($this->ion_auth->logged_in())
+        {
+            redirect('home', 'refresh');
+        }
         if (isset($_POST['submit'])) {
             $this->load->model('mlogin');
             $remember=1;
