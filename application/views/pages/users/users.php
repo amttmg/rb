@@ -1,3 +1,4 @@
+
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -75,7 +76,8 @@
                         ?>
                         <tr>
                             <td>
-                                <?php echo $count ?>
+                                <?php echo $count;
+                                $count++ ?>
                             </td>
                             <td>
                                 <?php echo $user->first_name . ' ' . $user->last_name ?>
@@ -134,50 +136,79 @@
                         aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">New Users</h4>
             </div>
-            <?php echo form_open('users/createUser', array('id' => 'frmnewuser')) ?>
+
             <div class="modal-body">
+
+                <?php echo form_open('users/createUser', array('id' => 'frmnewuser')) ?>
                 <div class="form-group">
-                    <label>First Name</label>
-                    <input required type="text" name="first_name" id="first_name" class="form-control">
+                    <label class="control-label" for="first_name">First Name</label>
+
+                    <div>
+                        <input required type="text" name="first_name" id="first_name" class="form-control">
+                        <span></span>
+                    </div>
+
                 </div>
                 <div class="form-group">
                     <label>Last Name</label>
-                    <input required type="text" name="last_name" id="last_name" class="form-control">
+
+                    <div>
+                        <input required type="text" name="last_name" id="last_name" class="form-control">
+                        <span></span>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label>Username</label>
-                    <input required type="text" name="identity" id="identity" class="form-control">
+
+                    <div>
+                        <input required type="text" name="identity" id="identity" class="form-control">
+                        <span></span>
+                    </div>
+
                 </div>
                 <div class="form-group">
                     <label>Phone</label>
-                    <input required type="text" name="phone" id="phone" class="form-control">
+
+                    <div>
+                        <input required type="text" name="phone" id="phone" class="form-control">
+                        <span></span>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label>Email</label>
-                    <input required type="text" name="email" id="email" class="form-control">
+
+                    <div>
+                        <input required type="text" name="email" id="email" class="form-control">
+                        <span></span>
+                    </div>
                 </div>
 
                 <div class="form-group">
                     <label>User Group</label>
-                    <select required name="group" class="form-control">
-                        <option value="">Select Group</option>
-                        <?php
-                        $groups = $this->ion_auth->groups()->result();
-                        foreach ($groups as $group) {
-                            ?>
-                            <option value="<?php echo $group->id ?>"><?php echo $group->name ?></option>
+
+                    <div>
+                        <select required name="group" class="form-control" id="group">
+                            <option value="">Select Group</option>
                             <?php
-                        }
-                        ?>
-                    </select>
+                            $groups = $this->ion_auth->groups()->result();
+                            foreach ($groups as $group) {
+                                ?>
+                                <option value="<?php echo $group->id ?>"><?php echo $group->name ?></option>
+                                <?php
+                            }
+                            ?>
+                        </select>
+                        <span></span>
+                    </div>
                 </div>
+                <?php echo form_close() ?>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="button" id="btnsave" class="btn btn-primary">Save</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 
             </div>
-            <?php echo form_close() ?>
+
         </div>
         <!-- /.modal-content -->
     </div>
@@ -188,28 +219,70 @@
     $('#btnnewuser').click(function () {
         $('#modalnewuser').modal('show');
     })
-    $('#frmnewuser').validate({
-        rules: {
-            password: "required",
-            password_confirm: {
-                equalTo: "#password"
-            }
-        },
+    //    $('#frmnewuser').validate({
+    //        rules: {
+    //            password: "required",
+    //            password_confirm: {
+    //                equalTo: "#password"
+    //            }
+    //        },
+    //
+    //        highlight: function (element) {
+    //            $(element).closest('.form-group').addClass('has-error');
+    //        },
+    //        unhighlight: function (element) {
+    //            $(element).closest('.form-group').removeClass('has-error');
+    //        },
+    //        errorElement: 'span',
+    //        errorClass: 'help-block',
+    //        errorPlacement: function (error, element) {
+    //            if (element.parent('.input-group').length) {
+    //                error.insertAfter(element.parent());
+    //            } else {
+    //                error.insertAfter(element);
+    //            }
+    //        }
+    //    });
+    $("input").change(function () {
+        $(this).parent().removeClass('has-error');
+        $(this).next().empty();
+    });
+    $("textarea").change(function () {
+        $(this).parent().removeClass('has-error');
+        $(this).next().empty();
+    });
+    $("select").change(function () {
+        $(this).parent().removeClass('has-error');
+        $(this).next().empty();
+    });
+    $(document).ajaxStart(function () {
+        $('.overlay').show();
+    });
+    $('#btnsave').click(function () {
+        var formData = new FormData($('#frmnewuser')[0]);
+        $.ajax({
+            url: '<?php  echo site_url("users/createUser"); ?>',
+            type: 'POST',
+            dataType: 'json',
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                $('.overlay').hide();
+                if (data.status == false) {
+                    $.each(data, function (index, val) {
 
-        highlight: function (element) {
-            $(element).closest('.form-group').addClass('has-error');
-        },
-        unhighlight: function (element) {
-            $(element).closest('.form-group').removeClass('has-error');
-        },
-        errorElement: 'span',
-        errorClass: 'help-block',
-        errorPlacement: function (error, element) {
-            if (element.parent('.input-group').length) {
-                error.insertAfter(element.parent());
-            } else {
-                error.insertAfter(element);
+                        $('#' + val.error_string).next().html(val.input_error);
+                        $('#' + val.error_string).parent().addClass('has-error');
+                        console.log(val.input_error);
+
+                    });
+                }
+                else {
+                    location.reload();
+                }
             }
-        }
+        });
     });
 </script>
