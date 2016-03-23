@@ -38,69 +38,71 @@ class Customer extends CI_Controller
     // Add a new Customer
     public function add()
     {
-        $this->form_validation->set_rules('fname', 'First Name', 'trim|required|min_length[2]|max_length[100]');
-        $this->form_validation->set_rules('lname', 'last Name', 'trim|required|min_length[2]|max_length[100]');
-        $this->form_validation->set_rules('address', 'Address', 'trim|required|min_length[2]|max_length[100]');
-        $this->form_validation->set_rules('email', 'Email', 'trim|required|is_unique[tbl_customers.email]');
-        $this->form_validation->set_rules('phone1', 'Phone Number', 'trim|required|min_length[10]|max_length[15]');
-        $this->form_validation->set_rules('gender', 'Gender', 'trim|required');
-        $this->form_validation->set_rules('marital_status', 'Marital Status', 'trim|required');
-        $this->form_validation->set_rules('aniversary_date', 'Aniversary date', 'trim|min_length[2]|max_length[20]');
-        $this->form_validation->set_rules('dob', 'DOB', 'trim|required');
-        $this->form_validation->set_rules('photo', 'Photo', 'callback_validate_image');
-        //for family section validation
-        for ($i = 1; $i <= 5; $i++) {
-            if ($this->input->post('faname' . $i)) {
-                $this->form_validation->set_rules('faphoto' . $i, 'Photo', 'callback_validate_image[faphoto' . $i . ']');
-            }
+        if (!checkaccess(1)) {
+            $data['title'] = "Access Denide";
+            $data['content'] = $this->load->view('errors/access/accessdenied', '', true);
+            $this->parser->parse('template/page_template', $data);
         }
-        $this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
-        if ($this->form_validation->run() == TRUE) {
-            $existing_customer = "";
-            $inhouse_refer_id = "";
-            if($this->input->post('refered_id'))
-            {
-                if ($this->input->post('customer_refer') == 0) 
-                {
-                    $dt = explode(':', $this->input->post('reference'));
-                    $existing_customer = $dt[1];
-                } else 
-                {
-                    $dt = explode(':', $this->input->post('reference'));
-                    $inhouse_refer_id = $dt[1];
+            $this->form_validation->set_rules('fname', 'First Name', 'trim|required|min_length[2]|max_length[100]');
+            $this->form_validation->set_rules('lname', 'last Name', 'trim|required|min_length[2]|max_length[100]');
+            $this->form_validation->set_rules('address', 'Address', 'trim|required|min_length[2]|max_length[100]');
+            $this->form_validation->set_rules('email', 'Email', 'trim|required|is_unique[tbl_customers.email]');
+            $this->form_validation->set_rules('phone1', 'Phone Number', 'trim|required|min_length[10]|max_length[15]');
+            $this->form_validation->set_rules('gender', 'Gender', 'trim|required');
+            $this->form_validation->set_rules('marital_status', 'Marital Status', 'trim|required');
+            $this->form_validation->set_rules('aniversary_date', 'Aniversary date', 'trim|min_length[2]|max_length[20]');
+            $this->form_validation->set_rules('dob', 'DOB', 'trim|required');
+            $this->form_validation->set_rules('photo', 'Photo', 'callback_validate_image');
+            //for family section validation
+            for ($i = 1; $i <= 5; $i++) {
+                if ($this->input->post('faname' . $i)) {
+                    $this->form_validation->set_rules('faphoto' . $i, 'Photo', 'callback_validate_image[faphoto' . $i . ']');
                 }
             }
-            $this->db->trans_begin();
-            $this->customer->insert($this->image_name);
-            $this->customer->insert_family($this->images);
-            $this->customer->insert_refer($this->input->post('customer_refer'), $inhouse_refer_id, $existing_customer, $this->session->userdata('customer_id'));
-            if ($this->db->trans_status() === FALSE) {
-                $this->db->trans_rollback();
+            $this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
+            if ($this->form_validation->run() == TRUE) {
+                $existing_customer = "";
+                $inhouse_refer_id = "";
+                if ($this->input->post('refered_id')) {
+                    if ($this->input->post('customer_refer') == 0) {
+                        $dt = explode(':', $this->input->post('reference'));
+                        $existing_customer = $dt[1];
+                    } else {
+                        $dt = explode(':', $this->input->post('reference'));
+                        $inhouse_refer_id = $dt[1];
+                    }
+                }
+                $this->db->trans_begin();
+                $this->customer->insert($this->image_name);
+                $this->customer->insert_family($this->images);
+                $this->customer->insert_refer($this->input->post('customer_refer'), $inhouse_refer_id, $existing_customer, $this->session->userdata('customer_id'));
+                if ($this->db->trans_status() === FALSE) {
+                    $this->db->trans_rollback();
+                } else {
+                    $this->db->trans_commit();
+                    $this->session->unset_userdata('customer_id');
+                    $this->session->set_flashdata('message', 'Customer added successfully !');
+                    //echo("success fully inserted data");
+                    redirect('customer/index', 'refresh');
+                }
+
             } else {
-                $this->db->trans_commit();
-                $this->session->unset_userdata('customer_id');
-                $this->session->set_flashdata('message', 'Customer added successfully !');
-                //echo("success fully inserted data");
-                redirect('customer/index', 'refresh');
+                $data['priorities'] = $this->mpriority->getPriority();
+                $data['title'] = "Create Customer";
+                $data['content'] = $this->load->view('pages/customers/newcustomer', $data, true);
+                $this->parser->parse('template/page_template', $data);
+
             }
 
-        } else {
-            $data['priorities'] = $this->mpriority->getPriority();
-            $data['title'] = "Create Customer";
-            $data['content'] = $this->load->view('pages/customers/newcustomer', $data, true);
-            $this->parser->parse('template/page_template', $data);
-
-        }
     }
 
     //Update one customer
-    public function update($id='')
+    public function update($id = '')
     {
         $master['status'] = True;
         $data = array();
         $master = array();
-        if ($id) 
-        {
+        if ($id) {
             $this->form_validation->set_rules('fname', 'First Name', 'trim|required|min_length[2]|max_length[100]');
             $this->form_validation->set_rules('lname', 'Last Name', 'trim|required|min_length[2]|max_length[100]');
             $this->form_validation->set_rules('address', 'Address', 'trim|required|min_length[2]|max_length[64]');
@@ -110,17 +112,13 @@ class Customer extends CI_Controller
             $this->form_validation->set_rules('marital_status', 'Marital Status', 'trim|required');
             $this->form_validation->set_rules('dob', 'DOB', 'trim|required');
             $this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
-            if ($this->form_validation->run() == True) 
-            {
+            if ($this->form_validation->run() == True) {
                 $master['message'] = "Customer updated successfully !";
                 $this->customer->update($id);
-            } else 
-            {
+            } else {
                 $master['status'] = false;
-                foreach ($_POST as $key => $value) 
-                {
-                    if (form_error($key) != '') 
-                    {
+                foreach ($_POST as $key => $value) {
+                    if (form_error($key) != '') {
                         $data['error_string'] = $key;
                         $data['input_error'] = form_error($key);
                         array_push($master, $data);
@@ -149,7 +147,7 @@ class Customer extends CI_Controller
 
             if (!$this->upload->do_upload($image_name)) {
                 if (stristr($this->upload->display_errors(), 'You did not select a file to upload')) {
-                    $this->images[]="";
+                    $this->images[] = "";
                     return true;
                 } else {
                     $this->form_validation->set_message('validate_image', $this->upload->display_errors());
@@ -210,7 +208,7 @@ class Customer extends CI_Controller
 
     function customerdetails($id)
     {
-        $this->db->where('md5(customer_id)',$id);
+        $this->db->where('md5(customer_id)', $id);
         $cust['customer_family'] = $this->db->get("tbl_customerfamily")->result();
         $data['title'] = "Customers Details";
         $cust['customer'] = $this->customer->getCustomers($id);
@@ -224,7 +222,7 @@ class Customer extends CI_Controller
         } else {
             show_404();
         }
-        
+
     }
 
     public function verify($id = "")
@@ -259,12 +257,14 @@ class Customer extends CI_Controller
             echo "Customer Not Found";
         }
     }
+
     public function get_customer($id)
     {
-         $customer=$this->customer->getCustomers($id);
+        $customer = $this->customer->getCustomers($id);
         echo(json_encode($customer));
-        
+
     }
+
     //call when need to add new family member
     public function add_new_family($id)
     {
@@ -278,24 +278,19 @@ class Customer extends CI_Controller
         $this->form_validation->set_rules('relation', 'Relation', 'trim|required|min_length[2]|max_length[64]');
         $this->form_validation->set_rules('photo', 'Photo', 'callback_validate_image');
         $this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
-        if ($this->form_validation->run() == True) 
-        {
+        if ($this->form_validation->run() == True) {
             $master['message'] = "New family member added successfully !";
-            $this->customer->add_new_family($id,$this->image_name);
-        } 
-        else 
-        {
+            $this->customer->add_new_family($id, $this->image_name);
+        } else {
             $master['status'] = false;
-            foreach ($_POST as $key => $value) 
-            {
-                if (form_error($key) != '') 
-                {
+            foreach ($_POST as $key => $value) {
+                if (form_error($key) != '') {
                     $data['error_string'] = $key;
                     $data['input_error'] = form_error($key);
                     array_push($master, $data);
                 }
             }
-            
+
         }
         echo(json_encode($master));
     }
