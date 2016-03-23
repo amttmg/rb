@@ -17,16 +17,18 @@ function isArray($data, $addition)
 function is_logged_in()
 {
     $CI =& get_instance();
-   if($CI->session->userdata('logged_in')){
-       return true;
-   }else{
-       redirect('welcome', 'refresh');
-   }
+    if ($CI->session->userdata('logged_in')) {
+        return true;
+    } else {
+        redirect('welcome', 'refresh');
+    }
 
 }
-function checkSession(){
+
+function checkSession()
+{
     $CI =& get_instance();
-    if($CI->session->userdata('logged_in')){
+    if ($CI->session->userdata('logged_in')) {
         redirect('home', 'refresh');
     }
 }
@@ -54,5 +56,24 @@ function ordinal($number)
         return $number . $ends[$number % 10];
 }
 
+function checkaccess($functionID)
+{
+    $CI =& get_instance();
+    if (!$CI->ion_auth->logged_in())
+    {
+        redirect('welcome', 'refresh');
+    }
+    $user = ($CI->ion_auth->user()->row());
+    $group = $CI->ion_auth->get_users_groups($user->id)->row();
+    $sql="select * from function_group where group_id=$group->id and function_id=$functionID";
+    $data = $CI->db->query($sql);
+    if ($data->num_rows() > 0) {
+        return true;
+    } else {
+        return false;
+    }
+
+
+}
 
 ?>

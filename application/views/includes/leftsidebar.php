@@ -21,10 +21,10 @@
 
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="<?php echo base_url('customer') ?>"><i class="fa fa-user-plus"></i> New Customer
-                        </a></li>
-                    <li><a href="<?php echo base_url('customer/customers') ?>"><i class="fa fa-eye"></i> Customers
-                        </a></li>
+                    <?php if(checkaccess(1)) { ?>
+                    <li><a href="<?php echo base_url('customer') ?>"><i class="fa fa-user-plus"></i> New Customer </a></li>
+                    <?php } ?>
+                    <li><a href="<?php echo base_url('customer/customers') ?>"><i class="fa fa-eye"></i> Customers </a></li>
                 </ul>
             </li>
             <li class="treeview">
