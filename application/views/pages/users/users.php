@@ -14,7 +14,12 @@
 
     <!-- Main content -->
     <section class="content">
-
+        <?php if ($this->session->flashdata('message')): ?>
+            <div class="alert alert-success alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <?php echo ($this->session->flashdata('message')) ?>
+            </div>
+        <?php endif ?>
         <!-- Default box -->
         <div class="box">
             <div class="box-header with-border">
@@ -28,12 +33,8 @@
                 </div>
             </div>
             <div class="box-body">
-                <?php if ($this->session->flashdata('message')): ?>
-                    <div class="alert alert-success">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        <strong><?php echo($this->session->flashdata('message')); ?></strong>
-                    </div>
-                <?php endif ?>
+
+
                 <table class="table table-bordered tbl_users">
                     <thead>
                     <tr>
@@ -102,20 +103,27 @@
                             </td>
                             <td>
                                 <?php if ($user->active) { ?>
-                                    <label class="label label-primary"> <?php echo ($user->active == 1) ? 'Actve' : 'Inactive' ?></label>
+                                    <label
+                                        class="label label-primary"> <?php echo ($user->active == 1) ? 'Actve' : 'Inactive' ?></label>
                                 <?php } else { ?>
-                                    <label class="label label-danger"> <?php echo ($user->active == 1) ? 'Actve' : 'Inactive' ?></label>
+                                    <label
+                                        class="label label-danger"> <?php echo ($user->active == 1) ? 'Actve' : 'Inactive' ?></label>
                                 <?php } ?>
 
                             </td>
                             <td>
                                 <a href="#" class="btn btn-xs btn-primary btn-block"><i class="fa fa-edit"></i> Edit</a>
-                                <a href="<?php echo base_url('users/resetuser/'.$user->id) ?>" class="btn btn-xs btn-primary btn-block"><i class="fa fa-refresh"></i> Reset</a>
+                                <a onclick="return confirm('Do you want to reset password ???')"
+                                   href="<?php echo base_url('users/resetuser/' . $user->id) ?>"
+                                   class="btn btn-xs btn-primary btn-block"><i class="fa fa-refresh"></i> Reset</a>
                                 <?php if ($user->active) { ?>
-                                    <a href="<?php echo base_url('users/deactivate/' . $user->id) ?>"
-                                       class="btn btn-xs btn-danger btn-block"><i class="fa fa-recycle"></i> Deactive</a>
+                                    <a onclick="return confirm('Do you want to Deactive User ???')"
+                                       href="<?php echo base_url('users/deactivate/' . $user->id) ?>"
+                                       class="btn btn-xs btn-danger btn-block"><i class="fa fa-recycle"></i>
+                                        Deactive</a>
                                 <?php } else { ?>
-                                    <a href="<?php echo base_url('users/activate/' . $user->id) ?>"
+                                    <a onclick="return confirm('Do you want to Active User ???')"
+                                       href="<?php echo base_url('users/activate/' . $user->id) ?>"
                                        class="btn btn-xs btn-info btn-block"><i class="fa fa-recycle"></i> Active</a>
                                 <?php } ?>
                             </td>
@@ -303,7 +311,6 @@
         "info": true,
         "autoWidth": true
     });
-
 
 
 </script>
