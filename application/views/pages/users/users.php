@@ -110,7 +110,7 @@
                             </td>
                             <td>
                                 <a href="#" class="btn btn-xs btn-primary btn-block"><i class="fa fa-edit"></i> Edit</a>
-                                <a href="#" class="btn btn-xs btn-primary btn-block"><i class="fa fa-refresh"></i> Reset</a>
+                                <a href="<?php echo base_url('users/resetuser/'.$user->id) ?>" class="btn btn-xs btn-primary btn-block"><i class="fa fa-refresh"></i> Reset</a>
                                 <?php if ($user->active) { ?>
                                     <a href="<?php echo base_url('users/deactivate/' . $user->id) ?>"
                                        class="btn btn-xs btn-danger btn-block"><i class="fa fa-recycle"></i> Deactive</a>
@@ -303,5 +303,7 @@
         "info": true,
         "autoWidth": true
     });
+
+
 
 </script>

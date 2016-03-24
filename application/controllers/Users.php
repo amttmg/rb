@@ -224,4 +224,21 @@ class Users extends CI_Controller
         }
     }
 
+    function resetuser($id=""){
+        //run the forgotten password method to email an activation code to the user
+        if($id==""){
+            show_404();
+        }
+        $user = ($this->users->getUserByID($id));
+        $forgotten = $this->ion_auth->forgotten_password($user->username);
+        if ($forgotten) { //if there were no errors
+            $this->session->set_flashdata('message', $this->ion_auth->messages());
+            redirect("users", 'refresh'); //we should display a confirmation page here instead of the login page
+        }
+        else {
+            $this->session->set_flashdata('message', $this->ion_auth->errors());
+            redirect("users", 'refresh');
+        }
+    }
+
 }
