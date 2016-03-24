@@ -62,7 +62,7 @@
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-2">
-                        <a href="<?php echo base_url('customer/customers') ?>"
+                        <a href="<?php echo base_url('customer') ?>"
                            class="btn btn-warning btn-sm btn-block ">
                             <span class="glyphicon glyphicon-backward pull-left"></span> Back</a>
                         <?php if ($customer->status != 'verified') { ?>
