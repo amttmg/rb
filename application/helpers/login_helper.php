@@ -76,4 +76,10 @@ function checkaccess($functionID)
 
 }
 
+function getCurrentUserID(){
+    $CI =& get_instance();
+    $user = ($CI->ion_auth->user()->row());
+    return $user->id;
+}
+
 ?>
