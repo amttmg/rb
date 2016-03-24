@@ -82,4 +82,9 @@ function getCurrentUserID(){
     return $user->id;
 }
 
+function show_access_denied(){
+    $CI =& get_instance();
+    $CI->load->view('errors/access/accessdenied');
+}
+
 ?>

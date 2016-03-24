@@ -39,10 +39,8 @@ class Customer extends CI_Controller
     public function add()
     {
         if (!checkaccess(1)) {
-            $data['title'] = "Access Denide";
-            $data['content'] = $this->load->view('errors/access/accessdenied', '', true);
-            $this->parser->parse('template/page_template', $data);
-        }
+            show_access_denied();
+        } else {
             $this->form_validation->set_rules('fname', 'First Name', 'trim|required|min_length[2]|max_length[100]');
             $this->form_validation->set_rules('lname', 'last Name', 'trim|required|min_length[2]|max_length[100]');
             $this->form_validation->set_rules('address', 'Address', 'trim|required|min_length[2]|max_length[100]');
@@ -94,6 +92,7 @@ class Customer extends CI_Controller
 
             }
 
+        }
     }
 
     //Update one customer
