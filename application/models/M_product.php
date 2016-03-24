@@ -14,9 +14,12 @@ class M_product extends CI_Model {
 			'category_id'=>$this->input->post('category'),
 			'model_no'=>$this->input->post('model_no'),
 			'gross_weight'=>$this->input->post('grossweight'),
+			'weight_loss'=>$this->input->post('weight_loss'),
 			'net_weight'=>$this->input->post('netweight'),
 			'price'=>$this->input->post('price'),
-			'image_url'=>$image
+			'image_url'=>$image,
+			'entry_date'=>getCurrentDate(),
+			'entry_by'=>getCurrentUserID()
 			);
 		$this->db->insert('tbl_products',$data);
 		return $this->db->insert_id();
