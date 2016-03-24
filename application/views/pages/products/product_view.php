@@ -1,3 +1,4 @@
+
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -23,7 +24,24 @@
                 </div>
                 <div class="box-body">
                     <div id="container">
+                        <?php /*echo $this->table->generate();*/ ?>
+
+                        <div class="table-responsive">
+                          <table class="table table-hover" id="product_table">
+                            <thead>
+                              <tr>
+                                <th>Model Number</th>
+                                <th>Net Weight</th>
+                                <th>Gross Weight</th>
+                                <th>Price</th>
+                                <th>Image</th>
+                                <th>Actions</th>
+                              </tr>
+                            </thead>
                       
+                          </table>
+                        </div>
+                        
                     </div>
                 </div><!-- /.box-body -->
           </div><!-- /.box -->
@@ -212,20 +230,211 @@
                             <input type="file" name="photo" id="photo">
                         </div>
                     </div>
-                
+                 </form>
             </div>
             <div class="modal-footer">
             <span class="label label-success pull-left" id="product_save_message" style="display:none">New product added successfully !</span>
                 <button type="button" class="btn btn-primary" id="btn_product_add">Save</button>
                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
-            </form>
+           
         </div>
     </div>
 </div>
+
+<!-- modal starts -->
+  <div class="modal fade" id="product_edit_modal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Edit Product</h4>
+        </div>
+        <div class="modal-body">
+            <form action="<?php echo('product/update') ?>" method="POST" role="form" id="product_update_form">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label for="">Model Number</label>
+                                <input type="text" name="model_no" class="form-control" id="model_no" placeholder="Model Number">
+                                <span></span>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <div class="form-group">
+                                  <label for="">Category</label>
+                                  <select name="category" id="category" class="form-control">
+                                      <option value="0">-- Select Category --</option>
+                                      <?php foreach ($product_categories as $category): ?>
+                                          <option value="<?php echo($category->category_id) ?>"><?php echo($category->category) ?></option>
+                                      <?php endforeach ?>
+                                  </select>
+                                  <span></span>
+                              </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                      <div class="table-responsive table-bordered">
+                                        <table class="table">
+                                           <thead>
+                                               <tr>
+                                                    <th>Metal Type</th>
+                                                   <th>Metal</th>
+                                                   <th>Weight</th>
+                                                   <th></th>
+                                               </tr>
+                                           </thead>
+                                           <tbody>
+                                               <tbody id="metal_grid">
+                                            <tr>
+                                                <td>
+                                                  <div class="form-group" id="metal_dropdown">
+                                                          <select name="m_metaltype" id="m_metaltype" class="form-control" required="required">
+                                                              <?php foreach ($metal_type as $metal): ?>
+                                                                  <option value=""><?php echo($metal->metal_type) ?></option>
+                                                              <?php endforeach ?>
+                                                          </select>
+                                                          <span></span>
+                                                      </div>
+                                                  
+                                                </td>
+                                                <td>
+                                                    <div class="form-group" id="metal_dropdown">
+                                                        <select name="m_metal" id="m_metal" class="form-control" required="required">
+                                                            <option value="0">--Select metal--</option>
+                                                            
+                                                        </select>
+                                                        <span></span>
+                                                    </div>
+                                                </td>
+                                                
+                                                <td>
+                                                    <div class="form-group" id="weight">
+                                                        <input type="text" name="m_weight" id="m_weight" class="form-control" placeholder="Weight" >
+                                                        <span></span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <button type="button" class="btn btn-primary" id="add_metalto_grid">Add</button>
+                                                    </div>
+                                                </td>
+                                                
+                                            </tr>
+                                        </tbody>
+                                           </tbody>
+                                       </table>
+                                       </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <table class="table">
+                                           <thead>
+                                               <tr>
+                                                   <th>Stone</th>
+                                                   <th>pcs</th>
+                                                   <th>cts</th>
+                                               </tr>
+                                           </thead>
+                                           <tbody>
+                                               <tbody id="stone_grid">
+                                            <tr>
+                                                <td width="200">
+                                                    <div class="form-group" id="stone_dropdown">
+                                                        <select name="m_stone" id="m_stone" class="form-control" required="required">
+                                                            <option value="0">--select lot no--</option>
+                                                             <?php foreach ($stones as $stone): ?>
+                                                                <option value="<?php echo($stone->stone_id) ?>"><?php echo($stone->lot_no) ?></option>
+                                                             <?php endforeach ?>
+                                                        </select>
+                                                        <span></span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <input type="number" name="m_pcs" id="m_pcs" class="form-control" value="" placeholder="Pcs">
+                                                        <span></span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <input type="number" name="m_cts" id="m_cts" class="form-control" value="" placeholder="Cts">
+                                                        <span></span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div>
+                                                        <button type="button" class="btn btn-primary" id="add_stoneto_togrid">Add</button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                           </tbody>
+                                       </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                            <div class="form-group">
+                              <label for="">Gross Weight</label>
+                              <input type="number" name="grossweight" class="form-control" id="grossweight" placeholder="Gross Weight">
+                              <span></span>
+                            </div>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                            <div class="form-group">
+                                <label for="">Net Weight</label>
+                                <input type="number" name="netweight"  class="form-control" id="netweight" placeholder="Net Weight">
+                                <span></span>
+                            </div>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                            <div class="form-group">
+                                <label for="">Weight loss</label>
+                                <input type="number" name="weight_loss"  class="form-control" id="weight_loss" placeholder="Net Weight">
+                                <span></span>
+                            </div>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                            <div class="form-group">
+                                <label for="">Price</label>
+                                <input type="text" name="price" class="form-control" id="price" placeholder="Price">
+                                <span></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Image</label>
+                            <input type="file" name="photo" id="photo">
+                        </div>
+                    </div>
+                 </form>
+        </div>
+        <div class="modal-footer">
+           <button type="button" class="btn btn-primary">Save</button>
+           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- modal end -->
 <script type="text/javascript">
     $(document).ready(function() {
       var selected_value=$('#m_metaltype').find("option:selected").text()
+      var productid='';
       fill_metal_combo(selected_value);//functon for fill metal combobox when page first load
       $('#btn_add_new_product').click(function() {
           $('#mdl_add_products').modal('show');
@@ -288,6 +497,30 @@
       });
       $("body").on("click",'.remove', function() {
         $(this).closest('tr').remove();
+      });
+
+      $('body').on('click','.btnedit',function() {
+          productid=$(this).data('productid');
+          $.ajax({
+            url: '<?php echo(site_url("product/get_product_detail")) ?>'+'/'+productid,
+            dataType: 'json',
+            success:function(data){
+              $('#product_update_form #model_no').val(data[0].model_no);
+              $('#product_update_form #category').val(data[0].category_id);
+              $('#product_update_form #grossweight').val(data[0].gross_weight);
+              $('#product_update_form #netweight').val(data[0].net_weight);
+              $('#product_update_form #weight_loss').val(data[0].weight_loss);
+               $('#product_update_form #price').val(data[0].price);
+            }
+          })
+          .fail(function() {
+            alert('something went wrong please contact capital eye for technical support.');
+          })
+          .always(function() {
+            console.log("complete");
+          });
+          
+          $('#product_edit_modal').modal('show');
       });
       /*function starts for dealing with errors*/
         $("input").change(function(){
@@ -375,4 +608,74 @@ function fill_metal_combo(metal_type)
                 console.log("complete");
               });
 }
+</script>
+
+<script type="text/javascript">
+        
+   /*var oTable= $('#product_table').DataTable( {
+    "bProcessing": true,
+    "bServerSide": true,
+    "columns": [
+    { "data": "metal_id" },
+    { "data": "metal" },
+    { "data": "metal_type" }
+    ],
+    "sAjaxSource": '<?php echo(site_url("product/datatable")) ?>',
+                "bJQueryUI": true,
+                "sPaginationType": "full_numbers",
+                "iDisplayStart ":10,
+                "oLanguage": {
+            "sProcessing": "<img src='<?php echo base_url(); ?>assets/images/ajax-loader_dark.gif'>"
+        },  
+        "fnInitComplete": function() {
+                //oTable.fnAdjustColumnSizing();
+         },
+                'fnServerData': function(sSource, aoData, fnCallback)
+            {
+              $.ajax
+              ({
+                'dataType': 'json',
+                'type'    : 'POST',
+                'url'     : sSource,
+                'data'    : aoData,
+                'success' : fnCallback
+              });
+            }
+  } );
+*/
+/*$('#product_table').dataTable({
+        "processing": true,
+         "serverSide": true,
+        "ajax": {
+    "url": '<?php echo site_url("product/datatable"); ?>'
+    },
+    "columns": [
+    { "data": "metal_id" },
+    { "data": "metal" },
+    { "data": "metal_type" }
+    ]
+    });*/
+
+ $('#product_table').dataTable( {
+         "processing": true,
+        "serverSide": true,
+         "paging ": true,
+        "ajax": {
+            "url": "<?php echo(site_url('product/datatable')) ?>",
+            "dataType": "json"
+        },
+        "columns": [
+        { "data": "model_no" },
+        { "data": "gross_weight" },
+        { "data": "net_weight" },
+        { "data": "price"},
+        {"data": "image_url",
+            "render": function(data, type, row) {
+              return '<img src="uploads/'+data+'" width="50px"/>';
+          }
+        },
+        {"data":"Actions"}
+        ]
+    } ); 
+
 </script>

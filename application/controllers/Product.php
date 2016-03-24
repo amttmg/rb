@@ -12,10 +12,16 @@ class Product extends CI_Controller {
 		$this->load->model('m_product','product');
 		$this->load->model('M_metal','metal');
 		$this->load->model('m_stone','stone');
+		$this->load->library('datatables');
+		$this->load->library('table');
 	}
 
 	public function index()
 	{
+		$tmpl = array ( 'table_open'  => '<table id="product_table" border="1" cellpadding="2" cellspacing="1" class="table">' );
+        $this->table->set_template($tmpl); 
+        
+        $this->table->set_heading('model_no','net_weight','gross_weight','price','image_url','Actions');
 		$this->load->model('m_product_category','product_category');//load model for get product category to fill dropdown box
 		$view_data['product_categories']=$this->product_category->get_product_category();
 		$view_data['metals']=$this->metal->get_metals();
@@ -137,6 +143,21 @@ class Product extends CI_Controller {
 		$this->db->where('metal_type',$value);
 		$metal_combo=$this->db->get('tbl_metals')->result();
 		echo(json_encode($metal_combo));
+	}
+
+	public function datatable()
+	{
+		$this->datatables->select('product_id,model_no,net_weight,gross_weight,price,image_url')->from('tbl_products')
+		->unset_column('product_id')
+		->add_column('Actions','<a href="#editProduct" class="btnedit" data-productid="$1"><span class="label label-primary">Edit</span></a>', 'product_id');
+        echo $this->datatables->generate();
+	}
+
+	public function get_product_detail($id)
+	{
+		$this->db->where('product_id',$id);
+		$data=$this->db->get('tbl_products')->result();
+		echo(json_encode($data));
 	}
 
 }
