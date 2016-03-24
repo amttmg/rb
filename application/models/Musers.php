@@ -59,6 +59,11 @@ class Musers extends CI_Model
         $this->db->where('username', $identity);
         return $this->db->get('users')->row();
     }
+    function getUserByID($id)
+    {
+        $this->db->where('id', $id);
+        return $this->db->get('users')->row();
+    }
     function checkCode($id, $code){
         $this->db->where('id', $id);
         $this->db->where('activation_code', $code);

@@ -29,9 +29,9 @@ class Customer extends CI_Controller
     // Display customer entry form
     public function index($offset = 0)
     {
-        $data['priorities'] = $this->mpriority->getPriority();
-        $data['title'] = "Create Customer";
-        $data['content'] = $this->load->view('pages/customers/newcustomer', $data, true);
+        $data['title'] = "Customers";
+        $cust['customers'] = $this->customer->getCustomersWithCard();
+        $data['content'] = $this->load->view('pages/customers/customerdisplay', $cust, true);
         $this->parser->parse('template/page_template', $data);
     }
 
@@ -39,60 +39,60 @@ class Customer extends CI_Controller
     public function add()
     {
         if (!checkaccess(1)) {
-            $data['title'] = "Access Denide";
-            $data['content'] = $this->load->view('errors/access/accessdenied', '', true);
-            $this->parser->parse('template/page_template', $data);
+            show_access_denied();
+            return;
         }
-            $this->form_validation->set_rules('fname', 'First Name', 'trim|required|min_length[2]|max_length[100]');
-            $this->form_validation->set_rules('lname', 'last Name', 'trim|required|min_length[2]|max_length[100]');
-            $this->form_validation->set_rules('address', 'Address', 'trim|required|min_length[2]|max_length[100]');
-            $this->form_validation->set_rules('email', 'Email', 'trim|required|is_unique[tbl_customers.email]');
-            $this->form_validation->set_rules('phone1', 'Phone Number', 'trim|required|min_length[10]|max_length[15]');
-            $this->form_validation->set_rules('gender', 'Gender', 'trim|required');
-            $this->form_validation->set_rules('marital_status', 'Marital Status', 'trim|required');
-            $this->form_validation->set_rules('aniversary_date', 'Aniversary date', 'trim|min_length[2]|max_length[20]');
-            $this->form_validation->set_rules('dob', 'DOB', 'trim|required');
-            $this->form_validation->set_rules('photo', 'Photo', 'callback_validate_image');
-            //for family section validation
-            for ($i = 1; $i <= 5; $i++) {
-                if ($this->input->post('faname' . $i)) {
-                    $this->form_validation->set_rules('faphoto' . $i, 'Photo', 'callback_validate_image[faphoto' . $i . ']');
-                }
+        $this->form_validation->set_rules('fname', 'First Name', 'trim|required|min_length[2]|max_length[100]');
+        $this->form_validation->set_rules('lname', 'last Name', 'trim|required|min_length[2]|max_length[100]');
+        $this->form_validation->set_rules('address', 'Address', 'trim|required|min_length[2]|max_length[100]');
+        $this->form_validation->set_rules('email', 'Email', 'trim|required|is_unique[tbl_customers.email]');
+        $this->form_validation->set_rules('phone1', 'Phone Number', 'trim|required|min_length[10]|max_length[15]');
+        $this->form_validation->set_rules('gender', 'Gender', 'trim|required');
+        $this->form_validation->set_rules('marital_status', 'Marital Status', 'trim|required');
+        $this->form_validation->set_rules('aniversary_date', 'Aniversary date', 'trim|min_length[2]|max_length[20]');
+        $this->form_validation->set_rules('dob', 'DOB', 'trim|required');
+        $this->form_validation->set_rules('photo', 'Photo', 'callback_validate_image');
+        //for family section validation
+        for ($i = 1; $i <= 5; $i++) {
+            if ($this->input->post('faname' . $i)) {
+                $this->form_validation->set_rules('faphoto' . $i, 'Photo', 'callback_validate_image[faphoto' . $i . ']');
             }
-            $this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
-            if ($this->form_validation->run() == TRUE) {
-                $existing_customer = "";
-                $inhouse_refer_id = "";
-                if ($this->input->post('refered_id')) {
-                    if ($this->input->post('customer_refer') == 0) {
-                        $dt = explode(':', $this->input->post('reference'));
-                        $existing_customer = $dt[1];
-                    } else {
-                        $dt = explode(':', $this->input->post('reference'));
-                        $inhouse_refer_id = $dt[1];
-                    }
-                }
-                $this->db->trans_begin();
-                $this->customer->insert($this->image_name);
-                $this->customer->insert_family($this->images);
-                $this->customer->insert_refer($this->input->post('customer_refer'), $inhouse_refer_id, $existing_customer, $this->session->userdata('customer_id'));
-                if ($this->db->trans_status() === FALSE) {
-                    $this->db->trans_rollback();
+        }
+        $this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
+        if ($this->form_validation->run() == TRUE) {
+            $existing_customer = "";
+            $inhouse_refer_id = "";
+            if ($this->input->post('refered_id')) {
+                if ($this->input->post('customer_refer') == 0) {
+                    $dt = explode(':', $this->input->post('reference'));
+                    $existing_customer = $dt[1];
                 } else {
-                    $this->db->trans_commit();
-                    $this->session->unset_userdata('customer_id');
-                    $this->session->set_flashdata('message', 'Customer added successfully !');
-                    //echo("success fully inserted data");
-                    redirect('customer/index', 'refresh');
+                    $dt = explode(':', $this->input->post('reference'));
+                    $inhouse_refer_id = $dt[1];
                 }
-
-            } else {
-                $data['priorities'] = $this->mpriority->getPriority();
-                $data['title'] = "Create Customer";
-                $data['content'] = $this->load->view('pages/customers/newcustomer', $data, true);
-                $this->parser->parse('template/page_template', $data);
-
             }
+            $this->db->trans_begin();
+            $this->customer->insert($this->image_name);
+            $this->customer->insert_family($this->images);
+            $this->customer->insert_refer($this->input->post('customer_refer'), $inhouse_refer_id, $existing_customer, $this->session->userdata('customer_id'));
+            if ($this->db->trans_status() === FALSE) {
+                $this->db->trans_rollback();
+            } else {
+                $this->db->trans_commit();
+                $this->session->unset_userdata('customer_id');
+                $this->session->set_flashdata('message', 'Customer added successfully !');
+                //echo("success fully inserted data");
+                redirect('customer/index', 'refresh');
+            }
+
+        } else {
+            $data['priorities'] = $this->mpriority->getPriority();
+            $data['title'] = "Create Customer";
+            $data['content'] = $this->load->view('pages/customers/newcustomer', $data, true);
+            $this->parser->parse('template/page_template', $data);
+
+        }
+
 
     }
 
@@ -195,15 +195,6 @@ class Customer extends CI_Controller
         }
         echo(json_encode($data));
 
-    }
-
-    //customer display
-    function customers()
-    {
-        $data['title'] = "Customers";
-        $cust['customers'] = $this->customer->getCustomersWithCard();
-        $data['content'] = $this->load->view('pages/customers/customerdisplay', $cust, true);
-        $this->parser->parse('template/page_template', $data);
     }
 
     function customerdetails($id)
