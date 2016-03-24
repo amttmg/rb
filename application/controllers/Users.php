@@ -241,7 +241,7 @@ class Users extends CI_Controller
         }
     }
 
-    function resetusercomplete($code=Null){
+    function reset_password($code=Null){
         if (!$code)
         {
             show_404();
@@ -255,26 +255,28 @@ class Users extends CI_Controller
 
             $this->form_validation->set_rules('new', $this->lang->line('reset_password_validation_new_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[new_confirm]');
             $this->form_validation->set_rules('new_confirm', $this->lang->line('reset_password_validation_new_password_confirm_label'), 'required');
-
+            $this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
             if ($this->form_validation->run() == false)
             {
                 // display the form
 
                 // set the flash data error message if there is one
-                $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+                $this->data['message'] = $this->session->flashdata('message');
 
                 $this->data['min_password_length'] = $this->config->item('min_password_length', 'ion_auth');
                 $this->data['new_password'] = array(
                     'name' => 'new',
                     'id'   => 'new',
                     'type' => 'password',
-                    'pattern' => '^.{'.$this->data['min_password_length'].'}.*$',
+//                    'pattern' => '^.{'.$this->data['min_password_length'].'}.*$',
+                    'class'=>"form-control"
                 );
                 $this->data['new_password_confirm'] = array(
                     'name'    => 'new_confirm',
                     'id'      => 'new_confirm',
                     'type'    => 'password',
-                    'pattern' => '^.{'.$this->data['min_password_length'].'}.*$',
+//                    'pattern' => '^.{'.$this->data['min_password_length'].'}.*$',
+                    'class'=>"form-control"
                 );
                 $this->data['user_id'] = array(
                     'name'  => 'user_id',
@@ -286,7 +288,7 @@ class Users extends CI_Controller
                 $this->data['code'] = $code;
 
                 // render
-                $this->_render_page('auth/reset_password', $this->data);
+                $this->_render_page('pages/users/reset_password', $this->data);
             }
             else
             {
@@ -311,12 +313,12 @@ class Users extends CI_Controller
                     {
                         // if the password was successfully changed
                         $this->session->set_flashdata('message', $this->ion_auth->messages());
-                        redirect("auth/login", 'refresh');
+                        redirect("welcome", 'refresh');
                     }
                     else
                     {
                         $this->session->set_flashdata('message', $this->ion_auth->errors());
-                        redirect('auth/reset_password/' . $code, 'refresh');
+                        redirect('users/reset_password/' . $code, 'refresh');
                     }
                 }
             }
@@ -325,9 +327,40 @@ class Users extends CI_Controller
         {
             // if the code is invalid then send them back to the forgot password page
             $this->session->set_flashdata('message', $this->ion_auth->errors());
-            redirect("auth/forgot_password", 'refresh');
+            redirect("users", 'refresh');
         }
 
+    }
+    function _get_csrf_nonce()
+    {
+        $this->load->helper('string');
+        $key   = random_string('alnum', 8);
+        $value = random_string('alnum', 20);
+        $this->session->set_flashdata('csrfkey', $key);
+        $this->session->set_flashdata('csrfvalue', $value);
+
+        return array($key => $value);
+    }
+    function _render_page($view, $data=null, $returnhtml=false)//I think this makes more sense
+    {
+
+        $this->viewdata = (empty($data)) ? $this->data: $data;
+
+        $view_html = $this->load->view($view, $this->viewdata, $returnhtml);
+
+        if ($returnhtml) return $view_html;//This will return html on 3rd argument being true
+    }
+    function _valid_csrf_nonce()
+    {
+        if ($this->input->post($this->session->flashdata('csrfkey')) !== FALSE &&
+            $this->input->post($this->session->flashdata('csrfkey')) == $this->session->flashdata('csrfvalue'))
+        {
+            return TRUE;
+        }
+        else
+        {
+            return FALSE;
+        }
     }
 
 }
