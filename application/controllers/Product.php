@@ -250,7 +250,7 @@ class Product extends CI_Controller {
 			$row[] = $product->net_weight;
 			$row[] = $product->gross_weight;
 			$row[] = $product->price;
-			$row[] = '<img src="'.base_url("uploads/").'/'.$product->image_url.'" width="50px"/>';
+			$row[] = '<a class="image-link" href="'.base_url("uploads/").'/'.$product->image_url.'"><img src="'.base_url("uploads/").'/'.$product->image_url.'" width="50px"/></a>';
 
 			//add html for action
 			$row[] = '<a href="#editProduct" class="btnedit btn btn-xs btn-primary" data-productid="'.$product->product_id.'"><i class="fa fa-edit"></i> Edit</a> <a href="#" class="btnviewdetails btn btn-xs btn-primary" data-productid="$product->product_id"><i class="fa fa-folder-open"></i> View details</a>';

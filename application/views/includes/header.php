@@ -31,6 +31,7 @@
     <link rel="stylesheet" href="<?php echo base_url() ?>template/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
     <!-- DataTables -->
     <link rel="stylesheet" href="<?php echo base_url() ?>template/plugins/datatables/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo(base_url('template\plugins\imageview/magnific-popup.css')) ?>">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>

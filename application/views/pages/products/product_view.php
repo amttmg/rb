@@ -1,5 +1,7 @@
 
 <div class="content-wrapper">
+
+
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
@@ -41,6 +43,7 @@
                             </thead>
                       
                           </table>
+                            
                         </div>
                         
                     </div>
@@ -433,8 +436,10 @@
     </div>
   </div>
 <!-- modal end -->
+
 <script type="text/javascript">
     $(document).ready(function() {
+      $('.image-link').magnificPopup({type:'image'});
       var selected_value=$('#m_metaltype').find("option:selected").text()
       var productid='';
       fill_metal_combo(selected_value,'save');//functon for fill metal combobox when page first load

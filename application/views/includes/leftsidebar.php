@@ -75,9 +75,3 @@
 <script src="<?php echo base_url() ?>template/plugins/validation/jquery.validate.min.js"></script>
 <script src="<?php echo base_url() ?>template/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url() ?>template/plugins/datatables/dataTables.bootstrap.min.js"></script>
-<script src="<?php echo base_url() ?>template/plugins/imageview/jquery.magnific-popup.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $('.image-link').magnificPopup({type:'image'});
-    });
-</script>
