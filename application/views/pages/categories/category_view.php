@@ -41,11 +41,10 @@
                                                 <td><?php echo($count) ?></td>
                                                 <td><?php echo($category->category) ?></td>
                                                 <td><?php echo($category->remarks) ?></td>
-                                                <td>
-                                                        <div class="btn-group">
-                                                        <button type="button" class="btn_edit_productcategory btn btn-info" data-productcategoryid="<?php echo($category->category_id) ?>">Edit</button>
-                                                        <button type="button" class="btn btn-info">Action</button>
-                                                        </div>
+                                                <td width="20">
+                                                        
+                                                        <a href="#" class="btn_edit_productcategory  btn btn-xs btn-primary btn-block" data-productcategoryid="<?php echo($category->category_id) ?>"><i class="fa fa-edit"></i> Edit</a>
+                                                        
                                                 </td>
                                             </tr>
                                         <?php endforeach ?>

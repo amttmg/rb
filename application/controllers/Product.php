@@ -230,9 +230,10 @@ class Product extends CI_Controller {
 
 	public function datatable()
 	{
-		$this->datatables->select('product_id,model_no,net_weight,gross_weight,price,image_url')->from('tbl_products')
+		$this->datatables->select('tbl_products.product_id,tbl_products.model_no,tbl_products.net_weight,tbl_products.gross_weight,tbl_products.price,tbl_products.image_url','tbl_product_category.category')->from('tbl_products')
+		->join('tbl_product_category','tbl_product_category.category_id=tbl_products.category_id')
 		->unset_column('product_id')
-		->add_column('Actions','<a href="#editProduct" class="btnedit" data-productid="$1"><span class="label label-primary">Edit</span></a>', 'product_id');
+		->add_column('Actions','<a href="#editProduct" class="btnedit" data-productid="$1"><span class="label label-primary"><i class="fa fa-edit"></i> Edit</span></a>', 'product_id');
         echo $this->datatables->generate();
 	}
 

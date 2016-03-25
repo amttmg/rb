@@ -31,6 +31,7 @@
                             <thead>
                               <tr>
                                 <th>Model Number</th>
+                                <th>Category</th>
                                 <th>Net Weight</th>
                                 <th>Gross Weight</th>
                                 <th>Price</th>
@@ -425,8 +426,8 @@
         </div>
         <div class="modal-footer">
           <span class="label label-success pull-left" id="product_update_message" style="display:none">Product update successfully !</span>
-           <button type="button" class="btn btn-primary" id="btn_product_update">Update</button>
            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+           <button type="button" class="btn btn-primary" id="btn_product_update">Update</button>
         </div>
       </div>
     </div>
@@ -846,6 +847,7 @@ function fill_metal_combo(metal_type,user_form)
         },
         "columns": [
         { "data": "model_no" },
+        {"data":"category"},
         { "data": "gross_weight" },
         { "data": "net_weight" },
         { "data": "price"},
