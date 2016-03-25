@@ -21,7 +21,7 @@
 
                 </a>
                 <ul class="treeview-menu">
-                    <?php if(checkaccess(1)) { ?>
+                    <?php if(checkaccess('customer/add')) { ?>
                     <li><a href="<?php echo base_url('customer/add') ?>"><i class="fa fa-user-plus"></i> New Customer </a></li>
                     <?php } ?>
                     <li><a href="<?php echo base_url('customer') ?>"><i class="fa fa-eye"></i> Customers </a></li>

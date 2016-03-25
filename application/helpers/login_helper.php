@@ -56,7 +56,7 @@ function ordinal($number)
         return $number . $ends[$number % 10];
 }
 
-function checkaccess($functionID)
+function checkaccess($url)
 {
     $CI =& get_instance();
     if (!$CI->ion_auth->logged_in())
@@ -65,7 +65,7 @@ function checkaccess($functionID)
     }
     $user = ($CI->ion_auth->user()->row());
     $group = $CI->ion_auth->get_users_groups($user->id)->row();
-    $sql="select * from function_group where group_id=$group->id and function_id=$functionID";
+    $sql="select * from function_group inner join tbl_functions ON tbl_functions.function_id=function_group.function_id where group_id=$group->id and url='$url'";
     $data = $CI->db->query($sql);
     if ($data->num_rows() > 0) {
         return true;
@@ -85,6 +85,10 @@ function getCurrentUserID(){
 function show_access_denied(){
     $CI =& get_instance();
     $CI->load->view('errors/access/accessdenied');
+}
+function currenturl(){
+    $CI =& get_instance();
+    return  $CI->router->fetch_class().'/'.$CI->router->fetch_method();
 }
 
 ?>
