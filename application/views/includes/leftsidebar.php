@@ -18,7 +18,6 @@
                 <a href="#">
                     <i class="fa fa-users"></i>
                     <span>Customers</span>
-
                 </a>
                 <ul class="treeview-menu">
                     <?php if(checkaccess('customer/add')) { ?>
