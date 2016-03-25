@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Product extends CI_Controller {
 
 	private $image_name='';
-	private $update_image_info="yes";
+	private $update_image_info="yes";//flag for check user update image or not
 
 	public function __construct()
 	{
