@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Product extends CI_Controller {
 
 	private $image_name='';
+	private $update_image_info="yes";
 
 	public function __construct()
 	{
@@ -105,6 +106,85 @@ class Product extends CI_Controller {
 		
 	}
 
+	public function update($product_id)
+	{
+		$master['status'] = True;
+        $data = array();
+        $master = array();
+		$this->form_validation->set_rules('model_no', 'Model Number', 'trim|required|max_length[64]');
+		$this->form_validation->set_rules('category', 'Category', 'callback_dropdown_fun');
+		$this->form_validation->set_rules('grossweight', 'Gross weight', 'trim|required');
+		$this->form_validation->set_rules('netweight', 'Net weight', 'trim|required');
+		$this->form_validation->set_rules('price', 'Price', 'trim|required');
+		$this->form_validation->set_rules('photo', 'Photo', 'callback_validate_image');
+		$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
+		if ($this->form_validation->run() == TRUE) 
+		{
+			$this->product->delete_metal_details($product_id);/*delete all metal details belongs to current product*/
+			$this->product->delete_stone_details($product_id);/*delete all stone details belongs to current product*/
+			$this->db->trans_start();
+			/*insert product and return product id*/
+			if($this->update_image_info=="yes")
+			{
+				$this->product->update_product($product_id,$this->image_name);
+			}
+			else
+			{
+				$this->product->update_product_without_image($product_id);
+			}
+			/*update metal details*/
+			if(!empty($_POST['metal']))
+			{
+				$metal=$_POST['metal'];
+				$weight=$_POST['weight'];
+				foreach ($metal as $key=>$value) {
+						$data=array(
+						'metal_id'=>$value,
+						'product_id'=>$product_id,
+						'weight'=>$weight[$key]
+						);
+						$this->db->insert('tbl_metal_details',$data);
+				}
+			}
+
+			/*insert stone details*/
+			if(!empty($_POST['stone']))
+			{
+				$pcs=$_POST['pcs'];
+				$cts=$_POST['cts'];
+				$stone=$_POST['stone'];
+
+				foreach ($stone as $key => $value) {
+						$data=array(
+						'stone_id'=>$value,
+						'product_id'=>$product_id,
+						'pcs'=>$pcs[$key],
+						'cts'=>$cts[$key]
+						);
+						$this->db->insert('tbl_stone_details',$data);
+				}
+			}
+			//if all transation success then insert data to database otherwise rollback
+			$this->db->trans_complete();
+			$master['status'] = True;
+				
+		} 
+		else 
+		{
+			$master['status'] = false;
+            foreach ($_POST as $key => $value) 
+            {
+                if (form_error($key) != '') 
+                {
+                    $data['error_string'] = $key;
+                    $data['input_error'] = form_error($key);
+                    array_push($master, $data);
+                }
+            }
+		}
+		echo(json_encode($master));
+	}
+
 	public function validate_image()
 	{
 			$config['upload_path'] = './uploads/';
@@ -116,14 +196,17 @@ class Product extends CI_Controller {
 
             if (!$this->upload->do_upload('photo')) {
                 if (stristr($this->upload->display_errors(), 'You did not select a file to upload')) {
+                	$this->update_image_info="no";
                     return true;
                 } else {
                     $this->form_validation->set_message('validate_image', $this->upload->display_errors());
+                    $this->update_image_info="no";
                     return false;
                 }
 
             } else {
                 $this->image_name = $this->upload->data('file_name');
+                $this->update_image_info="yes";
                 return true;
             }
 	}

@@ -88,6 +88,13 @@ class Stone extends CI_Controller {
 		echo(json_encode($this->stone->get_stones($id)));
 	}
 
+	public function get_stone_details($product_id)
+	{
+		$this->db->where('product_id',$product_id);
+		$data=$this->db->get('tbl_stone_details')->result();
+		echo(json_encode($data));
+	}
+
 }
 
 /* End of file Stone.php */
