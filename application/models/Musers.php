@@ -75,4 +75,14 @@ class Musers extends CI_Model
         }
 
     }
+
+    function update_user($id, $data){
+        $this->db->where('id', $id);
+        if($this->db->update('users', $data))
+        {
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

@@ -17,7 +17,7 @@
         <?php if ($this->session->flashdata('message')): ?>
             <div class="alert alert-success alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            <?php echo ($this->session->flashdata('message')) ?>
+                <?php echo($this->session->flashdata('message')) ?>
             </div>
         <?php endif ?>
         <!-- Default box -->
@@ -112,7 +112,8 @@
 
                             </td>
                             <td>
-                                <a href="#" class="btn btn-xs btn-primary btn-block"><i class="fa fa-edit"></i> Edit</a>
+                                <a href="#" class="btn btn-xs btn-primary btn-block btnedit"
+                                   data-id="<?php echo $user->id ?>"><i class="fa fa-edit"></i> Edit</a>
                                 <a onclick="return confirm('Do you want to reset password ???')"
                                    href="<?php echo base_url('users/resetuser/' . $user->id) ?>"
                                    class="btn btn-xs btn-primary btn-block"><i class="fa fa-refresh"></i> Reset</a>
@@ -232,34 +233,128 @@
     <!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+<div class="modal fade" tabindex="-1" data-keyboard="false" data-backdrop="static" role="dialog" id='modaledituser'>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Edit Users</h4>
+            </div>
+
+            <div class="modal-body">
+
+                <?php echo form_open('users/updateUser', array('id' => 'frmedituser')) ?>
+                <div class="form-group">
+                    <label class="control-label" for="first_name">First Name</label>
+
+                    <div>
+                        <input type="hidden" name="user_id" id="user_id">
+                        <input required type="text" name="first_name" id="editfirst_name" class="form-control">
+                        <span></span>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label>Last Name</label>
+
+                    <div>
+                        <input required type="text" name="last_name" id="editlast_name" class="form-control">
+                        <span></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Phone</label>
+
+                    <div>
+                        <input required type="text" name="phone" id="editphone" class="form-control">
+                        <span></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>User Group</label>
+
+                    <div>
+                        <select required name="group" class="form-control" id="editgroup">
+                            <option value="">Select Group</option>
+                            <?php
+                            $groups = $this->ion_auth->groups()->result();
+                            foreach ($groups as $group) {
+                                ?>
+                                <option value="<?php echo $group->id ?>"><?php echo $group->name ?></option>
+                                <?php
+                            }
+                            ?>
+                        </select>
+                        <span></span>
+                    </div>
+                </div>
+                <?php echo form_close() ?>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnedituser" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+            </div>
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <script>
     $('#btnnewuser').click(function () {
         $('#modalnewuser').modal('show');
     })
-    //    $('#frmnewuser').validate({
-    //        rules: {
-    //            password: "required",
-    //            password_confirm: {
-    //                equalTo: "#password"
-    //            }
-    //        },
-    //
-    //        highlight: function (element) {
-    //            $(element).closest('.form-group').addClass('has-error');
-    //        },
-    //        unhighlight: function (element) {
-    //            $(element).closest('.form-group').removeClass('has-error');
-    //        },
-    //        errorElement: 'span',
-    //        errorClass: 'help-block',
-    //        errorPlacement: function (error, element) {
-    //            if (element.parent('.input-group').length) {
-    //                error.insertAfter(element.parent());
-    //            } else {
-    //                error.insertAfter(element);
-    //            }
-    //        }
-    //    });
+
+    $('.btnedit').click(function () {
+        var id = $(this).data('id');
+        $.ajax({
+            url: '<?php echo base_url('users/getUser') ?>/'+id,
+            dataType: "json",
+            success: function (res) {
+               $('#editfirst_name').val(res.user.first_name);
+                $('#editlast_name').val(res.user.last_name);
+                $('#editphone').val(res.user.phone);
+                $('#editgroup').val(res.group.id);
+                $('#user_id').val(res.user.id);
+                $('#modaledituser').modal('show');
+            }
+        })
+        //
+    })
+    $('#btnedituser').click(function(){
+        $('#btnedituser').prop('disabled', true);
+        $('#btnedituser').text("Updating...");
+        $.ajax({
+
+            url: '<?php  echo site_url("users/updateUser"); ?>',
+            type: 'POST',
+            dataType: 'json',
+            data: $('#frmedituser').serialize(),
+            success: function (data) {
+                if (data.status == false) {
+                    $.each(data, function (index, val) {
+                        $('#btnedituser').prop('disabled', false);
+                        $('#btnedituser').text("Save");
+                        $('#edit' + val.error_string).next().html(val.input_error);
+                        $('#edit' + val.error_string).parent().addClass('has-error');
+                        console.log(val.input_error);
+
+                    });
+                }
+                else {
+                    location.reload();
+                }
+            },
+            error: function(){
+                $('#btnedituser').prop('disabled', true);
+                alert("Somthing is wrong !!");
+            }
+        });
+    });
+
     $("input").change(function () {
         $(this).parent().removeClass('has-error');
         $(this).next().empty();

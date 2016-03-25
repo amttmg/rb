@@ -134,6 +134,64 @@ class Users extends CI_Controller
 
     }
 
+    function getUser($id = '')
+    {
+        if ($id == '') {
+            show_404();
+        }
+        $data['user'] = $this->users->getUserByID($id);
+        $data['group'] = $this->ion_auth->get_users_groups($data['user']->id)->row();
+        echo json_encode($data);
+    }
+
+    function updateUser()
+    {
+        $master['status'] = True;
+        $data = array();
+        $master = array();
+
+
+        // validate form input
+        $this->form_validation->set_rules('first_name', $this->lang->line('create_user_validation_fname_label'), 'required');
+        $this->form_validation->set_rules('last_name', $this->lang->line('create_user_validation_lname_label'), 'required');
+
+        $this->form_validation->set_rules('phone', $this->lang->line('create_user_validation_phone_label'), 'required');
+
+        $this->form_validation->set_rules('group', 'Group', 'trim|required');
+
+        $this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
+
+        if ($this->form_validation->run() == true) {
+            $additional_data = array(
+                'first_name' => $this->input->post('first_name'),
+                'last_name' => $this->input->post('last_name'),
+                'phone' => $this->input->post('phone'),
+            );
+
+
+            $id = $this->input->post('user_id');
+            $group = $this->input->post('group');
+
+            if ($this->users->update_user($id, $additional_data)) {
+                $this->session->set_flashdata('message', "User Updated Sucessfully !");
+            } else {
+                $this->session->set_flashdata('message', "Somthing is wrong");
+            }
+        } else {
+            $master['status'] = false;
+            foreach ($_POST as $key => $value) {
+                if (form_error($key) != '') {
+                    $data['error_string'] = $key;
+                    $data['input_error'] = form_error($key);
+                    array_push($master, $data);
+                }
+            }
+        }
+
+        echo json_encode($master);
+
+    }
+
     function activeUser($identity, $id, $code = false)
     {
         $check = $this->users->checkCode($id, $code);
@@ -224,9 +282,10 @@ class Users extends CI_Controller
         }
     }
 
-    function resetuser($id=""){
+    function resetuser($id = "")
+    {
         //run the forgotten password method to email an activation code to the user
-        if($id==""){
+        if ($id == "") {
             show_404();
         }
         $user = ($this->users->getUserByID($id));
@@ -234,30 +293,27 @@ class Users extends CI_Controller
         if ($forgotten) { //if there were no errors
             $this->session->set_flashdata('message', $this->ion_auth->messages());
             redirect("users", 'refresh'); //we should display a confirmation page here instead of the login page
-        }
-        else {
+        } else {
             $this->session->set_flashdata('message', $this->ion_auth->errors());
             redirect("users", 'refresh');
         }
     }
 
-    function reset_password($code=Null){
-        if (!$code)
-        {
+    function reset_password($code = Null)
+    {
+        if (!$code) {
             show_404();
         }
 
         $user = $this->ion_auth->forgotten_password_check($code);
 
-        if ($user)
-        {
+        if ($user) {
             // if the code is valid then display the password reset form
 
             $this->form_validation->set_rules('new', $this->lang->line('reset_password_validation_new_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[new_confirm]');
             $this->form_validation->set_rules('new_confirm', $this->lang->line('reset_password_validation_new_password_confirm_label'), 'required');
             $this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
-            if ($this->form_validation->run() == false)
-            {
+            if ($this->form_validation->run() == false) {
                 // display the form
 
                 // set the flash data error message if there is one
@@ -266,22 +322,22 @@ class Users extends CI_Controller
                 $this->data['min_password_length'] = $this->config->item('min_password_length', 'ion_auth');
                 $this->data['new_password'] = array(
                     'name' => 'new',
-                    'id'   => 'new',
+                    'id' => 'new',
                     'type' => 'password',
 //                    'pattern' => '^.{'.$this->data['min_password_length'].'}.*$',
-                    'class'=>"form-control"
+                    'class' => "form-control"
                 );
                 $this->data['new_password_confirm'] = array(
-                    'name'    => 'new_confirm',
-                    'id'      => 'new_confirm',
-                    'type'    => 'password',
+                    'name' => 'new_confirm',
+                    'id' => 'new_confirm',
+                    'type' => 'password',
 //                    'pattern' => '^.{'.$this->data['min_password_length'].'}.*$',
-                    'class'=>"form-control"
+                    'class' => "form-control"
                 );
                 $this->data['user_id'] = array(
-                    'name'  => 'user_id',
-                    'id'    => 'user_id',
-                    'type'  => 'hidden',
+                    'name' => 'user_id',
+                    'id' => 'user_id',
+                    'type' => 'hidden',
                     'value' => $user->id,
                 );
                 $this->data['csrf'] = $this->_get_csrf_nonce();
@@ -289,76 +345,67 @@ class Users extends CI_Controller
 
                 // render
                 $this->_render_page('pages/users/reset_password', $this->data);
-            }
-            else
-            {
+            } else {
                 // do we have a valid request?
-                if ($this->_valid_csrf_nonce() === FALSE || $user->id != $this->input->post('user_id'))
-                {
+                if ($this->_valid_csrf_nonce() === FALSE || $user->id != $this->input->post('user_id')) {
 
                     // something fishy might be up
                     $this->ion_auth->clear_forgotten_password_code($code);
 
                     show_error($this->lang->line('error_csrf'));
 
-                }
-                else
-                {
+                } else {
                     // finally change the password
                     $identity = $user->{$this->config->item('identity', 'ion_auth')};
 
                     $change = $this->ion_auth->reset_password($identity, $this->input->post('new'));
 
-                    if ($change)
-                    {
+                    if ($change) {
                         // if the password was successfully changed
                         $this->session->set_flashdata('message', $this->ion_auth->messages());
                         redirect("welcome", 'refresh');
-                    }
-                    else
-                    {
+                    } else {
                         $this->session->set_flashdata('message', $this->ion_auth->errors());
                         redirect('users/reset_password/' . $code, 'refresh');
                     }
                 }
             }
-        }
-        else
-        {
+        } else {
             // if the code is invalid then send them back to the forgot password page
             $this->session->set_flashdata('message', $this->ion_auth->errors());
             redirect("users", 'refresh');
         }
 
     }
+
     function _get_csrf_nonce()
     {
         $this->load->helper('string');
-        $key   = random_string('alnum', 8);
+        $key = random_string('alnum', 8);
         $value = random_string('alnum', 20);
         $this->session->set_flashdata('csrfkey', $key);
         $this->session->set_flashdata('csrfvalue', $value);
 
         return array($key => $value);
     }
-    function _render_page($view, $data=null, $returnhtml=false)//I think this makes more sense
+
+    function _render_page($view, $data = null, $returnhtml = false)//I think this makes more sense
     {
 
-        $this->viewdata = (empty($data)) ? $this->data: $data;
+        $this->viewdata = (empty($data)) ? $this->data : $data;
 
         $view_html = $this->load->view($view, $this->viewdata, $returnhtml);
 
         if ($returnhtml) return $view_html;//This will return html on 3rd argument being true
     }
+
     function _valid_csrf_nonce()
     {
         if ($this->input->post($this->session->flashdata('csrfkey')) !== FALSE &&
-            $this->input->post($this->session->flashdata('csrfkey')) == $this->session->flashdata('csrfvalue'))
-        {
+            $this->input->post($this->session->flashdata('csrfkey')) == $this->session->flashdata('csrfvalue')
+        ) {
             return TRUE;
-        }
-        else
-        {
+        } else {
             return FALSE;
         }
     }
