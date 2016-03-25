@@ -45,9 +45,9 @@
                                         <th><?php echo($stone->color) ?></th>
                                         <th><?php echo($stone->clarity) ?></th>
                                         <th><?php echo($stone->size) ?></th>
-                                        <th width="20">
+                                        <th>
                                             
-                                            <a href="#" class="btn_edit_stone btn_edit_metal btn btn-xs btn-primary btn-block" data-stoneid="<?php echo($stone->stone_id) ?>"><i class="fa fa-edit"></i> Edit</a>
+                                            <a href="#" class="btn_edit_stone btn-xs btn-primary" data-stoneid="<?php echo($stone->stone_id) ?>"><i class="fa fa-edit"></i> Edit</a>
                                             
                                             
                                         </th>

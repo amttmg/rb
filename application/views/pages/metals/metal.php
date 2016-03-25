@@ -41,8 +41,8 @@
                                     <td><?php echo($metal->metal) ?></td>
                                     <th><?php echo($metal->metal_type) ?></th>
                                     <th><?php echo($metal->unit) ?></th>
-                                    <td width="20">
-                                        <a href="#" class="btn_edit_metal btn btn-xs btn-primary btn-block" data-metalid="<?php echo($metal->metal_id) ?>"><i class="fa fa-edit"></i> Edit</a>
+                                    <td>
+                                        <a href="#" class="btn_edit_metal btn-xs btn-primary" data-metalid="<?php echo($metal->metal_id) ?>"><i class="fa fa-edit"></i> Edit</a>
                                     </td>
                                 </tr>
                                 <?php $count++; ?>

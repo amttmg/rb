@@ -253,7 +253,7 @@ class Product extends CI_Controller {
 			$row[] = '<img src="'.base_url("uploads/").'/'.$product->image_url.'" width="50px"/>';
 
 			//add html for action
-			$row[] = '<a href="#editProduct" class="btnedit" data-productid="'.$product->product_id.'"><span class="label label-primary"><i class="fa fa-edit"></i> Edit</span></a> <a href="#" class="btnviewdetails" data-productid="$product->product_id"><span class="label label-primary"><i class="fa fa-folder-open"></i> View details</span></a>';
+			$row[] = '<a href="#editProduct" class="btnedit btn btn-xs btn-primary" data-productid="'.$product->product_id.'"><i class="fa fa-edit"></i> Edit</a> <a href="#" class="btnviewdetails btn btn-xs btn-primary" data-productid="$product->product_id"><i class="fa fa-folder-open"></i> View details</a>';
 		
 			$data[] = $row;
 		}
