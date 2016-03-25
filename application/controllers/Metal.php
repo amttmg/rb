@@ -99,6 +99,16 @@ class Metal extends CI_Controller {
 		return true;
 	}
 
+	public function get_metal_details($product_id)
+	{
+		$this->db->select('*');
+		$this->db->from('tbl_metal_details');
+		$this->db->join('tbl_metals','tbl_metals.metal_id=tbl_metal_details.metal_id');
+		$this->db->where('tbl_metal_details.product_id',$product_id);
+		$data=$this->db->get()->result();
+		echo(json_encode($data));
+	}
+
 }
 
 /* End of file Metal.php */

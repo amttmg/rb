@@ -424,7 +424,8 @@
                  </form>
         </div>
         <div class="modal-footer">
-           <button type="button" class="btn btn-primary">Save</button>
+          <span class="label label-success pull-left" id="product_update_message" style="display:none">Product update successfully !</span>
+           <button type="button" class="btn btn-primary" id="btn_product_update">Update</button>
            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
       </div>
@@ -435,7 +436,7 @@
     $(document).ready(function() {
       var selected_value=$('#m_metaltype').find("option:selected").text()
       var productid='';
-      fill_metal_combo(selected_value);//functon for fill metal combobox when page first load
+      fill_metal_combo(selected_value,'save');//functon for fill metal combobox when page first load
       $('#btn_add_new_product').click(function() {
           $('#mdl_add_products').modal('show');
       }); 
@@ -499,8 +500,16 @@
         $(this).closest('tr').remove();
       });
 
+      $('.modal').on('hidden.bs.modal', function(){
+          $(this).find('form')[0].reset();
+      });
+      //for edit product
       $('body').on('click','.btnedit',function() {
+        $("#product_update_form #stone_grid tr").not("tr:eq(0)").not("tbody:first").remove();
+        $("#product_update_form #metal_grid tr").not("tr:eq(0)").not("tbody:first").remove();
           productid=$(this).data('productid');
+          var selected_value=$('#product_update_form #m_metaltype').find("option:selected").text();
+          fill_metal_combo(selected_value,'update');
           $.ajax({
             url: '<?php echo(site_url("product/get_product_detail")) ?>'+'/'+productid,
             dataType: 'json',
@@ -510,18 +519,116 @@
               $('#product_update_form #grossweight').val(data[0].gross_weight);
               $('#product_update_form #netweight').val(data[0].net_weight);
               $('#product_update_form #weight_loss').val(data[0].weight_loss);
-               $('#product_update_form #price').val(data[0].price);
+              $('#product_update_form #price').val(data[0].price);
+
+                $.ajax({
+                  url: '<?php echo(site_url("metal/get_metal_details")) ?>'+'/'+productid,
+                  dataType: 'json',
+                  success:function(data)
+                  {
+                    console.log(data);
+                    $.each(data, function(index, val) {
+                      $('#product_update_form #metal_grid').append('<tr class="success"><td>'+val.metal_type+'</td><td><input type="hidden" name="metal[]" value="'+val.metal_id+'">'+val.metal+'</td><td><input type="hidden" name="weight[]" value="'+val.weight+'">'+val.weight+'</td><td><a href="#" class="remove"><span class="label label-danger">Remove</span></a></td></tr>')
+                    });
+                  }
+                })
+                .fail(function() {
+                  alert("something went wrong please contact capital eye for technical support");
+                })
+                .always(function() {
+                  console.log("complete");
+                });
+
+                //ajax for get data for stone details
+                $.ajax({
+                  url: '<?php echo(site_url("stone/get_stone_details")) ?>'+'/'+productid,
+                  dataType: 'json',
+                  success:function(data)
+                  {
+                    console.log(data);
+                    $.each(data, function(index, val) {
+                       $('#product_update_form #stone_grid').append('<tr class="success"><td><input type="hidden" name="stone[]" value="'+val.stone_id+'">'+val.stone_id+'</td><td><input type="hidden" name="pcs[]" value="'+val.pcs+'">'+val.pcs+'</td><td><input type="hidden" name="cts[]" value="'+val.cts+'">'+val.cts+'</td><td><a href="#" class="remove"><span class="label label-danger">Remove</span></a></td></tr>');
+                    });
+                  }
+                })
+                .fail(function() {
+                  alert("something went wrong please contact capital eye for technical support");
+                })
+                .always(function() {
+                  console.log("complete");
+                });
+
+                
             }
           })
           .fail(function() {
             alert('something went wrong please contact capital eye for technical support.');
-          })
-          .always(function() {
-            console.log("complete");
           });
-          
           $('#product_edit_modal').modal('show');
       });
+      //add metal to grid on edit
+      $('#product_update_form #add_metalto_grid').click(function() {
+          if($('#product_update_form #m_metal').val()==='0' || $('#product_update_form #m_unit').val()==='' || $('#product_update_form #m_weight').val()==='')
+          {
+              if ($('#product_update_form #m_metal').val()==='0') 
+              {
+                $('#product_update_form #m_metal').next().html('<p class="text-warning">Please select metal</p>');
+              }
+              if($('#product_update_form #m_unit').val()==='')
+              {
+                $('#product_update_form #m_unit').next().html('<p class="text-warning">Unit field is empty !</p>');
+              }
+              if($('#product_update_form #m_weight').val()==='')
+              {
+                $('#product_update_form #m_weight').next().html('<p class="text-warning">Weight field is empty !</p>');
+              }
+
+          }
+          else
+          {
+            $('#product_update_form #metal_grid').append('<tr class="success"><td>'+$('#product_update_form #m_metaltype').find("option:selected").text()+'</td><td><input type="hidden" name="metal[]" value="'+$('#product_update_form #m_metal').val()+'">'+$('#product_update_form #m_metal').find("option:selected").text()+'</td><td><input type="hidden" name="weight[]" value="'+$('#product_update_form #m_weight').val()+'">'+$('#product_update_form #m_weight').val()+'</td><td><a href="#" class="remove"><span class="label label-danger">Remove</span></a></td></tr>');
+              $('#product_update_form #m_metal').val('0');
+              $('#product_update_form #m_unit').val('');
+              $('#product_update_form #m_weight').val('');
+          }
+        
+      });
+      //add stone to grid on edit
+       $('#product_update_form #add_stoneto_togrid').click(function() {
+
+        if($('#product_update_form #m_stone').val()==='0' || $('#product_update_form #m_pcs').val()==='' || $('#product_update_form #m_cts').val()==='')
+          {
+              if ($('#product_update_form #m_stone').val()==='0') 
+              {
+                $('#product_update_form #m_stone').next().html('<p class="text-warning">Please select stone</p>');
+              }
+              if($('#product_update_form #m_pcs').val()==='')
+              {
+                $('#product_update_form #m_pcs').next().html('<p class="text-warning">Pcs field is empty !</p>');
+              }
+              if($('#product_update_form #m_cts').val()==='')
+              {
+                $('#product_update_form #m_cts').next().html('<p class="text-warning">Cts field is empty !</p>');
+              }
+
+          }
+          else
+          {
+              $('#product_update_form #stone_grid').append('<tr class="success"><td><input type="hidden" name="stone[]" value="'+$('#product_update_form #m_stone').val()+'">'+$('#product_update_form #m_stone').find("option:selected").text()+'</td><td><input type="hidden" name="pcs[]" value="'+$('#product_update_form #m_pcs').val()+'">'+$('#product_update_form #m_pcs').val()+'</td><td><input type="hidden" name="cts[]" value="'+$('#product_update_form #m_cts').val()+'">'+$('#product_update_form #m_cts').val()+'</td><td><a href="#" class="remove"><span class="label label-danger">Remove</span></a></td></tr>');
+              //reseting value of input field
+              $('#product_update_form #m_stone').val('0');
+              $('#product_update_form #m_pcs').val('');
+              $('#product_update_form #m_cts').val('');
+          }
+              
+      });
+      $('#product_update_form #m_metaltype').change(function() {
+            var selected_value=$('#product_update_form #m_metaltype').find("option:selected").text()
+            if($('#product_update_form #m_metaltype').val()!=='0')
+            {
+              fill_metal_combo(selected_value,user_form='update');
+            }
+        });
       /*function starts for dealing with errors*/
         $("input").change(function(){
         $(this).parent().parent().removeClass('has-error');
@@ -535,14 +642,17 @@
             $(this).parent().parent().removeClass('has-error');
             $(this).next().empty();
         });
+        
+        /*functon ends for dealing errors*/
         $('#m_metaltype').change(function() {
             var selected_value=$('#m_metaltype').find("option:selected").text()
             if($('#m_metaltype').val()!=='0')
             {
-              fill_metal_combo(selected_value);
+              fill_metal_combo(selected_value,save='save');
             }
         });
-        /*functon ends for dealing errors*/
+
+        //add new product 
       $('#btn_product_add').click(function() {
           var formData = new FormData($('#product_add_form')[0]);
             $(this).prop('disabled',true);
@@ -573,6 +683,52 @@
                         $('#product_save_message').show();
                         location.reload();
                 }
+              },
+              error:function(data)
+              {
+                alert("An error occured please contact capital eye for technical support");
+              }
+          })
+          .fail(function() {
+              console.log("error");
+          });          
+      });
+
+      $('#btn_product_update').click(function() {
+          var formData = new FormData($('#product_update_form')[0]);
+            $(this).prop('disabled',true);
+            $(this).text('Updating........');
+          $.ajax({
+              url: '<?php echo(site_url("product/update")) ?>'+'/'+productid,
+              type: 'POST',
+              dataType: 'json',
+              cache: false,
+              contentType: false,
+              processData: false,
+              data: formData,/*$('#product_add_form').serialize(),*/
+              success:function(data)
+              {
+                console.log(data);
+                if(data.status==false)
+                {
+                    $('#btn_product_update').prop('disabled',false);
+                    $('#btn_product_update').text('Update');
+                    $.each(data, function(index, val) {
+                        $('#product_update_form #'+val.error_string).next().html(val.input_error);
+                        $('#product_update_form #'+val.error_string).parent().parent().addClass('has-error');
+                    });
+                  
+                }
+                else
+                {
+                        $('#product_update_message').show();
+                        location.reload();
+                }
+              },
+              error:function(data)
+              {
+                $('#btn_product_update').prop('disabled',false);
+                alert("An error occured please contact capital eye for technical support");
               }
           })
           .fail(function() {
@@ -582,9 +738,11 @@
 
     });
 
-function fill_metal_combo(metal_type)
+function fill_metal_combo(metal_type,user_form)
 {
-  $.ajax({
+    if(user_form!=='update')
+    {
+      $.ajax({
                 url: '<?php echo("product/fill_metal_combo") ?>'+'/'+metal_type,
                 type: 'POST',
                 dataType: 'json',
@@ -607,6 +765,28 @@ function fill_metal_combo(metal_type)
               .always(function() {
                 console.log("complete");
               });
+    }
+    else
+    {
+      $.ajax({
+                url: '<?php echo("product/fill_metal_combo") ?>'+'/'+metal_type,
+                type: 'POST',
+                dataType: 'json',
+                success:function(data)
+                {
+                  $('#product_update_form #m_metal').empty();
+                  $('#product_update_form #m_metal').append('<option value="0">--Please select metal--</option>');
+                  $.each(data, function(index, val) {
+                    var temp_opt='<option value="'+val.metal_id+'">'+val.metal+'</option>';
+                    $('#product_update_form #m_metal').append(temp_opt);
+                  });
+                }
+              })
+              .fail(function() {
+                console.log("error");
+              });
+              
+    }
 }
 </script>
 
