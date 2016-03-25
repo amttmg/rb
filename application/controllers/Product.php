@@ -233,8 +233,39 @@ class Product extends CI_Controller {
 		$this->datatables->select('tbl_products.product_id,tbl_products.model_no,tbl_products.net_weight,tbl_products.gross_weight,tbl_products.price,tbl_products.image_url','tbl_product_category.category')->from('tbl_products')
 		->join('tbl_product_category','tbl_product_category.category_id=tbl_products.category_id')
 		->unset_column('product_id')
-		->add_column('Actions','<a href="#editProduct" class="btnedit" data-productid="$1"><span class="label label-primary"><i class="fa fa-edit"></i> Edit</span></a>', 'product_id');
+		->add_column('Actions','<a href="#editProduct" class="btnedit" data-productid="$1"><span class="label label-primary"><i class="fa fa-edit"></i> Edit</span></a> <a href="#" class="btnviewdetails" data-productid="$1"><span class="label label-primary"><i class="fa fa-folder-open"></i> View details</span></a>', 'product_id');
         echo $this->datatables->generate();
+	}
+
+	public function ajax_list()
+	{
+		$list = $this->product->get_datatables();
+		$data = array();
+		$no = $_POST['start'];
+		foreach ($list as $product) {
+			$no++;
+			$row = array();
+			$row[] = $product->model_no;
+			$row[] = $product->category;
+			$row[] = $product->net_weight;
+			$row[] = $product->gross_weight;
+			$row[] = $product->price;
+			$row[] = '<img src="'.base_url("uploads/").'/'.$product->image_url.'" width="50px"/>';
+
+			//add html for action
+			$row[] = '<a href="#editProduct" class="btnedit" data-productid="'.$product->product_id.'"><span class="label label-primary"><i class="fa fa-edit"></i> Edit</span></a> <a href="#" class="btnviewdetails" data-productid="$product->product_id"><span class="label label-primary"><i class="fa fa-folder-open"></i> View details</span></a>';
+		
+			$data[] = $row;
+		}
+
+		$output = array(
+						"draw" => $_POST['draw'],
+						"recordsTotal" => $this->product->count_all(),
+						"recordsFiltered" => $this->product->count_filtered(),
+						"data" => $data,
+				);
+		//output to json format
+		echo json_encode($output);
 	}
 
 	public function get_product_detail($id)
