@@ -41,9 +41,9 @@
                                                 <td><?php echo($count) ?></td>
                                                 <td><?php echo($category->category) ?></td>
                                                 <td><?php echo($category->remarks) ?></td>
-                                                <td width="20">
+                                                <td>
                                                         
-                                                        <a href="#" class="btn_edit_productcategory  btn btn-xs btn-primary btn-block" data-productcategoryid="<?php echo($category->category_id) ?>"><i class="fa fa-edit"></i> Edit</a>
+                                                        <a href="#" class="btn_edit_productcategory btn-xs btn-primary" data-productcategoryid="<?php echo($category->category_id) ?>"><i class="fa fa-edit"></i> Edit</a>
                                                         
                                                 </td>
                                             </tr>

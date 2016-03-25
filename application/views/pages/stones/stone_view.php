@@ -104,8 +104,8 @@
             </div>
             <div class="modal-footer">
             <span class="label label-success pull-left" id="stone_save_message" style="display:none">Stone inserted successfully !</span>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary" id="btn_save_stone">Save</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -150,8 +150,8 @@
             </div>
             <div class="modal-footer">
             <span class="label label-success pull-left" id="stone_update_message" style="display:none">Stone inserted successfully !</span>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary" id="btn_update_stone">Update</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
