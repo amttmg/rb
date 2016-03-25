@@ -92,8 +92,8 @@
             </div>
             <div class="modal-footer">
                 <span class="label label-success pull-left" id="metal_save_message" style="display:none">Metal saved successfully !</span>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary" id="btn_metal_save">Save</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -132,8 +132,8 @@
             </div>
             <div class="modal-footer">
             <span class="label label-success pull-left" id="metal_update_message" style="display:none">Metal updated successfully !</span>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary" id="btn_update_metal">Update</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
