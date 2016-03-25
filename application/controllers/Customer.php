@@ -38,7 +38,7 @@ class Customer extends CI_Controller
     // Add a new Customer
     public function add()
     {
-        if (!checkaccess(1)) {
+        if (!checkaccess(currenturl())) {
             show_access_denied();
             return;
         }
