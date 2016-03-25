@@ -46,10 +46,10 @@
                                         <th><?php echo($stone->clarity) ?></th>
                                         <th><?php echo($stone->size) ?></th>
                                         <th>
-                                            <div class="btn-group">
-                                            <button type="button" class="btn_edit_stone btn btn-info" data-stoneid="<?php echo($stone->stone_id) ?>">Edit</button>
-                                            <button type="button" class="btn btn-info">Action</button>
-                                            </div>
+                                            
+                                            <a href="#" class="btn_edit_stone btn-xs btn-primary" data-stoneid="<?php echo($stone->stone_id) ?>"><i class="fa fa-edit"></i> Edit</a>
+                                            
+                                            
                                         </th>
                                     </tr>
                                 <?php endforeach ?>

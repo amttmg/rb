@@ -31,6 +31,7 @@
                             <thead>
                               <tr>
                                 <th>Model Number</th>
+                                <th>Category</th>
                                 <th>Net Weight</th>
                                 <th>Gross Weight</th>
                                 <th>Price</th>
@@ -426,7 +427,7 @@
         <div class="modal-footer">
           <span class="label label-success pull-left" id="product_update_message" style="display:none">Product update successfully !</span>
            <button type="button" class="btn btn-primary" id="btn_product_update">Update</button>
-           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
@@ -791,71 +792,25 @@ function fill_metal_combo(metal_type,user_form)
 </script>
 
 <script type="text/javascript">
-        
-   /*var oTable= $('#product_table').DataTable( {
-    "bProcessing": true,
-    "bServerSide": true,
-    "columns": [
-    { "data": "metal_id" },
-    { "data": "metal" },
-    { "data": "metal_type" }
-    ],
-    "sAjaxSource": '<?php echo(site_url("product/datatable")) ?>',
-                "bJQueryUI": true,
-                "sPaginationType": "full_numbers",
-                "iDisplayStart ":10,
-                "oLanguage": {
-            "sProcessing": "<img src='<?php echo base_url(); ?>assets/images/ajax-loader_dark.gif'>"
-        },  
-        "fnInitComplete": function() {
-                //oTable.fnAdjustColumnSizing();
-         },
-                'fnServerData': function(sSource, aoData, fnCallback)
-            {
-              $.ajax
-              ({
-                'dataType': 'json',
-                'type'    : 'POST',
-                'url'     : sSource,
-                'data'    : aoData,
-                'success' : fnCallback
-              });
-            }
-  } );
-*/
-/*$('#product_table').dataTable({
-        "processing": true,
-         "serverSide": true,
-        "ajax": {
-    "url": '<?php echo site_url("product/datatable"); ?>'
-    },
-    "columns": [
-    { "data": "metal_id" },
-    { "data": "metal" },
-    { "data": "metal_type" }
-    ]
-    });*/
+table = $('#product_table').DataTable({ 
 
- $('#product_table').dataTable( {
-         "processing": true,
-        "serverSide": true,
-         "paging ": true,
+        "processing": true, //Feature control the processing indicator.
+        "serverSide": true, //Feature control DataTables' server-side processing mode.
+        "order": [], //Initial no order.
+        // Load data for the table's content from an Ajax source
         "ajax": {
-            "url": "<?php echo(site_url('product/datatable')) ?>",
-            "dataType": "json"
+            "url": "<?php echo site_url('product/ajax_list')?>",
+            "type": "POST"
         },
-        "columns": [
-        { "data": "model_no" },
-        { "data": "gross_weight" },
-        { "data": "net_weight" },
-        { "data": "price"},
-        {"data": "image_url",
-            "render": function(data, type, row) {
-              return '<img src="uploads/'+data+'" width="50px"/>';
-          }
+        //Set column definition initialisation properties.
+        "columnDefs": [
+        { 
+            "targets": [ -1 ], //last column
+            "orderable": false, //set not orderable
         },
-        {"data":"Actions"}
-        ]
-    } ); 
+        ],
+
+
+    });
 
 </script>
