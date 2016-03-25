@@ -181,9 +181,11 @@
                         </table>
                     </div>
                     <div class="col-md-3">
-                        <img class="image thumbnail"
-                             src="<?php echo base_url('uploads/' . $customer->customer_image) ?>" height="200px">
-                    </div>
+                        <a href="<?php echo base_url('uploads/' . $customer->customer_image) ?>" class="image-link">
+                            <img class="image thumbnail"
+                                 src="<?php echo base_url('uploads/' . $customer->customer_image) ?>" height="200px">
+                        </a>
+                        </div>
 
                 </div>
                 <button class="btn btn-primary btn-xs" id="seemore">See More <i
