@@ -15,15 +15,20 @@
           <!-- Default box -->
             <div class="box">
                 <div class="box-header with-border">
-                <h3 class="box-title"><button type="button" class="btn btn-primary" id="btn_add_new_metal"><i class="fa fa-plus"></i>Add New</button></h3>
+                <h3 class="box-title"><button type="button" class="btn btn-primary" id="btn_add_new_metal"><i class="fa fa-plus"></i> Add New</button></h3>
                   <div class="box-tools pull-right">
                     <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
                     <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
                   </div>
                 </div>
                 <div class="box-body">
-                  <div class="table-responsive">
-                      <table class="table table-hover" id="tblmetals">
+
+                      <table class="table table-bordered" id="tblmetals">
+                          <col width="80">
+                          <col width="80">
+                          <col width="130">
+                          <col width="80">
+                          <col width="70">
                           <thead>
                               <tr>
                                   <th>SN.</th>
@@ -39,17 +44,18 @@
                                 <tr>
                                     <td><?php echo $count; ?></td>
                                     <td><?php echo($metal->metal) ?></td>
-                                    <th><?php echo($metal->metal_type) ?></th>
-                                    <th><?php echo($metal->unit) ?></th>
+                                    <td><?php echo($metal->metal_type) ?></td>
+                                    <td><?php echo($metal->unit) ?></td>
                                     <td>
-                                        <a href="#" class="btn_edit_metal btn-xs btn-primary" data-metalid="<?php echo($metal->metal_id) ?>"><i class="fa fa-edit"></i> Edit</a>
+                                        <a href="#" class="btn_edit_metal btn btn-xs btn-primary" data-metalid="<?php echo($metal->metal_id) ?>"><i class="fa fa-edit"></i> Edit</a>
+                                        <a href="#" class="btn_edit_metal btn  btn-xs btn-danger" data-metalid="<?php echo($metal->metal_id) ?>"><i class="fa fa-edit"></i> Deactive</a>
                                     </td>
                                 </tr>
                                 <?php $count++; ?>
                               <?php endforeach ?>
                           </tbody>
                       </table>
-                  </div>
+
                 </div><!-- /.box-body -->
           </div><!-- /.box -->
 
