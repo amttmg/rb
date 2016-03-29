@@ -15,15 +15,15 @@
           <!-- Default box -->
             <div class="box">
                 <div class="box-header with-border">
-                <h3 class="box-title"><button type="button" class="btn btn-primary" id="btn_add_new_stone"><i class="fa fa-plus"></i>Add new</button></h3>
+                <h3 class="box-title"><button type="button" class="btn btn-primary" id="btn_add_new_stone"><i class="fa fa-plus"></i> Add new</button></h3>
                   <div class="box-tools pull-right">
                     <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
                     <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
                   </div>
                 </div>
                 <div class="box-body">
-                    <div class="table-responsive">
-                        <table class="table table-hover" id="tblstones">
+
+                        <table class="table table-bordered" id="tblstones">
                             <thead>
                                 <tr>
                                     <th>SN</th>
@@ -40,22 +40,22 @@
                                 <?php foreach ($stones as $stone): ?>
                                     <tr>
                                         <td><?php echo($count) ?></td>
-                                        <th><?php echo($stone->lot_no) ?></th>
-                                        <th><?php echo($stone->type) ?></th>
-                                        <th><?php echo($stone->color) ?></th>
-                                        <th><?php echo($stone->clarity) ?></th>
-                                        <th><?php echo($stone->size) ?></th>
-                                        <th>
+                                        <td><?php echo($stone->lot_no) ?></td>
+                                        <td><?php echo($stone->type) ?></td>
+                                        <td><?php echo($stone->color) ?></td>
+                                        <td><?php echo($stone->clarity) ?></td>
+                                        <td><?php echo($stone->size) ?></td>
+                                        <td>
                                             
-                                            <a href="#" class="btn_edit_stone btn-xs btn-primary" data-stoneid="<?php echo($stone->stone_id) ?>"><i class="fa fa-edit"></i> Edit</a>
+                                            <a href="#" class="btn_edit_stone btn-xs btn btn-primary" data-stoneid="<?php echo($stone->stone_id) ?>"><i class="fa fa-edit"></i> Edit</a>
                                             
                                             
-                                        </th>
+                                        </td>
                                     </tr>
                                 <?php endforeach ?>
                             </tbody>
                         </table>
-                    </div>
+
                 </div><!-- /.box-body -->
           </div><!-- /.box -->
 
