@@ -45,6 +45,11 @@
                           </table>
                             
                         </div>
+                        <script type="text/javascript">
+                          $(document).ready(function() {
+                            $('.image-popup-link').magnificPopup({type:'image'});
+                          });
+                        </script>
                         
                     </div>
                 </div><!-- /.box-body -->
@@ -809,7 +814,7 @@ table = $('#product_table').DataTable({
         //Set column definition initialisation properties.
         "columnDefs": [
         { 
-            "targets": [ -1 ], //last column
+            "targets": [ -1,-2 ], //last column
             "orderable": false, //set not orderable
         },
         ],
