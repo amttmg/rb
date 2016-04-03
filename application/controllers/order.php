@@ -7,6 +7,7 @@ class Order extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->library('cart');
+		$this->load->library('form_validation');
 		
 	}
 	public function index()
@@ -15,6 +16,38 @@ class Order extends CI_Controller {
         $data['content'] = $this->load->view('pages/orders/order_view','', true);
         $this->parser->parse('template/page_template', $data);
 	}
+
+	public function order_products()
+	{
+		$master['status'] = True;
+        $data = array();
+        $master = array();
+		$this->form_validation->set_rules('name', 'Name', 'trim|required|max_length[100]');
+		$this->form_validation->set_rules('code', 'Code', 'trim|required|max_length[100]');
+		$this->form_validation->set_rules('order_date', 'Order date', 'trim|required|max_length[100]');
+		$this->form_validation->set_rules('deadline_date', 'Deadline date', 'trim|required|max_length[100]');
+		$this->form_validation->set_rules('remarks', 'Remarks', 'trim|max_length[600]');
+		$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
+		if ($this->form_validation->run() == True) 
+		{
+			$master['status'] = True;
+		} 
+		else 
+		{
+			$master['status'] = false;
+            foreach ($_POST as $key => $value) 
+            {
+                if (form_error($key) != '') 
+                {
+                    $data['error_string'] = $key;
+                    $data['input_error'] = form_error($key);
+                    array_push($master, $data);
+                }
+            }
+		}
+		echo(json_encode($master));
+	}
+
 	public function add_to_order($product_id='')
 	{
 		$ordered_product=array();
@@ -47,6 +80,7 @@ class Order extends CI_Controller {
 		echo(json_encode($ordered_product));
 
 	}
+
 	public function display_ordered_products()
 	{
 		$master['products']=array();
@@ -65,11 +99,13 @@ class Order extends CI_Controller {
 		$master['status']=true;
 		echo(json_encode($master));
 	}
+
 	public function destroy_ordered_products()
 	{
 		$this->cart->destroy();
 		echo("destroyed");
 	}
+
 	public function get_product_image_url($id)
 	{
 		$this->db->select('image_url');

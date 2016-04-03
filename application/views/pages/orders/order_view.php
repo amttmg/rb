@@ -1,5 +1,9 @@
 <div class="content-wrapper">
-
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('.image-popup-link').magnificPopup({type:'image'});
+  });
+</script>
 
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -17,7 +21,7 @@
           <!-- Default box -->
             <div class="box">
                 <div class="box-header with-border">
-                <h3 class="box-title"><button type="button" class="btn btn-primary" id="btn_new_orders"><i class="fa fa-plus"></i> Add New</button></h3>
+                <h3 class="box-title"></h3>
                   <div class="box-tools pull-right">
                     <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
                     <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa fa-times"></i></button>
@@ -30,13 +34,15 @@
                                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                     <div class="form-group">
                                         <label for="">Customer Name</label>
-                                        <input type="text" class="form-control" id="" placeholder="Customer Name">
+                                        <input type="text" name="name" class="form-control" id="name" placeholder="Customer Name">
+                                        <span></span>
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                     <div class="form-group">
                                         <label for="">Customer Code</label>
-                                        <input type="text" class="form-control" id="" placeholder="Customer Code">
+                                        <input type="text" name="code" class="form-control" id="code" placeholder="Customer Code">
+                                        <span></span>
                                     </div>
                                 </div>
                             </div>
@@ -44,13 +50,16 @@
                                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                     <div class="form-group">
                                         <label for="">Order date</label>
-                                        <input type="date" class="form-control" id="" placeholder="Order Date">
+                                        <input type="date" name="order_date" class="form-control" id="order_date" placeholder="Order Date">
+                                        <span></span>
                                     </div>
+                                    <span></span>
                                 </div>
                                  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                    <div class="form-group">
                                         <label for="">Deadline date</label>
-                                        <input type="date" class="form-control" id="" placeholder="Order Date">
+                                        <input type="date" name="deadline_date" class="form-control" id="deadline_date" placeholder="Order Date">
+                                        <span></span>
                                     </div>
                                  </div>
                             </div>
@@ -58,7 +67,8 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                     <div class="form-group">
                                         <label>Remarks</label>
-                                        <textarea class="form-control" rows="3"></textarea>
+                                        <textarea class="form-control" name="remarks" id="remarks" rows="3"></textarea>
+                                        <span></span>
                                     </div>
                                 </div>  
                             </div>
@@ -88,7 +98,7 @@
                                     </div>
                                 </div>
                             </div>
-                           
+                           <button type="button" class="btn btn-primary pull-right" id="btn_save_orders">Save</button>
                         </form>
                     </div>
                 </div><!-- /.box-body -->
@@ -98,23 +108,6 @@
     <!-- Main content -->
 
 </div><!-- /.content-wrapper -->
-<div class="modal fade" id="mdl-order">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Modal title</h4>
-            </div>
-            <div class="modal-body">
-                
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Save</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 <div class="modal fade" id="mdl_reference_product">
     <div class="modal-dialog modal-lg">
@@ -150,11 +143,7 @@
                           </table>
                             
                         </div>
-                        <script type="text/javascript">
-                          $(document).ready(function() {
-                            $('.image-popup-link').magnificPopup({type:'image'});
-                          });
-                        </script>
+                        
             </div>
             <div class="modal-footer">
                 
@@ -168,12 +157,43 @@
     $(document).ready(function() {
 
         display_ordered_product();
+        $('#btn_save_orders').click(function() 
+        {
+            $('#product_order_form #btn_save_orders').prop('disabled',true);
+            $('#product_order_form #btn_save_orders').text('Saving..........');
+
+            $.ajax({
+                url: '<?php echo(site_url("order/order_products")) ?>',
+                type: 'POST',
+                dataType: 'json',
+                data: $('#product_order_form').serialize(),
+                success:function(data)
+                {
+                    console.log(data);
+                    if(data.status===true)
+                    {
+                        alert('successfully ordered product');
+                    }
+                    else
+                    {
+                        $('#product_order_form #btn_save_orders').prop('disabled',false);
+                        $('#product_order_form #btn_save_orders').text('Save');
+                        $.each(data, function(index, val) {
+                            $('#product_order_form #'+val.error_string).next().html(val.input_error);
+                            $('#product_order_form #'+val.error_string).parent().parent().addClass('has-error');
+                        });
+                    }
+                }
+            });
+            
+        });
 
        $("body").on("click",'.remove', function() {
          $(this).closest('tr').remove();
          var rowid=$(this).data('rowid');
          remove_product(rowid);//function call for remove ordered product
        });
+
        $('#btn_new_orders').click(function() {
             $('#mdl-order').modal('show');
        });
@@ -230,7 +250,8 @@ function display_ordered_product ()
                     temp+='<input type="hidden" name="qty[]" class="form-control"  value="'+val.qty+'">'+val.qty;
                     temp+='</td>';
                     temp+='<td>';
-                    temp+='<img src="'+val.image_url+'" width="50px">';
+                    temp+='<a class="image-popup-link" href="'+val.image_url+'">';
+                    temp+='<img src="'+val.image_url+'" width="50px"></a>';
                     temp+='</td>';
                     temp+='<td>';
                     temp+='<a href="#" class="remove" data-rowid="'+val.row_id+'"><span class="label label-danger">Remove</span></a>';
