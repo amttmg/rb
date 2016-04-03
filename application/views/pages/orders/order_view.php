@@ -172,12 +172,18 @@
                     console.log(data);
                     if(data.status===true)
                     {
+                        $('#product_order_form #btn_save_orders').prop('disabled',false);
+                        $('#product_order_form #btn_save_orders').text('Save');
+                        
+                         display_ordered_product();
+
                         alert('successfully ordered product');
                     }
                     else
                     {
                         $('#product_order_form #btn_save_orders').prop('disabled',false);
                         $('#product_order_form #btn_save_orders').text('Save');
+
                         $.each(data, function(index, val) {
                             $('#product_order_form #'+val.error_string).next().html(val.input_error);
                             $('#product_order_form #'+val.error_string).parent().parent().addClass('has-error');
@@ -241,7 +247,7 @@ function display_ordered_product ()
               $.each(data.products, function(index, val) {
                 var temp='<tr>';
                     temp+='<td>';             
-                    temp+='<input type="hidden" name="model_no[]" class="form-control"  value="'+val.model_no+'">'+val.model_no;                 
+                    temp+='<input type="hidden" name="model_no[]" class="form-control"  value="'+val.product_id+'">'+val.model_no;                 
                     temp+= '</td>';
                     temp+='<td>';
                     temp+='<input type="hidden" name="price[]" class="form-control"  value="'+val.price+'">'+val.price;

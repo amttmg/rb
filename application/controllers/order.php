@@ -8,6 +8,7 @@ class Order extends CI_Controller {
 		parent::__construct();
 		$this->load->library('cart');
 		$this->load->library('form_validation');
+		$this->load->model('m_order','order');
 		
 	}
 	public function index()
@@ -30,6 +31,23 @@ class Order extends CI_Controller {
 		$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
 		if ($this->form_validation->run() == True) 
 		{
+			$order_id=$this->order->insert();
+
+			if(!empty($_POST['model_no']))
+			{
+				$model_no=$_POST['model_no'];
+
+				foreach ($model_no as $key=>$value) 
+				{
+						$data=array(
+						'reference_product_id'=>$value,
+						'order_id'=>$order_id,
+						'order_no'=>$this->generate_order_no()
+						);
+						$this->db->insert('tbl_order_details',$data);
+				}
+				$this->destroy_ordered_products();
+			}
 			$master['status'] = True;
 		} 
 		else 
@@ -103,7 +121,7 @@ class Order extends CI_Controller {
 	public function destroy_ordered_products()
 	{
 		$this->cart->destroy();
-		echo("destroyed");
+		//echo("destroyed");
 	}
 
 	public function get_product_image_url($id)
@@ -127,6 +145,12 @@ class Order extends CI_Controller {
 		}
 		echo(json_encode($data));
 		
+	}
+	public function generate_order_no()
+	{
+		$this->db->select_max('order_detail_id');
+		$query = $this->db->get('tbl_order_details')->result();
+		return ('rb_'.$query[0]->order_detail_id);
 	}
 
 }

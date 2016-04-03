@@ -9,9 +9,16 @@ class M_order extends CI_Model {
 		$this->load->database();
 	}
 
-	public function ()
+	public function insert()
 	{
-		
+		$data=array(
+			'customer_id'=>$this->input->post('code'),
+			'order_date'=>$this->input->post('order_date'),
+			'deadline_date'=>$this->input->post('deadline_date'),
+			'remarks'=>$this->input->post('remarks')
+			);
+		$this->db->insert('tbl_orders',$data);
+		return $this->db->insert_id();
 	}
 
 	
