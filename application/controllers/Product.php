@@ -268,6 +268,37 @@ class Product extends CI_Controller {
 		echo json_encode($output);
 	}
 
+	public function product_order_datatable()
+	{
+		$list = $this->product->get_datatables();
+		$data = array();
+		$no = $_POST['start'];
+		foreach ($list as $product) {
+			$no++;
+			$row = array();
+			$row[] = $product->model_no;
+			$row[] = $product->category;
+			$row[] = $product->net_weight;
+			$row[] = $product->gross_weight;
+			$row[] = $product->price;
+			$row[] = '<a class="image-popup-link" href="'.base_url("uploads/").'/'.$product->image_url.'"><img src="'.base_url("uploads/").'/'.$product->image_url.'" width="50px"/></a>';
+
+			//add html for action
+			$row[] = '<a href="#" class="btn_order_product btn btn-xs btn-primary" data-productid="'.$product->product_id.'"><i class="fa fa-folder-open"></i>Add To Order</a>';
+		
+			$data[] = $row;
+		}
+
+		$output = array(
+						"draw" => $_POST['draw'],
+						"recordsTotal" => $this->product->count_all(),
+						"recordsFiltered" => $this->product->count_filtered(),
+						"data" => $data,
+				);
+		//output to json format
+		echo json_encode($output);
+	}
+
 	public function get_product_detail($id)
 	{
 		$this->db->where('product_id',$id);

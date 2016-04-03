@@ -41,6 +41,15 @@
                                 <th>Actions</th>
                               </tr>
                             </thead>
+                            <tfoot>
+                              <tr>
+                                <th>Model Number</th>
+                                <th>Category</th>
+                                <th>Net Weight</th>
+                                <th>Gross Weight</th>
+                                <th>Price</th>
+                              </tr>
+                            </tfoot>
                       
                           </table>
                             
@@ -801,6 +810,18 @@ function fill_metal_combo(metal_type,user_form)
 </script>
 
 <script type="text/javascript">
+var i=0;
+  $('#product_table tfoot th').each( function () {
+        i++;
+        var title = $(this).text();
+        $(this).html( '<input type="text" class="search-input-text" placeholder="Search'+title+'" data-column="'+i+'" size="10"/>' );
+    } );
+  
+  $('.search-input-text').keyup( function () {   // for text boxes
+    var i =$(this).attr('data-column');  // getting column index
+    var v =$(this).val();  // getting search input value
+    table.columns(i).search(v).draw();
+  } );
 table = $('#product_table').DataTable({ 
 
         "processing": true, //Feature control the processing indicator.

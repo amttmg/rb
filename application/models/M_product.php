@@ -81,7 +81,30 @@ class M_product extends CI_Model {
 		$this->db->join('tbl_product_category','tbl_product_category.category_id=tbl_products.category_id');
 
 		$i = 0;
-	
+		if( !empty($_POST['columns'][1]['search']['value']) )
+		{  
+	   		$this->db->like('model_no',$_POST['columns'][1]['search']['value'],'after');
+	   		
+		}
+		if( !empty($_POST['columns'][2]['search']['value']) )
+		{   
+	   		$this->db->like('category',$_POST['columns'][2]['search']['value'],'after');
+	   		
+		}
+		if( !empty($_POST['columns'][3]['search']['value']) )
+		{   
+	   		$this->db->like('net_weight',$_POST['columns'][3]['search']['value'],'after');
+	   		
+		}
+		if( !empty($_POST['columns'][4]['search']['value']) )
+		{   
+	   		$this->db->like('gross_weight',$_POST['columns'][4]['search']['value'],'after');
+	   		
+		}
+		if( !empty($_POST['columns'][5]['search']['value']) )
+		{   
+	   		$this->db->like('price',$_POST['columns'][5]['search']['value'],'after');
+		}
 		foreach ($this->column as $item) // loop column ;
 		{
 			if($_POST['search']['value']) // if datatable send POST for search
