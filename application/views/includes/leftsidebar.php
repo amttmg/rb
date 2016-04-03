@@ -37,6 +37,12 @@
                     <li class="list"><a href="<?php echo base_url('enquiry') ?>"><i class="fa fa-eye"></i>View Enquiryes</a></li>
                 </ul>
             </li>
+            <li>
+                <a href="<?php echo(site_url('order')) ?>">
+                    <i class="fa fa-desktop"></i>
+                    <span>Orders</span>
+                </a>
+            </li>
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-android"></i>
