@@ -12,7 +12,7 @@ class M_order extends CI_Model {
 	public function insert()
 	{
 		$data=array(
-			'customer_id'=>$this->input->post('code'),
+			'customer_id'=>$this->input->post('customer'),
 			'order_date'=>$this->input->post('order_date'),
 			'deadline_date'=>$this->input->post('deadline_date'),
 			'remarks'=>$this->input->post('remarks')

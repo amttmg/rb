@@ -23,7 +23,7 @@ class Order extends CI_Controller {
 		$master['status'] = True;
         $data = array();
         $master = array();
-		$this->form_validation->set_rules('name', 'Name', 'trim|required|max_length[100]');
+		$this->form_validation->set_rules('customer', 'Customer', 'callback_dropdown_fun');
 		$this->form_validation->set_rules('code', 'Code', 'trim|required|max_length[100]');
 		$this->form_validation->set_rules('order_date', 'Order date', 'trim|required|max_length[100]');
 		$this->form_validation->set_rules('deadline_date', 'Deadline date', 'trim|required|max_length[100]');
@@ -152,6 +152,28 @@ class Order extends CI_Controller {
 		$query = $this->db->get('tbl_order_details')->result();
 		return ('rb_'.$query[0]->order_detail_id);
 	}
+	public function fill_combobox()
+	{
+		$this->db->select(array('customer_id','fname','mname','lname'));
+		$combo=$this->db->get('tbl_customers')->result();
+         $temp_data=''; 
+         $temp_data.='<option value="0">--Select Customer Name--</option>';                            
+		foreach ($combo as $value) 
+		{
+			$temp_data.='<option value="'.$value->customer_id.'">'.$value->fname.' '.$value->mname.' '.$value->lname.'</option>';
+		}
+		echo($temp_data);
+	}
+	public function dropdown_fun($value)
+	{
+		if($value=='0')
+		{
+			$this->form_validation->set_message('dropdown_fun', 'Please select product category');
+			return false;
+		}
+		return true;
+	}
+
 
 }
 

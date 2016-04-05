@@ -34,7 +34,8 @@
                                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                     <div class="form-group">
                                         <label for="">Customer Name</label>
-                                        <input type="text" name="name" class="form-control" id="name" placeholder="Customer Name">
+                                        <select name="customer" id="customer" class="form-control" required="required">
+                                        </select>
                                         <span></span>
                                     </div>
                                 </div>
@@ -155,6 +156,8 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function() {
+
+      fill_combobox('order/fill_combobox','customer_list'); 
 
         display_ordered_product();
         $('#btn_save_orders').click(function() 
@@ -303,6 +306,29 @@ function remove_product (rowid)
        }
    });
    
+}
+function fill_combobox(url,combo_id='') 
+{
+
+  $.ajax({
+    url: '<?php echo(site_url()) ?>'+url,
+    type: 'post',
+    dataType: 'html',
+    success:function (data) 
+    {
+        $('#customer').html(data);
+    }
+  })
+  .done(function() {
+    console.log("success");
+  })
+  .fail(function() {
+    console.log("error");
+  })
+  .always(function() {
+    console.log("complete");
+  });
+  
 }
 </script>
 <script type="text/javascript">

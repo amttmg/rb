@@ -38,10 +38,15 @@
                 </ul>
             </li>
             <li>
-                <a href="<?php echo(site_url('order')) ?>">
+                <a href="#">
                     <i class="fa fa-desktop"></i>
                     <span>Orders</span>
                 </a>
+                <ul class="treeview-menu">
+                    <li class="list"><a href="<?php echo(site_url('order')) ?>"><i class="fa fa-plus"></i>New Orders</a></li>
+                    <li class="list"><a href="<?php echo site_url('order_progress') ?>"><i class="fa fa-eye"></i>Order Progress</a></li>
+                    <li class="list"><a href="<?php echo site_url('order_progress') ?>"><i class="fa fa-eye"></i>dfdfdf</a></li>
+                </ul>
             </li>
             <li class="treeview">
                 <a href="#">
