@@ -6,7 +6,7 @@ class M_Order_progress extends CI_Model {
 	
 	var $table = 'tbl_orders';
 	var $column = array('order_date','fname','deadline_date'); //set column field database for order and search
-	var $order = array('tbl_orders.order_date'=>'desc');
+	var $order = array('tbl_orders.order_id'=>'desc');
 	var $data=array();     //array for set search textfield data-column value
 
 	public function __construct()

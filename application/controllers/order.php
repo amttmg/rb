@@ -24,7 +24,6 @@ class Order extends CI_Controller {
         $data = array();
         $master = array();
 		$this->form_validation->set_rules('customer', 'Customer', 'callback_dropdown_fun');
-		$this->form_validation->set_rules('code', 'Code', 'trim|required|max_length[100]');
 		$this->form_validation->set_rules('order_date', 'Order date', 'trim|required|max_length[100]');
 		$this->form_validation->set_rules('deadline_date', 'Deadline date', 'trim|required|max_length[100]');
 		$this->form_validation->set_rules('remarks', 'Remarks', 'trim|max_length[600]');
@@ -32,6 +31,15 @@ class Order extends CI_Controller {
 		if ($this->form_validation->run() == True) 
 		{
 			$order_id=$this->order->insert();
+
+			if ($this->input->post('remarks')) 
+			{
+				$data=array(
+					'order_id'=>$order_id,
+					'order_no'=>$this->generate_order_no()
+					);
+				$this->db->insert('tbl_order_details',$data);
+			}
 
 			if(!empty($_POST['model_no']))
 			{
@@ -48,6 +56,7 @@ class Order extends CI_Controller {
 				}
 				$this->destroy_ordered_products();
 			}
+			$this->session->set_flashdata('message', 'Order saved successsfully !');
 			$master['status'] = True;
 		} 
 		else 
@@ -173,6 +182,43 @@ class Order extends CI_Controller {
 		}
 		return true;
 	}
+
+	public function get_remarks($order_id)
+	{
+		$this->db->select('remarks');
+		$this->db->where('order_id',$order_id);
+		echo(json_encode($this->db->get('tbl_orders')->result()));
+	}
+
+	public function update_remarks($order_id)
+	{
+		$this->db->where('order_id',$order_id);
+		if ($this->db->update('tbl_orders',array('remarks'=>$this->input->post('remarks'),'updated_at'=>getCurrentDate()))) 
+		{
+			echo(json_encode($data['status']=true));
+			return ;
+		}
+		else
+		{
+			echo(json_encode($data['status']=false));
+			return ;
+		}
+
+	}
+
+	public function complate_order($order_id)
+	{
+		$data=array(
+			'updated_at'=>getCurrentDate(),
+			'complate'=>true
+			);
+		$this->db->where('order_id',$order_id);
+		$this->db->update('tbl_orders',$data);
+		$this->session->set_flashdata('message', 'Order complated successfully !!!');
+		redirect('order_progress_detail/view_progress/'.$order_id,'refresh');
+	}
+
+
 
 
 }

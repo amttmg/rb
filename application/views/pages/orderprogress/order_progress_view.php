@@ -33,6 +33,7 @@
                                         <th>Ordered Id</th>
                                         <th>Ordered Date</th>
                                         <th>Deadline Date</th>
+                                        <th>Order Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>

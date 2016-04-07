@@ -1,9 +1,4 @@
 <div class="content-wrapper">
-<script type="text/javascript">
-  $(document).ready(function() {
-    $('.image-popup-link').magnificPopup({type:'image'});
-  });
-</script>
 
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -17,7 +12,12 @@
         </ol>
     </section>
     <section class="content">
-
+          <?php if ($this->session->flashdata('message')): ?>
+              <div class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <strong><?php echo($this->session->flashdata('message')) ?></strong>
+              </div>
+          <?php endif ?>
           <!-- Default box -->
             <div class="box">
                 <div class="box-header with-border">
@@ -40,11 +40,14 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                    <div class="form-group">
-                                        <label for="">Customer Code</label>
-                                        <input type="text" name="code" class="form-control" id="code" placeholder="Customer Code">
-                                        <span></span>
-                                    </div>
+                                        <div id="user_info">
+                                            
+                                        </div>
+                                        <div class="overlay" style="display:none">
+                                          <i class="fa fa-refresh fa-spin"></i>
+                                        </div>
+
+
                                 </div>
                             </div>
                             <div class="row">
@@ -147,7 +150,7 @@
                         
             </div>
             <div class="modal-footer">
-                
+                 <span class="label label-success pull-left" id="save_order_message" style="display:none">Ordered saved successfully !</span>
                 <button type="button" class="btn btn-primary">Save</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
@@ -155,15 +158,30 @@
     </div>
 </div>
 <script type="text/javascript">
-    $(document).ready(function() {
 
+    $(document).ready(function() {
+       $('.image-link').magnificPopup({type:'image'});
+      $('#save_order_message').hide();
       fill_combobox('order/fill_combobox','customer_list'); 
+
+        $("input").change(function(){
+        $(this).parent().parent().removeClass('has-error');
+        $(this).next().empty();
+        });
+        $("textarea").change(function(){
+            $(this).parent().parent().removeClass('has-error');
+            $(this).next().empty();
+        });
+        $("select").change(function(){
+            $(this).parent().parent().removeClass('has-error');
+            $(this).next().empty();
+        });
 
         display_ordered_product();
         $('#btn_save_orders').click(function() 
         {
-            $('#product_order_form #btn_save_orders').prop('disabled',true);
-            $('#product_order_form #btn_save_orders').text('Saving..........');
+            $('#btn_save_orders').prop('disabled',true);
+            $('#btn_save_orders').text('Saving..........');
 
             $.ajax({
                 url: '<?php echo(site_url("order/order_products")) ?>',
@@ -175,12 +193,13 @@
                     console.log(data);
                     if(data.status===true)
                     {
+                        $('#save_order_message').show();
                         $('#product_order_form #btn_save_orders').prop('disabled',false);
                         $('#product_order_form #btn_save_orders').text('Save');
                         
                          display_ordered_product();
-
-                        alert('successfully ordered product');
+                         location.reload();
+                       
                     }
                     else
                     {
@@ -233,6 +252,37 @@
                }
            });
            
+       });
+
+
+       $('#customer').change(function() {
+          var customer_id=$(this).val();
+          if ($('#customer').val()!=='0') 
+            {
+                $('.overlay').show('fast', function() {
+                      
+                      $.ajax({
+                        url: '<?php echo(site_url("customer/get_customer_by_id")) ?>'+'/'+customer_id,
+                        type: 'POST',
+                        dataType: 'html',
+                        success:function(data)
+                        {
+                          $('#user_info').html(data);
+                          $('.overlay').hide();
+                        },
+                        error:function(data)
+                        {
+                          console.log(data);
+                        }
+                      });
+                     
+                 });
+            }
+            else
+            {
+              $('.overlay').hide();
+            }
+          
        });
 
 
