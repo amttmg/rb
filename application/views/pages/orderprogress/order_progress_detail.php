@@ -174,7 +174,7 @@
                                       <!-- /.box-header -->
                                       <div class="box-body" style="display: none;">
                                             <div class="pull-right">
-                                                  <?php if ($order['order_details']->complated_at==null):?>
+                                                  <?php if ($order['order_details']->complated_at==null ):?>
                                                       <a href="<?php echo(site_url('order_progress_detail/complate_order')) ?>/<?php echo $this->uri->segment(3); ?>/<?php echo($order['order_details']->order_detail_id) ?>" class=" btn btn-xs btn-primary"><i class="fa fa-briefcase"></i> Click here to complate order !</a>
                                                   <?php endif ?>
                                                     <a href="<?php echo(site_url('order_progress_detail/cancel_order')) ?>/<?php echo $this->uri->segment(3); ?>/<?php echo($order['order_details']->order_detail_id) ?>" class=" btn btn-xs btn-danger"><i class="fa fa-times"></i> Cancel This Order !</a>
@@ -221,7 +221,7 @@
                                                 </div>
                                             </div>
                                           </div>
-                                             <?php if ($order['order_details']->complated_at==''): ?>
+                                             <?php if ($order['order_details']->complated_at=='' && $order['order_details']->status==true): ?>
                                                 <div class="row">
                                                     <div class="well">
                                                         <div class="row">

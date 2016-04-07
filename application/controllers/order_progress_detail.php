@@ -54,6 +54,7 @@ class Order_progress_detail extends CI_Controller
 	public function get_order_details($order_id)
 	{
 		$master=array();
+		$this->db->select('tbl_order_details.*,tbl_products.product_id,model_no,tbl_products.price,tbl_products.image_url,tbl_product_category.category');
 		$this->db->from('tbl_order_details');
 		$this->db->join('tbl_products','tbl_products.product_id=tbl_order_details.reference_product_id');
 		$this->db->join('tbl_product_category','tbl_product_category.category_id=tbl_products.category_id');
