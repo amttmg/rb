@@ -69,7 +69,7 @@
                         </div>
                         <div class="row">
                             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                <button type="button" class="btn btn-primary btn-sm">View Orders</button>
+                                <button type="button" id="btnorder" data-customerid="<?php echo "21" ?>" class="btn btn-primary btn-sm">View Orders</button>
                             </div>
                             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
 
@@ -116,6 +116,14 @@
             $('.overlay').hide();
         }
     });
+    $('#btnorder').click(function(){
+        $.ajax({
+            url:'<?php echo base_url('order/getActiveOrdersByCustomer').'/' ?>'+$('#customer').val(),
+            success:function(data){
+                alert(data);
+            }
+        })
+    })
     function fill_combobox(url, combo_id='') {
 
         $.ajax({

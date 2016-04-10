@@ -206,7 +206,8 @@ class Order extends CI_Controller
 
     public function getActiveOrdersByCustomer($customer_id)
     {
-
+        $data = $this->order->getActiveOrdersByCustomer($customer_id);
+        echo json_encode($data);
     }
 
 
