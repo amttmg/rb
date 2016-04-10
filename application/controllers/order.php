@@ -159,8 +159,7 @@ class Order extends CI_Controller {
 	{
 		$this->db->select_max('order_detail_id');
 		$query = $this->db->get('tbl_order_details')->result();
-		$result=$query[0]->order_detail_id+100;
-		return ('rb_'.$result);
+		return ('rb_'.$query[0]->order_detail_id);
 	}
 	public function fill_combobox()
 	{
@@ -218,6 +217,7 @@ class Order extends CI_Controller {
 		$this->session->set_flashdata('message', 'Order complated successfully !!!');
 		redirect('order_progress_detail/view_progress/'.$order_id,'refresh');
 	}
+
 
 
 
