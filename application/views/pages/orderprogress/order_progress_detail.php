@@ -54,9 +54,12 @@
                                    
                                       <?php if ($customer_detail[0]->order_detail_status==true): ?>
                                             <?php if ($customer_detail[0]->complated_at!=null):?>
-                                                  <small class="label label-success"><i class="fa fa-clock-o"></i> Completed !! <?php echo($customer_detail[0]->complated_at) ?></small>
+                                                  <small class="label label-success"><i class="fa fa-check"></i> Completed !! <?php echo($customer_detail[0]->complated_at) ?></small>
                                             <?php endif ?>
-                                           
+                                             <?php if (tag_check($customer_detail[0]->order_no)): ?>
+                                                <small class="label label-success"><i class="fa fa-check"></i> Taged !!</small>
+                                             <?php endif ?>
+                                            
                                       <?php else: ?>
                                                <small class="label label-danger"><i class="fa fa-clock-o"></i> Order Canceled !! </small>
                                       <?php endif ?>
@@ -75,10 +78,12 @@
                                         <div class="pull-right">
                                             <?php if ($customer_detail[0]->order_detail_status==true): ?>
                                                  <?php if ($customer_detail[0]->complated_at==null):?>
-                                                  <?php if (!tag_check($customer_detail[0]->order_no)): ?>
-                                                      <a href="#" class=" btn btn-xs btn-primary complate" data-orderdetailid="<?php echo($customer_detail[0]->order_no) ?>"><i class="fa fa-briefcase"></i> Tag to product !</a>
+                                                      <a href="<?php echo(site_url("order_progress_detail/complate_order".'/'.$customer_detail[0]->order_id.'/'.$customer_detail[0]->order_detail_id)) ?>" class=" btn btn-xs btn-primary"><i class="fa fa-briefcase"></i> Complete this order !</a>
+                                                  <?php else: ?>
+                                                      <?php if (!tag_check($customer_detail[0]->order_no)): ?>
+                                                          <a href="#" class=" btn btn-xs btn-primary complate" data-orderdetailid="<?php echo($customer_detail[0]->order_no) ?>"><i class="fa fa-briefcase"></i> Tag to product !</a>
+                                                      <?php endif ?>
                                                   <?php endif ?>
-                                            <?php endif ?>
                                                   <a href="<?php echo(site_url('order_progress_detail/cancel_order')) ?>/<?php echo $this->uri->segment(3); ?>/<?php echo($customer_detail[0]->order_detail_id) ?>" class=" btn btn-xs btn-danger"><i class="fa fa-times"></i> Cancel Order !</a>
                                             <?php endif ?>
                                         </div>
