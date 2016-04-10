@@ -286,18 +286,32 @@ class Customer extends CI_Controller
         echo(json_encode($master));
     }
 
-    public function get_customer_by_id($id)
+    public function get_customer_by_id($id,$status=true)
     {
+        
         $this->db->where('customer_id',$id);
         $data=$this->db->get('tbl_customers')->result();
-        $temp='<div class="user-block"><a href="'.base_url('uploads/').'/'.($data[0]->customer_image).'" class="image-link">
+        if($status==true)
+        {
+             $temp='<div class="user-block"><a href="'.base_url('uploads/').'/'.($data[0]->customer_image).'" class="image-link">
                   <img class="img-circle img-bordered-sm" src="'.base_url("uploads/".$data[0]->customer_image).'" alt="user image"></a>
                   <span class="username">
                     <a href="'.site_url("customer/customerdetails/").'/'.md5($data[0]->customer_id).'">'.$data[0]->fname.' '.$data[0]->mname.' '.$data[0]->lname.'</a>
+                    <span class="badge label-primary"><i class="fa fa-phone"></i> '.$data[0]->phone1.'</span>
+                    <br/><address>
+                Address: '.$data[0]->address.'<br/>
+                </address>
                     <a href="#" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a>
                   </span>
                 </div>';
-        echo($temp);
+        
+             echo($temp);
+        }
+        else
+        {
+            echo(json_encode($data));
+        }
+       
     }
 
 }

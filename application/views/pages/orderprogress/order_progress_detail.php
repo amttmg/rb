@@ -51,21 +51,37 @@
                               <div class="box">
                                   <div class="box-header with-border">
                                     <h4 class="box-title">Order Remarks</h4>
-                                              <?php if ($customer_detail[0]->complated_at!=null):?>
-                                                  <small class="label label-success"><i class="fa fa-clock-o"></i> Complated !! <?php echo($customer_detail[0]->complated_at) ?></small>
-                                              <?php else: ?>
-                                                  <a href="<?php echo(site_url('order_progress_detail/complate_order')) ?>/<?php echo $this->uri->segment(3); ?>/<?php echo($customer_detail[0]->order_detail_id) ?>" class=" btn btn-xs btn-primary"><i class="fa fa-briefcase"></i> Click here to complate order !</a>
-                                              <?php endif ?>
-                                              <a href="<?php echo(site_url('order_progress_detail/complate_order')) ?>/<?php echo $this->uri->segment(3); ?>/<?php echo($customer_detail[0]->order_detail_id) ?>" class=" btn btn-xs btn-danger"><i class="fa fa-times"></i> Cancel Order !</a>
-                                      <a href="#" class="orderremarks" data-orderremarksid="<?php echo($customer_detail[0]->order_id) ?>"><span class="label label-primary pull-right">Edit</span></a>
+                                   
+                                      <?php if ($customer_detail[0]->order_detail_status==true): ?>
+                                            <?php if ($customer_detail[0]->complated_at!=null):?>
+                                                  <small class="label label-success"><i class="fa fa-clock-o"></i> Completed !! <?php echo($customer_detail[0]->complated_at) ?></small>
+                                            <?php endif ?>
+                                           
+                                      <?php else: ?>
+                                               <small class="label label-danger"><i class="fa fa-clock-o"></i> Order Canceled !! </small>
+                                      <?php endif ?>
+                                              
+                                      <a href="#" class="btn btn-primary orderremarks pull-right" data-orderremarksid="<?php echo($customer_detail[0]->order_id) ?>">Edit</a>
                                     <div class="box-tools pull-right">
                                     </div>
                                   </div>
                                   <div class="box-body">
                                     <?php echo ($customer_detail[0]->remarks) ?> 
+
                                       <?php if ($customer_detail[0]->updated_at!=null): ?>
                                            <small class="label label-default"><i class="fa fa-clock-o"></i> Updated  <?php echo($customer_detail[0]->updated_at); ?></small>
                                       <?php endif ?>
+                                        
+                                        <div class="pull-right">
+                                            <?php if ($customer_detail[0]->order_detail_status==true): ?>
+                                                 <?php if ($customer_detail[0]->complated_at==null):?>
+                                                  <?php if (!tag_check($customer_detail[0]->order_no)): ?>
+                                                      <a href="#" class=" btn btn-xs btn-primary complate" data-orderdetailid="<?php echo($customer_detail[0]->order_no) ?>"><i class="fa fa-briefcase"></i> Tag to product !</a>
+                                                  <?php endif ?>
+                                            <?php endif ?>
+                                                  <a href="<?php echo(site_url('order_progress_detail/cancel_order')) ?>/<?php echo $this->uri->segment(3); ?>/<?php echo($customer_detail[0]->order_detail_id) ?>" class=" btn btn-xs btn-danger"><i class="fa fa-times"></i> Cancel Order !</a>
+                                            <?php endif ?>
+                                        </div>
                                       <h1></h1>
                                       <div class="row">
                                           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -78,7 +94,7 @@
                                                                  <th>Date</th>
                                                                 <th>Remarks</th>
                                                                 <th>Updated By</th>
-                                                                <?php if ($customer_detail[0]->complated_at==null): ?>
+                                                                <?php if ($customer_detail[0]->complated_at==null && $customer_detail[0]->order_detail_status==true): ?>
                                                                   <th>Action</th>
                                                                 <?php endif ?>
                                                             </tr>
@@ -96,7 +112,7 @@
                                                                     <?php if ($progress->updated_at!=null): ?>
                                                                         <small class="label label-default"><i class="fa fa-clock-o"></i> Updated  <?php echo($progress->updated_at); ?></small>
                                                                     <?php endif ?></td>
-                                                                    <?php if ($customer_detail[0]->complated_at==null): ?>
+                                                                    <?php if ($customer_detail[0]->complated_at==null && $customer_detail[0]->order_detail_status==true): ?>
                                                                         <td><a href="#" class="btn_edit_status btn btn-xs btn-primary" data-orderprogressid="<?php echo($progress->order_progress_id) ?>"><i class="fa fa-edit"></i> Edit</a></td>
                                                                     <?php endif ?>
                                                                 </tr>
@@ -107,7 +123,8 @@
                                                 </div>
                                           </div>
                                       </div>
-                                      <?php if ($customer_detail[0]->complated_at==null): ?>
+
+                                      <?php if ($customer_detail[0]->complated_at==null && $customer_detail[0]->order_detail_status==true): ?>
                                           <div class="row">
                                               <div class="well">
                                                             <div class="row">
@@ -160,11 +177,16 @@
                                 <div class="box box-default collapsed-box">
                                       <div class="box-header with-border">
                                           <h3 class="box-title"><?php echo($count); $count++; ?>. <?php echo($order['order_details']->model_no) ?></h3>
-
-                                            <?php if ($order['order_details']->complated_at!=null): ?>
-                                                 <small class="label label-success"><i class="fa fa-check"></i> Complated !! <?php echo($order['order_details']->complated_at) ?></small>
+                                            <?php if ($order['order_details']->status!=true): ?>
+                                                 <small class="label label-danger"><i class="fa fa-check"></i> Order Canceled !! </small>
+                                            <?php else: ?>
+                                                   <?php if ($order['order_details']->complated_at!=null): ?>
+                                                       <small class="label label-success"><i class="fa fa-check"></i> Completed !! <?php echo($order['order_details']->complated_at) ?></small>
+                                                  <?php endif ?>
+                                                   <?php if (tag_check($order['order_details']->order_no)): ?>
+                                                         <small class="label label-success"><i class="fa fa-check"></i> Taged !!</small>
+                                                  <?php endif ?>
                                             <?php endif ?>
-                                            
                                           <div class="box-tools pull-right">
                                               <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
                                               </button>
@@ -174,10 +196,18 @@
                                       <!-- /.box-header -->
                                       <div class="box-body" style="display: none;">
                                             <div class="pull-right">
-                                                  <?php if ($order['order_details']->complated_at==null ):?>
-                                                      <a href="<?php echo(site_url('order_progress_detail/complate_order')) ?>/<?php echo $this->uri->segment(3); ?>/<?php echo($order['order_details']->order_detail_id) ?>" class=" btn btn-xs btn-primary"><i class="fa fa-briefcase"></i> Click here to complate order !</a>
-                                                  <?php endif ?>
-                                                    <a href="<?php echo(site_url('order_progress_detail/cancel_order')) ?>/<?php echo $this->uri->segment(3); ?>/<?php echo($order['order_details']->order_detail_id) ?>" class=" btn btn-xs btn-danger"><i class="fa fa-times"></i> Cancel This Order !</a>
+                                                <?php if ($order['order_details']->status==true): ?>
+                                                      <?php if ($order['order_details']->complated_at==null ):?>
+                                                            <a href="<?php echo(site_url("order_progress_detail/complate_order".'/'.$order['order_details']->order_id.'/'.$order['order_details']->order_detail_id)) ?>" data-orderdetailid="<?php echo($order['order_details']->order_no) ?>" class=" btn btn-xs btn-primary"><i class="fa fa-briefcase"></i>Complete this product !</a>
+                                                        <?php else: ?>
+                                                          <?php if (!tag_check($order['order_details']->order_no)): ?>
+                                                            <a href="#" data-orderdetailid="<?php echo($order['order_details']->order_no) ?>" class=" btn btn-xs btn-primary complate"><i class="fa fa-briefcase"></i>Tag to product !</a>
+                                                        <?php endif ?>
+                                                      <?php endif ?>
+
+                                                      <a href="<?php echo(site_url('order_progress_detail/cancel_order')) ?>/<?php echo $this->uri->segment(3); ?>/<?php echo($order['order_details']->order_detail_id) ?>" class=" btn btn-xs btn-danger"><i class="fa fa-times"></i> Cancel This Order !</a>
+                                                <?php endif ?>
+                                                  
                                               </div>
                                               <div class="row">
                                             
@@ -191,7 +221,7 @@
                                                          <th>Date</th>
                                                         <th>Remarks</th>
                                                         <th>Updated By</th>
-                                                        <?php if ($order['order_details']->complated_at==''): ?>
+                                                        <?php if ($order['order_details']->complated_at=='' && $order['order_details']->status==true): ?>
                                                            <th>Action</th>
                                                         <?php endif ?>
                                                       </tr>
@@ -210,7 +240,7 @@
                                                                         <small class="label label-default"><i class="fa fa-clock-o"></i> Updated   <?php echo($progress->updated_at); ?></small>
                                                                     <?php endif ?>
                                                                     </td>
-                                                                    <?php if ($order['order_details']->complated_at==''): ?>
+                                                                    <?php if ($order['order_details']->complated_at=='' && $order['order_details']->status==true): ?>
                                                                         <td><a href="#" class="btn_edit_status btn btn-xs btn-primary" data-orderprogressid="<?php echo($progress->order_progress_id) ?>"><i class="fa fa-edit"></i> Edit</a></td>
                                                                     <?php endif ?>
                                                                 </tr>
@@ -347,12 +377,59 @@
     </div>
   </div>
 </div>
+<!-- modal for tag order to product -->
+
+<div class="modal fade" id="modal_tag_product">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Tag Product</h4>
+      </div>
+      <div class="modal-body">
+          <div class="table-responsive">
+                  <table class="table table-hover" id="product_table">
+                    <thead>
+                      <tr>
+                        <th>Model Number</th>
+                        <th>Category</th>
+                        <th>Net Weight</th>
+                        <th>Gross Weight</th>
+                        <th>Price</th>
+                        <th>Image</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tfoot>
+                      <tr>
+                        <th>Model Number</th>
+                        <th>Category</th>
+                        <th>Net Weight</th>
+                        <th>Gross Weight</th>
+                        <th>Price</th>
+                      </tr>
+                    </tfoot>
+              
+                  </table>
+                
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Tag</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <script type="text/javascript">
   $(document).ready(function() {
     $('#update_progress_message').hide();
     $('#update_remarks_message').hide();
+    var productid='';
     var orderprogressid='';
+    var orderdetailid='';
     $('.btn_edit_status').click(function() {
        $('#mdl_edit_status').modal('show');
        orderprogressid=$(this).data('orderprogressid');
@@ -376,9 +453,9 @@
         update_remarks(orderremarksid);
     });
 
-     $("input").change(function(){
-        $(this).parent().parent().removeClass('has-error');
-        $(this).next().empty();
+        $("input").change(function(){
+            $(this).parent().parent().removeClass('has-error');
+            $(this).next().empty();
         });
         $("textarea").change(function(){
             $(this).parent().parent().removeClass('has-error');
@@ -388,6 +465,36 @@
             $(this).parent().parent().removeClass('has-error');
             $(this).next().empty();
         });
+
+        $('body').on('click','.complate',function(){
+              orderdetailid=$(this).data('orderdetailid');
+            $('#modal_tag_product').modal('show');
+        });
+
+        $('body').on('click','.btn_tag_order',function(){
+
+            productid=$(this).data('productid');
+            $('#modal_tag_product').modal('hide');
+            location.reload();
+          
+        });
+
+        $('#modal_tag_product').on('hidden.bs.modal', function (e) {
+             $.ajax({
+               url: '<?php echo(site_url("tag_product/tag")) ?>'+'/'+productid+'/'+orderdetailid,
+               type: 'POST',
+               dataType: 'json',
+               success:function(data)
+               {
+                  location.reload();
+               },
+               error:function(data)
+               {
+                  console.log(data);
+               }
+             });
+             
+        })
    
   });
 
@@ -493,4 +600,40 @@
     
   }
 </script>
-                          
+
+<script type="text/javascript">
+  var i=0;
+  $('#product_table tfoot th').each( function () {
+        i++;
+        var title = $(this).text();
+        $(this).html( '<input type="text" class="search-input-text" placeholder="Search'+title+'" data-column="'+i+'" size="10"/>' );
+    } );
+  
+  $('.search-input-text').keyup( function () {   // for text boxes
+    var i =$(this).attr('data-column');  // getting column index
+    var v =$(this).val();  // getting search input value
+    table.columns(i).search(v).draw();
+  } );
+table = $('#product_table').DataTable({ 
+
+        "processing": true, //Feature control the processing indicator.
+        "serverSide": true, //Feature control DataTables' server-side processing mode.
+        "order": [], //Initial no order.
+        // Load data for the table's content from an Ajax source
+        "ajax": {
+            "url": "<?php echo site_url('product/product_order_datatable')?>",
+            "type": "POST",
+            "data":{'tag':'yes'}
+        },
+        //Set column definition initialisation properties.
+        "columnDefs": [
+        { 
+            "targets": [ -1,-2 ], //last column
+            "orderable": false, //set not orderable
+        },
+        ],
+
+
+    });
+
+</script>

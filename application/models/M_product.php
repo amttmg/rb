@@ -28,7 +28,23 @@ class M_product extends CI_Model {
 		$this->db->insert('tbl_products',$data);
 		return $this->db->insert_id();
 	}
-
+	public function complate_product($order_id,$image)
+	{
+		$data=array(
+			'category_id'=>$this->input->post('category'),
+			'model_no'=>$this->input->post('model_no'),
+			'gross_weight'=>$this->input->post('grossweight'),
+			'weight_loss'=>$this->input->post('weight_loss'),
+			'net_weight'=>$this->input->post('netweight'),
+			'price'=>$this->input->post('price'),
+			'image_url'=>$image,
+			'order_no'=>$order_id,
+			'entry_date'=>getCurrentDate(),
+			'entry_by'=>getCurrentUserID()
+			);
+		$this->db->insert('tbl_products',$data);
+		return $this->db->insert_id();
+	}
 	public function update_product($id,$image)
 	{
 		$data=array(
@@ -79,6 +95,10 @@ class M_product extends CI_Model {
 		$this->db->select('tbl_products.*,tbl_product_category.category');
 		$this->db->from($this->table);
 		$this->db->join('tbl_product_category','tbl_product_category.category_id=tbl_products.category_id');
+		if(isset($_POST['tag']))
+		{
+			$this->db->where('order_no is null',null);
+		}
 
 		$i = 0;
 		if( !empty($_POST['columns'][1]['search']['value']) )
@@ -140,6 +160,7 @@ class M_product extends CI_Model {
 
 	function get_datatables()
 	{
+
 		$this->_get_datatables_query();
 		if($_POST['length'] != -1)
 		$this->db->limit($_POST['length'], $_POST['start']);

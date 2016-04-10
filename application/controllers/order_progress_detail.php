@@ -6,11 +6,16 @@ class Order_progress_detail extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->model('m_product','product');
+		$this->load->model('M_metal','metal');
+		$this->load->model('m_stone','stone');
+		$this->load->helper('tagCheck');
 		
 	}
 
 	public function index()
 	{
+		
 		$data['title'] = "Orders Progress Detail";
         $data['content'] = $this->load->view('pages/orderprogress/order_progress_detail','', true);
         $this->parser->parse('template/page_template', $data);
@@ -32,6 +37,11 @@ class Order_progress_detail extends CI_Controller
 
 	public function view_progress($order_id)
 	{
+		$this->load->model('m_product_category','product_category');//load model for get product category to fill dropdown box
+		$data['product_categories']=$this->product_category->get_product_category();
+		$data['metals']=$this->metal->get_metals();
+		$data['metal_type']=$this->metal->get_metaltype();
+		$data['stones']=$this->stone->get_stones();
 		$data['remarks_progress']=$this->get_order_progress_by_remarks($order_id);
 		$data['order_status']=$this->fill_order_status();
 		$data['order_details']=$this->get_order_details($order_id);
@@ -43,7 +53,7 @@ class Order_progress_detail extends CI_Controller
 	
 	public function get_customer_by_order($order_id)
 	{
-		$this->db->select('tbl_customers.*,tbl_orders.remarks,tbl_orders.updated_at,tbl_orders.complate,tbl_orders.order_id,tbl_order_details.order_detail_id,tbl_order_details.complated_at');
+		$this->db->select('tbl_customers.*,tbl_orders.remarks,tbl_orders.updated_at,tbl_orders.complate,tbl_orders.order_id,tbl_orders.status,tbl_order_details.order_no,tbl_order_details.order_detail_id,tbl_order_details.complated_at,tbl_order_details.status as order_detail_status');
 		$this->db->from('tbl_orders');
 		$this->db->join('tbl_customers','tbl_customers.customer_id=tbl_orders.customer_id');
 		$this->db->join('tbl_order_details','tbl_order_details.order_id=tbl_orders.order_id');
@@ -91,7 +101,7 @@ class Order_progress_detail extends CI_Controller
 
 	public function get_order_progress_by_remarks($order_id)
 	{
-		$this->db->select('tbl_order_progress.*,users.username,tbl_order_status.status,tbl_order_details.complated_at');
+		$this->db->select('tbl_order_progress.*,users.username,tbl_order_details.status,tbl_order_details.complated_at');
 		$this->db->from('tbl_order_progress');
 		$this->db->join('tbl_order_details','tbl_order_details.order_detail_id=tbl_order_progress.order_detail_id');
 		$this->db->join('users','users.id=tbl_order_progress.user_id');
@@ -113,6 +123,11 @@ class Order_progress_detail extends CI_Controller
 
 	public function complate_order($order_id,$order_detail_id)
 	{
+		
+
+		$data['title'] = "Complate Order";
+        $data['content'] = $this->load->view('pages/orders/cancel_order_view',$data, true);
+        $this->parser->parse('template/page_template', $data);
 		$data=array(
 			'complated_at'=>getCurrentDate()
 			);

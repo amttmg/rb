@@ -12,8 +12,10 @@ class Order_progress extends CI_Controller
 
 	public function index()
 	{
+		$this->load->model('m_customer','customer');
+		$data['customers']=$this->customer->getCustomers();
 		$data['title'] = "Orders Progress";
-        $data['content'] = $this->load->view('pages/orderprogress/order_progress_view','', true);
+        $data['content'] = $this->load->view('pages/orderprogress/order_progress_view',$data, true);
         $this->parser->parse('template/page_template', $data);
 	}
 
@@ -96,7 +98,7 @@ class Order_progress extends CI_Controller
 			{
 				$row[]='<small class="label label-warning">Order is in progress !</small>';
 			}
-			$row[]='<a href="'.site_url('order_progress_detail/view_progress/').'/'.$order->order_id.'" class="btn_order_progress btn btn-xs btn-primary" data-orderid=""><i class="fa fa-edit"></i> View Detail</a>  <a href="'.site_url('order_progress_detail/view_progress/').'/'.$order->order_id.'" class="btn_order_progress btn btn-xs btn-primary" data-orderid=""><i class="fa fa-edit"></i>Edit</a>';
+			$row[]='<a href="'.site_url('order_progress_detail/view_progress/').'/'.$order->order_id.'" class="btn_order_progress btn btn-xs btn-primary" data-orderid=""><i class="fa fa-edit"></i> View Detail</a>  <a href="#" class="btn_edit_order btn btn-xs btn-primary" data-orderid=""><i class="fa fa-edit"></i>Edit</a>';
 			//add html for action
 			//$row[] = '<a href="'.base_url("users/Edit/$user->user_id").'" class="jqui_button"> Edit </a><a href="'.base_url("users/EditPassword/$user->user_id").'" id="changePwdButton" class="jqui_button" > Change Password </a></span>';
 		
@@ -153,6 +155,24 @@ class Order_progress extends CI_Controller
 		
 
 
+	}
+
+	public function get_order_information($order_id)
+	{
+		$this->db->select('tbl_order_details.*,tbl_products.product_id,tbl_products.model_no');
+		$this->db->from('tbl_order_details');
+		$this->db->join('tbl_products','tbl_products.product_id=tbl_order_details.reference_product_id');
+		$this->db->where('tbl_order_details.order_id',$order_id);
+		echo(json_encode($this->db->get()->result()));
+	}
+
+	public function order_customer_information($order_id)
+	{
+		$this->db->select('tbl_orders.*,tbl_customers.fname,tbl_customers.mname,tbl_customers.lname,tbl_customers.email,tbl_customers.phone1,tbl_customers.phone2,tbl_customers.gender,tbl_customers.customer_image');
+		$this->db->from('tbl_orders');
+		$this->db->join('tbl_customers','tbl_customers.customer_id=tbl_orders.customer_id');
+		$this->db->where('tbl_orders.order_id',$order_id);
+		echo(json_encode($this->db->get()->result()));
 	}
 
 }

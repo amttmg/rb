@@ -33,7 +33,7 @@ class Product extends CI_Controller {
         $this->parser->parse('template/page_template', $data);
 
 	}
-	public function add()
+	public function add($order_detail_id='')
 	{
 		$master['status'] = True;
         $data = array();
@@ -48,9 +48,23 @@ class Product extends CI_Controller {
 		if ($this->form_validation->run() == TRUE) 
 		{
 			$this->db->trans_start();
-
+			$product_id='';
 			/*insert product and return product id*/
-			$product_id=$this->product->insert_product($this->image_name);
+			if($order_detail_id==null)
+			{
+				$product_id=$this->product->insert_product($this->image_name);
+			}
+			else
+			{
+				$product_id=$this->product->complate_product($order_detail_id,$this->image_name);
+
+				$data=array(
+					'complated_at'=>getCurrentDate()
+					);
+				$this->db->where('order_detail_id',$order_detail_id);
+				$this->db->update('tbl_order_details',$data);
+			}
+			
 
 			/*insert metal details*/
 			if(!empty($_POST['metal']))
@@ -282,9 +296,16 @@ class Product extends CI_Controller {
 			$row[] = $product->gross_weight;
 			$row[] = $product->price;
 			$row[] = '<a class="image-popup-link" href="'.base_url("uploads/").'/'.$product->image_url.'"><img src="'.base_url("uploads/").'/'.$product->image_url.'" width="50px"/></a>';
-
+			if (!isset($_POST['tag'])) 
+			{
+				$row[] = '<a href="#" class="btn_order_product btn btn-xs btn-primary" data-productid="'.$product->product_id.'"><i class="fa fa-folder-open"></i>Add To Order</a>';
+			}
+			else
+			{
+				$row[] = '<a href="#" class="btn_tag_order btn btn-xs btn-primary" data-productid="'.$product->product_id.'"><i class="fa fa-folder-open"></i>Tag To Order</a>';
+			}
 			//add html for action
-			$row[] = '<a href="#" class="btn_order_product btn btn-xs btn-primary" data-productid="'.$product->product_id.'"><i class="fa fa-folder-open"></i>Add To Order</a>';
+			
 		
 			$data[] = $row;
 		}
