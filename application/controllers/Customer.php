@@ -286,32 +286,41 @@ class Customer extends CI_Controller
         echo(json_encode($master));
     }
 
-    public function get_customer_by_id($id,$status=true)
+    public function get_customer_by_id($id, $status = true)
     {
-        
-        $this->db->where('customer_id',$id);
-        $data=$this->db->get('tbl_customers')->result();
-        if($status==true)
-        {
-             $temp='<div class="user-block"><a href="'.base_url('uploads/').'/'.($data[0]->customer_image).'" class="image-link">
-                  <img class="img-circle img-bordered-sm" src="'.base_url("uploads/".$data[0]->customer_image).'" alt="user image"></a>
+
+        $this->db->where('customer_id', $id);
+        $data = $this->db->get('tbl_customers')->result();
+        if ($status == true) {
+            $temp = '<div class="user-block"><a href="' . base_url('uploads/') . '/' . ($data[0]->customer_image) . '" class="image-link">
+                  <img class="img-circle img-bordered-sm" src="' . base_url("uploads/" . $data[0]->customer_image) . '" alt="user image"></a>
                   <span class="username">
-                    <a href="'.site_url("customer/customerdetails/").'/'.md5($data[0]->customer_id).'">'.$data[0]->fname.' '.$data[0]->mname.' '.$data[0]->lname.'</a>
-                    <span class="badge label-primary"><i class="fa fa-phone"></i> '.$data[0]->phone1.'</span>
+                    <a href="' . site_url("customer/customerdetails/") . '/' . md5($data[0]->customer_id) . '">' . $data[0]->fname . ' ' . $data[0]->mname . ' ' . $data[0]->lname . '</a>
+                    <span class="badge label-primary"><i class="fa fa-phone"></i> ' . $data[0]->phone1 . '</span>
                     <br/><address>
-                Address: '.$data[0]->address.'<br/>
+                Address: ' . $data[0]->address . '<br/>
                 </address>
 
                   </span>
                 </div>';
-        
-             echo($temp);
-        }
-        else
-        {
+
+            echo($temp);
+        } else {
             echo(json_encode($data));
         }
-       
+
+    }
+
+    public function getCustomerID($card_no)
+    {
+        $customer_id = $this->customer->getCustomerID($card_no);
+        if ($customer_id > 0) {
+            echo $customer_id;
+        } else {
+            echo  "0";
+        }
+
+
     }
 
 }
