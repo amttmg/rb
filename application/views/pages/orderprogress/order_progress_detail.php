@@ -82,6 +82,7 @@
                                                   <?php else: ?>
                                                       <?php if (!tag_check($customer_detail[0]->order_no)): ?>
                                                           <a href="#" class=" btn btn-xs btn-primary complate" data-orderdetailid="<?php echo($customer_detail[0]->order_no) ?>"><i class="fa fa-briefcase"></i> Tag to product !</a>
+                                                          <a href="#" data-orderno="<?php echo($customer_detail[0]->order_no) ?>" class=" btn btn-xs btn-primary btn_add_product"><i class="fa fa-briefcase"></i>Add to product !</a>
                                                       <?php endif ?>
                                                   <?php endif ?>
                                                   <a href="<?php echo(site_url('order_progress_detail/cancel_order')) ?>/<?php echo $this->uri->segment(3); ?>/<?php echo($customer_detail[0]->order_detail_id) ?>" class=" btn btn-xs btn-danger"><i class="fa fa-times"></i> Cancel Order !</a>
