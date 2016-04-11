@@ -69,7 +69,18 @@
                                     </div>
                                   </div>
                                   <div class="box-body">
-                                    <?php echo ($customer_detail[0]->remarks) ?> 
+                                      <?php if (!tag_check($customer_detail[0]->order_no)): ?>
+
+                                               <?php echo ($customer_detail[0]->remarks) ?>
+
+                                      <?php else: ?>
+                                        
+                                              <?php 
+                                                echo(find_taged_model_no($customer_detail[0]->order_no));
+                                              
+                                               ?>
+                                          <?php endif ?>
+                                      
 
                                       <?php if ($customer_detail[0]->updated_at!=null): ?>
                                            <small class="label label-default"><i class="fa fa-clock-o"></i> Updated  <?php echo($customer_detail[0]->updated_at); ?></small>
@@ -85,7 +96,10 @@
                                                           <a href="#" data-orderno="<?php echo($customer_detail[0]->order_no) ?>" class=" btn btn-xs btn-primary btn_add_product"><i class="fa fa-briefcase"></i>Add to product !</a>
                                                       <?php endif ?>
                                                   <?php endif ?>
-                                                  <a href="<?php echo(site_url('order_progress_detail/cancel_order')) ?>/<?php echo $this->uri->segment(3); ?>/<?php echo($customer_detail[0]->order_detail_id) ?>" class=" btn btn-xs btn-danger"><i class="fa fa-times"></i> Cancel Order !</a>
+                                                  <?php if (!tag_check($customer_detail[0]->order_no)): ?>
+                                                    <a href="<?php echo(site_url('order_progress_detail/cancel_order')) ?>/<?php echo $this->uri->segment(3); ?>/<?php echo($customer_detail[0]->order_detail_id) ?>" class=" btn btn-xs btn-danger"><i class="fa fa-times"></i> Cancel Order !</a>
+                                                  <?php endif ?>
+                                                  
                                             <?php endif ?>
                                         </div>
                                       <h1></h1>
@@ -182,7 +196,14 @@
                           <?php foreach ($order_details as $order): ?>
                                 <div class="box box-default collapsed-box">
                                       <div class="box-header with-border">
-                                          <h3 class="box-title"><?php echo($count); $count++; ?>. <?php echo($order['order_details']->model_no) ?></h3>
+                                          <h3 class="box-title">
+                                          <?php if (tag_check($order['order_details']->order_no)): ?>
+                                              <?php echo(find_taged_model_no($order['order_details']->order_no)) ?>
+                                          <?php else: ?>
+                                            <?php echo($count); $count++; ?>. <?php echo($order['order_details']->model_no) ?>
+                                          <?php endif ?>
+                                          
+                                          </h3>
                                             <?php if ($order['order_details']->status!=true): ?>
                                                  <small class="label label-danger"><i class="fa fa-check"></i> Order Canceled !! </small>
                                             <?php else: ?>
@@ -214,8 +235,10 @@
                                                           <?php endif ?>
                                                             
                                                       <?php endif ?>
-
-                                                      <a href="<?php echo(site_url('order_progress_detail/cancel_order')) ?>/<?php echo $this->uri->segment(3); ?>/<?php echo($order['order_details']->order_detail_id) ?>" class=" btn btn-xs btn-danger"><i class="fa fa-times"></i> Cancel This Order !</a>
+                                                      <?php if (!tag_check($order['order_details']->order_no)): ?>
+                                                          <a href="<?php echo(site_url('order_progress_detail/cancel_order')) ?>/<?php echo $this->uri->segment(3); ?>/<?php echo($order['order_details']->order_detail_id) ?>" class=" btn btn-xs btn-danger"><i class="fa fa-times"></i> Cancel This Order !</a>
+                                                      <?php endif ?>
+                                                      
                                                 <?php endif ?>
                                                   
                                               </div>
@@ -425,7 +448,7 @@
           </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Tag</button>
+       <!--  <button type="button" class="btn btn-primary">Tag</button> -->
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
@@ -677,7 +700,9 @@
 
             productid=$(this).data('productid');
             $('#modal_tag_product').modal('hide');
-            location.reload();
+             //window.location.href = "<?php echo(site_url('order_progress_detail/view_progress')) ?>"+'/'+'<?php echo($this->uri->segment(3)) ?>';
+           location.reload(true);
+
           
         });
         
@@ -689,13 +714,16 @@
                dataType: 'json',
                success:function(data)
                {
-                  location.reload();
+                  location.reload(true);
                },
                error:function(data)
                {
+                  location.reload(true);
                   console.log(data);
                }
              });
+
+
              
         })
    

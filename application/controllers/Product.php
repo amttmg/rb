@@ -246,7 +246,6 @@ class Product extends CI_Controller {
 		->add_column('Actions','<a href="#editProduct" class="btnedit" data-productid="$1"><span class="label label-primary"><i class="fa fa-edit"></i> Edit</span></a> <a href="#" class="btnviewdetails" data-productid="$1"><span class="label label-primary"><i class="fa fa-folder-open"></i> View details</span></a>', 'product_id');
         echo $this->datatables->generate();
 	}
-
 	public function ajax_list()
 	{
 		$list = $this->product->get_datatables();
@@ -298,7 +297,7 @@ class Product extends CI_Controller {
 			}
 			else
 			{
-				$row[] = '<a href="#" class="btn_tag_order btn btn-xs btn-primary" data-productid="'.$product->product_id.'"><i class="fa fa-folder-open"></i>Tag To Order</a>';
+				$row[] = '<a href="" class="btn_tag_order btn btn-xs btn-primary" data-productid="'.$product->product_id.'"><i class="fa fa-folder-open"></i>Tag To Order</a>';
 			}
 			//add html for action
 			

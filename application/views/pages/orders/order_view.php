@@ -151,7 +151,6 @@
             </div>
             <div class="modal-footer">
                  <span class="label label-success pull-left" id="save_order_message" style="display:none">Ordered saved successfully !</span>
-                <button type="button" class="btn btn-primary">Save</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
