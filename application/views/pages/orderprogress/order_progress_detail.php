@@ -69,7 +69,18 @@
                                     </div>
                                   </div>
                                   <div class="box-body">
-                                    <?php echo ($customer_detail[0]->remarks) ?> 
+                                      <?php if (!tag_check($customer_detail[0]->order_no)): ?>
+
+                                               <?php echo ($customer_detail[0]->remarks) ?>
+
+                                      <?php else: ?>
+                                        
+                                              <?php 
+                                                echo(find_taged_model_no($customer_detail[0]->order_no));
+                                              
+                                               ?>
+                                          <?php endif ?>
+                                      
 
                                       <?php if ($customer_detail[0]->updated_at!=null): ?>
                                            <small class="label label-default"><i class="fa fa-clock-o"></i> Updated  <?php echo($customer_detail[0]->updated_at); ?></small>
@@ -85,7 +96,10 @@
                                                           <a href="#" data-orderno="<?php echo($customer_detail[0]->order_no) ?>" class=" btn btn-xs btn-primary btn_add_product"><i class="fa fa-briefcase"></i>Add to product !</a>
                                                       <?php endif ?>
                                                   <?php endif ?>
-                                                  <a href="<?php echo(site_url('order_progress_detail/cancel_order')) ?>/<?php echo $this->uri->segment(3); ?>/<?php echo($customer_detail[0]->order_detail_id) ?>" class=" btn btn-xs btn-danger"><i class="fa fa-times"></i> Cancel Order !</a>
+                                                  <?php if (!tag_check($customer_detail[0]->order_no)): ?>
+                                                    <a href="<?php echo(site_url('order_progress_detail/cancel_order')) ?>/<?php echo $this->uri->segment(3); ?>/<?php echo($customer_detail[0]->order_detail_id) ?>" class=" btn btn-xs btn-danger"><i class="fa fa-times"></i> Cancel Order !</a>
+                                                  <?php endif ?>
+                                                  
                                             <?php endif ?>
                                         </div>
                                       <h1></h1>
