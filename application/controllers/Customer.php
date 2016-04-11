@@ -301,7 +301,7 @@ class Customer extends CI_Controller
                     <br/><address>
                 Address: '.$data[0]->address.'<br/>
                 </address>
-                    <a href="#" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a>
+
                   </span>
                 </div>';
         
