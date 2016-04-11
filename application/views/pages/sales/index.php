@@ -30,26 +30,14 @@
                 <div id="container">
                     <form action="" method="POST" role="form" id="product_order_form">
                         <div class="row">
-                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                                 <div class="form-group">
-                                    <label for="">Sales Date</label>
-                                    <input type="date" value="<?php echo getCurrentDate() ?>" name="saledate" id="saledate" class="form-control"
-                                           required="required"/>
+                                    <label for="">Swap Card</label>
+                                   <input type="text" name="card_no" id="card_no" class="form-control">
                                     <span></span>
                                 </div>
                             </div>
-                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                <div class="form-group">
-                                    <label for="">Bill No</label>
-                                    <input type="billno" name="billno" id="billno" class="form-control"
-                                           required="required"/>
-                                    </select>
-                                    <span></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                                 <div class="form-group">
                                     <label for="">Customer Name</label>
                                     <select name="customer" id="customer" class="form-control" required="required">
@@ -57,8 +45,8 @@
                                     <span></span>
                                 </div>
                             </div>
-                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                <div id="user_info">
+                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                <div id="user_info" style="margin-top: 15px">
                                 </div>
                                 <div class="overlay" style="display:none">
                                     <i class="fa fa-refresh fa-spin"></i>
@@ -68,12 +56,27 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                <button type="button" id="btnorder" data-customerid="<?php echo "21" ?>" class="btn btn-primary btn-sm">View Orders</button>
+                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label for="">Sales Date</label>
+                                    <input type="date" value="<?php echo getCurrentDate() ?>" name="saledate" id="saledate" class="form-control"
+                                           required="required"/>
+                                    <span></span>
+                                </div>
                             </div>
-                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label for="">Bill No</label>
+                                    <input type="billno" name="billno" id="billno" class="form-control"
+                                           required="required"/>
+                                    </select>
+                                    <span></span>
+                                </div>
+                            </div>
+                        </div>
 
-                            </div>
+                        <div class="row well">
+
                         </div>
 
                         <button type="button" class="btn btn-primary pull-right" id="btn_save_orders">Save</button>
