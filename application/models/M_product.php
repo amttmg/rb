@@ -28,7 +28,7 @@ class M_product extends CI_Model {
 		$this->db->insert('tbl_products',$data);
 		return $this->db->insert_id();
 	}
-	public function complate_product($order_id,$image)
+	public function complate_product($order_no,$image)
 	{
 		$data=array(
 			'category_id'=>$this->input->post('category'),
@@ -38,7 +38,7 @@ class M_product extends CI_Model {
 			'net_weight'=>$this->input->post('netweight'),
 			'price'=>$this->input->post('price'),
 			'image_url'=>$image,
-			'order_no'=>$order_id,
+			'order_no'=>$order_no,
 			'entry_date'=>getCurrentDate(),
 			'entry_by'=>getCurrentUserID()
 			);

@@ -33,7 +33,7 @@ class Product extends CI_Controller {
         $this->parser->parse('template/page_template', $data);
 
 	}
-	public function add($order_detail_id='')
+	public function add($order_no='')
 	{
 		$master['status'] = True;
         $data = array();
@@ -50,19 +50,15 @@ class Product extends CI_Controller {
 			$this->db->trans_start();
 			$product_id='';
 			/*insert product and return product id*/
-			if($order_detail_id==null)
+			if($order_no==null)
 			{
 				$product_id=$this->product->insert_product($this->image_name);
 			}
 			else
 			{
-				$product_id=$this->product->complate_product($order_detail_id,$this->image_name);
+				$product_id=$this->product->complate_product($order_no,$this->image_name);
 
-				$data=array(
-					'complated_at'=>getCurrentDate()
-					);
-				$this->db->where('order_detail_id',$order_detail_id);
-				$this->db->update('tbl_order_details',$data);
+				
 			}
 			
 
