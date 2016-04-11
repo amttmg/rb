@@ -33,7 +33,7 @@
                             <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                                 <div class="form-group">
                                     <label for="">Swap Card</label>
-                                   <input type="text" name="card_no" id="card_no" class="form-control">
+                                    <input type="number" name="card_no" id="card_no" class="form-control">
                                     <span></span>
                                 </div>
                             </div>
@@ -59,7 +59,8 @@
                             <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                                 <div class="form-group">
                                     <label for="">Sales Date</label>
-                                    <input type="date" value="<?php echo getCurrentDate() ?>" name="saledate" id="saledate" class="form-control"
+                                    <input type="date" value="<?php echo getCurrentDate() ?>" name="saledate"
+                                           id="saledate" class="form-control"
                                            required="required"/>
                                     <span></span>
                                 </div>
@@ -76,7 +77,58 @@
                         </div>
 
                         <div class="row well">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>
+                                        Order No
+                                    </th>
+                                    <th>
+                                        Model No
+                                    </th>
+                                    <th>
+                                        Order Date
+                                    </th>
+                                    <th>
+                                        Deadline
+                                    </th>
+                                    <th>
+                                        Category
+                                    </th>
+                                    <th>
+                                        Product Name
+                                    </th>
+                                    <th>
+                                        Gross Weight
+                                    </th>
+                                    <th>
+                                        Net. Weight
+                                    </th>
+                                    <th>
+                                        Weight Loss
+                                    </th>
+                                    <th>
+                                        Price
+                                    </th>
+                                    <th>
+                                        Image
+                                    </th>
+                                    <th>
+                                        Status
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>
 
+                                    </td>
+                                    <td>
+
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
 
                         <button type="button" class="btn btn-primary pull-right" id="btn_save_orders">Save</button>
@@ -96,7 +148,51 @@
         fill_combobox('order/fill_combobox', 'customer_list');
     })
     $('#customer').change(function () {
-        var customer_id = $(this).val();
+        show_customer($(this).val());
+    });
+
+    $('#card_no').on('keypress', function (event) {
+        if (event.keyCode == 13) {
+            var card_no = $('#card_no').val();
+            $.ajax({
+                url: '<?php echo base_url('customer/getCustomerID') ?>/' + card_no,
+                success: function (res) {
+
+                    if (res > 0) {
+                        $('#customer').val(res);
+                        show_customer(res);
+                    }
+                    else {
+                        $('#user_info').html("Sorry ! Costumer is not found");
+                        $('#customer').val(0);
+                    }
+                }
+            })
+        }
+    });
+    function fill_combobox(url, combo_id='') {
+
+        $.ajax({
+            url: '<?php echo(site_url()) ?>' + url,
+            type: 'post',
+            dataType: 'html',
+            success: function (data) {
+                $('#customer').html(data);
+            }
+        })
+            .done(function () {
+                console.log("success");
+            })
+            .fail(function () {
+                console.log("error");
+            })
+            .always(function () {
+                console.log("complete");
+            });
+
+    }
+    function show_customer(customer_id) {
+
         if ($('#customer').val() !== '0') {
             $('.overlay').show('fast', function () {
 
@@ -118,34 +214,5 @@
         else {
             $('.overlay').hide();
         }
-    });
-    $('#btnorder').click(function(){
-        $.ajax({
-            url:'<?php echo base_url('order/getActiveOrdersByCustomer').'/' ?>'+$('#customer').val(),
-            success:function(data){
-                alert(data);
-            }
-        })
-    })
-    function fill_combobox(url, combo_id='') {
-
-        $.ajax({
-            url: '<?php echo(site_url()) ?>' + url,
-            type: 'post',
-            dataType: 'html',
-            success: function (data) {
-                $('#customer').html(data);
-            }
-        })
-            .done(function () {
-                console.log("success");
-            })
-            .fail(function () {
-                console.log("error");
-            })
-            .always(function () {
-                console.log("complete");
-            });
-
     }
 </script>

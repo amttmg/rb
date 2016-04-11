@@ -288,7 +288,7 @@ class Customer extends CI_Controller
 
     public function get_customer_by_id($id,$status=true)
     {
-        
+
         $this->db->where('customer_id',$id);
         $data=$this->db->get('tbl_customers')->result();
         if($status==true)
@@ -304,14 +304,26 @@ class Customer extends CI_Controller
 
                   </span>
                 </div>';
-        
+
              echo($temp);
         }
         else
         {
             echo(json_encode($data));
         }
-       
+
+    }
+
+    public function getCustomerID($card_no)
+    {
+        $customer_id = $this->customer->getCustomerID($card_no);
+        if ($customer_id > 0) {
+            echo $customer_id;
+        } else {
+            echo  "0";
+        }
+
+
     }
 
 }

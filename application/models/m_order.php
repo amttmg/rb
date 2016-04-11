@@ -30,7 +30,7 @@ class M_order extends CI_Model
 
     public function getActiveOrdersByCustomer($customer_id)
     {
-        $sql = "SELECT * FROM tbl_order_details INNER JOIN tbl_orders on tbl_orders.order_id=tbl_order_details.order_detail_id INNER JOIN tbl_products on tbl_products.order_no=tbl_order_details.order_no WHERE tbl_orders.customer_id='$customer_id' and tbl_order_details.status=1";
+        $sql = "SELECT * FROM tbl_order_details INNER JOIN tbl_orders on tbl_orders.order_id=tbl_order_details.order_detail_id  WHERE tbl_orders.customer_id='$customer_id' and tbl_order_details.status=1";
         $qry = $this->db->query($sql);
         $result = $qry->result();
         return $result;
