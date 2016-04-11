@@ -74,7 +74,7 @@
                                                <?php echo ($customer_detail[0]->remarks) ?>
 
                                       <?php else: ?>
-                                        
+
                                               <?php 
                                                 echo(find_taged_model_no($customer_detail[0]->order_no));
                                               
@@ -718,7 +718,7 @@
                },
                error:function(data)
                {
-                  location.reload(true);
+                  
                   console.log(data);
                }
              });
