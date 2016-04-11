@@ -425,7 +425,7 @@
           </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Tag</button>
+       <!--  <button type="button" class="btn btn-primary">Tag</button> -->
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
@@ -677,7 +677,9 @@
 
             productid=$(this).data('productid');
             $('#modal_tag_product').modal('hide');
-            location.reload();
+             //window.location.href = "<?php echo(site_url('order_progress_detail/view_progress')) ?>"+'/'+'<?php echo($this->uri->segment(3)) ?>';
+           location.reload(true);
+
           
         });
         
@@ -689,13 +691,16 @@
                dataType: 'json',
                success:function(data)
                {
-                  location.reload();
+                  location.reload(true);
                },
                error:function(data)
                {
+                  location.reload(true);
                   console.log(data);
                }
              });
+
+
              
         })
    
