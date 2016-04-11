@@ -159,6 +159,7 @@
             })
         }
     });
+
     function fill_combobox(url, combo_id='') {
 
         $.ajax({
