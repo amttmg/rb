@@ -182,7 +182,14 @@
                           <?php foreach ($order_details as $order): ?>
                                 <div class="box box-default collapsed-box">
                                       <div class="box-header with-border">
-                                          <h3 class="box-title"><?php echo($count); $count++; ?>. <?php echo($order['order_details']->model_no) ?></h3>
+                                          <h3 class="box-title">
+                                          <?php if (tag_check($order['order_details']->order_no)): ?>
+                                              <?php echo(find_taged_model_no($order['order_details']->order_no)) ?>
+                                          <?php else: ?>
+                                            <?php echo($count); $count++; ?>. <?php echo($order['order_details']->model_no) ?>
+                                          <?php endif ?>
+                                          
+                                          </h3>
                                             <?php if ($order['order_details']->status!=true): ?>
                                                  <small class="label label-danger"><i class="fa fa-check"></i> Order Canceled !! </small>
                                             <?php else: ?>
@@ -214,8 +221,10 @@
                                                           <?php endif ?>
                                                             
                                                       <?php endif ?>
-
-                                                      <a href="<?php echo(site_url('order_progress_detail/cancel_order')) ?>/<?php echo $this->uri->segment(3); ?>/<?php echo($order['order_details']->order_detail_id) ?>" class=" btn btn-xs btn-danger"><i class="fa fa-times"></i> Cancel This Order !</a>
+                                                      <?php if (!tag_check($order['order_details']->order_no)): ?>
+                                                          <a href="<?php echo(site_url('order_progress_detail/cancel_order')) ?>/<?php echo $this->uri->segment(3); ?>/<?php echo($order['order_details']->order_detail_id) ?>" class=" btn btn-xs btn-danger"><i class="fa fa-times"></i> Cancel This Order !</a>
+                                                      <?php endif ?>
+                                                      
                                                 <?php endif ?>
                                                   
                                               </div>

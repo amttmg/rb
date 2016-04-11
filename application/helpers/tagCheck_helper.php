@@ -14,4 +14,14 @@
 	 		return false;
 	 	}
 	 }
+
+	function find_taged_model_no($order_no)
+	 {
+	 		$CI =& get_instance();
+	 		$CI->db->select('model_no');
+	 		$CI->db->where('order_no',$order_no);
+	 		$result=$CI->db->get('tbl_products')->result();
+	 		return $result[0]->model_no;
+	 	
+	 }
  ?>
