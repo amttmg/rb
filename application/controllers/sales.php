@@ -8,4 +8,9 @@ class sales extends CI_Controller
         $data['content'] = $this->load->view('pages/sales/index', '', true);
         $this->parser->parse('template/page_template', $data);
     }
+
+    function setcard($product_id)
+    {
+
+    }
 }
