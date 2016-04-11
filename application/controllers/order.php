@@ -206,10 +206,110 @@ class Order extends CI_Controller
 
     public function getActiveOrdersByCustomer($customer_id = '')
     {
-        if ($customer_id =='') {
+        if ($customer_id == '') {
             show_404();
         }
-        $data = $this->orders->getActiveOrdersByCustomer($customer_id);
+        $data = $this->order->getActiveOrdersByCustomer($customer_id);
+       if(count($data)>0){
+           ?>
+           <table class="table table-bordered">
+               <thead>
+               <tr>
+                   <th>
+                       Order No
+                   </th>
+                   <th>
+                       Model No
+                   </th>
+                   <th>
+                       Order Date
+                   </th>
+                   <th>
+                       Deadline
+                   </th>
+                   <th>
+                       Category
+                   </th>
+                   <th>
+                       Product Name
+                   </th>
+                   <th>
+                       Gross Weight
+                   </th>
+                   <th>
+                       Net. Weight
+                   </th>
+                   <th>
+                       Weight Loss
+                   </th>
+                   <th>
+                       Price
+                   </th>
+                   <th>
+                       Image
+                   </th>
+                   <th>
+                       Status
+                   </th>
+                   <th>
+                       Action
+                   </th>
+               </tr>
+               </thead>
+               <tbody id="tblcontent">
+
+               <?php
+
+               foreach ($data as $dt) {
+                   ?>
+                   <tr>
+                       <td>
+                           <?php echo $dt->order_no ?>
+                       </td>
+                       <td>
+                           <?php echo $dt->model_no ?>
+                       </td>
+                       <td>
+                           <?php echo $dt->order_date ?>
+                       </td>
+                       <td>
+                           <?php echo $dt->deadline_date ?>
+                       </td>
+                       <td>
+                           <?php echo $dt->category_id ?>
+                       </td>
+                       <td>
+                           <?php echo ($dt->product_name='')?$dt->product_name:$dt->remarks ?>
+                       </td>
+                       <td>
+                           <?php echo $dt->gross_weight ?>
+                       </td>
+                       <td>
+                           <?php echo $dt->net_weight ?>
+                       </td>
+                       <td>
+                           <?php echo $dt->weight_loss ?>
+                       </td>
+                       <td>
+                           <?php echo $dt->price ?>
+                       </td>
+                       <td>
+                           <?php echo $dt->image_url ?>
+                       </td>
+                       <td>
+                           <?php echo ($dt->price)>0?'Ready':'Not Complete' ?>
+                       </td>
+                       <td>
+                           <?php echo ($dt->price)>0?'<button type="button" class="btn btn-primary btn-sm">Add</button>':'' ?>
+                       </td>
+                   </tr>
+                   <?php
+               }
+               ?>
+               </tbody>
+           </table>
+           <?php
+       }
     }
 
 

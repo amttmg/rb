@@ -75,62 +75,49 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                          <div class="col-md-12">
+                              <div class="panel panel-default">
+                                  <div class="panel-heading">Orders</div>
 
-                        <div class="row well">
-                            <table class="table table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>
-                                        Order No
-                                    </th>
-                                    <th>
-                                        Model No
-                                    </th>
-                                    <th>
-                                        Order Date
-                                    </th>
-                                    <th>
-                                        Deadline
-                                    </th>
-                                    <th>
-                                        Category
-                                    </th>
-                                    <th>
-                                        Product Name
-                                    </th>
-                                    <th>
-                                        Gross Weight
-                                    </th>
-                                    <th>
-                                        Net. Weight
-                                    </th>
-                                    <th>
-                                        Weight Loss
-                                    </th>
-                                    <th>
-                                        Price
-                                    </th>
-                                    <th>
-                                        Image
-                                    </th>
-                                    <th>
-                                        Status
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>
+                                      <div id="tblcontent" ></div>
 
-                                    </td>
-                                    <td>
 
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+                              </div>
+                          </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">Selected Product</div>
+                                    <div class="panel-body">
+                                        <table class="table table-bordered">
+                                            <tr>
+                                                <th>
+                                                    SN
+                                                </th>
+                                                <th>
+                                                    Model No
+                                                </th>
+                                                <th>
+                                                    Product category
+                                                </th>
+                                                <th>
+                                                    Price
+                                                </th>
+                                                <th>
+                                                    Disount
+                                                </th>
+                                                <th>
+                                                    Net. Price.
+                                                </th>
+                                            </tr>
+                                        </table>
+                                    </div>
 
+                                </div>
+                            </div>
+                        </div>
                         <button type="button" class="btn btn-primary pull-right" id="btn_save_orders">Save</button>
                     </form>
                 </div>
@@ -149,6 +136,7 @@
     })
     $('#customer').change(function () {
         show_customer($(this).val());
+        show_order($(this).val());
     });
 
     $('#card_no').on('keypress', function (event) {
@@ -161,6 +149,7 @@
                     if (res > 0) {
                         $('#customer').val(res);
                         show_customer(res);
+                        show_order(res);
                     }
                     else {
                         $('#user_info').html("Sorry ! Costumer is not found");
@@ -214,5 +203,18 @@
         else {
             $('.overlay').hide();
         }
+    }
+    function show_order(customer_id) {
+        $.ajax({
+            url: '<?php echo base_url('order/getActiveOrdersByCustomer') ?>/' + customer_id,
+            success: function (data) {
+                if(data===''){
+                    $('#tblcontent').html("No Orders Found");
+                }else{
+                    $('#tblcontent').html(data);
+                }
+
+            }
+        })
     }
 </script>
