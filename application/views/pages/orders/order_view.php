@@ -68,13 +68,21 @@
                                  </div>
                             </div>
                             <div class="row">
-                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                               <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label>Advance payment</label>
+                                        <input type="text" name="discount" class="form-control" id="discount" placeholder="Advance Payment" >
+                                        <span></span>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                     <div class="form-group">
                                         <label>Remarks</label>
                                         <textarea class="form-control" name="remarks" id="remarks" rows="3"></textarea>
                                         <span></span>
                                     </div>
                                 </div>  
+                               
                             </div>
                             <div class="row">
                                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
@@ -189,7 +197,7 @@
                 data: $('#product_order_form').serialize(),
                 success:function(data)
                 {
-                    console.log(data);
+                   
                     if(data.status===true)
                     {
                         $('#save_order_message').show();
@@ -210,6 +218,9 @@
                             $('#product_order_form #'+val.error_string).parent().parent().addClass('has-error');
                         });
                     }
+                },
+                error:function(data){
+                  console.log(data.responseText);
                 }
             });
             
