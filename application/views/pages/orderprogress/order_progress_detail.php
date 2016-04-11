@@ -82,6 +82,7 @@
                                                   <?php else: ?>
                                                       <?php if (!tag_check($customer_detail[0]->order_no)): ?>
                                                           <a href="#" class=" btn btn-xs btn-primary complate" data-orderdetailid="<?php echo($customer_detail[0]->order_no) ?>"><i class="fa fa-briefcase"></i> Tag to product !</a>
+                                                          <a href="#" data-orderno="<?php echo($customer_detail[0]->order_no) ?>" class=" btn btn-xs btn-primary btn_add_product"><i class="fa fa-briefcase"></i>Add to product !</a>
                                                       <?php endif ?>
                                                   <?php endif ?>
                                                   <a href="<?php echo(site_url('order_progress_detail/cancel_order')) ?>/<?php echo $this->uri->segment(3); ?>/<?php echo($customer_detail[0]->order_detail_id) ?>" class=" btn btn-xs btn-danger"><i class="fa fa-times"></i> Cancel Order !</a>
@@ -202,12 +203,16 @@
                                       <div class="box-body" style="display: none;">
                                             <div class="pull-right">
                                                 <?php if ($order['order_details']->status==true): ?>
+                                                      
                                                       <?php if ($order['order_details']->complated_at==null ):?>
                                                             <a href="<?php echo(site_url("order_progress_detail/complate_order".'/'.$order['order_details']->order_id.'/'.$order['order_details']->order_detail_id)) ?>" data-orderdetailid="<?php echo($order['order_details']->order_no) ?>" class=" btn btn-xs btn-primary"><i class="fa fa-briefcase"></i>Complete this product !</a>
                                                         <?php else: ?>
+
                                                           <?php if (!tag_check($order['order_details']->order_no)): ?>
                                                             <a href="#" data-orderdetailid="<?php echo($order['order_details']->order_no) ?>" class=" btn btn-xs btn-primary complate"><i class="fa fa-briefcase"></i>Tag to product !</a>
-                                                        <?php endif ?>
+                                                            <a href="#" data-orderdetailid="<?php echo($order['order_details']->order_no) ?>" data-orderno="<?php echo($order['order_details']->order_no) ?>" class=" btn btn-xs btn-primary btn_add_product"><i class="fa fa-briefcase"></i>Add to product !</a>
+                                                          <?php endif ?>
+                                                            
                                                       <?php endif ?>
 
                                                       <a href="<?php echo(site_url('order_progress_detail/cancel_order')) ?>/<?php echo $this->uri->segment(3); ?>/<?php echo($order['order_details']->order_detail_id) ?>" class=" btn btn-xs btn-danger"><i class="fa fa-times"></i> Cancel This Order !</a>
@@ -428,6 +433,198 @@
 </div>
 
 
+<div class="modal fade" id="mdl_add_products" >
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Add New Product</h4>
+            </div>
+            <div class="modal-body">
+                <form action="<?php echo('product/add') ?>" method="POST" role="form" id="product_add_form">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label for="">Model Number</label>
+                                <input type="text" name="model_no" class="form-control" id="model_no" placeholder="Model Number">
+                                <span></span>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <div class="form-group">
+                                  <label for="">Category</label>
+                                  <select name="category" id="category" class="form-control">
+                                      <option value="0">-- Select Category --</option>
+                                      <?php foreach ($product_categories as $category): ?>
+                                          <option value="<?php echo($category->category_id) ?>"><?php echo($category->category) ?></option>
+                                      <?php endforeach ?>
+                                  </select>
+                                  <span></span>
+                              </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                      <div class="table-responsive table-bordered">
+                                        <table class="table">
+                                           <thead>
+                                               <tr>
+                                                    <th>Metal Type</th>
+                                                   <th>Metal</th>
+                                                   <th>Weight</th>
+                                                   <th></th>
+                                               </tr>
+                                           </thead>
+                                           <tbody>
+                                               <tbody id="metal_grid">
+                                            <tr>
+                                                <td>
+                                                  <div class="form-group" id="metal_dropdown">
+                                                          <select name="m_metaltype" id="m_metaltype" class="form-control" required="required">
+                                                              <?php foreach ($metal_type as $metal): ?>
+                                                                  <option value=""><?php echo($metal->metal_type) ?></option>
+                                                              <?php endforeach ?>
+                                                          </select>
+                                                          <span></span>
+                                                      </div>
+                                                  
+                                                </td>
+                                                <td>
+                                                    <div class="form-group" id="metal_dropdown">
+                                                        <select name="m_metal" id="m_metal" class="form-control" required="required">
+                                                            <option value="0">--Select metal--</option>
+                                                            
+                                                        </select>
+                                                        <span></span>
+                                                    </div>
+                                                </td>
+                                                
+                                                <td>
+                                                    <div class="form-group" id="weight">
+                                                        <input type="text" name="m_weight" id="m_weight" class="form-control" placeholder="Weight" >
+                                                        <span></span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <button type="button" class="btn btn-primary" id="add_metalto_grid">Add</button>
+                                                    </div>
+                                                </td>
+                                                
+                                            </tr>
+                                        </tbody>
+                                           </tbody>
+                                       </table>
+                                       </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <table class="table">
+                                           <thead>
+                                               <tr>
+                                                   <th>Stone</th>
+                                                   <th>pcs</th>
+                                                   <th>cts</th>
+                                               </tr>
+                                           </thead>
+                                           <tbody>
+                                               <tbody id="stone_grid">
+                                            <tr>
+                                                <td width="200">
+                                                    <div class="form-group" id="stone_dropdown">
+                                                        <select name="m_stone" id="m_stone" class="form-control" required="required">
+                                                            <option value="0">--select lot no--</option>
+                                                             <?php foreach ($stones as $stone): ?>
+                                                                <option value="<?php echo($stone->stone_id) ?>"><?php echo($stone->lot_no) ?></option>
+                                                             <?php endforeach ?>
+                                                        </select>
+                                                        <span></span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <input type="number" name="m_pcs" id="m_pcs" class="form-control" value="" placeholder="Pcs">
+                                                        <span></span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <input type="number" name="m_cts" id="m_cts" class="form-control" value="" placeholder="Cts">
+                                                        <span></span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div>
+                                                        <button type="button" class="btn btn-primary" id="add_stoneto_togrid">Add</button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                           </tbody>
+                                       </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                            <div class="form-group">
+                              <label for="">Gross Weight</label>
+                              <input type="number" name="grossweight" class="form-control" id="grossweight" placeholder="Gross Weight">
+                              <span></span>
+                            </div>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                            <div class="form-group">
+                                <label for="">Net Weight</label>
+                                <input type="number" name="netweight"  class="form-control" id="netweight" placeholder="Net Weight">
+                                <span></span>
+                            </div>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                            <div class="form-group">
+                                <label for="">Weight loss</label>
+                                <input type="number" name="weight_loss"  class="form-control" id="weight_loss" placeholder="Net Weight">
+                                <span></span>
+                            </div>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                            <div class="form-group">
+                                <label for="">Price</label>
+                                <input type="text" name="price" class="form-control" id="price" placeholder="Price">
+                                <span></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Image</label>
+                            <input type="file" name="photo" id="photo">
+                        </div>
+                    </div>
+                 </form>
+            </div>
+            <div class="modal-footer">
+            <span class="label label-success pull-left" id="product_save_message" style="display:none">New product added successfully !</span>
+                <button type="button" class="btn btn-primary" id="btn_product_add">Save</button>
+                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+           
+        </div>
+    </div>
+</div>
+
+
+
 <script type="text/javascript">
   $(document).ready(function() {
     $('#update_progress_message').hide();
@@ -483,6 +680,7 @@
             location.reload();
           
         });
+        
 
         $('#modal_tag_product').on('hidden.bs.modal', function (e) {
              $.ajax({
@@ -641,4 +839,205 @@ table = $('#product_table').DataTable({
 
     });
 
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+
+      var order_no='';
+        $('body').on('click','.btn_add_product',function(){
+          $('#mdl_add_products').modal('show');
+            order_no=$(this).data('orderno');
+        });
+
+      var selected_value=$('#m_metaltype').find("option:selected").text();
+      var productid='';
+      fill_metal_combo(selected_value);//functon for fill metal combobox when page first load 
+      //add data to metal grid
+      $('#add_metalto_grid').click(function() {
+          if($('#m_metal').val()==='0' || $('#m_unit').val()==='' || $('#m_weight').val()==='')
+          {
+              if ($('#m_metal').val()==='0') 
+              {
+                $('#m_metal').next().html('<p class="text-warning">Please select metal</p>');
+              }
+              if($('#m_unit').val()==='')
+              {
+                $('#m_unit').next().html('<p class="text-warning">Unit field is empty !</p>');
+              }
+              if($('#m_weight').val()==='')
+              {
+                $('#m_weight').next().html('<p class="text-warning">Weight field is empty !</p>');
+              }
+
+          }
+          else
+          {
+            $('#metal_grid').append('<tr class="success"><td>'+$('#m_metaltype').find("option:selected").text()+'</td><td><input type="hidden" name="metal[]" value="'+$('#m_metal').val()+'">'+$('#m_metal').find("option:selected").text()+'</td><td><input type="hidden" name="weight[]" value="'+$('#m_weight').val()+'">'+$('#m_weight').val()+'</td><td><a href="#" class="remove"><span class="label label-danger">Remove</span></a></td></tr>');
+              $('#m_metal').val('0');
+              $('#m_unit').val('');
+              $('#m_weight').val('');
+          }
+        
+      });
+
+      $('#add_stoneto_togrid').click(function() {
+
+        if($('#m_stone').val()==='0' || $('#m_pcs').val()==='' || $('#m_cts').val()==='')
+          {
+              if ($('#m_stone').val()==='0') 
+              {
+                $('#m_stone').next().html('<p class="text-warning">Please select stone</p>');
+              }
+              if($('#m_pcs').val()==='')
+              {
+                $('#m_pcs').next().html('<p class="text-warning">Pcs field is empty !</p>');
+              }
+              if($('#m_cts').val()==='')
+              {
+                $('#m_cts').next().html('<p class="text-warning">Cts field is empty !</p>');
+              }
+
+          }
+          else
+          {
+              $('#stone_grid').append('<tr class="success"><td><input type="hidden" name="stone[]" value="'+$('#m_stone').val()+'">'+$('#m_stone').find("option:selected").text()+'</td><td><input type="hidden" name="pcs[]" value="'+$('#m_pcs').val()+'">'+$('#m_pcs').val()+'</td><td><input type="hidden" name="cts[]" value="'+$('#m_cts').val()+'">'+$('#m_cts').val()+'</td><td><a href="#" class="remove"><span class="label label-danger">Remove</span></a></td></tr>');
+              //reseting value of input field
+              $('#m_stone').val('0');
+              $('#m_pcs').val('');
+              $('#m_cts').val('');
+          }
+              
+      });
+      $("body").on("click",'.remove', function() {
+        $(this).closest('tr').remove();
+      });
+
+      $('.modal').on('hidden.bs.modal', function(){
+          $(this).find('form')[0].reset();
+      });
+      
+  
+        $('#m_metaltype').change(function() {
+            selected_value=$('#m_metaltype').find("option:selected").text()
+            if($('#m_metaltype').val()!=='0')
+            {
+              fill_metal_combo(selected_value);
+            }
+        });
+
+        //add new product 
+      $('#btn_product_add').click(function() {
+          var formData = new FormData($('#product_add_form')[0]);
+            $(this).prop('disabled',true);
+            $(this).text('Saving........');
+          $.ajax({
+              url: '<?php echo(site_url("product/add")) ?>'+'/'+order_no,
+              type: 'POST',
+              dataType: 'json',
+              cache: false,
+              contentType: false,
+              processData: false,
+              data: formData,/*$('#product_add_form').serialize(),*/
+              success:function(data)
+              {
+                console.log(data);
+                if(data.status==false)
+                {
+                    $('#btn_product_add').prop('disabled',false);
+                    $('#btn_product_add').text('Save');
+                    $.each(data, function(index, val) {
+                        $('#product_add_form #'+val.error_string).next().html(val.input_error);
+                        $('#product_add_form #'+val.error_string).parent().parent().addClass('has-error');
+                    });
+                  
+                }
+                else
+                {
+                        $('#product_save_message').show();
+                        location.reload();
+                }
+              },
+              error:function(data)
+              {
+                console.log(data);
+                alert("An error occured please contact capital eye for technical support");
+              }
+          })
+          .fail(function() {
+              console.log("error");
+          });          
+      });
+
+      $('#btn_product_update').click(function() {
+          var formData = new FormData($('#product_update_form')[0]);
+            $(this).prop('disabled',true);
+            $(this).text('Updating........');
+          $.ajax({
+              url: '<?php echo(site_url("product/update")) ?>'+'/'+productid,
+              type: 'POST',
+              dataType: 'json',
+              cache: false,
+              contentType: false,
+              processData: false,
+              data: formData,/*$('#product_add_form').serialize(),*/
+              success:function(data)
+              {
+                console.log(data);
+                if(data.status==false)
+                {
+                    $('#btn_product_update').prop('disabled',false);
+                    $('#btn_product_update').text('Update');
+                    $.each(data, function(index, val) {
+                        $('#product_update_form #'+val.error_string).next().html(val.input_error);
+                        $('#product_update_form #'+val.error_string).parent().parent().addClass('has-error');
+                    });
+                  
+                }
+                else
+                {
+                        $('#product_update_message').show();
+                        location.reload();
+                }
+              },
+              error:function(data)
+              {
+                $('#btn_product_update').prop('disabled',false);
+                alert("An error occured please contact capital eye for technical support");
+              }
+          })
+          .fail(function() {
+              console.log("error");
+          });          
+      });
+
+    });
+
+function fill_metal_combo(metal_type)
+{
+      $.ajax({
+                url: '<?php echo(site_url("product/fill_metal_combo")) ?>'+'/'+metal_type,
+                type: 'POST',
+                dataType: 'json',
+                success:function(data)
+                {
+                  $('#m_metal').empty();
+                  $('#m_metal').append('<option value="0">--Please select metal--</option>');
+                  $.each(data, function(index, val) {
+                    var temp_opt='<option value="'+val.metal_id+'">'+val.metal+'</option>';
+                    $('#m_metal').append(temp_opt);
+                  });
+                }
+              })
+              .done(function() {
+                console.log("success");
+              })
+              .fail(function() {
+                console.log("error");
+              })
+              .always(function() {
+                console.log("complete");
+              });
+  
+}
 </script>
