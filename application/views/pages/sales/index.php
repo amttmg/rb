@@ -33,7 +33,7 @@
                             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                 <div class="form-group">
                                     <label for="">Sales Date</label>
-                                    <input type="date" name="saledate" id="saledate" class="form-control"
+                                    <input type="date" value="<?php echo getCurrentDate() ?>" name="saledate" id="saledate" class="form-control"
                                            required="required"/>
                                     <span></span>
                                 </div>
