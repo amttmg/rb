@@ -138,7 +138,7 @@ class Order_progress extends CI_Controller
 		{
 		   foreach ($query->result() as $order_detail) 
 		   {
-		   		if($order_detail->complated_at==null)
+		   		if($order_detail->complated_at==null && $order_detail->status==true)
 		   		{
 		   			return false;
 		   		}

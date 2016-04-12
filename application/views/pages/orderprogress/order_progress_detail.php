@@ -74,11 +74,11 @@
                                             <h4 class="text-light-blue"><?php echo ($customer_detail[0]->remarks) ?></h4>
 
                                       <?php else: ?>
-                                               <h4 class="text-light-blue">
+                                       <h4 class="text-light-blue"><b>
                                               <?php 
                                                echo(find_taged_model_no($customer_detail[0]->order_no));
                                               
-                                               ?></h4>
+                                               ?></b></h4>
                                           <?php endif ?>
                                       
 
@@ -199,9 +199,9 @@
                                       <div class="box-header with-border">
                                           <h3 class="box-title">
                                           <?php if (tag_check($order['order_details']->order_no)): ?>
-                                              <?php echo(find_taged_model_no($order['order_details']->order_no)) ?>
+                                              <h4><b><?php echo(find_taged_model_no($order['order_details']->order_no)) ?></b></h4>
                                           <?php else: ?>
-                                            <?php echo($count); $count++; ?>. <?php echo($order['order_details']->model_no) ?>
+                                            <h4><b><?php echo($count); $count++; ?>. <?php echo($order['order_details']->model_no) ?></b></h4>
                                           <?php endif ?>
                                           
                                           </h3>

@@ -205,7 +205,9 @@
                         $('#product_order_form #btn_save_orders').text('Save');
                         
                          display_ordered_product();
-                         location.reload();
+                        // location.reload(true);
+                         $.toast('successfully saved');
+                         //$.toast('data');
                        
                     }
                     else

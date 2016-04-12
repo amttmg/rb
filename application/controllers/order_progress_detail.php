@@ -88,6 +88,7 @@ class Order_progress_detail extends CI_Controller
 		$this->db->from('tbl_order_progress');
 		$this->db->join('users','users.id=tbl_order_progress.user_id');
 		$this->db->join('tbl_order_status','tbl_order_status.order_status_id=tbl_order_progress.order_status_id');
+		$this->db->order_by('tbl_order_progress.date','asc');
 		if ($order_progress_id) 
 		{
 			$this->db->where('tbl_order_progress.order_progress_id',$order_progress_id);

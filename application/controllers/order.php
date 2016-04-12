@@ -149,7 +149,7 @@ class Order extends CI_Controller
     {
         $this->db->select_max('order_detail_id');
         $query = $this->db->get('tbl_order_details')->result();
-        return ('rb_' . $query[0]->order_detail_id);
+        return ('rb_' . (100+$query[0]->order_detail_id));
     }
 
     public function fill_combobox()
