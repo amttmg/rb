@@ -71,14 +71,14 @@
                                   <div class="box-body">
                                       <?php if (!tag_check($customer_detail[0]->order_no)): ?>
 
-                                               <?php echo ($customer_detail[0]->remarks) ?>
+                                            <h4 class="text-light-blue"><?php echo ($customer_detail[0]->remarks) ?></h4>
 
                                       <?php else: ?>
-
+                                               <h4 class="text-light-blue">
                                               <?php 
-                                                echo(find_taged_model_no($customer_detail[0]->order_no));
+                                               echo(find_taged_model_no($customer_detail[0]->order_no));
                                               
-                                               ?>
+                                               ?></h4>
                                           <?php endif ?>
                                       
 
@@ -193,6 +193,7 @@
                             </div>
                           <?php endif ?>
                         <?php $count=1; ?>
+                        <?php if (isset($order_details)): ?>
                           <?php foreach ($order_details as $order): ?>
                                 <div class="box box-default collapsed-box">
                                       <div class="box-header with-border">
@@ -334,6 +335,7 @@
                                       <!-- /.box-body -->
                                   </div>
                           <?php endforeach ?>
+                         <?php endif ?>
                 </div><!-- /.box-body -->
 
           </div><!-- /.box -->

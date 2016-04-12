@@ -33,7 +33,7 @@ class Order extends CI_Controller
         $this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
         if ($this->form_validation->run() == True) {
             $order_id = $this->order->insert();
-            $this->payment->insert($order_id,"discount");
+            $this->payment->insert($order_id,"advance");
             if ($this->input->post('remarks')) {
                 $data = array(
                     'order_id' => $order_id,
