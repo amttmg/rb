@@ -89,7 +89,7 @@
                                         <div class="pull-right">
                                             <?php if ($customer_detail[0]->order_detail_status==true): ?>
                                                  <?php if ($customer_detail[0]->complated_at==null):?>
-                                                      <a href="<?php echo(site_url("order_progress_detail/complate_order".'/'.$customer_detail[0]->order_id.'/'.$customer_detail[0]->order_detail_id)) ?>" class=" btn btn-xs btn-primary"><i class="fa fa-briefcase"></i> Complete this order !</a>
+                                                      <a href="<?php echo(site_url("order_progress_detail/complate_order".'/'.$customer_detail[0]->order_id.'/'.$customer_detail[0]->order_detail_id)) ?>" onclick="return confirm('Are you sure want to complete this order ?')" class=" btn btn-xs btn-primary"><i class="fa fa-briefcase"></i> Complete this order !</a>
                                                   <?php else: ?>
                                                       <?php if (!tag_check($customer_detail[0]->order_no)): ?>
                                                           <a href="#" class=" btn btn-xs btn-primary complate" data-orderdetailid="<?php echo($customer_detail[0]->order_no) ?>"><i class="fa fa-briefcase"></i> Tag to product !</a>
@@ -97,7 +97,7 @@
                                                       <?php endif ?>
                                                   <?php endif ?>
                                                   <?php if (!tag_check($customer_detail[0]->order_no)): ?>
-                                                    <a href="<?php echo(site_url('order_progress_detail/cancel_order')) ?>/<?php echo $this->uri->segment(3); ?>/<?php echo($customer_detail[0]->order_detail_id) ?>" class=" btn btn-xs btn-danger"><i class="fa fa-times"></i> Cancel Order !</a>
+                                                    <a href="<?php echo(site_url('order_progress_detail/cancel_order')) ?>/<?php echo $this->uri->segment(3); ?>/<?php echo($customer_detail[0]->order_detail_id) ?>" onclick="return confirm('Are you sure want to cancel this order?')" class=" btn btn-xs btn-danger"><i class="fa fa-times"></i> Cancel Order !</a>
                                                   <?php endif ?>
                                                   
                                             <?php endif ?>
@@ -226,7 +226,7 @@
                                                 <?php if ($order['order_details']->status==true): ?>
                                                       
                                                       <?php if ($order['order_details']->complated_at==null ):?>
-                                                            <a href="<?php echo(site_url("order_progress_detail/complate_order".'/'.$order['order_details']->order_id.'/'.$order['order_details']->order_detail_id)) ?>" data-orderdetailid="<?php echo($order['order_details']->order_no) ?>" class=" btn btn-xs btn-primary"><i class="fa fa-briefcase"></i>Complete this product !</a>
+                                                            <a href="<?php echo(site_url("order_progress_detail/complate_order".'/'.$order['order_details']->order_id.'/'.$order['order_details']->order_detail_id)) ?>" data-orderdetailid="<?php echo($order['order_details']->order_no) ?>" onclick="return confirm('Are you sure want to complete this order ?')" class=" btn btn-xs btn-primary"><i class="fa fa-briefcase"></i>Complete this product !</a>
                                                         <?php else: ?>
 
                                                           <?php if (!tag_check($order['order_details']->order_no)): ?>
@@ -236,7 +236,7 @@
                                                             
                                                       <?php endif ?>
                                                       <?php if (!tag_check($order['order_details']->order_no)): ?>
-                                                          <a href="<?php echo(site_url('order_progress_detail/cancel_order')) ?>/<?php echo $this->uri->segment(3); ?>/<?php echo($order['order_details']->order_detail_id) ?>" class=" btn btn-xs btn-danger"><i class="fa fa-times"></i> Cancel This Order !</a>
+                                                          <a href="<?php echo(site_url('order_progress_detail/cancel_order')) ?>/<?php echo $this->uri->segment(3); ?>/<?php echo($order['order_details']->order_detail_id) ?>" onclick="return confirm('Are you sure want to cancel this order ?')" class=" btn btn-xs btn-danger"><i class="fa fa-times"></i> Cancel This Order !</a>
                                                       <?php endif ?>
                                                       
                                                 <?php endif ?>
@@ -650,11 +650,14 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
+
     $('#update_progress_message').hide();
     $('#update_remarks_message').hide();
+
     var productid='';
     var orderprogressid='';
     var orderdetailid='';
+
     $('.btn_edit_status').click(function() {
        $('#mdl_edit_status').modal('show');
        orderprogressid=$(this).data('orderprogressid');
@@ -667,6 +670,7 @@
     });
 
     var orderremarksid='';
+
     $('.orderremarks').click(function() 
     {
       orderremarksid=$(this).data('orderremarksid');
@@ -696,32 +700,40 @@
             $('#modal_tag_product').modal('show');
         });
 
-        $('body').on('click','.btn_tag_order',function(){
+        var r='';
 
+        $('body').on('click','.btn_tag_order',function(){
+           r=confirm("Are you sure want to tag product ?");
             productid=$(this).data('productid');
             $('#modal_tag_product').modal('hide');
              //window.location.href = "<?php echo(site_url('order_progress_detail/view_progress')) ?>"+'/'+'<?php echo($this->uri->segment(3)) ?>';
            location.reload(true);
-
           
         });
         
 
         $('#modal_tag_product').on('hidden.bs.modal', function (e) {
-             $.ajax({
-               url: '<?php echo(site_url("tag_product/tag")) ?>'+'/'+productid+'/'+orderdetailid,
-               type: 'POST',
-               dataType: 'json',
-               success:function(data)
-               {
-                  location.reload(true);
-               },
-               error:function(data)
-               {
-                  
-                  console.log(data);
+             
+           
+            if (r===true) 
+              {
+                 $.ajax({
+                   url: '<?php echo(site_url("tag_product/tag")) ?>'+'/'+productid+'/'+orderdetailid,
+                   type: 'POST',
+                   dataType: 'json',
+                   success:function(data)
+                   {
+                      location.reload(true);
+                   },
+                   error:function(data)
+                   {
+                      
+                      console.log(data);
+                   }
+                 });
                }
-             });
+
+            
 
 
              
