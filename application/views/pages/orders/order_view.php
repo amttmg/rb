@@ -19,6 +19,9 @@
             </div>
         <?php endif ?>
         <!-- Default box -->
+        <div id="message">
+
+        </div>
         <div class="box">
             <div class="box-header with-border">
                 <h3 class="box-title"></h3>
@@ -125,9 +128,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="message">
 
-                        </div>
                         <button type="button" class="btn btn-primary pull-right" id="btn_save_orders">Save</button>
                     </form>
                 </div>
@@ -225,6 +226,7 @@
                         message += '<strong>Order saved successfully !</strong> </div>';
                         $('#message').append(message);
                         $('#save_order_message').show();
+                        clearForm();
                         $('#product_order_form #btn_save_orders').prop('disabled', false);
                         $('#product_order_form #btn_save_orders').text('Save');
 
@@ -330,6 +332,15 @@
             })
         }
     });
+    function clearForm(){
+        $('#card_no').val('');
+        $('#customer').val('');
+        $('#order_date').val('');
+        $('#deadline_date').val('');
+        $('#discount').val('');
+        $('#remarks').val('');
+        $('#user_info').html('');
+    }
     function display_ordered_product() {
         $('#product_container').empty();
         $.ajax({
