@@ -262,10 +262,10 @@ class Order extends CI_Controller
                         <td>
                             <?php echo $dt->order_no ?>
                         </td>
-                        <td>
+                        <td >
                             <?php echo $dt->model_no ?>
                         </td>
-                        <td>
+                        <td >
                             <?php echo $dt->category_id ?>
                         </td>
                         <td>
@@ -280,7 +280,7 @@ class Order extends CI_Controller
                         <td>
                             <?php echo $dt->weight_loss ?>
                         </td>
-                        <td>
+                        <td >
                             <?php echo $dt->price ?>
                         </td>
                         <td>
@@ -302,13 +302,7 @@ class Order extends CI_Controller
             </table>
             <script>
                 $('.btnaddorder').click(function () {
-                    var product_id = $(this).data('productid');
-                    $.ajax({
-                        url: '<?php echo base_url('sales/setcard') ?>/' + product_id,
-                        success: function (res) {
-                            alert(res);
-                        }
-                    });
+
                 })
             </script>
             <?php

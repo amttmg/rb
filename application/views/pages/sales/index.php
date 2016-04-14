@@ -79,10 +79,7 @@
                           <div class="col-md-12">
                               <div class="panel panel-default">
                                   <div class="panel-heading">Orders</div>
-
                                       <div id="tblcontent" ></div>
-
-
                               </div>
                           </div>
                         </div>
@@ -91,7 +88,8 @@
                                 <div class="panel panel-default">
                                     <div class="panel-heading">Selected Product</div>
                                     <div class="panel-body">
-                                        <table class="table table-bordered">
+                                        <table class="table table-bordered" id="two">
+                                            <thead>
                                             <tr>
                                                 <th>
                                                     SN
@@ -112,6 +110,10 @@
                                                     Net. Price.
                                                 </th>
                                             </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            </tbody>
                                         </table>
                                     </div>
 
