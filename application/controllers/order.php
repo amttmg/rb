@@ -300,11 +300,7 @@ class Order extends CI_Controller
                 ?>
                 </tbody>
             </table>
-            <script>
-                $('.btnaddorder').click(function () {
-
-                })
-            </script>
+            
             <?php
         }
     }
