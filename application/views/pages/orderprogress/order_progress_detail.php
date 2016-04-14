@@ -295,7 +295,7 @@
 
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                     <div class="table-responsive">
-                                        <table class="table table-hover">
+                                        <table class="table table-bordered">
                                             <thead>
                                             <tr>
                                                 <th>SN.</th>
@@ -487,7 +487,7 @@
             </div>
             <div class="modal-body">
                 <div class="table-responsive">
-                    <table class="table table-hover" id="product_table">
+                    <table class="table table-bordered" id="product_table">
                         <thead>
                         <tr>
                             <th>Model Number</th>
