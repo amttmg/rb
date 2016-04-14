@@ -88,7 +88,7 @@
                                 <div class="panel panel-default">
                                     <div class="panel-heading">Selected Product</div>
                                     <div class="panel-body">
-                                        <table class="table table-bordered" id="two">
+                                        <table class="table table-bordered" id="selected_product">
                                             <thead>
                                             <tr>
                                                 <th>
@@ -104,20 +104,55 @@
                                                     Price
                                                 </th>
                                                 <th>
-                                                    Disount
+                                                    Disount( % )
                                                 </th>
                                                 <th>
                                                     Net. Price.
                                                 </th>
                                             </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody id="ordered_product">
 
                                             </tbody>
                                         </table>
                                     </div>
 
                                 </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-lg-offset-8">
+                               <table class="pull-right">
+                                      <tbody>
+                                      <fieldset disabled>
+                                          <tr>
+                                        <th>Sub Total</th>
+                                        <td><input type="text" name="sub_total" id="sub_total" class="form-control" disabled></td>
+                                        <td></td>
+                                      </tr>
+                                       <tr>
+                                        <td></td>
+                                        <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                        <td></td>
+                                      </tr>
+                                      <tr>
+                                        <th>VAT(13%)&nbsp;</th>
+                                        <td><input type="text" name="vat" id="vat" class="form-control" disabled></td>
+                                        <td></td>
+                                      </tr>
+                                       <tr>
+                                        <td></td>
+                                        <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                        <td></td>
+                                      </tr>
+                                      <tr>
+                                        <th>Grand Total </th>
+                                        <td><input type="text" name="grand_total" id="grand_total" class="form-control" disabled></td>
+                                        <td></td>
+                                      </tr>
+                                      </fieldset>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                         <button type="button" class="btn btn-primary pull-right" id="btn_save_orders">Save</button>
@@ -134,7 +169,53 @@
 </div><!-- /.content-wrapper -->
 <script>
     $(document).ready(function () {
+
         fill_combobox('order/fill_combobox', 'customer_list');
+        $('body ').on('keyup','.discount',function() 
+        {
+            if ($(this).val()!='') 
+            {
+                var net_price=parseFloat($(this).closest("td").next().find("input").val());
+                var price=parseFloat($(this).closest("td").prev().find("input").val());
+                var discount=parseFloat($(this).val());
+                var total_net_price=price-(price*(discount/100));
+                $(this).closest("td").next().empty();
+                $(this).closest("td").next().empty().html('<input type="hidden" name="net_price[]" class="net_price" value="'+total_net_price+'">'+total_net_price);
+                update_all();
+            }
+            else
+            {
+                var net_price=parseFloat($(this).closest("td").next().find("input").val());
+                var price=parseFloat($(this).closest("td").prev().find("input").val());
+                var discount=0;
+                var total_net_price=price-discount;
+                $(this).closest("td").next().empty();
+                $(this).closest("td").next().empty().html('<input type="hidden" name="net_price[]" class="net_price" value="'+total_net_price+'">'+total_net_price);
+                update_all();
+            }
+            
+        });
+
+        $('body').on('click','.btnaddorder',function () {
+            var data='<tr><td></td>'
+                data+='<td><input type="hidden" name="order_no[]" class="order_no" value="'+$(this).closest('tr').find('td:eq(0)').html()+'">'+$(this).closest('tr').find('td:eq(0)').html()+'</td>';
+                data+='<td><input type="hidden" name="product_category[]" class="product_category" value="'+$(this).closest('tr').find('td:eq(1)').html()+'">'+$(this).closest('tr').find('td:eq(1)').html()+'</td>';
+                data+='<td><input type="hidden" name="price[]" class="price" value="'+$(this).closest('tr').find('td:eq(7)').html()+'">'+$(this).closest('tr').find('td:eq(7)').html()+'</td>';
+                data+='<td><input type="text" name="discount[]" class="discount" value="0"></td>';                        
+                data+='<td><input type="hidden" name="net_price[]" class="net_price" value="'+$(this).closest('tr').find('td:eq(7)').html()+'">'+$(this).closest('tr').find('td:eq(7)').html()+'</td></tr>';
+                $('#ordered_product').append(data);
+
+                var sub_total=sb_total();
+                $('#sub_total').val(sb_total());
+                $('#vat').val(calculate_vat(sb_total()));
+                $('#grand_total').val(gnd_total(sb_total(),calculate_vat(sb_total())));
+
+                $(this).prop('disabled',true);
+        })
+
+
+
+
     })
     $('#customer').change(function () {
         show_customer($(this).val());
@@ -219,5 +300,48 @@
 
             }
         })
+    }
+
+
+    function calculate_total_price () 
+    {
+        var total=0;
+       $('#selected_product .price').each(function() {
+
+            var temp=$(this).val();
+            total=total+parseFloat(temp);
+        });  
+       
+     return (total);
+       //return total;
+    }
+
+    function sb_total () 
+    {
+        var total=0;
+       $('#selected_product .net_price').each(function() {
+
+            var temp=$(this).val();
+            total=total+parseFloat(temp);
+        });  
+     return (total);
+    }
+
+    function calculate_vat(sb_total) 
+    {
+        return parseFloat(sb_total)*0.13;
+    }
+
+    function gnd_total (sb_total,vat) 
+    {
+       return parseFloat(sb_total)+parseFloat(vat);
+    }
+
+    function update_all () 
+    {
+        var sub_total=sb_total();
+        $('#sub_total').val(sb_total());
+        $('#vat').val(calculate_vat(sb_total()));
+        $('#grand_total').val(gnd_total(sb_total(),calculate_vat(sb_total())));
     }
 </script>
