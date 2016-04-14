@@ -34,7 +34,11 @@
                 <div id="container">
                     <form action="" method="POST" role="form" id="product_order_form">
                         <div class="row">
-                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                <label for="">Swap Card</label>
+                             <input type="text" class="form-control" name="card_no" id="card_no">
+                            </div>
+                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                                 <div class="form-group">
                                     <label for="">Customer Name</label>
                                     <select name="customer" id="customer" class="form-control" required="required">
@@ -42,8 +46,8 @@
                                     <span></span>
                                 </div>
                             </div>
-                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                <div id="user_info">
+                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                <div id="user_info" style="margin-top: 15px">
 
                                 </div>
                                 <div class="overlay" style="display:none">
@@ -54,7 +58,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                                 <div class="form-group">
                                     <label for="">Order date</label>
                                     <input type="date" name="order_date" class="form-control" id="order_date"
@@ -63,7 +67,7 @@
                                 </div>
                                 <span></span>
                             </div>
-                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                                 <div class="form-group">
                                     <label for="">Deadline date</label>
                                     <input type="date" name="deadline_date" class="form-control" id="deadline_date"
@@ -73,7 +77,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                                 <div class="form-group">
                                     <label>Advance payment</label>
                                     <input type="text" name="discount" class="form-control" id="discount"
@@ -81,7 +85,7 @@
                                     <span></span>
                                 </div>
                             </div>
-                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                                 <div class="form-group">
                                     <label>Remarks</label>
                                     <textarea class="form-control" name="remarks" id="remarks" rows="3"></textarea>
@@ -307,6 +311,25 @@
 
 
     });
+    $('#card_no').on('keypress', function (event) {
+        if (event.keyCode == 13) {
+            var card_no = $('#card_no').val();
+            $.ajax({
+                url: '<?php echo base_url('customer/getCustomerID') ?>/' + card_no,
+                success: function (res) {
+
+                    if (res > 0) {
+                        $('#customer').val(res);
+                        show_customer(res);
+                    }
+                    else {
+                        $('#user_info').html("Sorry ! Costumer is not found");
+                        $('#customer').val(0);
+                    }
+                }
+            })
+        }
+    });
     function display_ordered_product() {
         $('#product_container').empty();
         $.ajax({
@@ -347,7 +370,30 @@
             }
         });
     }
+    function show_customer(customer_id) {
 
+        if ($('#customer').val() !== '0') {
+            $('.overlay').show('fast', function () {
+
+                $.ajax({
+                    url: '<?php echo(site_url("customer/get_customer_by_id")) ?>' + '/' + customer_id,
+                    type: 'POST',
+                    dataType: 'html',
+                    success: function (data) {
+                        $('#user_info').html(data);
+                        $('.overlay').hide();
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
+
+            });
+        }
+        else {
+            $('.overlay').hide();
+        }
+    }
     function remove_product(rowid) {
         $.ajax({
             url: '<?php echo(site_url("order/remove_ordered_product")) ?>' + '/' + rowid,
