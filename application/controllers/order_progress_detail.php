@@ -126,9 +126,9 @@ class Order_progress_detail extends CI_Controller
 	{
 		
 
-		$data['title'] = "Complate Order";
-        $data['content'] = $this->load->view('pages/orders/cancel_order_view',$data, true);
-        $this->parser->parse('template/page_template', $data);
+//		$data['title'] = "Complate Order";
+//        $data['content'] = $this->load->view('pages/orders/cancel_order_view',$data, true);
+//        $this->parser->parse('template/page_template', $data);
 		$data=array(
 			'complated_at'=>getCurrentDate()
 			);

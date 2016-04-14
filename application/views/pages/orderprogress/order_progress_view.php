@@ -24,7 +24,7 @@
                 </div>
                 <div class="box-body">
                     <div id="container">
-                        <div class="table-responsive">
+
                             <table class="table table-hover" id="order_progress">
                                 <thead>
                                     <tr>
@@ -39,7 +39,7 @@
                                 </thead>
                                 
                             </table>
-                        </div>
+
                     </div>
                 </div><!-- /.box-body -->
           </div><!-- /.box -->
