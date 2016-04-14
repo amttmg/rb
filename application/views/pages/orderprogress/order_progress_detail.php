@@ -166,15 +166,14 @@
                                                                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                                                                    <div class="form-group">
                                                                       <label for="">Date</label>
-                                                                      <input type="date" name="date" class="form-control">
-
+                                                                      <input type="date" name="date" class="form-control" required="true">
                                                                     </div>
 
                                                                 </div>
                                                                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                                                                    <div class="form-group">
                                                                       <label for="">Remarks</label>
-                                                                      <input type="text" name="remarks" class="form-control"  placeholder="Remarks">
+                                                                      <input type="text" name="remarks" class="form-control"  placeholder="Remarks" required="true">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
@@ -307,7 +306,7 @@
                                                             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                                                                <div class="form-group">
                                                                   <label for="">Date</label>
-                                                                  <input type="date" name="date" class="form-control">
+                                                                  <input type="date" name="date" class="form-control" required="required">
 
                                                                 </div>
 
@@ -315,7 +314,7 @@
                                                             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                                                                <div class="form-group">
                                                                   <label for="">Remarks</label>
-                                                                  <input type="text" name="remarks" class="form-control"  placeholder="Remarks">
+                                                                  <input type="text" name="remarks" class="form-control"  placeholder="Remarks" required="required">
                                                                 </div>
                                                             </div>
                                                             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">

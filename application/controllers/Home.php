@@ -12,6 +12,7 @@ class Home extends CI_Controller
         $data['total_orders']=$this->count_orders();
         $data['total_enquiry']=$this->count_customer_enquiry();
         $data['total_products']=$this->count_products();
+        $data['latest_orders']=$this->latest_orders();
         $data['title'] = "Home";
         $data['content'] = $this->load->view('pages/dashboard',$data, true);
         $this->parser->parse('template/page_template', $data);
@@ -39,7 +40,7 @@ class Home extends CI_Controller
          {
             foreach ($order_list->result() as $order) 
             {
-               $completed=&$this->count_order_complate($order->order_id);
+               $completed=&$this->count_order_complete($order->order_id);
             }
          }
 
@@ -52,7 +53,7 @@ class Home extends CI_Controller
        return $total;
     }
 
-    public function &count_order_complate($order_id)
+    public function &count_order_complete($order_id)
     {
         static $count=0;
 
@@ -90,4 +91,21 @@ class Home extends CI_Controller
     {
         return $this->db->count_all('tbl_products');
     }
+
+    public function latest_orders()
+    {
+        $master=array();
+        $this->db->where('complated_at is not null', null, false);
+        $this->db->where('status',true);
+        $this->db->limit(10);
+        $data=$this->db->get('tbl_order_details')->result();
+
+        foreach ($data as $order) 
+        {
+            
+        }
+    }
+
+   
+   
 }

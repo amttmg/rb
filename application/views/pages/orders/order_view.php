@@ -110,6 +110,9 @@
                                     </div>
                                 </div>
                             </div>
+                            <div id="message">
+                              
+                            </div>
                            <button type="button" class="btn btn-primary pull-right" id="btn_save_orders">Save</button>
                         </form>
                     </div>
@@ -174,14 +177,17 @@
         $("input").change(function(){
         $(this).parent().parent().removeClass('has-error');
         $(this).next().empty();
+        $('#message').empty();
         });
         $("textarea").change(function(){
             $(this).parent().parent().removeClass('has-error');
             $(this).next().empty();
+             $('#message').empty();
         });
         $("select").change(function(){
             $(this).parent().parent().removeClass('has-error');
             $(this).next().empty();
+             $('#message').empty();
         });
 
         display_ordered_product();
@@ -200,15 +206,15 @@
                    
                     if(data.status===true)
                     {
+                          var message='<div class="alert alert-success">';
+                            message+= '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>';
+                            message+= '<strong>Order saved successfully !</strong> </div>';
+                        $('#message').append(message);
                         $('#save_order_message').show();
                         $('#product_order_form #btn_save_orders').prop('disabled',false);
                         $('#product_order_form #btn_save_orders').text('Save');
                         
-                         display_ordered_product();
-                        // location.reload(true);
-                         $.toast('successfully saved');
-                         //$.toast('data');
-                       
+                        display_ordered_product();
                     }
                     else
                     {
