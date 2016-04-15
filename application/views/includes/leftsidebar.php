@@ -54,7 +54,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li class="list"><a href="<?php echo(site_url('sales')) ?>"><i class="fa fa-plus"></i>New Sales</a></li>
-                    <li class="list"><a href="<?php echo site_url('order_progress') ?>"><i class="fa fa-eye"></i>View Sales</a></li>
+                    <li class="list"><a href="<?php echo site_url('sales/viewsales') ?>"><i class="fa fa-eye"></i>View Sales</a></li>
 
                 </ul>
             </li>
