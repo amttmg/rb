@@ -2,7 +2,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            View Sales
+            Sales Details
             <small>All Sales Bills</small>
         </h1>
         <ol class="breadcrumb">
@@ -27,9 +27,31 @@
                 </div>
             </div>
             <div class="box-body">
-                <div class="row">
-    <div></div>
-                </div>
+               <div class="col-md-6">
+                   <div class="panel-default panel">
+                       <div class="panel-heading">Customer Details</div>
+                       <div class="panel-body">
+                           <div class="col-md-8">
+                               <table>
+                                   <tr>
+                                       <td class="text-bold">Customer Name </td>
+                                       <td>:</td>
+                                       <td>Amrit Tamang</td>
+                                   </tr>
+                                   <tr>
+                                       <td class="text-bold">Address </td>
+                                       <td>:</td>
+                                       <td> Kathmandu</td>
+                                   </tr>
+                               </table>
+                           </div>
+                           <div class="col-md-4">
+                               <img class="img-circle thumbnail pull-right" alt="Cinque Terre" height="136"
+                                    src="<?php echo base_url('uploads/' . $customer->customer_image) ?>">
+                           </div>
+                       </div>
+                   </div>
+               </div>
             </div>
             <!-- /.box-body -->
             <div class="box-footer">
