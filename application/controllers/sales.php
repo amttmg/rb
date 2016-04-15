@@ -38,6 +38,13 @@ class sales extends CI_Controller
     function viewSales()
     {
         $data['sales'] = $this->sales->getSales();
-        print_r($data);
+        $data['title'] = "Sales View";
+        $data['content'] = $this->load->view('pages/sales/viewsales', $data, true);
+        $this->parser->parse('template/page_template', $data);
+    }
+
+    function salesdetails()
+    {
+        $salesid = $this->input->get('salesid');
     }
 }
