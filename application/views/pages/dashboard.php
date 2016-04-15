@@ -91,13 +91,13 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr>
-                              <td><a href="pages/examples/invoice.html">OR9842</a></td>
-                              <td>Call of Duty IV</td>
-                              <td><span class="label label-success">Shipped</span></td>
-                              
-                            </tr>
-                           
+                              <?php if (isset($latest_orders)): ?>
+                                  <?php foreach ($latest_orders as $order): ?>
+                                    <tr>
+                                      <td>$order->order_no</td>
+                                    </tr>
+                                  <?php endforeach ?>
+                              <?php endif ?>
                           </tbody>
                         </table>
                       </div><!-- /.table-responsive -->

@@ -102,8 +102,37 @@ class Home extends CI_Controller
 
         foreach ($data as $order) 
         {
-            
+            $temp['order_no']=$order->order_no;
+            if ($order->reference_product_id) 
+            {
+                $temp['product_name']=$this->find_product_name($order->reference_product_id);
+            }
+            else
+            {
+                $temp['product_name']="not defined";
+            }
+            array_push($master, $temp);
         }
+        
+        return $temp;
+    }
+
+    public function find_product_name($id)
+    {
+        $this->db->select('tbl_product_category.*');
+        $this->db->from('tbl_product_category');
+        $this->db->join('tbl_products','tbl_products.product_id=tbl_product_category.category_id');
+        $this->db->where('tbl_product_category.category_id',$id);
+        $data=$this->db->get()->result();
+        if ($data) 
+        {
+            return $data[0]->category;
+        }
+        else
+        {
+            return "not defined";
+        }
+       
     }
 
    

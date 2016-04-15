@@ -36,6 +36,17 @@ class M_order extends CI_Model
         return $result;
     }
 
+    public function getActiveOrdersByModelNo($model_no)
+    {
+       
+        $this->db->select('tbl_products.*,tbl_product_category.category');
+        $this->db->from('tbl_products');
+        $this->db->join('tbl_product_category','tbl_product_category.category_id=tbl_products.category_id');
+        $this->db->where('tbl_products.model_no',$model_no);
+        $result = $this->db->get()->result();
+        return $result;
+    }
+
 
 }
 

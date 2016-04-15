@@ -289,8 +289,95 @@ class Order extends CI_Controller
                         <td>
                             <?php echo ($dt->price) > 0 ? 'Ready' : 'Not Complete' ?>
                         </td>
+                       
                         <td>
                             <button type="button" class="btn btn-primary btn-sm btnaddorder"
+                                    data-productid="<?php echo $dt->product_id ?>">Add
+                            </button>
+                        </td>
+                    </tr>
+                    <?php
+                }
+                ?>
+                </tbody>
+            </table>
+            
+            <?php
+        }
+    }
+    public function getActiveOrdersByModelNo($model_no = '')
+    {
+        if ($model_no == '') {
+            show_404();
+        }
+        $data = $this->order->getActiveOrdersByModelNo($model_no);
+        if (count($data) > 0) {
+            ?>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    
+                    <th>
+                        Model No
+                    </th>
+
+                    <th>
+                        Category
+                    </th>
+                    
+                    <th>
+                        Gross Weight
+                    </th>
+                    <th>
+                        Net. Weight
+                    </th>
+                    <th>
+                        Weight Loss
+                    </th>
+                    <th>
+                        Price
+                    </th>
+                    <th>
+                        Image
+                    </th>
+                    
+                    <th>
+                        Action
+                    </th>
+                </tr>
+                </thead>
+                <tbody id="tblcontent">
+
+                <?php
+
+                foreach ($data as $dt) {
+                    ?>
+                    <tr>
+                       
+                        <td >
+                            <?php echo $dt->model_no ?>
+                        </td>
+                        <td >
+                            <?php echo $dt->category ?>
+                        </td>
+                        <td>
+                            <?php echo $dt->gross_weight ?>
+                        </td>
+                        <td>
+                            <?php echo $dt->net_weight ?>
+                        </td>
+                        <td>
+                            <?php echo $dt->weight_loss ?>
+                        </td>
+                        <td >
+                            <?php echo $dt->price ?>
+                        </td>
+                        <td>
+                            <?php echo $dt->image_url ?>
+                        </td>
+                        
+                        <td>
+                            <button type="button" class="btn btn-primary btn-sm  btnaddneworder"
                                     data-productid="<?php echo $dt->product_id ?>">Add
                             </button>
                         </td>
