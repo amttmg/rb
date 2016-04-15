@@ -48,6 +48,8 @@ class sales extends CI_Controller
         $salesid = $this->input->get('salesid');
         $sales['sales_details'] = $this->sales->getSalesDetails(array("md5(sales_id)" => $salesid));
         $sales['sales']=$this->sales->getSales(array("md5(sales_id)" => $salesid));
-        print_r($sales);
+        $data['title'] = "Sales View";
+        $data['content'] = $this->load->view('pages/sales/viewsalesdetails', $sales, true);
+        $this->parser->parse('template/page_template', $data);
     }
 }
