@@ -145,7 +145,7 @@
                                                         <tr>
                                                             <td><?php echo($count);
                                                                 $count++; ?></td>
-                                                            <td><?php echo($progress->status) ?></td>
+                                                            <td><?php echo($progress->order_status) ?></td>
                                                             <td><?php echo($progress->date) ?></td>
                                                             <td><?php echo($progress->remarks) ?></td>
                                                             <td><?php echo($progress->username) ?>
@@ -196,7 +196,7 @@
                                                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                                                     <div class="form-group">
                                                         <label for="">Date</label>
-                                                        <input type="date" name="date" class="form-control"
+                                                        <input type="date" value="<?php echo getCurrentDate() ?>" name="date" class="form-control"
                                                                required="true">
                                                     </div>
 
@@ -366,7 +366,7 @@
                                                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                                                     <div class="form-group">
                                                         <label for="">Date</label>
-                                                        <input type="date" name="date" class="form-control"
+                                                        <input type="date" value="<?php echo getCurrentDate() ?>" name="date" class="form-control"
                                                                required="required">
 
                                                     </div>
@@ -432,7 +432,7 @@
                     </div>
                     <div class="form-group">
                         <label for="">Date</label>
-                        <input type="date" name="date" class="form-control" id="date">
+                        <input type="date" value="<?php echo getCurrentDate() ?>" name="date" class="form-control" id="date">
                         <span></span>
                     </div>
                     <div class="form-group">
