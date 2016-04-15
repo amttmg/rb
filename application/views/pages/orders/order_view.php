@@ -36,103 +36,139 @@
             <div class="box-body">
                 <div id="container">
                     <form action="" method="POST" role="form" id="product_order_form">
-                       <div class="panel panel-default">
-                           <div class="panel-heading"><h3 class="panel-title">Customer Order</h3></div>
-                           <div class="panel-body">
-                               <div class="row">
-                                   <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                                       <label for="">Swap Card</label>
-                                       <input type="text" class="form-control" name="card_no" id="card_no">
-                                   </div>
-                                   <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                                       <div class="form-group">
-                                           <label for="">Customer Name</label>
-                                           <select name="customer" id="customer" class="form-control" required="required">
-                                           </select>
-                                           <span></span>
-                                       </div>
-                                   </div>
-                                   <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                                       <div id="user_info" style="margin-top: 15px">
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><h3 class="panel-title">Customer Order</h3></div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                                <label for="">Swap Card</label>
+                                                <input type="text" class="form-control" name="card_no" id="card_no">
+                                            </div>
+                                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                                <div class="form-group">
+                                                    <label for="">Customer Name</label>
+                                                    <select name="customer" id="customer" class="form-control"
+                                                            required="required">
+                                                    </select>
+                                                    <span></span>
+                                                </div>
+                                            </div>
 
-                                       </div>
-                                       <div class="overlay" style="display:none">
-                                           <i class="fa fa-refresh fa-spin"></i>
-                                       </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                                <div class="form-group">
+                                                    <label for="">Order date</label>
+                                                    <input type="date" name="order_date" class="form-control"
+                                                           id="order_date"
+                                                           placeholder="Order Date">
+                                                    <span></span>
+                                                </div>
+                                                <span></span>
+                                            </div>
+                                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                                <div class="form-group">
+                                                    <label for="">Deadline date</label>
+                                                    <input type="date" name="deadline_date" class="form-control"
+                                                           id="deadline_date"
+                                                           placeholder="Order Date">
+                                                    <span></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                                <div class="form-group">
+                                                    <label>Advance payment</label>
+                                                    <input type="text" name="discount" class="form-control"
+                                                           id="discount"
+                                                           placeholder="Advance Payment">
+                                                    <span></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                                <div class="form-group">
+                                                    <label>Remarks</label>
+                                                    <textarea class="form-control" name="remarks" id="remarks"
+                                                              rows="2"></textarea>
+                                                    <span></span>
+                                                </div>
+                                            </div>
 
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div id="user_info" style="margin-top: 15px">
+                                            <div class="panel-default panel">
+                                                <div class="panel-heading"><h4 class="panel-title">Customer Details</h4></div>
+                                                <div class="panel-body">
+                                                    <div class="col-md-8">
+                                                        <table class="table">
+                                                            <tr>
+                                                                <td class="text-bold">Name </td>
+                                                                <td>:</td>
+                                                                <td>.........</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="text-bold">Address </td>
+                                                                <td>:</td>
+                                                                <td>.........</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="text-bold">Phone </td>
+                                                                <td>:</td>
+                                                                <td>.........</td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="thumbnail" style="height: 136px; width: 120px; background-color: #f5f5f5"> </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="overlay" style="display:none">
+                                            <i class="fa fa-refresh fa-spin"></i>
+                                        </div>
+                                    </div>
+                                </div>
 
-                                   </div>
-                               </div>
-                               <div class="row">
-                                   <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                                       <div class="form-group">
-                                           <label for="">Order date</label>
-                                           <input type="date" name="order_date" class="form-control" id="order_date"
-                                                  placeholder="Order Date">
-                                           <span></span>
-                                       </div>
-                                       <span></span>
-                                   </div>
-                                   <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                                       <div class="form-group">
-                                           <label for="">Deadline date</label>
-                                           <input type="date" name="deadline_date" class="form-control" id="deadline_date"
-                                                  placeholder="Order Date">
-                                           <span></span>
-                                       </div>
-                                   </div>
-                               </div>
-                               <div class="row">
-                                   <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                                       <div class="form-group">
-                                           <label>Advance payment</label>
-                                           <input type="text" name="discount" class="form-control" id="discount"
-                                                  placeholder="Advance Payment">
-                                           <span></span>
-                                       </div>
-                                   </div>
-                                   <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                                       <div class="form-group">
-                                           <label>Remarks</label>
-                                           <textarea class="form-control" name="remarks" id="remarks" rows="3"></textarea>
-                                           <span></span>
-                                       </div>
-                                   </div>
+                                <div class="row">
+                                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
 
-                               </div>
-                               <div class="row">
-                                   <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                        <div id="">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <button type="button" class="btn btn-primary btn-sm"
+                                                            id="btn_reference_product"><i
+                                                            class="fa a-folder-open"></i>Order from Reference
+                                                    </button>
+                                                </div>
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Model No</th>
+                                                        <th>Price</th>
+                                                        <th>Qty</th>
+                                                        <th>Image</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody id="product_container">
 
-                                   </div>
-                               </div>
-                               <div class="row">
-                                   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                       <div id="">
-                                           <div class="panel panel-default">
-                                               <div class="panel-heading">
-                                                   <button type="button" class="btn btn-primary btn-sm" id="btn_reference_product"><i
-                                                           class="fa a-folder-open"></i>Order from Reference
-                                                   </button>
-                                               </div>
-                                               <table class="table table-hover">
-                                                   <thead>
-                                                   <tr>
-                                                       <th>Model No</th>
-                                                       <th>Price</th>
-                                                       <th>Qty</th>
-                                                       <th>Image</th>
-                                                   </tr>
-                                                   </thead>
-                                                   <tbody id="product_container">
-
-                                                   </tbody>
-                                               </table>
-                                           </div>
-                                       </div>
-                                   </div>
-                               </div>
-                           </div>
-                       </div>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         <button type="button" class="btn btn-primary pull-right" id="btn_save_orders">Save</button>
                     </form>
@@ -337,7 +373,7 @@
             })
         }
     });
-    function clearForm(){
+    function clearForm() {
         $('#card_no').val('');
         $('#customer').val('');
         $('#order_date').val('');

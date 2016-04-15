@@ -32,16 +32,21 @@
                        <div class="panel-heading">Customer Details</div>
                        <div class="panel-body">
                            <div class="col-md-8">
-                               <table>
+                               <table class="table">
                                    <tr>
                                        <td class="text-bold">Customer Name </td>
                                        <td>:</td>
-                                       <td>Amrit Tamang</td>
+                                       <td><?php echo $customer->fname.' '.$customer->mname.' '.$customer->lname ?></td>
                                    </tr>
                                    <tr>
                                        <td class="text-bold">Address </td>
                                        <td>:</td>
                                        <td> Kathmandu</td>
+                                   </tr>
+                                   <tr>
+                                       <td class="text-bold">Phone </td>
+                                       <td>:</td>
+                                       <td> 9842411793</td>
                                    </tr>
                                </table>
                            </div>
