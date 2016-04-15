@@ -48,7 +48,7 @@
                             <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                                 <div id="user_info" style="margin-top: 15px">
                                 </div>
-                                <div class="overlay" style="display:none">
+                                <div class="overlay" id="customer_overlay" style="display:none">
                                     <i class="fa fa-refresh fa-spin"></i>
                                 </div>
 
@@ -70,7 +70,7 @@
                                     <label for="">Bill No</label>
                                     <input type="billno" name="billno" id="billno" class="form-control"
                                            required="required"/>
-                                    </select>
+                                   
                                     <span></span>
                                 </div>
                             </div>
@@ -83,6 +83,33 @@
                               </div>
                           </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                               <div class="panel panel-default">
+                                    <div class="panel-heading">Products</div>
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                                <div class="form-group">
+                                                    <label for="">Model No.</label>
+                                                    <input type="text" name="m_model_no" class="form-control" id="m_model_no" placeholder="Input model number">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                                <div id="order_content" ></div>
+                                                <div class="overlay" id="new_order_overlay" style="display: none;">
+                                                    <i class="fa fa-refresh fa-spin"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                            </div>    
+                        </div>
+
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="panel panel-default">
@@ -109,6 +136,9 @@
                                                 <th>
                                                     Net. Price.
                                                 </th>
+                                                <th>
+                                                    Action
+                                                </th>
                                             </tr>
                                             </thead>
                                             <tbody id="ordered_product">
@@ -120,6 +150,8 @@
                                 </div>
                             </div>
                         </div>
+
+                        
                         <div class="row">
                             <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-lg-offset-8">
                                <table class="pull-right">
@@ -155,7 +187,8 @@
                                 </table>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-primary pull-right" id="btn_save_orders">Save</button>
+                        <button type="submit" class="btn btn-primary pull-right" id="btn_save_orders">Save</button>
+                        <!-- <button type="submit" class="btn btn-primary pull-right" >Save</button> -->
                     </form>
                 </div>
             </div>
@@ -180,7 +213,7 @@
                 var discount=parseFloat($(this).val());
                 var total_net_price=price-(price*(discount/100));
                 $(this).closest("td").next().empty();
-                $(this).closest("td").next().empty().html('<input type="hidden" name="net_price[]" class="net_price" value="'+total_net_price+'">'+total_net_price);
+                $(this).closest("td").next().empty().html('<input type="hidden" name="net_price[]" class="net_price" value="'+total_net_price.toFixed(2)+'">'+total_net_price.toFixed(2));
                 update_all();
             }
             else
@@ -190,7 +223,7 @@
                 var discount=0;
                 var total_net_price=price-discount;
                 $(this).closest("td").next().empty();
-                $(this).closest("td").next().empty().html('<input type="hidden" name="net_price[]" class="net_price" value="'+total_net_price+'">'+total_net_price);
+                $(this).closest("td").next().empty().html('<input type="hidden" name="net_price[]" class="net_price" value="'+total_net_price.toFixed(2)+'">'+total_net_price.toFixed(2));
                 update_all();
             }
             
@@ -202,25 +235,56 @@
                 data+='<td><input type="hidden" name="product_category[]" class="product_category" value="'+$(this).closest('tr').find('td:eq(1)').html()+'">'+$(this).closest('tr').find('td:eq(1)').html()+'</td>';
                 data+='<td><input type="hidden" name="price[]" class="price" value="'+$(this).closest('tr').find('td:eq(7)').html()+'">'+$(this).closest('tr').find('td:eq(7)').html()+'</td>';
                 data+='<td><input type="text" name="discount[]" class="discount" value="0"></td>';                        
-                data+='<td><input type="hidden" name="net_price[]" class="net_price" value="'+$(this).closest('tr').find('td:eq(7)').html()+'">'+$(this).closest('tr').find('td:eq(7)').html()+'</td></tr>';
+                data+='<td><input type="hidden" name="net_price[]" class="net_price" value="'+$(this).closest('tr').find('td:eq(7)').html()+'">'+$(this).closest('tr').find('td:eq(7)').html()+'</td>';
+                data+='<td><button type="button" class="remove btn btn-danger btn-sm">Remove</button></td></tr>';
                 $('#ordered_product').append(data);
 
-                var sub_total=sb_total();
-                $('#sub_total').val(sb_total());
-                $('#vat').val(calculate_vat(sb_total()));
-                $('#grand_total').val(gnd_total(sb_total(),calculate_vat(sb_total())));
+                update_all();
 
                 $(this).prop('disabled',true);
-        })
+                $(this).append('<i class="fa fa-check"></i>');
+        });
 
+      $('body').on('click','.remove',function(){
+         var ans=confirm("Are you sure you want to remove ?");
+            if (ans===true) {
+                $(this).closest('tr').remove();
+                update_all ();
+            }
+            
+      })
 
+        $('#m_model_no').keypress(function(event) {
 
+           if (event.keyCode===13) {
+                 $('#new_order_overlay').show();
+                show_order("na",$(this).val());
+            }
+        });
 
-    })
+        $('body').on('click','.btnaddneworder',function()
+        {
+            var data='<tr><td></td>'
+                data+='<td><input type="hidden" name="order_no[]" class="order_no" value="'+$(this).closest('tr').find('td:eq(0)').html()+'">'+$(this).closest('tr').find('td:eq(0)').html()+'</td>';
+                data+='<td><input type="hidden" name="product_category[]" class="product_category" value="'+$(this).closest('tr').find('td:eq(1)').html()+'">'+$(this).closest('tr').find('td:eq(1)').html()+'</td>';
+                data+='<td><input type="hidden" name="price[]" class="price" value="'+$(this).closest('tr').find('td:eq(5)').html()+'">'+$(this).closest('tr').find('td:eq(5)').html()+'</td>';
+                data+='<td><input type="text" name="discount[]" class="discount" value="0"></td>';                        
+                data+='<td><input type="hidden" name="net_price[]" class="net_price" value="'+$(this).closest('tr').find('td:eq(5)').html()+'">'+$(this).closest('tr').find('td:eq(5)').html()+'</td>';
+                data+='<td><button type="button"  class="remove btn btn-danger btn-sm">Remove</button></td></tr>';
+                $('#ordered_product').append(data);
+
+                update_all();
+
+                $(this).prop('disabled',true);
+                $(this).append('<i class="fa fa-check"></i>');
+        });
+    });
+
     $('#customer').change(function () {
         show_customer($(this).val());
         show_order($(this).val());
     });
+
 
     $('#card_no').on('keypress', function (event) {
         if (event.keyCode == 13) {
@@ -267,7 +331,7 @@
     function show_customer(customer_id) {
 
         if ($('#customer').val() !== '0') {
-            $('.overlay').show('fast', function () {
+            $('#customer_overlay').show('fast', function () {
 
                 $.ajax({
                     url: '<?php echo(site_url("customer/get_customer_by_id")) ?>' + '/' + customer_id,
@@ -275,7 +339,7 @@
                     dataType: 'html',
                     success: function (data) {
                         $('#user_info').html(data);
-                        $('.overlay').hide();
+                        $('#customer_overlay').hide();
                     },
                     error: function (data) {
                         console.log(data);
@@ -288,18 +352,39 @@
             $('.overlay').hide();
         }
     }
-    function show_order(customer_id) {
-        $.ajax({
-            url: '<?php echo base_url('order/getActiveOrdersByCustomer') ?>/' + customer_id,
-            success: function (data) {
-                if(data===''){
-                    $('#tblcontent').html("No Orders Found");
-                }else{
-                    $('#tblcontent').html(data);
-                }
+    function show_order(customer_id='',model_no='') {
+        if (model_no) {
 
-            }
-        })
+            $.ajax({
+                url: '<?php echo base_url('order/getActiveOrdersByModelNo') ?>/' + model_no,
+                success: function (data) {
+                    $('#new_order_overlay').hide();
+                    if(data===''){
+                        $('#order_content').html("No Orders Found");
+                    }else{
+                        $('#order_content').html(data);
+                    }
+
+                }
+            })
+
+        }
+        if(customer_id!='na'){
+
+            $.ajax({
+                url: '<?php echo base_url('order/getActiveOrdersByCustomer') ?>/' + customer_id,
+                success: function (data) {
+                    if(data===''){
+                        $('#tblcontent').html("No Orders Found");
+                    }else{
+                        $('#tblcontent').html(data);
+                    }
+
+                }
+            })
+
+        }
+        
     }
 
 
@@ -340,8 +425,17 @@
     function update_all () 
     {
         var sub_total=sb_total();
-        $('#sub_total').val(sb_total());
-        $('#vat').val(calculate_vat(sb_total()));
-        $('#grand_total').val(gnd_total(sb_total(),calculate_vat(sb_total())));
+        $('#sub_total').val(sub_total.toFixed(2));
+
+        var vat=calculate_vat(sb_total());
+        $('#vat').val(vat.toFixed(2));
+
+        var grand_total=gnd_total(sb_total(),calculate_vat(sb_total()));
+        $('#grand_total').val(grand_total.toFixed(2));
+    }
+
+    function activate_disable_product (model_no) 
+    {
+       
     }
 </script>
