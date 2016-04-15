@@ -33,4 +33,8 @@ class sales extends CI_Controller
         print_r($product);
         $this->cart->insert($data);
     }
+
+    function viewSales(){
+
+    }
 }
