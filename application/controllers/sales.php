@@ -9,6 +9,7 @@ class sales extends CI_Controller
         $this->load->library('form_validation');
         $this->load->model('m_order', 'order');
         $this->load->model('m_sales', 'sales');
+        $this->load->model('M_customer', 'customer');
         $this->load->model('m_product', 'product');
 
     }
@@ -46,11 +47,15 @@ class sales extends CI_Controller
     function salesdetails()
     {
         $salesid = $this->input->get('salesid');
-        $sales['sales_details'] = $this->sales->getSalesDetails(array("md5(sales_id)" => $salesid));
-        $sales['sales']=$this->sales->getSales(array("md5(sales_id)" => $salesid));
-        $sales['customer']=
-        $data['title'] = "Sales View";
-        $data['content'] = $this->load->view('pages/sales/viewsalesdetails', $sales, true);
-        $this->parser->parse('template/page_template', $data);
+        $sales['sales'] = $this->sales->getSales(array("md5(sales_id)" => $salesid));
+        if (count($sales['sales'])) {
+            $sales['sales_details'] = $this->sales->getSalesDetails(array("md5(sales_id)" => $salesid));
+            $sales['customer'] = $this->customer->getCustomers(md5($sales['sales'][0]->customer_id));
+            $data['title'] = "Sales View";
+            $data['content'] = $this->load->view('pages/sales/viewsalesdetails', $sales, true);
+            $this->parser->parse('template/page_template', $data);
+        } else {
+            show_404();
+        }
     }
 }
