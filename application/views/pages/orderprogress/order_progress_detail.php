@@ -95,7 +95,7 @@
                                         Updated <?php echo($customer_detail[0]->updated_at); ?></small>
                                 <?php endif ?>
 
-                                <div class="pull-right">
+                                <div class="pull-right" style="margin-bottom: 10px">
                                     <?php if ($customer_detail[0]->order_detail_status == true): ?>
                                         <?php if ($customer_detail[0]->complated_at == null): ?>
                                             <a href="<?php echo(site_url("order_progress_detail/complate_order" . '/' . $customer_detail[0]->order_id . '/' . $customer_detail[0]->order_detail_id)) ?>"
@@ -120,7 +120,6 @@
 
                                     <?php endif ?>
                                 </div>
-                                <h1></h1>
 
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -145,7 +144,7 @@
                                                         <tr>
                                                             <td><?php echo($count);
                                                                 $count++; ?></td>
-                                                            <td><?php echo($progress->status) ?></td>
+                                                            <td><?php echo($progress->order_status) ?></td>
                                                             <td><?php echo($progress->date) ?></td>
                                                             <td><?php echo($progress->remarks) ?></td>
                                                             <td><?php echo($progress->username) ?>
@@ -196,7 +195,7 @@
                                                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                                                     <div class="form-group">
                                                         <label for="">Date</label>
-                                                        <input type="date" name="date" class="form-control"
+                                                        <input type="date" value="<?php echo getCurrentDate() ?>" name="date" class="form-control"
                                                                required="true">
                                                     </div>
 
@@ -210,7 +209,7 @@
                                                 </div>
                                                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                                                     <h1></h1>
-                                                    <button type="submit" class="btn btn-primary">Save</button>
+                                                    <button type="submit" class="btn btn-primary">Add Progress</button>
 
                                                 </div>
 
@@ -366,7 +365,7 @@
                                                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                                                     <div class="form-group">
                                                         <label for="">Date</label>
-                                                        <input type="date" name="date" class="form-control"
+                                                        <input type="date" value="<?php echo getCurrentDate() ?>" name="date" class="form-control"
                                                                required="required">
 
                                                     </div>
@@ -432,7 +431,7 @@
                     </div>
                     <div class="form-group">
                         <label for="">Date</label>
-                        <input type="date" name="date" class="form-control" id="date">
+                        <input type="date" value="<?php echo getCurrentDate() ?>" name="date" class="form-control" id="date">
                         <span></span>
                     </div>
                     <div class="form-group">

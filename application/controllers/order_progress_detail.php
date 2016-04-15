@@ -102,7 +102,7 @@ class Order_progress_detail extends CI_Controller
 
 	public function get_order_progress_by_remarks($order_id)
 	{
-		$this->db->select('tbl_order_progress.*,users.username,tbl_order_details.status,tbl_order_details.complated_at');
+		$this->db->select('tbl_order_progress.*,tbl_order_status.status as order_status,users.username,tbl_order_details.status,tbl_order_details.complated_at');
 		$this->db->from('tbl_order_progress');
 		$this->db->join('tbl_order_details','tbl_order_details.order_detail_id=tbl_order_progress.order_detail_id');
 		$this->db->join('users','users.id=tbl_order_progress.user_id');
