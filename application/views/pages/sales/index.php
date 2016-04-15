@@ -12,8 +12,10 @@
             <li class="active">Dashboard</li>
         </ol>
     </section>
+    
     <section class="content">
-
+        <div id="message">
+        </div>
         <!-- Default box -->
         <div class="box">
             <div class="box-header with-border">
@@ -28,7 +30,7 @@
             </div>
             <div class="box-body">
                 <div id="container">
-                    <form action="" method="POST" role="form" id="product_order_form">
+                    <?php echo(form_open('sales/add',array('id'=>'sles_form'))); ?>
                         <div class="row">
                             <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                                 <div class="form-group">
@@ -156,10 +158,11 @@
                             <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-lg-offset-8">
                                <table class="pull-right">
                                       <tbody>
-                                      <fieldset disabled>
+                                      <fieldset >
                                           <tr>
                                         <th>Sub Total</th>
-                                        <td><input type="text" name="sub_total" id="sub_total" class="form-control" disabled></td>
+                                        <td>
+                                        <input type="text" name="sub_total" id="sub_total" class="form-control"  readonly="readonly"></td>
                                         <td></td>
                                       </tr>
                                        <tr>
@@ -169,7 +172,7 @@
                                       </tr>
                                       <tr>
                                         <th>VAT(13%)&nbsp;</th>
-                                        <td><input type="text" name="vat" id="vat" class="form-control" disabled></td>
+                                        <td><input type="text" name="vat" id="vat" class="form-control" readonly="readonly"></td>
                                         <td></td>
                                       </tr>
                                        <tr>
@@ -179,7 +182,7 @@
                                       </tr>
                                       <tr>
                                         <th>Grand Total </th>
-                                        <td><input type="text" name="grand_total" id="grand_total" class="form-control" disabled></td>
+                                        <td><input type="text" name="grand_total" id="grand_total" class="form-control" readonly="readonly"></td>
                                         <td></td>
                                       </tr>
                                       </fieldset>
@@ -187,8 +190,8 @@
                                 </table>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary pull-right" id="btn_save_orders">Save</button>
-                        <!-- <button type="submit" class="btn btn-primary pull-right" >Save</button> -->
+                        <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+                        <button type="button" class="btn btn-primary pull-right" id="btn_sales" >Save</button>
                     </form>
                 </div>
             </div>
@@ -200,6 +203,7 @@
     <!-- Main content -->
 
 </div><!-- /.content-wrapper -->
+
 <script>
     $(document).ready(function () {
 
@@ -231,7 +235,7 @@
 
         $('body').on('click','.btnaddorder',function () {
             var data='<tr><td></td>'
-                data+='<td><input type="hidden" name="order_no[]" class="order_no" value="'+$(this).closest('tr').find('td:eq(0)').html()+'">'+$(this).closest('tr').find('td:eq(0)').html()+'</td>';
+                data+='<td><input type="hidden" name="model_no[]" class="model_no" value="'+$(this).closest('tr').find('td:eq(0)').html()+'">'+$(this).closest('tr').find('td:eq(0)').html()+'</td>';
                 data+='<td><input type="hidden" name="product_category[]" class="product_category" value="'+$(this).closest('tr').find('td:eq(1)').html()+'">'+$(this).closest('tr').find('td:eq(1)').html()+'</td>';
                 data+='<td><input type="hidden" name="price[]" class="price" value="'+$(this).closest('tr').find('td:eq(7)').html()+'">'+$(this).closest('tr').find('td:eq(7)').html()+'</td>';
                 data+='<td><input type="text" name="discount[]" class="discount" value="0"></td>';                        
@@ -255,8 +259,9 @@
       })
 
         $('#m_model_no').keypress(function(event) {
-
+           
            if (event.keyCode===13) {
+                 event.preventDefault(); 
                  $('#new_order_overlay').show();
                 show_order("na",$(this).val());
             }
@@ -265,7 +270,7 @@
         $('body').on('click','.btnaddneworder',function()
         {
             var data='<tr><td></td>'
-                data+='<td><input type="hidden" name="order_no[]" class="order_no" value="'+$(this).closest('tr').find('td:eq(0)').html()+'">'+$(this).closest('tr').find('td:eq(0)').html()+'</td>';
+                data+='<td><input type="hidden" name="model_no[]" class="model_no" value="'+$(this).closest('tr').find('td:eq(0)').html()+'">'+$(this).closest('tr').find('td:eq(0)').html()+'</td>';
                 data+='<td><input type="hidden" name="product_category[]" class="product_category" value="'+$(this).closest('tr').find('td:eq(1)').html()+'">'+$(this).closest('tr').find('td:eq(1)').html()+'</td>';
                 data+='<td><input type="hidden" name="price[]" class="price" value="'+$(this).closest('tr').find('td:eq(5)').html()+'">'+$(this).closest('tr').find('td:eq(5)').html()+'</td>';
                 data+='<td><input type="text" name="discount[]" class="discount" value="0"></td>';                        
@@ -277,6 +282,54 @@
 
                 $(this).prop('disabled',true);
                 $(this).append('<i class="fa fa-check"></i>');
+        });
+
+        $('#btn_sales').click(function() {
+            $(this).prop('disabled',true);
+            $(this).text('Saving.......');
+            $.ajax({
+                url: '<?php echo(site_url("sales/add")) ?>',
+                type: 'POST',
+                dataType: 'json',
+                data: $('#sles_form').serialize(),
+                success:function(data){
+
+                   if(data.status===false)
+                   {
+                       $.each(data, function(index, val) {
+                            $('#sles_form #'+val.error_string).next().html(val.input_error);
+                            $('#sles_form #'+val.error_string).parent().parent().addClass('has-error');
+                        });
+
+                       $('#btn_sales').prop('disabled',false);
+                       $('#btn_sales').text('Save');
+                       $("html, body").animate({ scrollTop: 0 }, "slow");
+                       return false;
+                      
+                   }
+                   else
+                   {
+                       
+                       $('#btn_sales').prop('disabled',false);
+                       $('#btn_sales').text('Save');
+                       reset_box();
+                       var  message='<div class="alert alert-success">';
+                            message+='<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>';
+                            message+='<strong>Sales saved successfully !</strong></div>';
+                                   
+                       $('#message').append(message);
+                       $("html, body").animate({ scrollTop: 0 }, "slow");
+                       return false;
+                   }
+
+                },
+                error:function(data)
+                {
+                   console.log(data);
+                }
+
+            });
+            
         });
     });
 
@@ -432,6 +485,13 @@
 
         var grand_total=gnd_total(sb_total(),calculate_vat(sb_total()));
         $('#grand_total').val(grand_total.toFixed(2));
+    }
+
+    function reset_box () 
+    {
+        $('#order_content table').remove();
+        $('#tblcontent table').remove();
+        $('#selected_product tbody').empty();
     }
 
     function activate_disable_product (model_no) 

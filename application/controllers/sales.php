@@ -22,6 +22,71 @@ class sales extends CI_Controller
         $this->parser->parse('template/page_template', $data);
     }
 
+    public function add()
+    {
+        $master['status'] = false;
+        $data = array();
+        $master = array();
+        $this->form_validation->set_rules('customer', 'Customer', 'callback_dropdown_fun');
+        //$this->form_validation->set_rules('date', 'Date', 'trim|required|max_length[40]');
+        $this->form_validation->set_rules('billno', 'Bill No', 'trim|required|min_length[1]|max_length[20]');
+        if ($this->form_validation->run() == True)
+        {
+
+            $this->db->trans_start();
+
+            $sales_id = $this->sales->insert();
+            $discount= $this->input->post('discount');
+            $model_no = $this->input->post('model_no');
+            $price=$this->input->post('price');
+            $net_price=$this->input->post('net_price');
+
+            if (is_array($model_no))
+            {
+                foreach ($model_no as $key => $value)
+                {
+                    $data=array(
+                        'sales_id'=>$sales_id,
+                        'product_id'=>$value,
+                        'dis_per'=>$discount[$key],
+                        'price'=>$price[$key],
+                        'net_price'=>$net_price[$key],
+                        'status'=>1
+                    );
+                    $this->db->insert('tbl_sales_details',$data);
+                }
+            }
+
+            $this->db->trans_complete();
+
+
+            $master['status'] = True;
+        }
+        else
+        {
+            $master['status'] = false;
+            foreach ($_POST as $key => $value)
+            {
+                if (form_error($key) != '')
+                {
+                    $data['error_string'] = $key;
+                    $data['input_error'] = form_error($key);
+                    array_push($master, $data);
+                }
+            }
+        }
+        echo(json_encode($master));
+    }
+
+    public function dropdown_fun($value)
+    {
+        if ($value == '0') {
+            $this->form_validation->set_message('dropdown_fun', 'Please select product category');
+            return false;
+        }
+        return true;
+    }
+
     function setcard($product_id)
     {
         $product = $this->product->getProduct($product_id);

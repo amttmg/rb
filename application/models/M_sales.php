@@ -32,4 +32,20 @@ class M_sales extends CI_Model
         $data = $query->result();
         return $data;
     }
+    public function insert()
+    {
+        $data=array(
+            'bill_no'=>$this->input->post('billno'),
+            'customer_id'=>$this->input->post('customer'),
+            'sales_date'=>$this->input->post('saledate'),
+            'entry_date'=> getCurrentDate(),
+            'total_amount'=>$this->input->post('sub_total'),
+            'vat_amount'=>$this->input->post('vat'),
+            'gtotal_amount'=>$this->input->post('grand_total'),
+            'status'=>1,
+            'user_id'=>$this->ion_auth->get_user_id()
+        );
+        $this->db->insert('tbl_sales',$data);
+        return $this->db->insert_id();
+    }
 }
