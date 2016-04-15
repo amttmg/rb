@@ -36,10 +36,10 @@ class sales extends CI_Controller
             $this->db->trans_start();
 
             $sales_id = $this->sales->insert();
-            $discount= $this->input->post('discount');
+            $discount = $this->input->post('discount');
             $model_no = $this->input->post('model_no');
-            $price=$this->input->post('price');
-            $net_price=$this->input->post('net_price');
+            $price    = $this->input->post('price');
+            $net_price= $this->input->post('net_price');
 
             if (is_array($model_no))
             {
