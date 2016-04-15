@@ -8,6 +8,7 @@ class sales extends CI_Controller
         $this->load->library('cart');
         $this->load->library('form_validation');
         $this->load->model('m_order', 'order');
+        $this->load->model('m_sales', 'sales');
         $this->load->model('m_product', 'product');
 
     }
@@ -15,7 +16,7 @@ class sales extends CI_Controller
     function index()
     {
         $data['title'] = "New Sales";
-        $selected_products['products']=$this->cart->contents();
+        $selected_products['products'] = $this->cart->contents();
         $data['content'] = $this->load->view('pages/sales/index', $selected_products, true);
         $this->parser->parse('template/page_template', $data);
     }
@@ -34,7 +35,9 @@ class sales extends CI_Controller
         $this->cart->insert($data);
     }
 
-    function viewSales(){
-
+    function viewSales()
+    {
+        $data['sales'] = $this->sales->getSales();
+        print_r($data);
     }
 }

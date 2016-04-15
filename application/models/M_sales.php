@@ -13,7 +13,7 @@ class M_sales extends CI_Model
         $sql = "select * from tbl_sales where 1=1";
         if (is_array($parameters)) {
             foreach ($parameters as $key => $value) {
-                $sql .= " and " . $key . "=" . $value;
+                $sql .= " and " . $key . "='" . $value."'";
             }
         }
         $query = $this->db->query($sql);
