@@ -33,7 +33,8 @@ class Menquiry extends CI_Model
             'price_range_min' => $this->input->post('price_range_min'),
             'price_range_max' => $this->input->post('price_range_max'),
             'reference_img' => $image_url,
-            'remarks' => $this->input->post('remarks')
+            'remarks' => $this->input->post('remarks'),
+            'en_status'=>'1'
         );
         $this->db->insert('tbl_enquiry', $data);
     }
