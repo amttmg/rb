@@ -286,29 +286,60 @@ class Customer extends CI_Controller
         echo(json_encode($master));
     }
 
-    public function get_customer_by_id($id,$status=true)
+    public function get_customer_by_id($id, $status = true)
     {
 
-        $this->db->where('customer_id',$id);
-        $data=$this->db->get('tbl_customers')->result();
-        if($status==true)
-        {
-             $temp='<div class="user-block"><a href="'.base_url('uploads/').'/'.($data[0]->customer_image).'" class="image-link">
-                  <img class="img-circle img-bordered-sm" src="'.base_url("uploads/".$data[0]->customer_image).'" alt="user image"></a>
-                  <span class="username">
-                    <a href="'.site_url("customer/customerdetails/").'/'.md5($data[0]->customer_id).'">'.$data[0]->fname.' '.$data[0]->mname.' '.$data[0]->lname.'</a>
-                    <span class="badge label-primary"><i class="fa fa-phone"></i> '.$data[0]->phone1.'</span>
-                    <br/><address>
-                Address: '.$data[0]->address.'<br/>
-                </address>
+        $this->db->where('customer_id', $id);
+        $data = $this->db->get('tbl_customers')->result();
+        if ($status == true) {
+            ?>
 
-                  </span>
-                </div>';
+            <div class="panel-default panel">
+                <div class="panel-heading"><h4 class="panel-title">Customer Details</h4></div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <table class="table">
+                                <tr>
+                                    <td class="text-bold">Name</td>
+                                    <td>:</td>
+                                    <td><?php echo $data[0]->fname . ' ' . $data[0]->mname . ' ' . $data[0]->lname ?></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold">Address</td>
+                                    <td>:</td>
+                                    <td> <?php echo $data[0]->address ?></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold">Phone</td>
+                                    <td>:</td>
+                                    <td> <?php echo $data[0]->phone1 ?></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-4">
+                            <img class="img-circle thumbnail pull-right" alt="Cinque Terre" height="136"
+                                 src="<?php echo base_url('uploads/' . $data[0]->customer_image) ?>">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <?php
 
-             echo($temp);
-        }
-        else
-        {
+//             $temp='<div class="user-block"><a href="'.base_url('uploads/').'/'.($data[0]->customer_image).'" class="image-link">
+//                  <img class="img-circle img-bordered-sm" src="'.base_url("uploads/".$data[0]->customer_image).'" alt="user image"></a>
+//                  <span class="username">
+//                    <a href="'.site_url("customer/customerdetails/").'/'.md5($data[0]->customer_id).'">'.$data[0]->fname.' '.$data[0]->mname.' '.$data[0]->lname.'</a>
+//                    <span class="badge label-primary"><i class="fa fa-phone"></i> '.$data[0]->phone1.'</span>
+//                    <br/><address>
+//                Address: '.$data[0]->address.'<br/>
+//                </address>
+//
+//                  </span>
+//                </div>';
+//
+//             echo($temp);
+        } else {
             echo(json_encode($data));
         }
 
@@ -320,7 +351,7 @@ class Customer extends CI_Controller
         if ($customer_id > 0) {
             echo $customer_id;
         } else {
-            echo  "0";
+            echo "0";
         }
 
 
