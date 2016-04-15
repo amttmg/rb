@@ -95,7 +95,7 @@
                                         Updated <?php echo($customer_detail[0]->updated_at); ?></small>
                                 <?php endif ?>
 
-                                <div class="pull-right">
+                                <div class="pull-right" style="margin-bottom: 10px">
                                     <?php if ($customer_detail[0]->order_detail_status == true): ?>
                                         <?php if ($customer_detail[0]->complated_at == null): ?>
                                             <a href="<?php echo(site_url("order_progress_detail/complate_order" . '/' . $customer_detail[0]->order_id . '/' . $customer_detail[0]->order_detail_id)) ?>"
@@ -120,7 +120,6 @@
 
                                     <?php endif ?>
                                 </div>
-                                <h1></h1>
 
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -210,7 +209,7 @@
                                                 </div>
                                                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                                                     <h1></h1>
-                                                    <button type="submit" class="btn btn-primary">Save</button>
+                                                    <button type="submit" class="btn btn-primary">Add Progress</button>
 
                                                 </div>
 
