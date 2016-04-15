@@ -20,4 +20,16 @@ class M_sales extends CI_Model
         $data = $query->result();
         return $data;
     }
+    function getSalesDetails($parameters = '')
+    {
+        $sql = "select * from tbl_sales_details where 1=1";
+        if (is_array($parameters)) {
+            foreach ($parameters as $key => $value) {
+                $sql .= " and " . $key . "='" . $value."'";
+            }
+        }
+        $query = $this->db->query($sql);
+        $data = $query->result();
+        return $data;
+    }
 }

@@ -46,5 +46,8 @@ class sales extends CI_Controller
     function salesdetails()
     {
         $salesid = $this->input->get('salesid');
+        $sales['sales_details'] = $this->sales->getSalesDetails(array("md5(sales_id)" => $salesid));
+        $sales['sales']=$this->sales->getSales(array("md5(sales_id)" => $salesid));
+        print_r($sales);
     }
 }
