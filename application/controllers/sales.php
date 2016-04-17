@@ -40,7 +40,7 @@ class sales extends CI_Controller
             $product_id = $this->input->post('product_id');
             $price    = $this->input->post('price');
             $net_price= $this->input->post('net_price');
-
+            
             if (is_array($product_id))
             {
                 foreach ($product_id as $key => $value)
@@ -53,7 +53,10 @@ class sales extends CI_Controller
                         'net_price'=>$net_price[$key],
                         'status'=>1
                     );
+
                     $this->db->insert('tbl_sales_details',$data);
+                    $this->db->where('product_id',$value);
+                    $this->db->update('tbl_products',array('status'=>'sold'));
                 }
             }
 
