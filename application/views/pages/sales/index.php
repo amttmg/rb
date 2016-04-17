@@ -240,6 +240,21 @@
     $(document).ready(function () {
 
         fill_combobox('order/fill_combobox', 'customer_list');
+
+        $("input").change(function(){
+            $(this).parent().parent().removeClass('has-error');
+            $(this).next().empty();
+        });
+        $("textarea").change(function(){
+            $(this).parent().parent().removeClass('has-error');
+            $(this).next().empty();
+        });
+        $("select").change(function(){
+            $(this).parent().parent().removeClass('has-error');
+            $(this).next().empty();
+        });
+
+
         $('body ').on('keyup', '.discount', function () {
             if ($(this).val() != '') {
                 var net_price = parseFloat($(this).closest("td").next().find("input").val());
@@ -336,6 +351,8 @@
                     }
                     else {
 
+                        reset_form();//reset all input fields
+
                         $('#btn_sales').prop('disabled', false);
                         $('#btn_sales').text('Save');
                         reset_box();
@@ -359,6 +376,10 @@
     });
 
     $('#customer').change(function () {
+        if ($(this).val()==='0') 
+        {
+            customer_info();
+        }
         show_customer($(this).val());
         show_order($(this).val());
     });
@@ -515,5 +536,37 @@
 
     function activate_disable_product(model_no) {
 
+    }
+
+    function reset_form () 
+    {
+         // $('#sles_form').find("input[type=text], textarea").val("");
+          $(':input','#sles_form')
+         .not(':button, :submit, :reset, :hidden')
+         .val('')
+         .removeAttr('checked')
+         .removeAttr('selected');
+         $('#customer').val('0');
+         $('#sub_total').val('0');
+         $('#vat').val('0');
+         $('#grand_total').val('0');
+
+    }
+
+
+    function customer_info () 
+    {
+        var data='<div class="panel-default panel">';
+            data+='<div class="panel-heading"><h4 class="panel-title">Customer Details</h4></div>';
+            data+='<div class="panel-body">';
+            data+='<div class="col-md-8">';
+            data+='<table class="table">';
+            data+='<tr><td class="text-bold">Name </td><td>:</td><td>.........</td></tr>';
+            data+='<tr><td class="text-bold">Address </td> <td>:</td><td>.........</td></tr>';
+            data+='<tr><td class="text-bold">Phone </td><td>:</td><td>.........</td></tr>';
+            data+='</table></div><div class="col-md-4"><div class="thumbnail pull-right" style="height: 136px; width: 120px; background-color: #f5f5f5" > </div>';
+            data+='</div></div></div>';
+            
+            $('#user_info').html(data);
     }
 </script>
