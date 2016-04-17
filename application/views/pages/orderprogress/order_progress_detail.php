@@ -33,24 +33,37 @@
             </div>
             <div class="box-body">
                 <div id="container">
-                    <div class="user-block">
-                        <img class="img-circle img-bordered-sm"
-                             src="<?php echo(base_url('uploads/' . $customer_detail[0]->customer_image)) ?>"
-                             alt="user image">
-                            <span class="username">
-                              <a href="<?php echo(site_url('customer/customerdetails/' . md5($customer_detail[0]->customer_id))) ?>"><?php echo($customer_detail[0]->fname . ' ' . $customer_detail[0]->mname . ' ' . $customer_detail[0]->lname) ?></a>
-                              <a href="#" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a>
-                            </span>
-                    </div>
-
                     <div class="row">
-                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                            <address style="margin-left:5%">
-                                Address: <?php echo($customer_detail[0]->address) ?><br>
-                                Phone: <?php echo($customer_detail[0]->phone1) ?><br>
-                                Email: <?php echo($customer_detail[0]->email) ?>
-                            </address>
-                        </div>
+                       <div class="col-md-6"> <div class="panel-default panel">
+                               <div class="panel-heading"><h4 class="panel-title">Customer Details</h4></div>
+                               <div class="panel-body">
+                                   <div class="row">
+                                       <div class="col-md-8">
+                                           <table class="table">
+                                               <tr>
+                                                   <td class="text-bold">Name</td>
+                                                   <td>:</td>
+                                                   <td><?php echo $customer_detail[0]->fname . ' ' . $customer_detail[0]->mname . ' ' . $customer_detail[0]->lname ?></td>
+                                               </tr>
+                                               <tr>
+                                                   <td class="text-bold">Address</td>
+                                                   <td>:</td>
+                                                   <td> <?php echo $customer_detail[0]->address ?></td>
+                                               </tr>
+                                               <tr>
+                                                   <td class="text-bold">Phone</td>
+                                                   <td>:</td>
+                                                   <td> <?php echo $customer_detail[0]->phone1 ?></td>
+                                               </tr>
+                                           </table>
+                                       </div>
+                                       <div class="col-md-4">
+                                           <img class="img-circle thumbnail pull-right" alt="Cinque Terre" height="136"
+                                                src="<?php echo(base_url('uploads/' . $customer_detail[0]->customer_image)) ?>"">
+                                       </div>
+                                   </div>
+                               </div>
+                           </div></div>
                     </div>
                     <?php if ($customer_detail[0]->remarks != ''): ?>
                         <div class="panel panel-default">

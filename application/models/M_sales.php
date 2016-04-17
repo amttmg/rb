@@ -22,7 +22,7 @@ class M_sales extends CI_Model
     }
     function getSalesDetails($parameters = '')
     {
-        $sql = "select * from tbl_sales_details where 1=1";
+        $sql = "select * from tbl_sales_details inner join tbl_products on tbl_products.product_id=tbl_sales_details.product_id where 1=1";
         if (is_array($parameters)) {
             foreach ($parameters as $key => $value) {
                 $sql .= " and " . $key . "='" . $value."'";
