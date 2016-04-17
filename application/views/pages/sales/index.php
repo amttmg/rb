@@ -28,9 +28,10 @@
                             data-original-title="Remove"><i class="fa fa-times"></i></button>
                 </div>
             </div>
+            <?php echo(form_open('sales/add', array('id' => 'sles_form'))); ?>
             <div class="box-body">
                 <div id="container">
-                    <?php echo(form_open('sales/add', array('id' => 'sles_form'))); ?>
+                  
                     <div class="col-md-6">
                         <div class="row">
                             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
@@ -50,6 +51,7 @@
                             </div>
 
                         </div>
+
                         <div class="row">
                             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                 <div class="form-group">
@@ -102,12 +104,13 @@
                                 </div>
                             </div>
                         </div>
-                        </div>
-                        <div class="overlay" id="customer_overlay" style="display:none">
-                            <i class="fa fa-refresh fa-spin"></i>
-                        </div>
-
                     </div>
+
+                    <div class="overlay" id="customer_overlay" style="display:none">
+                        <i class="fa fa-refresh fa-spin"></i>
+                    </div>
+
+                </div>
 
                     <div class="row">
                         <div class="col-md-12">
@@ -117,6 +120,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <div class="panel panel-default">
@@ -143,6 +147,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col-md-12">
                             <div class="panel panel-default">
@@ -183,6 +188,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-lg-offset-8">
                             <table class="pull-right">
@@ -224,9 +230,11 @@
                     </div>
                     <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
                     <button type="button" class="btn btn-primary pull-right" id="btn_sales">Save</button>
-                    </form>
-                </div>
+                    
+          
             </div>
+            <?php echo(form_close()); ?>
+
             <!-- /.box-body -->
         </div>
         <!-- /.box -->
@@ -279,7 +287,7 @@
 
         $('body').on('click', '.btnaddorder', function () {
             var data = '<tr><td></td>'
-            data += '<td><input type="hidden" name="model_no[]" class="model_no" value="' + $(this).closest('tr').find('td:eq(0)').html() + '">' + $(this).closest('tr').find('td:eq(0)').html() + '</td>';
+            data += '<td><input type="hidden" name="product_id[]" class="model_no" value="' + $(this).data('productid') + '">' + $(this).closest('tr').find('td:eq(0)').html() + '</td>';
             data += '<td><input type="hidden" name="product_category[]" class="product_category" value="' + $(this).closest('tr').find('td:eq(1)').html() + '">' + $(this).closest('tr').find('td:eq(1)').html() + '</td>';
             data += '<td><input type="hidden" name="price[]" class="price" value="' + $(this).closest('tr').find('td:eq(7)').html() + '">' + $(this).closest('tr').find('td:eq(7)').html() + '</td>';
             data += '<td><input type="text" name="discount[]" class="discount" value="0"></td>';
@@ -313,14 +321,14 @@
 
         $('body').on('click', '.btnaddneworder', function () {
             var data = '<tr><td></td>'
-            data += '<td><input type="hidden" name="model_no[]" class="model_no" value="' + $(this).closest('tr').find('td:eq(0)').html() + '">' + $(this).closest('tr').find('td:eq(0)').html() + '</td>';
+            data += '<td><input type="hidden" name="product_id[]" class="model_no" value="' + $(this).data('productid') + '">' + $(this).closest('tr').find('td:eq(0)').html() + '</td>';
             data += '<td><input type="hidden" name="product_category[]" class="product_category" value="' + $(this).closest('tr').find('td:eq(1)').html() + '">' + $(this).closest('tr').find('td:eq(1)').html() + '</td>';
             data += '<td><input type="hidden" name="price[]" class="price" value="' + $(this).closest('tr').find('td:eq(5)').html() + '">' + $(this).closest('tr').find('td:eq(5)').html() + '</td>';
             data += '<td><input type="text" name="discount[]" class="discount" value="0"></td>';
             data += '<td><input type="hidden" name="net_price[]" class="net_price" value="' + $(this).closest('tr').find('td:eq(5)').html() + '">' + $(this).closest('tr').find('td:eq(5)').html() + '</td>';
             data += '<td><button type="button"  class="remove btn btn-danger btn-sm">Remove</button></td></tr>';
             $('#ordered_product').append(data);
-
+           
             update_all();
 
             $(this).prop('disabled', true);
@@ -376,9 +384,15 @@
     });
 
     $('#customer').change(function () {
+
         if ($(this).val()==='0') 
         {
+            reset_box();
             customer_info();
+            $('#sub_total').val('0');
+            $('#vat').val('0');
+            $('#grand_total').val('0');
+
         }
         show_customer($(this).val());
         show_order($(this).val());
