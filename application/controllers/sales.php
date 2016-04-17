@@ -54,6 +54,8 @@ class sales extends CI_Controller
                         'status'=>1
                     );
                     $this->db->insert('tbl_sales_details',$data);
+                    $this->db->where('product_id',$value);
+                    $this->db->update('tbl_products',array('status'=>'sold'));
                 }
             }
 
