@@ -340,6 +340,11 @@
         });
 
         $('#btn_sales').click(function () {
+            var r = confirm('Are you sure want to save sales ?');
+            if(r!=true)
+            {
+                return false;
+            }
             $(this).prop('disabled', true);
             $(this).text('Saving.......');
             $.ajax({
