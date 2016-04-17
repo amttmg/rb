@@ -37,13 +37,13 @@ class sales extends CI_Controller
 
             $sales_id = $this->sales->insert();
             $discount = $this->input->post('discount');
-            $model_no = $this->input->post('model_no');
+            $product_id = $this->input->post('product_id');
             $price    = $this->input->post('price');
             $net_price= $this->input->post('net_price');
 
-            if (is_array($model_no))
+            if (is_array($product_id))
             {
-                foreach ($model_no as $key => $value)
+                foreach ($product_id as $key => $value)
                 {
                     $data=array(
                         'sales_id'=>$sales_id,
