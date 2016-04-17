@@ -284,7 +284,7 @@ class Order extends CI_Controller
                             <?php echo $dt->price ?>
                         </td>
                         <td>
-                            <?php echo $dt->image_url ?>
+                           <img src="<?php echo $dt->image_url ?>" width="35px"> 
                         </td>
                         <td>
                             <?php echo ($dt->price) > 0 ? 'Ready' : 'Not Complete' ?>
@@ -373,7 +373,8 @@ class Order extends CI_Controller
                             <?php echo $dt->price ?>
                         </td>
                         <td>
-                            <?php echo $dt->image_url ?>
+                            <a href="<?php echo base_url('uploads/'.$dt->image_url); ?>" class="image-link">
+                                <img src="<?php echo base_url('uploads/'.$dt->image_url); ?>" width="35px"></a>
                         </td>
                         
                         <td>
