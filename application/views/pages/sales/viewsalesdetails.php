@@ -155,23 +155,23 @@
                                     } ?>
                                     <tr >
                                         <td colspan="7"></td>
-                                        <td STYLE="background-color: #f5f5f5">Total</td>
-                                        <td STYLE="background-color: #f5f5f5"> <?php  echo $sales[0]->total_amount ?></td>
+                                        <td>Total</td>
+                                        <td> <?php  echo $sales[0]->total_amount ?></td>
                                     </tr>
                                     <tr>
                                         <td colspan="7"></td>
-                                        <td STYLE="background-color: #f5f5f5">Total Discount</td>
-                                        <td STYLE="background-color: #f5f5f5"> <?php  echo $sales[0]->total_amount ?></td>
+                                        <td>Total Discount</td>
+                                        <td> <?php  echo $sales[0]->total_amount ?></td>
                                     </tr>
                                     <tr>
                                         <td colspan="7"></td>
-                                        <td STYLE="background-color: #f5f5f5">13 % Vat</td>
-                                        <td STYLE="background-color: #f5f5f5"> <?php  echo $sales[0]->vat_amount ?></td>
+                                        <td>13 % Vat</td>
+                                        <td> <?php  echo $sales[0]->vat_amount ?></td>
                                     </tr>
                                     <tr>
                                         <td colspan="7"></td>
-                                        <td STYLE="background-color: #f5f5f5">Net Bill Amount</td>
-                                        <td STYLE="background-color: #f5f5f5"> <?php  echo $sales[0]->gtotal_amount ?></td>
+                                        <td>Net Bill Amount</td>
+                                        <td> <?php  echo $sales[0]->gtotal_amount ?></td>
                                     </tr>
                                 </table>
                             </div>
@@ -183,7 +183,7 @@
             <!-- /.box-body -->
             <div class="box-footer">
                <div class="form-group">
-                   <button class="btn btn-sm btn-primary">Print Bill</button>
+                   <button class="btn btn-primary"><i class="glyphicon glyphicon-print"></i> Print Bill</button>
                </div>
             </div>
             <!-- /.box-footer-->
