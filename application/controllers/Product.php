@@ -340,10 +340,10 @@ class Product extends CI_Controller {
 		}
 	}
 
-	public function product_detail_by_model($model_no)
+	public function product_detail_by_productid($product_id)
 	{
 		$master=array();
-		$this->db->where('model_no',$model_no);
+		$this->db->where('product_id',$product_id);
 		$data=$this->db->get('tbl_products');
 		if ($data->num_rows() > 0) 
 		{

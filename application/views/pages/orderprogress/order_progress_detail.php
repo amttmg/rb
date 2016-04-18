@@ -246,7 +246,7 @@
                                     </h4>
                                 <?php else: ?>
                                     <h4><b><?php echo($count);
-                                    $count++; ?>. <a href="#" class="product_detail" data-modelno="<?php echo($order['order_details']->model_no) ?>"><?php echo($order['order_details']->model_no) ?></a></b></h4>
+                                    $count++; ?>. <a href="#" class="product_detail" data-productid="<?php echo($order['order_details']->product_id) ?>"><?php echo($order['order_details']->model_no) ?></a></b></h4>
                                 <?php endif ?>
 
                             </h3>
@@ -766,7 +766,7 @@
 
         $('.product_detail').click(function() {    
            $.ajax({
-               url: '<?php echo(site_url("product/product_detail_by_model")) ?>'+'/'+$(this).data('modelno'),
+               url: '<?php echo(site_url("product/product_detail_by_productid")) ?>'+'/'+$(this).data('productid'),
                type: 'POST',
                dataType: 'html',
                success:function(data)
