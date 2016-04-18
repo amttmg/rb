@@ -128,7 +128,7 @@
                                 <td><?php echo($enquiry->price_range_min) ?></td>
                                 <td><?php echo($enquiry->price_range_max) ?></td>
                                 <td><a  href='#editEnquiry' class="btnedit" data-enquiryid="<?php echo $enquiry->enquiry_id ?>"><span class="label label-primary">Edit</span></a>
-                               <?php if ($enquiry->en_status==1): ?>
+                               <?php if ($enquiry->en_status==1  && $enquiry->en_order_status==0): ?>
                                    <a href="<?php echo(site_url('enquiry/edit_enquiry/'.$enquiry->enquiry_id.'/'.$enquiry->en_status)) ?>"><span class="label label-info">Disable</span></a>
                                    <a href="#" class="btn-makeorder" data-enquiryid="<?php echo $enquiry->enquiry_id ?>"><span class="label label-info">Order</span></a>
                                <?php else: ?>

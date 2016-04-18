@@ -340,6 +340,11 @@ class Product extends CI_Controller {
 		}
 	}
 
+	public function product_detail_by_model($model_no)
+	{
+		$this->db->get('');
+	}
+
 }
 
 /* End of file Products.php */
