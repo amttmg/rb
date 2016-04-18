@@ -28,7 +28,7 @@
                     <div id="container">
                         <?php /*echo $this->table->generate();*/ ?>
 
-                        <div class="table-responsive">
+
                           <table class="table table-hover" id="product_table">
                             <thead>
                               <tr>
@@ -53,7 +53,7 @@
                       
                           </table>
                             
-                        </div>
+
                         <script type="text/javascript">
                           $(document).ready(function() {
                             $('.image-popup-link').magnificPopup({type:'image'});
