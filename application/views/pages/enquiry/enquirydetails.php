@@ -8,6 +8,7 @@
             $(this).parent().parent().removeClass('has-error');
             $(this).next().empty();
         });
+
         $('#btn_update').click(function() {
             var formData = new FormData($('#myform')[0]);
             $.ajax({
@@ -127,6 +128,7 @@
                                 <td><a  href='#editEnquiry' class="btnedit" data-enquiryid="<?php echo $enquiry->enquiry_id ?>"><span class="label label-primary">Edit</span></a>
                                <?php if ($enquiry->en_status==1): ?>
                                    <a href="<?php echo(site_url('enquiry/edit_enquiry/'.$enquiry->enquiry_id.'/'.$enquiry->en_status)) ?>"><span class="label label-info">Disable</span></a>
+                                   <a href="#" class="btn-makeorder" data-enquiryid="<?php echo $enquiry->enquiry_id ?>"><span class="label label-info">Order</span></a>
                                <?php else: ?>
                                    <a href="<?php echo(site_url('enquiry/edit_enquiry/'.$enquiry->enquiry_id.'/'.$enquiry->en_status)) ?>"><span class="label label-info">Enable</span></a>
                                <?php endif ?>
@@ -141,6 +143,39 @@
             </div>
 
         </div>
+
+        <div class="modal fade" id="mdl-makeorder">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Order</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form action="" method="POST" id="makeorder-form">
+                           
+                            <div class="form-group">
+                                <label for="">Order Date</label>
+                                <input type="date" name="orderdate" class="form-control" id="orderdate" placeholder="Input field">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Deadline date</label>
+                                <input type="date" name="deadlinedate" class="form-control" id="deadlinedate" placeholder="Input field">
+                            </div>
+                        
+                            
+                        
+                           <!--  <button type="button" class="btn btn-primary" >Submit</button> -->
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="btn-saveorder">Save </button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="modal fade" id="editEnquiry">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -204,8 +239,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="">Enquiry Items</label>
-                                                    <input type="text" class="form-control" name="enquiry_items" id="enquiry_items"
-                                                           placeholder="Enquiry Items" value="<?php echo(set_value('enquiry_items')) ?>">
+                                                    <input type="text" class="form-control" name="enquiry_items" id="enquiry_items" placeholder="Enquiry Items" value="<?php echo(set_value('enquiry_items')) ?>">
                                                             <span class="help-block"></span>
                                                     <?php echo(form_error('enquiry_items')) ?>
                                                 </div>
@@ -280,6 +314,39 @@
 <!-- DataTables -->
 
 <script>
+
+$(document).ready(function() {
+
+    var enquiry_id='';
+
+    $('.btn-makeorder').click(function() {
+        $('#mdl-makeorder').modal('show');
+        enquiry_id=$(this).data('enquiryid');
+
+    });
+        
+    $('#btn-saveorder').click(function() {
+        
+        $.ajax({
+            url: '<?php echo(site_url("order/enquiry_order")) ?>'+'/'+enquiry_id,
+            type: 'POST',
+            dataType: 'json',
+            data: $('#makeorder-form').serialize(),
+            success:function(data)
+            {
+                console.log(data);
+            },
+            error:function(data)
+            {
+                console.log(data);
+            }
+        });
+       
+        
+    });    
+});
+
+
 $('.btnedit').click(function(event) {
     var enqid= $(this).data('enquiryid');
     $('#enquiry_id').val(enqid);
@@ -306,4 +373,6 @@ $('.btnedit').click(function(event) {
         "info": true,
         "autoWidth": true
     });
+
+
 </script>
