@@ -91,40 +91,40 @@
                             <div class="col-md-12">
                                 <table class="table">
                                     <tr STYLE="background-color: #f5f5f5">
-                                    <th>
-                                        Model No.
-                                    </th>
-                                    <th>
-                                        Product ID
-                                    </th>
-                                    <th>
-                                        Gross Weight
-                                    </th>
-                                    <th>
-                                        Net Weight
-                                    </th>
-                                    <th>
-                                        Weight Loss
-                                    </th>
-                                    <th>
-                                        Price
-                                    </th>
-                                    <th>
-                                        Discount Per
-                                    </th>
-                                    <th>
-                                        Discount Amount
-                                    </th>
-                                    <th>
-                                        Net Price
-                                    </th>
-                                        </tr>
+                                        <th>
+                                            Model No.
+                                        </th>
+                                        <th>
+                                            Product ID
+                                        </th>
+                                        <th>
+                                            Gross Weight
+                                        </th>
+                                        <th>
+                                            Net Weight
+                                        </th>
+                                        <th>
+                                            Weight Loss
+                                        </th>
+                                        <th>
+                                            Price
+                                        </th>
+                                        <th>
+                                            Discount Per
+                                        </th>
+                                        <th>
+                                            Discount Amount
+                                        </th>
+                                        <th>
+                                            Net Price
+                                        </th>
+                                    </tr>
                                     <?php foreach ($sales_details as $sd) {
 
                                         ?>
-                                        <tr >
+                                        <tr>
                                             <td>
-                                              <?php echo $sd->model_no ?>
+                                                <a href="#" data-productid="<?php echo $sd->product_id ?>" class="btnproductdetails"><?php echo $sd->model_no ?></a>
                                             </td>
                                             <td>
                                                 <?php echo $sd->product_id ?>
@@ -153,25 +153,25 @@
                                         </tr>
                                         <?php
                                     } ?>
-                                    <tr >
+                                    <tr>
                                         <td colspan="7"></td>
                                         <td>Total</td>
-                                        <td> <?php  echo $sales[0]->total_amount ?></td>
+                                        <td> <?php echo $sales[0]->total_amount ?></td>
                                     </tr>
                                     <tr>
                                         <td colspan="7"></td>
                                         <td>Total Discount</td>
-                                        <td> <?php  echo $sales[0]->total_amount ?></td>
+                                        <td> <?php echo $sales[0]->total_amount ?></td>
                                     </tr>
                                     <tr>
                                         <td colspan="7"></td>
                                         <td>13 % Vat</td>
-                                        <td> <?php  echo $sales[0]->vat_amount ?></td>
+                                        <td> <?php echo $sales[0]->vat_amount ?></td>
                                     </tr>
                                     <tr>
                                         <td colspan="7"></td>
                                         <td>Net Bill Amount</td>
-                                        <td> <?php  echo $sales[0]->gtotal_amount ?></td>
+                                        <td> <?php echo $sales[0]->gtotal_amount ?></td>
                                     </tr>
                                 </table>
                             </div>
@@ -182,9 +182,9 @@
             </div>
             <!-- /.box-body -->
             <div class="box-footer">
-               <div class="form-group">
-                   <button class="btn btn-primary"><i class="glyphicon glyphicon-print"></i> Print Bill</button>
-               </div>
+                <div class="form-group">
+                    <button class="btn btn-primary"><i class="glyphicon glyphicon-print"></i> Print Bill</button>
+                </div>
             </div>
             <!-- /.box-footer-->
         </div>
@@ -193,3 +193,35 @@
     </section>
     <!-- /.content -->
 </div><!-- /.content-wrapper -->
+<div class="modal fade" id="mdl_product_details">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Product Details</h4>
+            </div>
+            <div class="modal-body">
+                <div id="product_details">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('.btnproductdetails').click(function () {
+        $.ajax({
+            url: '<?php echo(site_url("product/product_detail_by_productid")) ?>'+'/'+$(this).data('productid'),
+            type: 'POST',
+            dataType: 'html',
+            success:function(data)
+            {
+                $('#mdl_product_details').modal('show')
+                $('#product_details').html(data);
+            }
+        });
+    });
+</script>
