@@ -393,6 +393,61 @@ class Order extends CI_Controller
         }
     }
 
+    public function enquiry_order($enquiry_id)
+    {
+        $data=$this->db->from('tbl_enquiry')->where('enquiry_id',$enquiry_id)->get();
+        if ($data->num_rows() > 0) 
+        {
+            $enquiry=$data->result();
+
+            $customer_id=$enquiry[0]->customer_id;
+
+            $order_data=array(
+                'customer_id'=>$enquiry[0]->customer_id,
+                'order_date'=>$this->input->post('orderdate'),
+                'deadline_date'=>$this->input->post('deadlinedate'),
+                'status'=>1,
+                'is_reference'=>true
+                );
+            $this->db->insert('tbl_orders',$order_data);
+            $order_id= $this->db->insert_id();
+
+            $order_detail_data=array(
+                'order_id'=>$order_id,
+                'reference_product_id'=>$this->find_product_id_by_model_no($enquiry[0]->enquiry_items),
+                'remarks'=>$enquiry[0]->remarks,
+                'order_no'=>$this->generate_order_no(),
+                'order_id'=>$order_id,
+                'status'=>1
+                );
+
+            $this->db->insert('tbl_order_details',$order_detail_data);
+
+        }
+        else
+        {
+            echo("enquiry not found");
+        }
+    }
+
+    public function find_product_id_by_model_no($model_no)
+    {
+        $this->db->where('model_no',$model_no);
+        $data=$this->db->get('tbl_products');
+
+        if ($data->num_rows() > 0) 
+        {
+            $product=$data->result();
+            return $product[0]->product_id ;
+            
+        }
+        else
+        {
+          
+            return '';
+        }
+    }
+
 
 }
 

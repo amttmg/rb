@@ -322,6 +322,24 @@ class Product extends CI_Controller {
 		echo(json_encode($data));
 	}
 
+	public function product_status($model_no='')
+	{
+		if ($model_no) 
+		{
+			$this->db->where('model_no',$model_no);
+			$data=$this->db->get('tbl_products');
+			if ($data->num_rows() > 0) 
+			{
+				echo 'true';
+			}
+			else
+
+			{
+				echo 'false';
+			}
+		}
+	}
+
 }
 
 /* End of file Products.php */

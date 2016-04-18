@@ -5,6 +5,7 @@
 
 
     $(document).ready(function() {
+        $('#save').prop('disabled',true);
         $("input").change(function(){
         $(this).parent().parent().removeClass('has-error');
         $(this).next().empty();
@@ -17,6 +18,45 @@
             $(this).parent().parent().removeClass('has-error');
             $(this).next().empty();
         });
+
+        $('#enquiry_items').blur(function() {
+
+            $.ajax({
+                url: '<?php echo(site_url("product/product_status")) ?>'+'/'+$(this).val(),
+                type: 'POST',
+                success:function(data)
+                {
+                    if(data==='true')
+                    {
+                        $('#status_success').remove();
+                        $('#enquiry_items').before('<label class="control-label" id="status_success" for="inputSuccess"><i class="fa fa-check"></i></label>');
+                        $('#enquiry_items').parent().parent().addClass('has-success');
+                        $('.overlay').hide();
+                        $('#save').prop('disabled',false);
+                    }
+                    else
+                    {
+                        $('#save').prop('disabled',true);
+                        $('#status_success').remove();
+                        $('#enquiry_items').next().html('<p class="text-danger">Product not found with given model number !!</p>');
+                        $('#enquiry_items').parent().parent().addClass('has-error');
+                        $('.overlay').hide();
+                    }
+                }
+            })
+            .done(function() {
+                console.log("success");
+            })
+            .fail(function() {
+                console.log("error");
+            })
+            .always(function() {
+                console.log("complete");
+            });
+            
+          
+        });
+        
         $('#save').click(function() {
             var formData = new FormData($('#myform')[0]);
             $.ajax({
