@@ -403,11 +403,102 @@ class Product extends CI_Controller {
 					</div>
 				</div>
 			</div>
+
+			<?php
+				 $this->db->select('tbl_stone_details.*,tbl_stones.*');
+				 $this->db->from('tbl_stone_details');
+				 $this->db->join('tbl_stones','tbl_stones.stone_id=tbl_stone_details.stone_id');
+				 $this->db->where('tbl_stone_details.product_id',$product[0]->product_id);
+				 $temp_stone=$this->db->get();
+			?>
+			<?php if ($temp_stone->num_rows() > 0): ?>
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h3 class="panel-title">Stone Details</h3>
+							</div>
+							<div class="panel-body">
+								<table class="table">
+									<thead>
+									<tr>
+										<th>Lot no</th>
+										<th>Type</th>
+										<th>Color</th>
+										<th>Clarity</th>
+										<th>Size</th>
+										<th>Pcs</th>
+										<th>Cts</th>
+									</tr>
+										
+									</thead>
+			                       <tbody>
+				                       <?php foreach ($temp_stone->result() as $stone): ?>
+				                       		<tr>
+				                       			<td><?php echo($stone->lot_no) ?></td>
+				                       			<td><?php echo($stone->type) ?></td>
+				                       			<td><?php echo($stone->color) ?></td>
+				                       			<td><?php echo($stone->clarity) ?></td>
+				                       			<td><?php echo($stone->size) ?></td>
+				                       			<td><?php echo($stone->pcs) ?></td>
+				                       			<td><?php echo($stone->cts) ?></td>
+				                       		</tr>
+				                       <?php endforeach ?>
+			                   	   </tbody>
+			                   </table>
+							</div>
+						</div>
+					</div>
+				</div>
+			<?php endif ?>
+
+			<?php 
+
+				$this->db->select('tbl_metal_details.*,tbl_metals.*');
+				 $this->db->from('tbl_metal_details');
+				 $this->db->join('tbl_metals','tbl_metals.metal_id=tbl_metal_details.metal_id');
+				 $this->db->where('tbl_metal_details.product_id',$product[0]->product_id);
+				 $temp_metals=$this->db->get();
+			
+			 ?>
+			
+			<?php if ($temp_metals->num_rows() > 0): ?>
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h3 class="panel-title">Metal Details</h3>
+							</div>
+							<div class="panel-body">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>Metal</th>
+											<th>Metal Type</th>
+											<th>Unit</th>
+											<th>Weight</th>
+										</tr>
+									</thead>
+			                       <tbody>
+					                   	<?php foreach ($temp_metals->result() as $metal): ?>
+					                   		<td><?php echo($metal->metal) ?></td>
+					                   		<td><?php echo($metal->metal_type) ?></td>
+					                   		<td><?php echo($metal->unit) ?></td>
+					                   		<td><?php echo($metal->weight) ?></td>
+					                   	<?php endforeach ?>
+			                   	   </tbody>
+			                   </table>
+							</div>
+						</div>
+					</div>
+				</div>
+			<?php endif ?>
+			
 			<?php
 
 			
 			//$master['product']=$product->result_array();
-			//$master['stone_details']=$this->db->from('tbl_stone_details')->where('product_id',$temp[0]->product_id)->get()->result_array();
+			//$master['stone_details']=;
 			//$master['metal_details']=$this->db->from('tbl_metal_details')->where('product_id',$temp[0]->product_id)->get()->result_array();
 
 		}
