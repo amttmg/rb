@@ -246,7 +246,7 @@
                                     </h4>
                                 <?php else: ?>
                                     <h4><b><?php echo($count);
-                                            $count++; ?>. <?php echo($order['order_details']->model_no) ?></b></h4>
+                                    $count++; ?>. <a href="#" class="product_detail" data-modelno="<?php echo($order['order_details']->model_no) ?>"><?php echo($order['order_details']->model_no) ?></a></b></h4>
                                 <?php endif ?>
 
                             </h3>
@@ -741,9 +741,43 @@
     </div>
 </div>
 
+<div class="modal fade" id="mdl_product_details">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Product Details</h4>
+            </div>
+            <div class="modal-body">
+                <div id="product_details">
+                    
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <script type="text/javascript">
     $(document).ready(function () {
+
+        $('.product_detail').click(function() {    
+           $.ajax({
+               url: '<?php echo(site_url("product/product_detail_by_model")) ?>'+'/'+$(this).data('modelno'),
+               type: 'POST',
+               dataType: 'html',
+               success:function(data)
+               {
+                    $('#mdl_product_details').modal('show')
+                    $('#product_details').html(data);
+               }
+           });
+           
+           
+        });
 
         $('#update_progress_message').hide();
         $('#update_remarks_message').hide();

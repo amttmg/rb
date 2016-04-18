@@ -342,7 +342,65 @@ class Product extends CI_Controller {
 
 	public function product_detail_by_model($model_no)
 	{
-		$this->db->get('');
+		$master=array();
+		$this->db->where('model_no',$model_no);
+		$data=$this->db->get('tbl_products');
+		if ($data->num_rows() > 0) 
+		{
+			$product=$data->result();
+			$category=$this->db->from('tbl_product_category')->where('category_id',$product[0]->category_id)->get()->result();
+			?>
+			<div class="panel panel-default">
+				<!-- <div class="panel-heading">
+					<h3 class="panel-title">Product details</h3>
+				</div> -->
+					<div class="panel-body">
+						<table class="table">
+	                       <tbody>
+			                   <tr>
+			                       <td class="text-bold">Model No</td>
+			                       <td>:</td>
+			                       <td><?php echo($product[0]->model_no) ?></td>
+			                   </tr>
+			                   <tr>
+			                       <td class="text-bold">Category</td>
+			                       <td>:</td>
+			                       <td> <?php echo $category[0]->category; ?></td>
+			                   </tr>
+			                   <tr>
+			                       <td class="text-bold">Gross weight</td>
+			                       <td>:</td>
+			                       <td> <?php echo($product[0]->gross_weight); ?></td>
+			                   </tr>
+			                   <tr>
+			                       <td class="text-bold">Net weight</td>
+			                       <td>:</td>
+			                       <td> <?php echo($product[0]->net_weight); ?></td>
+			                   </tr>
+			                   <tr>
+			                       <td class="text-bold">Weight loss</td>
+			                       <td>:</td>
+			                       <td> <?php echo($product[0]->weight_loss); ?></td>
+			                   </tr>
+			                   <tr>
+			                       <td class="text-bold">Price</td>
+			                       <td>:</td>
+			                       <td> <?php echo($product[0]->price); ?></td>
+			                   </tr>
+	                   	   </tbody>
+	                   </table>
+					</div>
+				</div>
+			<?php
+
+			
+			//$master['product']=$product->result_array();
+			//$master['stone_details']=$this->db->from('tbl_stone_details')->where('product_id',$temp[0]->product_id)->get()->result_array();
+			//$master['metal_details']=$this->db->from('tbl_metal_details')->where('product_id',$temp[0]->product_id)->get()->result_array();
+
+		}
+		
+		
 	}
 
 }
