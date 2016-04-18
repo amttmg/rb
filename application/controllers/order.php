@@ -422,6 +422,7 @@ class Order extends CI_Controller
                 );
 
             $this->db->insert('tbl_order_details',$order_detail_data);
+            echo "success";
 
         }
         else

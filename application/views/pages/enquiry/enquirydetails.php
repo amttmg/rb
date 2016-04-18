@@ -64,7 +64,9 @@
 
     <!-- Main content -->
     <section class="content">
-
+    <div id="message">
+        
+    </div>
         <!-- Default box -->
         <div class="box">
             <div class="box-header with-border">
@@ -156,11 +158,11 @@
                            
                             <div class="form-group">
                                 <label for="">Order Date</label>
-                                <input type="date" name="orderdate" class="form-control" id="orderdate" placeholder="Input field">
+                                <input type="date" name="orderdate" class="form-control" id="orderdate" placeholder="Input field" required>
                             </div>
                             <div class="form-group">
                                 <label for="">Deadline date</label>
-                                <input type="date" name="deadlinedate" class="form-control" id="deadlinedate" placeholder="Input field">
+                                <input type="date" name="deadlinedate" class="form-control" id="deadlinedate" placeholder="Input field" required>
                             </div>
                         
                             
@@ -326,18 +328,35 @@ $(document).ready(function() {
     });
         
     $('#btn-saveorder').click(function() {
+        $('#btn-saveorder').prop('disabled',true);
+        $('#btn-saveorder').text('Saving.........');
         
         $.ajax({
             url: '<?php echo(site_url("order/enquiry_order")) ?>'+'/'+enquiry_id,
             type: 'POST',
-            dataType: 'json',
             data: $('#makeorder-form').serialize(),
             success:function(data)
             {
                 console.log(data);
+                 if (data==='success')
+                 {
+                    
+                    $('#btn-saveorder').prop('disabled',false);
+                    $('#btn-saveorder').text('Save');
+                    $('#mdl-makeorder').modal('hide');
+                    var message='<div class="alert alert-success">';
+                        message+='<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><strong>Enquiry ordered successfully !</strong></div>';
+                    $('#message').empty();
+                    $('#message').append(message);
+                    $("html, body").animate({scrollTop: 0}, "slow");
+                        return false;
+
+                 }
+               
             },
             error:function(data)
             {
+                
                 console.log(data);
             }
         });
