@@ -223,6 +223,17 @@
                                                    readonly="readonly"></td>
                                         <td></td>
                                     </tr>
+                                     <tr>
+                                        <td></td>
+                                        <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Advance</th>
+                                        <td><input type="text" name="advance" id="advance" class="form-control"
+                                                   readonly="readonly"></td>
+                                        <td></td>
+                                    </tr>
                                 </fieldset>
                                 </tbody>
                             </table>
