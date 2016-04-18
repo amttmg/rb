@@ -350,47 +350,59 @@ class Product extends CI_Controller {
 			$product=$data->result();
 			$category=$this->db->from('tbl_product_category')->where('category_id',$product[0]->category_id)->get()->result();
 			?>
-			<div class="panel panel-default">
+			<div class="row">
+				<div class="panel panel-default">
 				<!-- <div class="panel-heading">
 					<h3 class="panel-title">Product details</h3>
 				</div> -->
 					<div class="panel-body">
-						<table class="table">
-	                       <tbody>
-			                   <tr>
-			                       <td class="text-bold">Model No</td>
-			                       <td>:</td>
-			                       <td><?php echo($product[0]->model_no) ?></td>
-			                   </tr>
-			                   <tr>
-			                       <td class="text-bold">Category</td>
-			                       <td>:</td>
-			                       <td> <?php echo $category[0]->category; ?></td>
-			                   </tr>
-			                   <tr>
-			                       <td class="text-bold">Gross weight</td>
-			                       <td>:</td>
-			                       <td> <?php echo($product[0]->gross_weight); ?></td>
-			                   </tr>
-			                   <tr>
-			                       <td class="text-bold">Net weight</td>
-			                       <td>:</td>
-			                       <td> <?php echo($product[0]->net_weight); ?></td>
-			                   </tr>
-			                   <tr>
-			                       <td class="text-bold">Weight loss</td>
-			                       <td>:</td>
-			                       <td> <?php echo($product[0]->weight_loss); ?></td>
-			                   </tr>
-			                   <tr>
-			                       <td class="text-bold">Price</td>
-			                       <td>:</td>
-			                       <td> <?php echo($product[0]->price); ?></td>
-			                   </tr>
-	                   	   </tbody>
-	                   </table>
+						<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+							<table class="table">
+		                       <tbody>
+				                   <tr>
+				                       <td class="text-bold">Model No</td>
+				                       <td>:</td>
+				                       <td><?php echo($product[0]->model_no) ?></td>
+				                   </tr>
+				                   <tr>
+				                       <td class="text-bold">Category</td>
+				                       <td>:</td>
+				                       <td> <?php echo $category[0]->category; ?></td>
+				                   </tr>
+				                   <tr>
+				                       <td class="text-bold">Gross weight</td>
+				                       <td>:</td>
+				                       <td> <?php echo($product[0]->gross_weight); ?></td>
+				                   </tr>
+				                   <tr>
+				                       <td class="text-bold">Net weight</td>
+				                       <td>:</td>
+				                       <td> <?php echo($product[0]->net_weight); ?></td>
+				                   </tr>
+				                   <tr>
+				                       <td class="text-bold">Weight loss</td>
+				                       <td>:</td>
+				                       <td> <?php echo($product[0]->weight_loss); ?></td>
+				                   </tr>
+				                   <tr>
+				                       <td class="text-bold">Price</td>
+				                       <td>:</td>
+				                       <td> <?php echo($product[0]->price); ?></td>
+				                   </tr>
+		                   	   </tbody>
+		                   </table>
+						</div>
+						<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+							<?php if ($product[0]->image_url): ?>
+								<img src="<?php echo(base_url('uploads/'.$product[0]->image_url)); ?>" class="img-responsive" alt="Image">
+							<?php else: ?>
+								<div class="thumbnail pull-right" style="height: 136px; width: 120px; background-color: #f5f5f5"> </div>
+							<?php endif ?>
+							
+						</div>
 					</div>
 				</div>
+			</div>
 			<?php
 
 			
