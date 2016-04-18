@@ -474,16 +474,16 @@ class Product extends CI_Controller {
 									<thead>
 										<tr>
 											<th>Metal</th>
-											<th>Metal Type</th>
 											<th>Unit</th>
+											<th>Metal Type</th>
 											<th>Weight</th>
 										</tr>
 									</thead>
 			                       <tbody>
 					                   	<?php foreach ($temp_metals->result() as $metal): ?>
 					                   		<td><?php echo($metal->metal) ?></td>
-					                   		<td><?php echo($metal->metal_type) ?></td>
 					                   		<td><?php echo($metal->unit) ?></td>
+					                   		<td><?php echo($metal->metal_type) ?></td>
 					                   		<td><?php echo($metal->weight) ?></td>
 					                   	<?php endforeach ?>
 			                   	   </tbody>
