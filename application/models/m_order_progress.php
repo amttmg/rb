@@ -29,7 +29,7 @@ class M_Order_progress extends CI_Model {
 
 	 private function _get_datatables_query()
 	 {
-		$this->db->select('tbl_orders.*,tbl_customers.fname,tbl_customers.lname,tbl_customers.mname');
+		$this->db->select('tbl_orders.*,tbl_customers.fname,tbl_customers.lname,tbl_customers.mname,tbl_customers.customer_id');
 		$this->db->from($this->table);
 		$this->db->join('tbl_customers','tbl_customers.customer_id=tbl_orders.customer_id');
 		$i = 0;

@@ -71,6 +71,17 @@ class Order extends CI_Controller
         echo(json_encode($master));
     }
 
+    public function update($order_id)
+    {
+        $order=$this->db->from('tbl_orders')->where('order_id',$order_id)->get();
+        $data['order']=$order->first_row();
+        $data['ordered_products'];
+        
+        
+       
+
+    }
+
     public function add_to_order($product_id = '')
     {
         $ordered_product = array();

@@ -62,37 +62,69 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                            <div class="box box-default">
-                              <div class="box-header with-border">
-                                <h3 class="box-title">Customer Details</h3>
-                              </div>
                               <div class="box-body">
                                     <div class="row">
                                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                            <div class="form-group">
-                                                <span class="label">Customer Name</span>
-                                                <select name="customer" id="customer" class="form-control" required="required">
-                                                    <option value="">--Select Customer</option>
-                                                    <?php foreach ($customers as $customer): ?>
-                                                        <option value="<?php echo($customer->customer_id) ?>"><?php echo($customer->fname.' '.$customer->mname.' '.$customer->lname) ?></option>
-                                                    <?php endforeach ?>
-                                                </select>
+                                            <div id="user_info">
+                                                
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 ">
-                                                   <div>
-                                                        <img src="sanfran.jpg" class="img-responsive img-thumbnail" alt="Cinque Terre" style="width:204px;height:auto;">
-                                                        <h3 class="profile-username">Dipesh Pokhrel</h3>
-                                                        <address>
-                                                            Address: Dhankuta<br/>
-                                                            <span class="badge label-primary"><i class="fa fa-envelope"></i> Email: dipbro_jpt36@gmail.com</span><br/>
-                                                            <span class="badge label-primary"><i class="fa fa-phone"></i> Contact: 9814369528</span><br/>
-                                                        </address>
 
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                            <div class="row">
+                                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                                    <div class="form-group">
+                                                        <label for="">Order Date</label>
+                                                        <input type="date" name="order_date" class="form-control" id="order_date" placeholder="Input field">
                                                     </div>
-                                                    
+                                                    <div class="form-group">
+                                                        <label for="">Advance Payment</label>
+                                                        <input type="text" name="advance" class="form-control" id="advance" placeholder="Input Advance">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                                    <div class="form-group">
+                                                        <label for="">Deadline Date</label>
+                                                        <input type="date" name="deadline_date" class="form-control" id="deadline_date" placeholder="Input field">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="">Remarks</label>
+                                                        <textarea name="remarks" id="remarks" class="form-control" rows="2" required="required"></textarea>
+                                                    </div>
+                                                </div>
                                             </div>
+                                        </div>
+                                    </div>
+
+                                     <div class="row">
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                            <div id="">
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading">
+                                                        <button type="button" class="btn btn-primary btn-sm"
+                                                                id="btn_reference_product"><i
+                                                                class="fa a-folder-open"></i>Order from Reference
+                                                        </button>
+                                                    </div>
+                                                    <table class="table table-hover">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Model No</th>
+                                                            <th>Price</th>
+                                                            <th>Qty</th>
+                                                            <th>Image</th>
+                                                            <td>Remarks</td>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody id="product_container">
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                   
                               </div><!-- /.box-body -->
@@ -110,14 +142,69 @@
     </div>
 </div>
 
+<div class="modal fade" id="mdl_reference_product">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Reference Product List</h4>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table table-hover" id="product_table">
+                        <thead>
+                        <tr>
+                            <th>Model Number</th>
+                            <th>Category</th>
+                            <th>Net Weight</th>
+                            <th>Gross Weight</th>
+                            <th>Price</th>
+                            <th>Image</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th>Model Number</th>
+                            <th>Category</th>
+                            <th>Net Weight</th>
+                            <th>Gross Weight</th>
+                            <th>Price</th>
+                        </tr>
+                        </tfoot>
+
+                    </table>
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <span class="label label-success pull-left" id="save_order_message" style="display:none">Ordered saved successfully !</span>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript">
     $(document).ready(function() {
         var customer_id='';
-
         $('body').on('click','.btn_edit_order',function(){
-            customer_id=$('#customer').val();
-            get_customer_detail (customer_id)
+            customer_id=$(this).data('customerid');
             $('#modal-edit_order').modal('show');
+
+            $.ajax({
+                url: '<?php echo(site_url("customer/get_customer_by_id")) ?>' + '/' + customer_id,
+                type: 'POST',
+                dataType: 'html',
+                success: function (data) {
+                    $('#user_info').html(data);
+                    $('.overlay').hide();
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
         });
 
         $('body').on('change','#customer',function(){
