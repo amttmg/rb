@@ -87,6 +87,8 @@
                             <tr>
                               <th>Order ID</th>
                               <th>Item</th>
+                              <th>Order Date</th>
+                              <th>Deadline Date</th>
                               <th>Status</th>
                               <th>Action</th>
                             </tr>
@@ -97,8 +99,10 @@
                                     <tr>
                                       <td><?php echo $order['order_no']; ?></td>
                                       <td><?php echo($order['product_name']) ?></td>
+                                      <td><?php echo($order['order_date']) ?></td>
+                                      <td><?php echo($order['deadline_date']) ?></td>
                                       <td><span class="label label-info">Processing</span></td>
-                                      <td><a href="#" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i> View Detail</a></td>
+                                      <td><a href="<?php echo(site_url('order_progress_detail/view_progress'.'/'.$order['order_id'])) ?>" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i> View Detail</a></td>
                                     </tr>
 
                                   <?php endforeach ?>
@@ -108,8 +112,8 @@
                       </div><!-- /.table-responsive -->
                     </div><!-- /.box-body -->
                     <div class="box-footer clearfix" style="display: block;">
-                      <a href="javascript::;" class="btn btn-sm btn-info btn-flat pull-left">Place New Order</a>
-                      <a href="javascript::;" class="btn btn-sm btn-default btn-flat pull-right">View All Orders</a>
+                      <a href="<?php echo(site_url('order')) ?>" class="btn btn-sm btn-info btn-flat pull-left">Place New Order</a>
+                      <a href="<?php echo(site_url('order_progress')) ?>" class="btn btn-sm btn-default btn-flat pull-right">View All Orders</a>
                     </div><!-- /.box-footer -->
                   </div>
             </div>

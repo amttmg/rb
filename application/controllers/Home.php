@@ -104,6 +104,9 @@ class Home extends CI_Controller
         foreach ($data as $order) 
         {
             $temp['order_no']=$order->order_no;
+            $temp['order_id']=$order->order_id;
+            $temp['order_date']=$this->find_order_date($order->order_id);
+            $temp['deadline_date']=$this->find_deadline_date($order->order_id);
             if ($order->reference_product_id) 
             {
                 $temp['product_name']=$this->find_product_name($order->reference_product_id);
@@ -134,6 +137,17 @@ class Home extends CI_Controller
             return "not defined";
         }
        
+    }
+
+    public function find_order_date($order_id)
+    {
+       $data=$this->db->from('tbl_orders')->where('order_id',$order_id)->get()->result();
+       return $data[0]->order_date;
+    }
+    public function find_deadline_date($order_id)
+    {
+       $data=$this->db->from('tbl_orders')->where('order_id',$order_id)->get()->result();
+       return $data[0]->deadline_date;
     }
 
    
