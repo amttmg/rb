@@ -271,7 +271,9 @@
                         clearForm();
                         $('#product_order_form #btn_save_orders').prop('disabled', false);
                         $('#product_order_form #btn_save_orders').text('Save');
-
+                        
+                        $("html, body").animate({scrollTop: 0}, "slow");
+                        return false;
                         display_ordered_product();
                     }
                     else {
