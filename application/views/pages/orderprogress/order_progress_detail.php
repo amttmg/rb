@@ -97,9 +97,9 @@
                                 <?php else: ?>
                                     <h4 class="text-light-blue"><b>
                                             <?php
-                                            echo "Model No: " . (find_taged_model_no($customer_detail[0]->order_no));
+                                            echo "Model No: ";  ?> <a href="#" class="product_detail" data-productid="<?php echo(find_taged_product_id($customer_detail[0]->order_no)) ?>"> <?php echo find_taged_model_no($customer_detail[0]->order_no); ?></a>
 
-                                            ?></b></h4>
+                                           </b></h4>
                                 <?php endif ?>
 
 
@@ -242,7 +242,7 @@
                         <div class="box-header with-border">
                             <h3 class="box-title">
                                 <?php if (tag_check($order['order_details']->order_no)): ?>
-                                    <h4><b><?php echo(find_taged_model_no($order['order_details']->order_no)) ?></b>
+                                    <h4><b><a href="#" class="product_detail" data-productid="<?php echo($order['order_details']->product_id) ?>"><?php echo(find_taged_model_no($order['order_details']->order_no)) ?></a></b>
                                     </h4>
                                 <?php else: ?>
                                     <h4><b><?php echo($count);
