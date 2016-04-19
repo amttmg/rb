@@ -95,11 +95,12 @@ class Home extends CI_Controller
     public function latest_orders()
     {
         $master=array();
-        $this->db->where('complated_at is not null', null, false);
+        $this->db->where('complated_at is null', null, false);
         $this->db->where('status',true);
+        $this->db->order_by('order_detail_id','desc');
         $this->db->limit(10);
         $data=$this->db->get('tbl_order_details')->result();
-
+        //print_r($data);
         foreach ($data as $order) 
         {
             $temp['order_no']=$order->order_no;
@@ -114,7 +115,7 @@ class Home extends CI_Controller
             array_push($master, $temp);
         }
         
-        return $temp;
+        return $master;
     }
 
     public function find_product_name($id)

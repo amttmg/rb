@@ -88,14 +88,19 @@
                               <th>Order ID</th>
                               <th>Item</th>
                               <th>Status</th>
+                              <th>Action</th>
                             </tr>
                           </thead>
                           <tbody>
                               <?php if (isset($latest_orders)): ?>
                                   <?php foreach ($latest_orders as $order): ?>
                                     <tr>
-                                      <td>$order->order_no</td>
+                                      <td><?php echo $order['order_no']; ?></td>
+                                      <td><?php echo($order['product_name']) ?></td>
+                                      <td><span class="label label-info">Processing</span></td>
+                                      <td></td>
                                     </tr>
+
                                   <?php endforeach ?>
                               <?php endif ?>
                           </tbody>
