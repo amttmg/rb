@@ -38,7 +38,7 @@ class Product extends CI_Controller {
 		$master['status'] = True;
         $data = array();
         $master = array();
-		$this->form_validation->set_rules('model_no', 'Model Number', 'trim|required|max_length[64]');
+		$this->form_validation->set_rules('model_no', 'Model Number', 'trim|required|max_length[64]|is_unique[tbl_products.model_no]');
 		$this->form_validation->set_rules('category', 'Category', 'callback_dropdown_fun');
 		$this->form_validation->set_rules('grossweight', 'Gross weight', 'trim|required');
 		$this->form_validation->set_rules('netweight', 'Net weight', 'trim|required');
@@ -121,7 +121,17 @@ class Product extends CI_Controller {
 		$master['status'] = True;
         $data = array();
         $master = array();
-		$this->form_validation->set_rules('model_no', 'Model Number', 'trim|required|max_length[64]');
+
+        $product=$this->db->from('tbl_products')->where('product_id',$product_id)->get()->result();
+        
+        $is_unique='';
+        
+        if($this->input->post('model_no')!=$product[0]->model_no)
+        {
+        	$is_unique =  '|is_unique[tbl_products.model_no]';
+        }
+
+		$this->form_validation->set_rules('model_no', 'Model Number', 'trim|required|max_length[64]'.$is_unique);
 		$this->form_validation->set_rules('category', 'Category', 'callback_dropdown_fun');
 		$this->form_validation->set_rules('grossweight', 'Gross weight', 'trim|required');
 		$this->form_validation->set_rules('netweight', 'Net weight', 'trim|required');

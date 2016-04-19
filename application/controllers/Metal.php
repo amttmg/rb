@@ -61,6 +61,7 @@ class Metal extends CI_Controller {
         $master = array();
         $metal=$this->db->from('tbl_metals')->where('metal_id',$id)->get()->result();
         $is_unique='';
+        
         if($this->input->post('metal')!=$metal[0]->metal)
         {
         	$is_unique =  '|is_unique[tbl_metals.metal]';
