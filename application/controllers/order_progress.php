@@ -98,7 +98,7 @@ class Order_progress extends CI_Controller
 			{
 				$row[]='<small class="label label-warning">Order is in progress !</small>';
 			}
-			$row[]='<a href="'.site_url('order_progress_detail/view_progress/').'/'.$order->order_id.'" class="btn_order_progress btn btn-xs btn-primary" data-orderid=""><i class="fa fa-edit"></i> View Detail</a>  <a href="#" class="btn_edit_order btn btn-xs btn-primary" data-customerid="'.$order->customer_id.'" data-orderid="'.$order->order_id.'"><i class="fa fa-edit"></i>Edit</a>';
+			$row[]='<a href="'.site_url('order_progress_detail/view_progress/').'/'.$order->order_id.'" class="btn_order_progress btn btn-xs btn-primary" data-orderid=""><i class="fa fa-edit"></i> View Detail</a>  <a href="'.site_url('order/update'.'/'.$order->order_id).'" class="btn btn-xs btn-primary" data-customerid="'.$order->customer_id.'" data-orderid="'.$order->order_id.'"><i class="fa fa-edit"></i>Edit</a>';
 			//add html for action
 			//$row[] = '<a href="'.base_url("users/Edit/$user->user_id").'" class="jqui_button"> Edit </a><a href="'.base_url("users/EditPassword/$user->user_id").'" id="changePwdButton" class="jqui_button" > Change Password </a></span>';
 		

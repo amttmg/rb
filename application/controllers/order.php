@@ -74,12 +74,10 @@ class Order extends CI_Controller
     public function update($order_id)
     {
         $order=$this->db->from('tbl_orders')->where('order_id',$order_id)->get();
-        $data['order']=$order->first_row();
-        $data['ordered_products'];
-        
-        
-       
-
+        //$data['order']=$order->first_row();
+        $data['title'] = "Update Order";
+        $data['content'] = $this->load->view('pages/orders/edit_order_view','', true);
+        $this->parser->parse('template/page_template', $data);
     }
 
     public function add_to_order($product_id = '')
