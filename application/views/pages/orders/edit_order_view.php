@@ -35,34 +35,19 @@
             </div>
             <div class="box-body">
                 <div id="container">
-                    <form action="" method="POST" role="form" id="product_order_form">
+                    <?php echo(form_open('order/update/'.$this->uri->segment(3))); ?>
                         <div class="panel panel-default">
                             <div class="panel-heading"><h3 class="panel-title">Customer Order</h3></div>
                             <div class="panel-body">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="row">
-                                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <label for="">Swap Card</label>
-                                                <input type="text" class="form-control" name="card_no" id="card_no">
-                                            </div>
-                                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <div class="form-group">
-                                                    <label for="">Customer Name</label>
-                                                    <select name="customer" id="customer" class="form-control"
-                                                            required="required">
-                                                    </select>
-                                                    <span></span>
-                                                </div>
-                                            </div>
-
-                                        </div>
+                                        
                                         <div class="row">
                                             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                                 <div class="form-group">
                                                     <label for="">Order date</label>
                                                     <input type="date" name="order_date" class="form-control"
-                                                           id="order_date"
+                                                           id="order_date" value="<?php echo($order->order_date) ?>" 
                                                            placeholder="Order Date">
                                                     <span></span>
                                                 </div>
@@ -71,7 +56,7 @@
                                             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                                 <div class="form-group">
                                                     <label for="">Deadline date</label>
-                                                    <input type="date" name="deadline_date" class="form-control"
+                                                    <input type="date" name="deadline_date" value="<?php echo($order->deadline_date) ?>" class="form-control"
                                                            id="deadline_date"
                                                            placeholder="Order Date">
                                                     <span></span>
@@ -82,7 +67,7 @@
                                             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                                 <div class="form-group">
                                                     <label>Advance payment</label>
-                                                    <input type="text" name="discount" class="form-control"
+                                                    <input type="text" name="discount" value="<?php echo(isset($payment)?$payment:'') ?>" class="form-control"
                                                            id="discount"
                                                            placeholder="Advance Payment">
                                                     <span></span>
@@ -92,7 +77,7 @@
                                                 <div class="form-group">
                                                     <label>Remarks</label>
                                                     <textarea class="form-control" name="remarks" id="remarks"
-                                                              rows="2"></textarea>
+                                                              rows="2"><?php echo($order->remarks) ?></textarea>
                                                     <span></span>
                                                 </div>
                                             </div>
@@ -171,7 +156,7 @@
                             </div>
                         </div>
 
-                        <button type="button" class="btn btn-primary pull-right" id="btn_save_orders">Update</button>
+                        <button type="submit" class="btn btn-primary pull-right" id="btn_update_order">Update</button>
                     </form>
                 </div>
             </div>
@@ -230,6 +215,9 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
+
+        show_user_info();
+
         $('.image-link').magnificPopup({type: 'image'});
         $('#save_order_message').hide();
         fill_combobox('order/fill_combobox', 'customer_list');
@@ -428,30 +416,7 @@
             }
         });
     }
-    function show_customer(customer_id) {
-
-        if ($('#customer').val() !== '0') {
-            $('.overlay').show('fast', function () {
-
-                $.ajax({
-                    url: '<?php echo(site_url("customer/get_customer_by_id")) ?>' + '/' + customer_id,
-                    type: 'POST',
-                    dataType: 'html',
-                    success: function (data) {
-                        $('#user_info').html(data);
-                        $('.overlay').hide();
-                    },
-                    error: function (data) {
-                        console.log(data);
-                    }
-                });
-
-            });
-        }
-        else {
-            $('.overlay').hide();
-        }
-    }
+   
     function remove_product(rowid) {
         $.ajax({
             url: '<?php echo(site_url("order/remove_ordered_product")) ?>' + '/' + rowid,
@@ -492,6 +457,23 @@
                 console.log("complete");
             });
 
+    }
+
+    function show_user_info () 
+    {
+        var customer_id='<?php echo($order->customer_id); ?>';
+       $.ajax({
+            url: '<?php echo(site_url("customer/get_customer_by_id")) ?>' + '/' + customer_id,
+            type: 'POST',
+            dataType: 'html',
+            success: function (data) {
+                $('#user_info').html(data);
+                $('.overlay').hide();
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
     }
 </script>
 <script type="text/javascript">

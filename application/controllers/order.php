@@ -73,10 +73,39 @@ class Order extends CI_Controller
 
     public function update($order_id)
     {
+        $content=array();
+        $this->cart->destroy();
+        $this->db->select('tbl_order_details.*,tbl_products.model_no,tbl_products.product_id,tbl_products.price,tbl_products.model_no');
+        $this->db->from('tbl_order_details');
+        $this->db->join('tbl_products','tbl_products.product_id=tbl_order_details.reference_product_id');
+        $this->db->where('tbl_order_details.reference_product_id is not null',null,false);
+        $this->db->where('tbl_order_details.order_id',$order_id);
+        $order_item=$this->db->get();
+
+        $payment=$this->db->from('tbl_payments')->where('order_id',$order_id)->where('type','advance')->get();
+        if ($payment->num_rows() > 0) 
+        {
+            $tp=$payment->first_row();
+           $content['payment']=$tp->amount;
+        }
+        if ($order_item->num_rows()> 0) 
+        {
+              foreach ($order_item->result() as $product) 
+              {
+                $data = array(
+                    'id' => $product->product_id,
+                    'qty' => 1,
+                    'price' => $product->price,
+                    'name' => $product->model_no,
+                );
+                $this->cart->insert($data);
+
+              }
+        }
         $order=$this->db->from('tbl_orders')->where('order_id',$order_id)->get();
-        //$data['order']=$order->first_row();
+        $content['order']=$order->first_row();
         $data['title'] = "Update Order";
-        $data['content'] = $this->load->view('pages/orders/edit_order_view','', true);
+        $data['content'] = $this->load->view('pages/orders/edit_order_view',$content, true);
         $this->parser->parse('template/page_template', $data);
     }
 
