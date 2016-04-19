@@ -159,14 +159,17 @@
                             <div class="form-group">
                                 <label for="">Order Date</label>
                                 <input type="date" name="orderdate" class="form-control" id="orderdate" placeholder="Input field" required>
+                                <span></span>
                             </div>
                             <div class="form-group">
                                 <label for="">Deadline date</label>
                                 <input type="date" name="deadlinedate" class="form-control" id="deadlinedate" placeholder="Input field" required>
+                                <span></span>
                             </div>
                             <div class="form-group">
                                 <label for="">Remarks</label>
-                                 <textarea name="remarks" id="remarks" class="form-control" rows="3" required="required"></textarea>
+                                <textarea name="remarks" id="remarks" class="form-control" rows="3" required="required"></textarea>
+                                <span></span>
                             </div>
                         
                             
@@ -330,19 +333,32 @@ $(document).ready(function() {
         enquiry_id=$(this).data('enquiryid');
 
     });
+
+    $("input").change(function () {
+        $(this).parent().parent().removeClass('has-error');
+        $(this).next().empty();
+    });
+    $("textarea").change(function () {
+        $(this).parent().parent().removeClass('has-error');
+        $(this).next().empty();
+    });
+    $("select").change(function () {
+        $(this).parent().parent().removeClass('has-error');
+        $(this).next().empty();
+    });
         
     $('#btn-saveorder').click(function() {
         $('#btn-saveorder').prop('disabled',true);
         $('#btn-saveorder').text('Saving.........');
-        
         $.ajax({
             url: '<?php echo(site_url("order/enquiry_order")) ?>'+'/'+enquiry_id,
             type: 'POST',
+            dataType:'json',
             data: $('#makeorder-form').serialize(),
             success:function(data)
             {
                 console.log(data);
-                 if (data==='success')
+                 if (data.status===true)
                  {
                     
                     $('#btn-saveorder').prop('disabled',false);
@@ -355,6 +371,15 @@ $(document).ready(function() {
                     $("html, body").animate({scrollTop: 0}, "slow");
                         return false;
 
+                 }
+                 else
+                 {
+                     $('#btn-saveorder').prop('disabled',false);
+                     $('#btn-saveorder').text('Save');
+                     $.each(data, function (index, val) {
+                        $('#makeorder-form #' + val.error_string).next().html(val.input_error);
+                        $('#makeorder-form #' + val.error_string).parent().parent().addClass('has-error');
+                    });
                  }
                
             },

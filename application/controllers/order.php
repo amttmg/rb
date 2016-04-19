@@ -407,41 +407,62 @@ class Order extends CI_Controller
 
     public function enquiry_order($enquiry_id)
     {
-        $data=$this->db->from('tbl_enquiry')->where('enquiry_id',$enquiry_id)->get();
-        if ($data->num_rows() > 0) 
-        {
-            $enquiry=$data->result();
+        $master['status'] = True;
+        $data = array();
+        $master = array();
+        $this->form_validation->set_rules('orderdate', 'Order Date', 'trim|required|max_length[20]');
+        $this->form_validation->set_rules('deadlinedate', 'Deadline Date', 'trim|required|max_length[20]');
+        $this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
+        if ($this->form_validation->run() == True) {
 
-            $customer_id=$enquiry[0]->customer_id;
+            $data=$this->db->from('tbl_enquiry')->where('enquiry_id',$enquiry_id)->get();
+            if ($data->num_rows() > 0) 
+            {
+                $enquiry=$data->result();
 
-            $order_data=array(
-                'customer_id'=>$enquiry[0]->customer_id,
-                'order_date'=>$this->input->post('orderdate'),
-                'deadline_date'=>$this->input->post('deadlinedate'),
-                'status'=>1,
-                'is_reference'=>true
-                );
-            $this->db->insert('tbl_orders',$order_data);
-            $order_id= $this->db->insert_id();
+                $customer_id=$enquiry[0]->customer_id;
 
-            $order_detail_data=array(
-                'order_id'=>$order_id,
-                'reference_product_id'=>$this->find_product_id_by_model_no($enquiry[0]->enquiry_items),
-                'remarks'=>$this->input->post('remarks'),
-                'order_no'=>$this->generate_order_no(),
-                'order_id'=>$order_id,
-                'status'=>1
-                );
+                $order_data=array(
+                    'customer_id'=>$enquiry[0]->customer_id,
+                    'order_date'=>$this->input->post('orderdate'),
+                    'deadline_date'=>$this->input->post('deadlinedate'),
+                    'status'=>1,
+                    'is_reference'=>true
+                    );
+                $this->db->insert('tbl_orders',$order_data);
+                $order_id= $this->db->insert_id();
 
-            $this->db->insert('tbl_order_details',$order_detail_data);
-            $this->db->update('tbl_enquiry',array('en_order_status'=>true));
-            echo "success";
+                $order_detail_data=array(
+                    'order_id'=>$order_id,
+                    'reference_product_id'=>$this->find_product_id_by_model_no($enquiry[0]->enquiry_items),
+                    'remarks'=>$this->input->post('remarks'),
+                    'order_no'=>$this->generate_order_no(),
+                    'order_id'=>$order_id,
+                    'status'=>1
+                    );
 
+                $this->db->insert('tbl_order_details',$order_detail_data);
+                $this->db->update('tbl_enquiry',array('en_order_status'=>true));
+                $master['status'] = True;
+
+            }
+            else
+            {
+                $master['status'] = false;
+            }
+            
+        } else {
+            $master['status'] = false;
+            foreach ($_POST as $key => $value) {
+                if (form_error($key) != '') {
+                    $data['error_string'] = $key;
+                    $data['input_error'] = form_error($key);
+                    array_push($master, $data);
+                }
+            }
         }
-        else
-        {
-            echo("enquiry not found");
-        }
+        echo(json_encode($master));
+        
     }
 
     public function find_product_id_by_model_no($model_no)
