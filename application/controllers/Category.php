@@ -52,14 +52,13 @@ class Category extends CI_Controller {
 		$master['status'] = True;
         $data = array();
         $master = array();
-        $original_category_name=$this->db->from('tbl_product_category')->where('category',$this->input->post('category'))->get()->result();
+        $original_category_name=$this->db->from('tbl_product_category')->where('category_id',$product_category_id)->get()->result();
         $is_unique='';
-
         if($this->input->post('category')!=$original_category_name[0]->category)
         {
         	$is_unique =  '|is_unique[tbl_product_category.category]';
         }
-        
+
         $this->form_validation->set_rules('category', 'Category', 'trim|required|max_length[64]'.$is_unique);
         $this->form_validation->set_rules('remarks', 'Remarks', 'trim|max_length[254]');
         $this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
