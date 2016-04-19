@@ -98,7 +98,7 @@
                                       <td><?php echo $order['order_no']; ?></td>
                                       <td><?php echo($order['product_name']) ?></td>
                                       <td><span class="label label-info">Processing</span></td>
-                                      <td></td>
+                                      <td><a href="#" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i> View Detail</a></td>
                                     </tr>
 
                                   <?php endforeach ?>
