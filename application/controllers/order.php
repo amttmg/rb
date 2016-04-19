@@ -416,7 +416,7 @@ class Order extends CI_Controller
             $order_detail_data=array(
                 'order_id'=>$order_id,
                 'reference_product_id'=>$this->find_product_id_by_model_no($enquiry[0]->enquiry_items),
-                'remarks'=>$enquiry[0]->remarks,
+                'remarks'=>$this->input->post('remarks'),
                 'order_no'=>$this->generate_order_no(),
                 'order_id'=>$order_id,
                 'status'=>1

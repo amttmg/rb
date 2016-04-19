@@ -164,6 +164,10 @@
                                 <label for="">Deadline date</label>
                                 <input type="date" name="deadlinedate" class="form-control" id="deadlinedate" placeholder="Input field" required>
                             </div>
+                            <div class="form-group">
+                                <label for="">Remarks</label>
+                                 <textarea name="remarks" id="remarks" class="form-control" rows="3" required="required"></textarea>
+                            </div>
                         
                             
                         
