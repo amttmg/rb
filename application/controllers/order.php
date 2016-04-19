@@ -49,7 +49,8 @@ class Order extends CI_Controller
                     $data = array(
                         'reference_product_id' => $value,
                         'order_id' => $order_id,
-                        'order_no' => $this->generate_order_no()
+                        'order_no' => $this->generate_order_no(),
+                        'remarks'  => $this->input->post('product_remarks')
                     );
                     $this->db->insert('tbl_order_details', $data);
                 }

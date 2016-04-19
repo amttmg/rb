@@ -157,6 +157,7 @@
                                                         <th>Price</th>
                                                         <th>Qty</th>
                                                         <th>Image</th>
+                                                        <td>Remarks</td>
                                                     </tr>
                                                     </thead>
                                                     <tbody id="product_container">
@@ -404,6 +405,9 @@
                         temp += '<td>';
                         temp += '<a class="image-popup-link" href="' + val.image_url + '">';
                         temp += '<img src="' + val.image_url + '" width="50px"></a>';
+                        temp += '</td>';
+                        temp += '<td>';
+                        temp += '<input type="text" name="product_remarks" id="product_remarks" >';
                         temp += '</td>';
                         temp += '<td>';
                         temp += '<a href="#" class="remove btn btn-danger btn-xs" data-rowid="' + val.row_id + '"><i class="glyphicon glyphicon-remove"></i> Remove</a>';

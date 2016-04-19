@@ -269,6 +269,7 @@
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body" style="display: none;">
+                            <span class="pull-left"><h4>Remarks: <?php echo($order['order_details']->remarks) ?></h4></span>
                             <div class="pull-right">
                                 <?php if ($order['order_details']->status == true): ?>
 
