@@ -400,7 +400,7 @@
                         temp += '<img src="' + val.image_url + '" width="50px"></a>';
                         temp += '</td>';
                         temp += '<td>';
-                        temp += '<input type="text" name="product_remarks" id="product_remarks" value="'+val.remarks+'" >';
+                        temp += '<input type="text" name="product_remarks[]" id="product_remarks" value="'+val.remarks+'" >';
                         temp += '</td>';
                         temp += '<td>';
                         temp += '<a href="#" class="remove btn btn-danger btn-xs" data-rowid="' + val.row_id + '"><i class="glyphicon glyphicon-remove"></i> Remove</a>';

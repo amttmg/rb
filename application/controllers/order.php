@@ -137,13 +137,14 @@ class Order extends CI_Controller
                 $this->db->where('order_id',$order_id);
                 $this->db->delete('tbl_order_details');
                 $model_no = $_POST['model_no'];
+                $product_remarks=$this->input->post('product_remarks');
 
                 foreach ($model_no as $key => $value) {
                     $data = array(
                         'reference_product_id' => $value,
                         'order_id' => $order_id,
                         'order_no' => $this->generate_order_no(),
-                        'remarks'  => $this->input->post('product_remarks')
+                        'remarks'  => $product_remarks[$key]
                     );
                     $this->db->insert('tbl_order_details', $data);
                 }
