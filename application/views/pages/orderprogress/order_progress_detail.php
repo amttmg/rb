@@ -359,7 +359,7 @@
                                         <div class="row">
                                             <form
                                                 action="<?php echo(site_url('order_progress/save/' . $order['order_details']->order_detail_id . '/' . $this->uri->segment(3))) ?>"
-                                                method="post">
+                                                method="post" enctype="multipart/form-data">
                                                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                                                     <div class="form-group">
                                                         <label for="">Select Status</label>
@@ -393,6 +393,13 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                                                    <div class="form-group">
+                                                        <label for="">progress photo</label>
+                                                        <input type="file" name="progressimage" class="form-control">
+                                                    </div>
+                                                </div>
+
+                                                <div class="pull-right">
                                                     <h1></h1>
                                                     <button type="submit" class="btn btn-primary">Save</button>
 

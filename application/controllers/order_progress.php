@@ -3,6 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Order_progress extends CI_Controller 
 {
+	var $image_name='';
 	public function __construct()
 	{
 		parent::__construct();
@@ -24,9 +25,10 @@ class Order_progress extends CI_Controller
 		$this->form_validation->set_rules('date', 'Date', 'trim|required');
 		$this->form_validation->set_rules('remarks', 'Remarks', 'trim|required|max_length[200]');
 		$this->form_validation->set_rules('order_status', 'order_status', 'callback_dropdown_fun');
+		$this->form_validation->set_rules('progressimage', 'Progress Image', 'callback_validate_image');
 		if ($this->form_validation->run() == TRUE) {
-
-			$this->order_progress->insert($order_detail_id);
+			
+			$this->order_progress->insert($order_detail_id,$this->image_name);
 			$this->session->set_flashdata('message', 'Progress status added successfully!');
 			
 		} else {
@@ -173,6 +175,31 @@ class Order_progress extends CI_Controller
 		$this->db->join('tbl_customers','tbl_customers.customer_id=tbl_orders.customer_id');
 		$this->db->where('tbl_orders.order_id',$order_id);
 		echo(json_encode($this->db->get()->result()));
+	}
+
+	public function validate_image()
+	{
+			$config['upload_path'] = './uploads/';
+            $config['file_name'] = uniqid();
+            $config['allowed_types'] = 'gif|jpg|png';
+            $config['max_size'] = '1000';
+
+            $this->load->library('upload', $config);
+
+            if (!$this->upload->do_upload('progressimage')) {
+                if (stristr($this->upload->display_errors(), 'You did not select a file to upload')) {
+                    return true;
+                } else {
+                    $this->form_validation->set_message('validate_image', $this->upload->display_errors());
+                   
+                    return false;
+                }
+
+            } else {
+            	
+                $this->image_name = $this->upload->data('file_name');
+                return true;
+            }
 	}
 
 }

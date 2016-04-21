@@ -15,14 +15,15 @@ class M_Order_progress extends CI_Model {
 		$this->load->database();
 	}
 
-	public function insert($order_detail_id)
+	public function insert($order_detail_id,$image)
 	{
 		$data=array(
 			'order_detail_id'=>$order_detail_id,
 			'date'=>$this->input->post('date'),
 			'remarks'=>$this->input->post('remarks'),
 			'order_status_id'=>$this->input->post('order_status'),
-			'user_id'=> $this->ion_auth->get_user_id()
+			'user_id'=> $this->ion_auth->get_user_id(),
+			'image'=>$image
 			);
 		$this->db->insert('tbl_order_progress',$data);
 	}
