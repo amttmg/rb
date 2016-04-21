@@ -60,6 +60,7 @@ class Enquiry extends CI_Controller
         $this->form_validation->set_rules('reference_img5', 'Reference image5', 'callback_validate_image[reference_img5]');
         $this->form_validation->set_rules('remarks', 'Remarks', 'trim|min_length[2]|max_length[200]');
         $this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
+        
         if ($this->form_validation->run() == True) {
 
             $master['message'] = "Customer enquiry saved successfully !";
