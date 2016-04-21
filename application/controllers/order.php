@@ -97,16 +97,80 @@ class Order extends CI_Controller
                     'qty' => 1,
                     'price' => $product->price,
                     'name' => $product->model_no,
+                    'options' => array('Remarks' =>$product->remarks)
                 );
                 $this->cart->insert($data);
 
               }
         }
+       
+       if (isset($_POST['submit'])) 
+       {
+             $this->update_order($order_id);
+            
+          
+       }
+        
         $order=$this->db->from('tbl_orders')->where('order_id',$order_id)->get();
         $content['order']=$order->first_row();
         $data['title'] = "Update Order";
         $data['content'] = $this->load->view('pages/orders/edit_order_view',$content, true);
         $this->parser->parse('template/page_template', $data);
+    }
+
+    public function update_order($order_id)
+    {
+        
+        /*$this->form_validation->set_rules('customer', 'Customer', 'callback_dropdown_fun');*/
+        $this->form_validation->set_rules('order_date', 'Order date', 'trim|required|max_length[100]');
+        $this->form_validation->set_rules('deadline_date', 'Deadline date', 'trim|required|max_length[100]');
+        $this->form_validation->set_rules('remarks', 'Remarks', 'trim|max_length[600]');
+        $this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
+        
+        if ($this->form_validation->run() == True) 
+        {
+
+            $this->order->update($order_id);
+            /*$this->payment->update($order_id,"advance");*/
+            if (!empty($_POST['model_no'])) 
+            {
+                $this->db->where('order_id',$order_id);
+                $this->db->delete('tbl_order_details');
+                $model_no = $_POST['model_no'];
+
+                foreach ($model_no as $key => $value) {
+                    $data = array(
+                        'reference_product_id' => $value,
+                        'order_id' => $order_id,
+                        'order_no' => $this->generate_order_no(),
+                        'remarks'  => $this->input->post('product_remarks')
+                    );
+                    $this->db->insert('tbl_order_details', $data);
+                }
+                $this->destroy_ordered_products();
+            }
+            $this->session->set_flashdata('message', 'Order updated successsfully !');
+            redirect('order/update/'.$order_id,'refresh');
+           
+        } 
+        
+       
+    }
+
+    public function test()
+    {
+        $this->db->select('tbl_customers.fname,tbl_cards.card_no');
+        $this->db->from('tbl_customers');
+        $this->db->join('tbl_cards','tbl_cards.customer_id=tbl_customers.customer_id','left');
+        $data=$this->db->get()->result();
+        foreach ($data as $customer) {
+
+            print_r($customer);
+            echo("<br/>");
+            # code...
+        }
+      /* echo $this->db->get_compiled_select();*/
+
     }
 
     public function add_to_order($product_id = '')
@@ -142,6 +206,7 @@ class Order extends CI_Controller
     {
         $master['products'] = array();
         $data = $this->cart->contents();
+        
         foreach ($data as $product) {
             $temp = array();
             $temp['row_id'] = $product['rowid'];
@@ -149,9 +214,18 @@ class Order extends CI_Controller
             $temp['price'] = $product['price'];
             $temp['product_id'] = $product['id'];
             $temp['qty'] = $product['qty'];
+            $temp['remarks']='';
+            if ($this->cart->has_options($product['rowid']) == TRUE) 
+            {
+               $remarks=$this->cart->product_options($product['rowid']);
+               $temp['remarks']=$remarks['Remarks'];
+
+            }
+
             $temp['image_url'] = $this->get_product_image_url($product['id']);
             array_push($master['products'], $temp);
         }
+       
         $master['status'] = true;
         echo(json_encode($master));
     }

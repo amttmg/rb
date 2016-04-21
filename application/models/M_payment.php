@@ -26,6 +26,19 @@ class M_payment extends CI_Model {
 		$this->db->insert('tbl_payments',$data);
 	}
 
+	public function update($order_id)
+	{
+		$data=array(
+			'amount'=>$this->input->post('discount'),
+			'type'=>$type,
+			'created_at'=>getCurrentDateTime(),
+			'user_id'=>$this->ion_auth->get_user_id()
+			);
+		
+		$this->db->where('order_id',$order_id);
+		$this->db->update('tbl_payments',$data);
+	}
+
 	
 
 }

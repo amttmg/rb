@@ -28,6 +28,23 @@ class M_order extends CI_Model
         return $this->db->insert_id();
     }
 
+    public function update($order_id)
+    {
+        $reference = false;
+
+        if ($this->input->post('remarks')) {
+            $reference = true;
+        }
+        $data = array(
+            'order_date' => $this->input->post('order_date'),
+            'deadline_date' => $this->input->post('deadline_date'),
+            'remarks' => $this->input->post('remarks'),
+            'is_reference' => $reference
+        );
+        $this->db->where('order_id',$order_id);
+        $this->db->update('tbl_orders', $data);
+    }
+
     public function getActiveOrdersByCustomer($customer_id)
     {
         $sql = "SELECT * FROM (tbl_order_details INNER JOIN tbl_orders on tbl_orders.order_id=tbl_order_details.order_id) inner JOIN tbl_products on tbl_products.order_no=tbl_order_details.order_no WHERE tbl_orders.customer_id='$customer_id' and tbl_order_details.status=1 and tbl_products.status!='sold' ";

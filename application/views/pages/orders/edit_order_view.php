@@ -34,8 +34,9 @@
                 </div>
             </div>
             <div class="box-body">
+              <?php echo(form_open('order/update/'.$this->uri->segment(3))); ?>
                 <div id="container">
-                    <?php echo(form_open('order/update/'.$this->uri->segment(3))); ?>
+                  
                         <div class="panel panel-default">
                             <div class="panel-heading"><h3 class="panel-title">Customer Order</h3></div>
                             <div class="panel-body">
@@ -45,6 +46,7 @@
                                         <div class="row">
                                             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                                 <div class="form-group">
+                                                    <input type="hidden" name="customer" value="<?php echo($order->customer_id); ?>">
                                                     <label for="">Order date</label>
                                                     <input type="date" name="order_date" class="form-control"
                                                            id="order_date" value="<?php echo($order->order_date) ?>" 
@@ -156,9 +158,10 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary pull-right" id="btn_update_order">Update</button>
-                    </form>
+                        <button type="submit" name="submit" class="btn btn-primary">Update</button>
+                   
                 </div>
+                <?php echo(form_close()); ?>
             </div>
             <!-- /.box-body -->
         </div>
@@ -397,7 +400,7 @@
                         temp += '<img src="' + val.image_url + '" width="50px"></a>';
                         temp += '</td>';
                         temp += '<td>';
-                        temp += '<input type="text" name="product_remarks" id="product_remarks" >';
+                        temp += '<input type="text" name="product_remarks" id="product_remarks" value="'+val.remarks+'" >';
                         temp += '</td>';
                         temp += '<td>';
                         temp += '<a href="#" class="remove btn btn-danger btn-xs" data-rowid="' + val.row_id + '"><i class="glyphicon glyphicon-remove"></i> Remove</a>';
