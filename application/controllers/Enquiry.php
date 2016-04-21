@@ -8,7 +8,7 @@
  */
 class Enquiry extends CI_Controller
 {
-    private $image_name = "";
+    private $image_name = array();
 
     public function __construct()
     {
@@ -20,6 +20,7 @@ class Enquiry extends CI_Controller
         $this->load->model('menquiry', 'enquiry');
         $this->load->helper('notification');
         $this->load->library('form_validation');
+        $this->load->model('m_enquiryimage');
 
     }
 
@@ -52,12 +53,23 @@ class Enquiry extends CI_Controller
         $this->form_validation->set_rules('intended_purchasemode', 'Intended purchasemode', 'trim|required|min_length[2]|max_length[100]');
         $this->form_validation->set_rules('price_range_min', 'Price range min', 'trim');
         $this->form_validation->set_rules('price_range_max', 'Price range max', 'trim');
-        $this->form_validation->set_rules('reference_img', 'Reference image', 'callback_validate_image');
+        $this->form_validation->set_rules('reference_img', 'Reference image', 'callback_validate_image[reference_img]');
+        $this->form_validation->set_rules('reference_img2', 'Reference image2', 'callback_validate_image[reference_img2]');
+        $this->form_validation->set_rules('reference_img3', 'Reference image3', 'callback_validate_image[reference_img3]');
+        $this->form_validation->set_rules('reference_img4', 'Reference image4', 'callback_validate_image[reference_img4]');
+        $this->form_validation->set_rules('reference_img5', 'Reference image5', 'callback_validate_image[reference_img5]');
         $this->form_validation->set_rules('remarks', 'Remarks', 'trim|min_length[2]|max_length[200]');
         $this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
         if ($this->form_validation->run() == True) {
+
             $master['message'] = "Customer enquiry saved successfully !";
-            $this->enquiry->insert($this->image_name);
+            $enquiry_id=$this->enquiry->insert('default');
+
+            if ($this->image_name) 
+            {
+                 $this->m_enquiryimage->insert($enquiry_id,$this->image_name);
+            }
+           
         } else {
             $master['status'] = false;
             foreach ($_POST as $key => $value) {
@@ -90,7 +102,7 @@ class Enquiry extends CI_Controller
 
     }
 
-    public function validate_image()
+    public function validate_image($dt,$image_name)
     {
 
         $config['upload_path'] = './uploads/';
@@ -100,7 +112,7 @@ class Enquiry extends CI_Controller
 
         $this->load->library('upload', $config);
 
-        if (!$this->upload->do_upload('reference_img')) {
+        if (!$this->upload->do_upload($image_name)) {
             if (stristr($this->upload->display_errors(), 'You did not select a file to upload')) {
 
                 return true;
@@ -110,7 +122,7 @@ class Enquiry extends CI_Controller
             }
 
         } else {
-            $this->image_name = $this->upload->data('file_name');
+            $this->image_name[] = $this->upload->data('file_name');
             return true;
         }
 

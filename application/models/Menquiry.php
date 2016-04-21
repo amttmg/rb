@@ -37,6 +37,7 @@ class Menquiry extends CI_Model
             'en_status'=>'1'
         );
         $this->db->insert('tbl_enquiry', $data);
+        return $this->db->insert_id();
     }
 
     public function update($id)

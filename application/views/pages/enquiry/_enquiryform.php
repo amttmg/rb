@@ -260,15 +260,7 @@
                         <?php echo(form_error('price_range_max')) ?>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="">Reference Image</label>
-                        <input type="file" class="form-control" name="reference_img" id="reference_img"
-                               placeholder="Reference Image" value="<?php echo(set_value('reference_img')) ?>">
-                               <span class="help-block"></span>
-                        <?php echo(form_error('reference_img')) ?>
-                    </div>
-                </div>
+                
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="">Remarks</label>
@@ -280,6 +272,40 @@
                 </div>
 
 
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="">Reference Image 1</label>
+                        <input type="file" class="form-control" name="reference_img" id="reference_img">
+                        <span class="help-block"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Reference Image 2</label>
+                        <input type="file" class="form-control" name="reference_img2" id="reference_img2">
+                               <span class="help-block"></span>
+                        <?php echo(form_error('reference_img')) ?>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Reference Image 3</label>
+                        <input type="file" class="form-control" name="reference_img3" id="reference_img3">
+                               <span class="help-block"></span>
+                        <?php echo(form_error('reference_img')) ?>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Reference Image 4</label>
+                        <input type="file" class="form-control" name="reference_img4" id="reference_img4">
+                               <span class="help-block"></span>
+                        <?php echo(form_error('reference_img')) ?>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Reference Image 5</label>
+                        <input type="file" class="form-control" name="reference_img5" id="reference_img5">
+                               <span class="help-block"></span>
+                        <?php echo(form_error('reference_img')) ?>
+                    </div>
+                </div>
+                
             </div>
             <div class="row">
                 <div class="col-md-12">
