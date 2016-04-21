@@ -316,6 +316,7 @@
                                                 <th>Date</th>
                                                 <th>Remarks</th>
                                                 <th>Updated By</th>
+                                                <th>Image</th>
                                                 <?php if ($order['order_details']->complated_at == '' && $order['order_details']->status == true): ?>
                                                     <th>Action</th>
                                                 <?php endif ?>
@@ -339,6 +340,7 @@
                                                                 </small>
                                                             <?php endif ?>
                                                         </td>
+                                                        <td><img src="<?php echo(base_url('uploads/'.$progress->image)) ?>" width="30px"></td>
                                                         <?php if ($order['order_details']->complated_at == '' && $order['order_details']->status == true): ?>
                                                             <td><a href="#"
                                                                    class="btn_edit_status btn btn-xs btn-primary"
