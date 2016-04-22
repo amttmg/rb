@@ -97,7 +97,7 @@ class Order extends CI_Controller
                     'qty' => 1,
                     'price' => $product->price,
                     'name' => $product->model_no,
-                    'options' => array('Remarks' =>$product->remarks)
+                    'options' => array('Remarks' =>$product->remarks,'order_detail_id'=>$product->order_detail_id)
                 );
                 $this->cart->insert($data);
 
@@ -134,19 +134,30 @@ class Order extends CI_Controller
             /*$this->payment->update($order_id,"advance");*/
             if (!empty($_POST['model_no'])) 
             {
-                $this->db->where('order_id',$order_id);
-                $this->db->delete('tbl_order_details');
+                /*$this->db->where('order_id',$order_id);
+                $this->db->delete('tbl_order_details');*/
                 $model_no = $_POST['model_no'];
+                $order_detail_id=$this->input->post('order_detail_id');
                 $product_remarks=$this->input->post('product_remarks');
+                foreach ($model_no as $key => $value) 
+                {
 
-                foreach ($model_no as $key => $value) {
+                    if ($order_detail_id[$key]=='undefined') 
+                    {
+                        $data = array(
+                            'reference_product_id' => $value,
+                            'order_id' => $order_id,
+                            'order_no' => $this->generate_order_no(),
+                            'remarks'  => $product_remarks[$key]
+                        );
+                        $this->db->insert('tbl_order_details', $data);
+                    }
+
                     $data = array(
-                        'reference_product_id' => $value,
-                        'order_id' => $order_id,
-                        'order_no' => $this->generate_order_no(),
                         'remarks'  => $product_remarks[$key]
                     );
-                    $this->db->insert('tbl_order_details', $data);
+                    $this->db->where('order_detail_id',$order_detail_id[$key]);
+                    $this->db->update('tbl_order_details', $data);
                 }
                 $this->destroy_ordered_products();
             }
@@ -220,6 +231,7 @@ class Order extends CI_Controller
             {
                $remarks=$this->cart->product_options($product['rowid']);
                $temp['remarks']=$remarks['Remarks'];
+               $temp['order_detail_id']=$remarks['order_detail_id'];
 
             }
 

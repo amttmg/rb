@@ -388,6 +388,7 @@
                         var temp = '<tr>';
                         temp += '<td>';
                         temp += '<input type="hidden" name="model_no[]" class="form-control"  value="' + val.product_id + '">' + val.model_no;
+                        temp += '<input type="hidden" name="order_detail_id[]" class="form-control"  value="' + val.order_detail_id + '">';
                         temp += '</td>';
                         temp += '<td>';
                         temp += '<input type="hidden" name="price[]" class="form-control"  value="' + val.price + '">' + val.price;
