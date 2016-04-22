@@ -283,11 +283,19 @@
             });
 
         });
-
+            
+         var order_detail_id='';   
         $("body").on("click", '.remove', function () {
-            $(this).closest('tr').remove();
-            var rowid = $(this).data('rowid');
-            remove_product(rowid);//function call for remove ordered product
+
+            var r=confirm('Are you sure want to delete ?');
+            if(r===true)
+            {
+                order_detail_id=$(this).closest('tr').find('.order_detail_id').val();
+                $(this).closest('tr').remove();
+                var rowid = $(this).data('rowid');
+                remove_product(rowid,order_detail_id);//function call for remove ordered product
+            }
+            
         });
 
         $('#btn_new_orders').click(function () {
@@ -388,7 +396,7 @@
                         var temp = '<tr>';
                         temp += '<td>';
                         temp += '<input type="hidden" name="model_no[]" class="form-control"  value="' + val.product_id + '">' + val.model_no;
-                        temp += '<input type="hidden" name="order_detail_id[]" class="form-control"  value="' + val.order_detail_id + '">';
+                        temp += '<input type="hidden" name="order_detail_id[]" class="order_detail_id" class="form-control"  value="' + val.order_detail_id + '">';
                         temp += '</td>';
                         temp += '<td>';
                         temp += '<input type="hidden" name="price[]" class="form-control"  value="' + val.price + '">' + val.price;
@@ -421,13 +429,28 @@
         });
     }
    
-    function remove_product(rowid) {
+    function remove_product(rowid,order_detail_id) {
         $.ajax({
             url: '<?php echo(site_url("order/remove_ordered_product")) ?>' + '/' + rowid,
             type: 'POST',
             dataType: 'json',
             success: function (data) {
                 if (data.status === true) {
+
+                    $.ajax({
+                        url: '<?php echo(site_url("order/delete_ordered_product")) ?>'+'/'+order_detail_id,
+                        type: 'POST',
+                        dataType: 'json',
+                        success:function(data)
+                        {
+                            console.log('success');
+                        },
+                        error:function(data)
+                        {
+                            console.log(data);
+                        }
+                     
+                    });
                     alert('successfully removed product');
                 }
                 else {

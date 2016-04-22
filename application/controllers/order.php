@@ -134,14 +134,11 @@ class Order extends CI_Controller
             /*$this->payment->update($order_id,"advance");*/
             if (!empty($_POST['model_no'])) 
             {
-                /*$this->db->where('order_id',$order_id);
-                $this->db->delete('tbl_order_details');*/
                 $model_no = $_POST['model_no'];
                 $order_detail_id=$this->input->post('order_detail_id');
                 $product_remarks=$this->input->post('product_remarks');
                 foreach ($model_no as $key => $value) 
                 {
-
                     if ($order_detail_id[$key]=='undefined') 
                     {
                         $data = array(
@@ -596,6 +593,17 @@ class Order extends CI_Controller
             return '';
         }
     }
+
+
+    public function delete_ordered_product($order_detail_id)
+    {
+        $this->db->where('order_progress_id',$order_detail_id);
+        $this->db->delete('tbl_order_progress');
+
+        $this->db->where('order_detail_id',$order_detail_id);
+        $this->db->delete('tbl_order_details');
+    }
+
 
 
 }
