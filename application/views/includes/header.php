@@ -113,14 +113,14 @@
                           <span class="label label-danger"><?php echo($count); ?></span>
                         </a>
                         <ul class="dropdown-menu">
-                          <li class="header">You have <?php echo($count) ?> tasks</li>
+                          <li class="header">You have <?php echo($count) ?> followup customer</li>
                           <li>
                             <!-- inner menu: contains the actual data -->
                             <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 200px;"><ul class="menu" style="overflow: hidden; width: 100%; height: 200px;">
                                 <?php foreach ($enquiry_notification as $enquiry): ?>
                                     <li>
-                                        <a href="#" data-enquiryid="<?php  echo('') ?>" class="enquiry_notification">
-                                        hdjfdhfhdjh
+                                        <a href="#" data-enquiryid="<?php  echo($enquiry['enquiry_id']) ?>" class="enquiry_notification">
+                                            <?php echo($enquiry['name']) ?> <?php echo(" ( ".$enquiry['phone']." )"); ?>
                                         </a>
                                   </li>
                                 <?php endforeach ?>
@@ -230,6 +230,45 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" id="ok" class="btn btn-default">Ok</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="enquiry_notification_modal">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Enquiry </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <a class="btn btn-default" href="#" role="button">View Enquiry Detail</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                            <form id="enquiry_notification_form">
+                                <div class="form-group">
+                                    <label for="">Remind me after</label>
+                                    <select name="days" id="days" class="form-control" required="required">
+                                        <option value="+1 days" >1 days</option>
+                                        <option value="+2 days">2 days</option>
+                                        <option value="+3 days">3 days</option>
+                                        <option value="+4 days">4 days</option>
+                                        <option value="+5 days">5 days</option>
+                                    </select>
+                                </div>
+                            </form>
+                           
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="enquiry_ok" class="btn btn-primary">Save </button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>

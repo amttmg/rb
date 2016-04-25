@@ -56,6 +56,7 @@
 	$master=array();
 
 	$CI->db->from('tbl_enquiry');
+	$CI->db->join('tbl_customers','tbl_customers.customer_id=tbl_enquiry.customer_id');
 	$data=$CI->db->get()->result();
 
 	foreach ($data as  $enquiry) 
@@ -68,14 +69,16 @@
 
         $remind_date=date_format($date,"Y-m-d");
 
-		if ($today >=strtotime($remind_date) && $today<=strtotime($enquiry->followup_date) ) 
+		if ($today >=strtotime($enquiry->remind_date) && $today<=strtotime($enquiry->followup_date) ) 
 		{
 			$date1=date_create($enquiry->followup_date);
 			$date2=date_create($enquiry->remind_date);
 			$diff=date_diff($date1,$date2);
 
 			$temp['enquiry_id']=$enquiry->enquiry_id;
+			$temp['name']=$enquiry->fname.' '.$enquiry->mname.' '.$enquiry->lname;
 			$temp['enquiry_date']=$enquiry->enquiry_date;
+			$temp['phone']=$enquiry->phone1;
 			$temp['followup_date']=$enquiry->followup_date;
 			$temp['date_diff']=$diff->format("%a");
 			array_push($master, $temp);

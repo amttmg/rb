@@ -22,6 +22,12 @@ class Menquiry extends CI_Model
 
     public function insert($image_url)
     {
+        $date=date_create($this->input->post('followup_date'));
+        $date= date_format($date,"Y-m-d");
+        $date=date_create($date);
+        date_sub($date,date_interval_create_from_date_string("5 days"));
+        $remind_date=date_format($date,"Y-m-d");
+
         $data = array(
             'customer_id' => $this->input->post('customer_id'),
             'enquiry_date' => $this->input->post('enquiry_date'),
@@ -32,6 +38,7 @@ class Menquiry extends CI_Model
             'intended_purchasemode' => $this->input->post('intended_purchasemode'),
             'price_range_min' => $this->input->post('price_range_min'),
             'price_range_max' => $this->input->post('price_range_max'),
+            'remind_date'=>$remind_date,
             'reference_img' => $image_url,
             'remarks' => $this->input->post('remarks'),
             'en_status'=>'1'

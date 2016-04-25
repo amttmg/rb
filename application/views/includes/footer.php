@@ -250,6 +250,33 @@
                 
                 
             });
+
+            var enquiry_id='';
+            $('.enquiry_notification').click(function() {
+
+                enquiry_id=$(this).data('enquiryid');
+                $('#enquiry_notification_modal').modal('show');
+                
+            });
+
+            $('#enquiry_ok').click(function(){
+               
+                $.ajax({
+                    url: '<?php echo(site_url("enquiry/update_order_remind")) ?>'+'/'+enquiry_id,
+                    type: 'POST',
+                    data: $('#enquiry_notification_form').serialize(),
+                    success:function(data)
+                    {
+                        $('#enquiry_notification_modal').modal('hide');
+                         location.reload();
+                    }
+                })
+                .fail(function() {
+                    console.log("error");
+                });
+                
+                
+            });
              
         });
     </script>

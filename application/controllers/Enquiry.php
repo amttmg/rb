@@ -178,12 +178,21 @@ class Enquiry extends CI_Controller
         }
         echo(json_encode($master));
     }
+
     public function get_enquiry($id)
     {
         $this->load->database();
         $this->db->where('enquiry_id',$id);
         $data=$this->db->get('tbl_enquiry')->row();
        echo json_encode($data);
+    }
+
+     public function update_order_remind($enquiry_id)
+    {
+        $date=strtotime($this->input->post('days'));
+        $date=date('Y-m-d',$date);
+        $this->db->where('enquiry_id',$enquiry_id);
+        $this->db->update('tbl_enquiry',array('remind_date'=>$date));
     }
 
 
