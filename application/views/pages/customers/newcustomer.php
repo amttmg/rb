@@ -1,6 +1,7 @@
 <!-- Content Wrapper. Contains page content -->
 <script type="text/javascript" src="<?php echo(base_url('assets/jquery-ui.js')) ?>"></script>
 <script type="text/javascript" src="<?php echo(base_url('assets/jquery-ui.css')) ?>"></script>
+
 <script type="text/javascript">
     $(document).ready(function () {
         $('#aniversary_date').hide();
@@ -102,6 +103,23 @@
                                 <input type="radio" name="marital_status" tabindex="11" id="marital_status_no" value="0"
                                        checked="">No
                             </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="marital_status" tabindex="10" id="single"
+                                       value="1" >Single
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="marital_status" tabindex="10" id="divorced"
+                                       value="divorced" >Divorced
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="marital_status" tabindex="10" id="divorced"
+                                       value="divorced" >Married but single
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="marital_status" tabindex="10" id="seperated"
+                                       value="divorced" >seperated
+                            </label>
+
                         </div>
                         <div class="form-group">
                             <label>Choose Image</label>
@@ -138,6 +156,8 @@
                                    placeholder="Aniversary Date" value="<?php echo(set_value('aniversary_date')) ?>">
                             <?php echo(form_error('aniversary_date')) ?>
                         </div>
+
+                        <button type="button" id="snap" class="btn btn-info"><i class="glyphicon glyphicon-camera"></i>  Take Snap</button>
                     </div>
                     <!-- middle form end -->
 
@@ -509,8 +529,98 @@
     </section>
     <!-- /.content -->
 </div><!-- /.content-wrapper -->
+
+<div class="modal fade" id="modal-snap">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Modal title</h4>
+            </div>
+            <div class="modal-body">
+            <div class="row">
+                    <div style="width:330px;float:left;">
+                    
+                        <div style="margin:5px;">
+                            <img src="webcamlogo.png" style="vertical-align:text-top"/>
+                            <select id="cameraNames" size="1" onChange="changeCamera()" style="width:245px;font-size:10px;height:25px;">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <div id="webcam">
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                     
+                        <div style="width:200px;float:left;">
+                            <p><img id="image" style="width:200px;height:153px;"/></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div style="width:135px;float:left;">
+                            <p><button class="btn btn-small" id="btn2" onclick="base64_toimage()">Take Snap</button></p>
+                        </div>
+                    </div>
+                </div>
+                
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script type="text/javascript">
 
+$(document).ready(function() {
+    $('#snap').click(function() {
+       $('#modal-snap').modal('show');
+    });
+
+    $("#webcam").scriptcam({
+        showMicrophoneErrors:false,
+        onError:onError,
+        cornerRadius:20,
+        disableHardwareAcceleration:1,
+        cornerColor:'e3e5e2',
+        onWebcamReady:onWebcamReady,
+        uploadImage:'upload.gif',
+        onPictureAsBase64:base64_tofield_and_image
+    });
+});
+
+function base64_tofield() {
+                $('#formfield').val($.scriptcam.getFrameAsBase64());
+            };
+function base64_toimage() {
+    $('#image').attr("src","data:image/png;base64,"+$.scriptcam.getFrameAsBase64());
+};
+function base64_tofield_and_image(b64) {
+    $('#formfield').val(b64);
+    $('#image').attr("src","data:image/png;base64,"+b64);
+};
+function changeCamera() {
+    $.scriptcam.changeCamera($('#cameraNames').val());
+}
+function onError(errorId,errorMsg) {
+    $( "#btn1" ).attr( "disabled", true );
+    $( "#btn2" ).attr( "disabled", true );
+    alert(errorMsg);
+}           
+function onWebcamReady(cameraNames,camera,microphoneNames,microphone,volume) {
+    $.each(cameraNames, function(index, text) {
+        $('#cameraNames').append( $('<option></option>').val(index).html(text) )
+    }); 
+    $('#cameraNames').val(camera);
+}
     $('#myform').validate({
         rules: {
             fname: {
