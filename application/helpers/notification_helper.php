@@ -28,6 +28,15 @@
 		{
 			if ($today >=strtotime($order->remind_date) && $today<=strtotime($order->deadline_date) ) 
 			{
+				$date1=date_create($order->deadline_date);
+				$date2=date_create($order->remind_date);
+				$diff=date_diff($date1,$date2);
+				$data['orders']=array(
+					'order_id'=>$order->order_id,
+					'customer'=>$order->fname.' '.$order->mname.' '.$order->lname,
+					'date_diff'=>$diff->format("%a")
+					);
+				
 				$master[]=$order;
 			}
 		}

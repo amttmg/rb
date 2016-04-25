@@ -601,6 +601,13 @@ class Order extends CI_Controller
        
     }
 
+    public function update_order_remind($order_id)
+    {
+        $date=strtotime($this->input->post('days'));
+        $date=date('Y-m-d',$date);
+        $this->db->where('order_id',$order_id);
+        $this->db->update('tbl_orders',array('remind_date'=>$date));
+    }
 
 
 }

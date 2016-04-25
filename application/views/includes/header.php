@@ -120,7 +120,7 @@
                             
                               <?php foreach ($order_notification as  $order): ?>
                                   <li>
-                                    <a href="<?php echo(site_url('order_progress_detail/view_progress/')) ?>/<?php echo($order->order_id) ?>">
+                                    <a href="#" data-orderid="<?php  echo($order->order_id) ?>" class="order_notification">
                                      <?php echo($order->fname.' '.$order->mname.' '.$order->lname) ?>(deadline date <?php echo($order->deadline_date) ?>)
                                     </a>
                                   </li>
@@ -163,3 +163,47 @@
             </div>
         </nav>
     </header>
+
+    <div class="modal fade" id="modal-order-notification">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Order Notification</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                            <a class="btn btn-default" href="" id="on_progress" role="button">View Progress</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                            <form id="order_notification_form">
+                                <div class="form-group">
+                                    <label for="">Remind me after</label>
+                                    <select name="days" id="days" class="form-control" required="required">
+                                        <option value="+1 days" >1 days</option>
+                                        <option value="+2 days">2 days</option>
+                                        <option value="+3 days">3 days</option>
+                                        <option value="+4 days">4 days</option>
+                                        <option value="+5 days">5 days</option>
+                                    </select>
+                                </div>
+                            </form>
+                           
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            
+                        </div>
+
+                    </div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="ok" class="btn btn-default">Ok</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>

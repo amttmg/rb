@@ -215,7 +215,42 @@
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url() ?>template/dist/js/demo.js"></script>
 <script src="<?php echo base_url() ?>template/plugins/imageview/jquery.magnific-popup.min.js"></script>
+<script language="JavaScript" src="//ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
+<script src="<?php echo base_url() ?>template/plugins/cam/scriptcam.js"></script>
 
 </body>
 </html>
+
+<script type="text/javascript">
+        $(document).ready(function() {
+
+            var order_id='';
+
+            $('.order_notification').click(function(){
+                order_id=$(this).data('orderid');
+               $('#modal-order-notification').modal('show');
+               $('#on_progress').attr('href',"<?php echo(site_url('order_progress_detail/view_progress')) ?>"+'/'+$(this).data('orderid'));
+            });
+
+            $('#ok').click(function() {
+                $.ajax({
+                    url: '<?php echo(site_url("order/update_order_remind")) ?>'+'/'+order_id,
+                    type: 'POST',
+                    data: $('#order_notification_form').serialize(),
+                    success:function(data)
+                    {
+                        $('#modal-order-notification').modal('hide');
+                         location.reload();
+                    }
+                })
+                
+                .fail(function() {
+                    console.log("error");
+                });
+                
+                
+            });
+             
+        });
+    </script>
 
