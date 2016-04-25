@@ -15,7 +15,9 @@
 	$today=strtotime($today);
 	$master=array();
 
+	$CI->db->select('tbl_orders.order_id,tbl_customers.fname,tbl_orders.remind_date,tbl_orders.deadline_date,tbl_customers.mname,tbl_customers.lname');
 	$CI->db->from('tbl_orders');
+	$CI->db->join('tbl_customers','tbl_customers.customer_id=tbl_orders.customer_id');
 	/*$CI->db->where('remind_date < =',getCurrentDate());
 	$CI->db->where('deadline_date > =',getCurrentDate());*/
 	$data=$CI->db->get()->result();

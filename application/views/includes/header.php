@@ -103,6 +103,33 @@
 <!--                          <li class="footer"><a href="#">View all</a></li>-->
 <!--                        </ul>-->
 <!--                      </li>-->
+                    <li class="dropdown notifications-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                          <i class="fa fa-bell-o"></i>
+                          <?php 
+                          $order_notification=order_reminder();
+                          $count=count($order_notification);
+                           ?>
+                          <span class="label label-warning"><?php echo($count) ?></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                          <li class="header">You have <?php echo($count) ?> notifications</li>
+                          <li>
+                            <!-- inner menu: contains the actual data -->
+                            <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 200px;"><ul class="menu" style="overflow: hidden; width: 100%; height: 200px;">
+                            
+                              <?php foreach ($order_notification as  $order): ?>
+                                  <li>
+                                    <a href="<?php echo(site_url('order_progress_detail/view_progress/')) ?>/<?php echo($order->order_id) ?>">
+                                     <?php echo($order->fname.' '.$order->mname.' '.$order->lname) ?>(deadline date <?php echo($order->deadline_date) ?>)
+                                    </a>
+                                  </li>
+                              <?php endforeach ?>
+                            </ul><div class="slimScrollBar" style="width: 3px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 7px; z-index: 99; right: 1px; background: rgb(0, 0, 0);"></div><div class="slimScrollRail" style="width: 3px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div></div>
+                          </li>
+                          <li class="footer"><a href="#">View all</a></li>
+                        </ul>
+                      </li>
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img src="<?php echo base_url() ?>template/dist/img/121.jpg" class="user-image" alt="User Image">
