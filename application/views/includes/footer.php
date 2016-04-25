@@ -253,9 +253,16 @@
 
             var enquiry_id='';
             $('.enquiry_notification').click(function() {
-
+                $('#enquiry_notification_form #days').empty();
+                var options='';
+                var i;
+               for (i = 1; i < 1+$(this).data('datediff') ; i++) {
+                   options+='<option value="+'+i+' days" >'+i+' days</option>';
+                 }
+                 $('#enquiry_notification_form #days').append(options)
                 enquiry_id=$(this).data('enquiryid');
                 $('#enquiry_notification_modal').modal('show');
+
                 
             });
 

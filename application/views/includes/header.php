@@ -109,6 +109,7 @@
                             <?php 
                                   $enquiry_notification=followup_reminder();
                                   $count=count($enquiry_notification);
+                                  
                                 ?>
                           <span class="label label-danger"><?php echo($count); ?></span>
                         </a>
@@ -119,7 +120,7 @@
                             <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 200px;"><ul class="menu" style="overflow: hidden; width: 100%; height: 200px;">
                                 <?php foreach ($enquiry_notification as $enquiry): ?>
                                     <li>
-                                        <a href="#" data-enquiryid="<?php  echo($enquiry['enquiry_id']) ?>" class="enquiry_notification">
+                                        <a href="#" data-enquiryid="<?php  echo($enquiry['enquiry_id']) ?>" class="enquiry_notification" data-datediff="<?php echo($enquiry['date_diff']) ?>">
                                             <?php echo($enquiry['name']) ?> <?php echo(" ( ".$enquiry['phone']." )"); ?>
                                         </a>
                                   </li>
