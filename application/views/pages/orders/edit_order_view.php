@@ -42,7 +42,7 @@
                             <div class="panel-body">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        
+                                       
                                         <div class="row">
                                             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                                 <div class="form-group">
@@ -284,7 +284,8 @@
 
         });
             
-         var order_detail_id='';   
+         var order_detail_id='';  
+          
         $("body").on("click", '.remove', function () {
 
             var r=confirm('Are you sure want to delete ?');

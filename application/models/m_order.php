@@ -12,16 +12,23 @@ class M_order extends CI_Model
 
     public function insert()
     {
+        $this->load->helper('date');
         $reference = false;
 
         if ($this->input->post('remarks')) {
             $reference = true;
         }
+        $date=date_create($this->input->post('deadline_date'));
+        $date= date_format($date,"Y-m-d");
+        $date=date_create($date);
+        date_sub($date,date_interval_create_from_date_string("5 days"));
+        $remind_date=date_format($date,"Y-m-d");
         $data = array(
             'customer_id' => $this->input->post('customer'),
             'order_date' => $this->input->post('order_date'),
             'deadline_date' => $this->input->post('deadline_date'),
             'remarks' => $this->input->post('remarks'),
+            'remind_date'=>$remind_date,
             'is_reference' => $reference
         );
         $this->db->insert('tbl_orders', $data);

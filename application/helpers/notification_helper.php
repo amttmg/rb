@@ -8,4 +8,62 @@
     return $CI->db->count_all_results('tbl_customers');
  } 
 
+ function order_reminder()
+ {
+ 	$CI =& get_instance();
+ 	$today=getCurrentDate();
+	$today=strtotime($today);
+	$master=array();
+
+	$CI->db->from('tbl_orders');
+	/*$CI->db->where('remind_date < =',getCurrentDate());
+	$CI->db->where('deadline_date > =',getCurrentDate());*/
+	$data=$CI->db->get()->result();
+
+	foreach ($data as  $order) 
+	{
+		if($order->remind_date)
+		{
+			if ($today >=strtotime($order->remind_date) && $today<=strtotime($order->deadline_date) ) 
+			{
+				$master[]=$order;
+			}
+		}
+		
+		
+	}
+	return $master;
+
+ }
+
+ function followup_reminder()
+ {
+ 		
+ 	$CI =& get_instance();
+ 	$today=getCurrentDate();
+	$today=strtotime($today);
+	$master=array();
+
+	$CI->db->from('tbl_enquiry');
+	$data=$CI->db->get()->result();
+
+	foreach ($data as  $enquiry) 
+	{
+
+		$date=date_create($enquiry->followup_date);
+        $date= date_format($date,"Y-m-d");
+        $date=date_create($date);
+        date_sub($date,date_interval_create_from_date_string("5 days"));
+
+        $remind_date=date_format($date,"Y-m-d");
+
+		if ($today >=strtotime($remind_date) && $today<=strtotime($enquiry->followup_date) ) 
+		{
+			$master[]=$order;
+		}
+		
+	}
+	return $master;
+ }
+
  ?>
