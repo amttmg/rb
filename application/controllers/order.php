@@ -73,6 +73,7 @@ class Order extends CI_Controller
 
     public function update($order_id)
     {
+
         $content=array();
         $this->cart->destroy();
         $this->db->select('tbl_order_details.*,tbl_products.model_no,tbl_products.product_id,tbl_products.price,tbl_products.model_no');
@@ -163,22 +164,6 @@ class Order extends CI_Controller
            
         } 
         
-       
-    }
-
-    public function test()
-    {
-        $this->db->select('tbl_customers.fname,tbl_cards.card_no');
-        $this->db->from('tbl_customers');
-        $this->db->join('tbl_cards','tbl_cards.customer_id=tbl_customers.customer_id','left');
-        $data=$this->db->get()->result();
-        foreach ($data as $customer) {
-
-            print_r($customer);
-            echo("<br/>");
-            # code...
-        }
-      /* echo $this->db->get_compiled_select();*/
 
     }
 
@@ -602,6 +587,18 @@ class Order extends CI_Controller
 
         $this->db->where('order_detail_id',$order_detail_id);
         $this->db->delete('tbl_order_details');
+    }
+
+    public function test()
+    {
+        $timestamp = strtotime("+1 days");
+
+        echo(date('Y-m-d 00:00:00', $timestamp));
+        echo("<br/>");
+        echo(date('Y-m-d 23:59:59', $timestamp));
+        echo("<br/>");
+        echo(date('Y-m-d',strtotime('2012/2/3')));
+       
     }
 
 
