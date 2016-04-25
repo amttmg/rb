@@ -103,6 +103,34 @@
 <!--                          <li class="footer"><a href="#">View all</a></li>-->
 <!--                        </ul>-->
 <!--                      </li>-->
+                    <li class="dropdown tasks-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                          <i class="fa fa-flag-o"></i>
+                            <?php 
+                                  $enquiry_notification=followup_reminder();
+                                  $count=count($enquiry_notification);
+                                ?>
+                          <span class="label label-danger"><?php echo($count); ?></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                          <li class="header">You have <?php echo($count) ?> tasks</li>
+                          <li>
+                            <!-- inner menu: contains the actual data -->
+                            <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 200px;"><ul class="menu" style="overflow: hidden; width: 100%; height: 200px;">
+                                <?php foreach ($enquiry_notification as $enquiry): ?>
+                                    <li>
+                                        <a href="#" data-enquiryid="<?php  echo('') ?>" class="enquiry_notification">
+                                        hdjfdhfhdjh
+                                        </a>
+                                  </li>
+                                <?php endforeach ?>
+                            </ul><div class="slimScrollBar" style="width: 3px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 7px; z-index: 99; right: 1px; background: rgb(0, 0, 0);"></div><div class="slimScrollRail" style="width: 3px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div></div>
+                          </li>
+                          <li class="footer">
+                            <a href="#">View all tasks</a>
+                          </li>
+                        </ul>
+                      </li>
                     <li class="dropdown notifications-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                           <i class="fa fa-bell-o"></i>

@@ -70,7 +70,15 @@
 
 		if ($today >=strtotime($remind_date) && $today<=strtotime($enquiry->followup_date) ) 
 		{
-			$master[]=$order;
+			$date1=date_create($enquiry->followup_date);
+			$date2=date_create($enquiry->remind_date);
+			$diff=date_diff($date1,$date2);
+
+			$temp['enquiry_id']=$enquiry->enquiry_id;
+			$temp['enquiry_date']=$enquiry->enquiry_date;
+			$temp['followup_date']=$enquiry->followup_date;
+			$temp['date_diff']=$diff->format("%a");
+			array_push($master, $temp);
 		}
 		
 	}
