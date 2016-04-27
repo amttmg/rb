@@ -159,7 +159,31 @@
                                     <?php echo $customer->dob ?>
                                 </td>
                             </tr>
-                            <?php if ($customer->marital_status) { ?>
+                            <tr>
+                                <td>Marital status</td>
+                                <td>
+                                   <?php if ($customer->marital_status): ?>
+                                       <?php if ($customer->marital_status==1): ?>
+                                            Married
+                                       <?php endif ?>
+
+                                       <?php if ($customer->marital_status==2): ?>
+                                           Divorced
+                                       <?php endif ?>
+
+                                       <?php if ($customer->marital_status==3): ?>
+                                           Married but single
+                                       <?php endif ?>
+
+                                       <?php if ($customer->marital_status==4): ?>
+                                           seperated
+                                       <?php endif ?>
+                                   <?php else: ?>
+                                        Single
+                                   <?php endif ?>
+                                </td>
+                            </tr>
+                            <?php if ($customer->marital_status==1) { ?>
                                 <tr>
                                     <td>
                                         Anniversary Date

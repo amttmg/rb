@@ -102,23 +102,19 @@
                             </label>
                             <label class="radio-inline">
                                 <input type="radio" name="marital_status" tabindex="11" id="marital_status_no" value="0"
-                                       checked="">No
-                            </label>
-                            <label class="radio-inline">
-                                <input type="radio" name="marital_status" tabindex="10" id="single"
-                                       value="1" >Single
+                                       checked="">single
                             </label>
                             <label class="radio-inline">
                                 <input type="radio" name="marital_status" tabindex="10" id="divorced"
-                                       value="divorced" >Divorced
+                                       value="2" >Divorced
                             </label>
                             <label class="radio-inline">
                                 <input type="radio" name="marital_status" tabindex="10" id="divorced"
-                                       value="divorced" >Married but single
+                                       value="3" >Married but single
                             </label>
                             <label class="radio-inline">
                                 <input type="radio" name="marital_status" tabindex="10" id="seperated"
-                                       value="divorced" >seperated
+                                       value="4" >seperated
                             </label>
 
                         </div>

@@ -142,7 +142,7 @@
                           <span class="label label-warning"><?php echo($count) ?></span>
                         </a>
                         <ul class="dropdown-menu">
-                          <li class="header">You have <?php echo($count) ?> notifications</li>
+                          <li class="header">You have <?php echo($count) ?> order notifications</li>
                           <li>
                             <!-- inner menu: contains the actual data -->
                             <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 200px;"><ul class="menu" style="overflow: hidden; width: 100%; height: 200px;">
