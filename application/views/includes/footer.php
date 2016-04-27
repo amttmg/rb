@@ -303,13 +303,30 @@
                     $('.overlay').hide();
                     console.log(data)
                     var table;
-                    table='<tr><td class="text-bold">Name </td><td>'+data.fname+' '+data.mname+' '+data.lname+'</td></tr>';
-                    table+='<tr><td class="text-bold">Contact No. </td><td>'+data.phone1+', '+data.phone2+'</td></tr>';
-                    table+='<tr><td class="text-bold">Enquiry Item </td><td>'+data.enquiry_items+'</td></tr>';
-                    table+='<tr><td class="text-bold">Enquiry Type </td><td>'+data.enquiry_type+'</td></tr>';
-                    table+='<tr><td class="text-bold">Intended Purchase Mode </td><td>'+data.intended_purchasemode+'</td></tr>';
-                    table+='<tr><td class="text-bold">Enquiry Date </td><td>'+data.enquiry_date+'</td></tr>';
-                    table+='<tr><td class="text-bold">Followup Date </td><td>'+data.followup_date+'</td></tr>';
+                    var enquiry=data[0].enquiry;
+                    
+                   
+                    table='<tr><td class="text-bold">Name </td><td>'+enquiry.fname+' '+enquiry.mname+' '+enquiry.lname+'</td></tr>';
+                    table+='<tr><td class="text-bold">Contact No. </td><td>'+enquiry.phone1+', '+enquiry.phone2+'</td></tr>';
+                    if (data[0].enquiry_items) 
+                    {
+                        var temp_items='';
+                        $.each(data[0].enquiry_items, function(index,item) 
+                        {
+                            if (index!=0) 
+                            {
+                                temp_items+=', ';
+                            }
+                             temp_items+=item.enquiry_item;
+                        });
+                        table+='<tr><td class="text-bold">Enquiry Item </td><td>'+temp_items+'</td></tr>';
+                    }
+                    
+                    table+='<tr><td class="text-bold">Enquiry Type </td><td>'+enquiry.en_type+'</td></tr>';
+
+                    table+='<tr><td class="text-bold">Intended Purchase Mode </td><td>'+enquiry.intended_purchasemode+'</td></tr>';
+                    table+='<tr><td class="text-bold">Enquiry Date </td><td>'+enquiry.enquiry_date+'</td></tr>';
+                    table+='<tr><td class="text-bold">Followup Date </td><td>'+enquiry.followup_date+'</td></tr>';
 
                     $('#notification_enquiry').html(table);
                     

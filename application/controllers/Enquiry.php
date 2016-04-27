@@ -188,12 +188,28 @@ class Enquiry extends CI_Controller
 
     public function get_enquiry($id)
     {
-        $this->db->select('tbl_enquiry.*,tbl_customers.fname,tbl_customers.mname,tbl_customers.lname,tbl_customers.phone1,tbl_customers.phone2');
+        $master=array();
+        $temp=array();
+        $this->db->select('tbl_enquiry.*,tbl_enquirytype.enquiry_type as en_type,tbl_customers.fname,tbl_customers.mname,tbl_customers.lname,tbl_customers.phone1,tbl_customers.phone2');
         $this->db->from('tbl_enquiry');
         $this->db->join('tbl_customers','tbl_customers.customer_id=tbl_enquiry.customer_id');
+        $this->db->join('tbl_enquirytype','tbl_enquirytype.enquirytype_id=tbl_enquiry.enquiry_type');
         $this->db->where('enquiry_id',$id);
-        $data=$this->db->get()->row();
-       echo json_encode($data);
+        $temp['enquiry']=$this->db->get()->row();
+        $this->db->where('enquiry_id',$id);
+
+        $enquiry_items=$this->db->get('tbl_enquiry_items')->result_array();
+        if ($enquiry_items) 
+        {
+            $temp['enquiry_items']=$enquiry_items;
+        }
+        else
+        {
+             $temp['enquiry_items']=false;
+        }
+        
+        array_push($master, $temp);
+       echo json_encode($master);
     }
 
      public function update_order_remind($enquiry_id)
