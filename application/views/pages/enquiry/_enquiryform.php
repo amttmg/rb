@@ -190,7 +190,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="">Enquiry Type</label>
+                        <label for="">Enquiry Medium</label>
                         <select name="enquiry_type" id="enquiry_type" class="form-control">
                             <option value="">Select Enquiry Type</option>
                             <?php foreach ($enquiry_type as $type) {
