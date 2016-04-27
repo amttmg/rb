@@ -85,6 +85,12 @@
                             <?php echo(form_error('phone2')) ?>
                         </div>
                         <div class="form-group">
+                            <label for="">Customer Title</label>
+                            <input type="text"  class="form-control" name="title" id="title"
+                                   placeholder="Customer Title" value="<?php echo(set_value('title')) ?>">
+                            <?php echo(form_error('title')) ?>
+                        </div>
+                        <div class="form-group">
                             <label>Gender</label>
                             <label class="radio-inline">
                                 <input type="radio" tabindex="9" name="gender" id="male" value="male" checked="checked">Male
@@ -146,6 +152,12 @@
                             <input required type="date" tabindex="8" class="form-control" name="dob" id="dob"
                                    placeholder="date of birth" value="<?php echo(set_value('dob')) ?>">
                             <?php echo(form_error('dob')) ?>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Company name</label>
+                            <input type="text"  class="form-control" name="company" id="company"
+                                   placeholder="Company Name" value="<?php echo(set_value('company')) ?>">
+                            <?php echo(form_error('company')) ?>
                         </div>
                         <div class="form-group" id="aniversary_date">
                             <label>Aniversary Date</label>

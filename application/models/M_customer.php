@@ -31,7 +31,9 @@ class M_customer extends CI_Model
             'user_id' => 1,
             'entry_datetime' => date('Y-m-d'),
             'customer_image' => $image_name,
-            'customer_code'=>$customer_code
+            'customer_code'=>$customer_code,
+            'title'=>$this->input->post('title'),
+            'company'=>$this->input->post('company')
         );
         $this->db->insert('tbl_customers', $data);
 

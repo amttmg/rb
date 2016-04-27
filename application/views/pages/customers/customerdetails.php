@@ -143,6 +143,27 @@
                                     <?php echo $customer->phone1 ?>
                                 </td>
                             </tr>
+                            <?php if ($customer->title): ?>
+                                <tr>
+                                    <td>
+                                        Title
+                                    </td>
+                                    <td>
+                                        <?php echo($customer->title) ?>
+                                    </td>
+                                </tr>
+                            <?php endif ?>
+
+                            <?php if ($customer->company): ?>
+                                <tr>
+                                    <td>
+                                        Company
+                                    </td>
+                                    <td>
+                                        <?php echo($customer->company) ?>
+                                    </td>
+                                </tr>
+                            <?php endif ?>
                             <tr>
                                 <td>
                                     Gender
