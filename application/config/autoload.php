@@ -83,7 +83,7 @@ $autoload['drivers'] = array();
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = array('url','file','login', 'notification', 'language', 'datetime');
+$autoload['helper'] = array('url','file','login', 'notification', 'language', 'datetime','cardswap');
 
 /*
 | -------------------------------------------------------------------

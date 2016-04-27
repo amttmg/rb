@@ -88,6 +88,9 @@ class Enquiry extends CI_Controller
     function getCustomer($card_no = '')
     {
         if ($card_no != '') {
+
+            swap_log($card_no);
+            
             $customerid = $this->customer->getCustomerID($card_no);
             if ($customerid > 0) {
                 $customer['customer'] = $this->customer->getCustomers(md5($customerid));
