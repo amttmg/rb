@@ -35,8 +35,9 @@ class Enquiry extends CI_Controller
 
     function newEnquiry()
     {
+       
         $data['title'] = "Create Customer";
-        $data['content'] = $this->load->view('pages/enquiry/newenquiry', '', true);
+        $data['content'] = $this->load->view('pages/enquiry/newenquiry','', true);
         $this->parser->parse('template/page_template', $data);
     }
 
@@ -49,7 +50,7 @@ class Enquiry extends CI_Controller
         $this->form_validation->set_rules('enquiry_time', 'Enquiry time', 'trim|required');
         $this->form_validation->set_rules('enquiry_type', 'Enquiry type', 'trim|required');
         $this->form_validation->set_rules('followup_date', 'Followup date', 'trim|required');
-        $this->form_validation->set_rules('enquiry_items', 'Enquiry items', 'trim|required|min_length[2]|max_length[200]');
+        /*$this->form_validation->set_rules('enquiry_items', 'Enquiry items', 'trim|required|min_length[2]|max_length[200]');*/
         $this->form_validation->set_rules('intended_purchasemode', 'Intended purchasemode', 'trim|required|min_length[2]|max_length[100]');
         $this->form_validation->set_rules('price_range_min', 'Price range min', 'trim');
         $this->form_validation->set_rules('price_range_max', 'Price range max', 'trim');
@@ -63,13 +64,15 @@ class Enquiry extends CI_Controller
         
         if ($this->form_validation->run() == True) {
 
-            $master['message'] = "Customer enquiry saved successfully !";
             $enquiry_id=$this->enquiry->insert('default');
+
+            $this->save_enquiry_items($enquiry_id);
 
             if ($this->image_name) 
             {
                  $this->m_enquiryimage->insert($enquiry_id,$this->image_name);
             }
+             $master['message'] = "Customer enquiry saved successfully !";
            
         } else {
             $master['status'] = false;
@@ -93,6 +96,7 @@ class Enquiry extends CI_Controller
             
             $customerid = $this->customer->getCustomerID($card_no);
             if ($customerid > 0) {
+                 $customer['category']=$this->db->get('tbl_product_category')->result();
                 $customer['customer'] = $this->customer->getCustomers(md5($customerid));
                 $customer['enquiry_type'] = $this->enquiry->getEnquiryType();
                 $data = $this->load->view('pages/enquiry/_enquiryform', $customer, true);
@@ -198,6 +202,23 @@ class Enquiry extends CI_Controller
         $date=date('Y-m-d',$date);
         $this->db->where('enquiry_id',$enquiry_id);
         $this->db->update('tbl_enquiry',array('remind_date'=>$date));
+    }
+
+    public function save_enquiry_items($enquiry_id)
+    {
+       
+        $category=$this->input->post('category');
+        if ($category) 
+        {
+           foreach ($category as $value) 
+           {
+               $data=array(
+                'enquiry_id'=>$enquiry_id,
+                'enquiry_item'=>$value
+                );
+               $this->db->insert('tbl_enquiry_items',$data);
+           }
+        }
     }
 
 

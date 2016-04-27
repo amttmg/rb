@@ -83,9 +83,6 @@
                           Name
                         </th>
                         <th>
-                            Enquiry item
-                        </th>
-                        <th>
                             Enquiry type
                         </th>
                         <th>
@@ -120,7 +117,6 @@
                             <tr class="<?php echo($rw_class) ?>">
                                 <td><?php echo($sn) ?></td>
                                 <td><?php echo($enquiry->fname) ?></td>
-                                <td><?php echo($enquiry->enquiry_items) ?></td>
                                 <td><?php echo($enquiry->enquiry_type) ?></td>
                                 <td><?php echo($enquiry->intended_purchasemode) ?></td>
                                 <td><?php echo($enquiry->enquiry_date) ?></td>

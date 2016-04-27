@@ -18,7 +18,7 @@
         <!-- Default box -->
         <div class="box box-info">
             <div class="overlay" style="display:none">
-                <i class="fa fa-refresh fa-spin"></i>
+                <i class="fa fa-refresh fa-spin"></i> Please wait.....
             </div>
             <div class="box-header with-border">
                 <h3 class="box-title">Enter Customer Code or Swap Smart Card</h3>

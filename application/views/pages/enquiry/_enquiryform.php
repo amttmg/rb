@@ -5,7 +5,7 @@
 
 
     $(document).ready(function() {
-        $('#save').prop('disabled',true);
+        /*$('#save').prop('disabled',true);*/
         $("input").change(function(){
         $(this).parent().parent().removeClass('has-error');
         $(this).next().empty();
@@ -19,7 +19,7 @@
             $(this).next().empty();
         });
 
-        $('#enquiry_items').blur(function() {
+        /*$('#enquiry_items').blur(function() {
 
             $.ajax({
                 url: '<?php echo(site_url("product/product_status")) ?>'+'/'+$(this).val(),
@@ -55,7 +55,7 @@
             });
             
           
-        });
+        });*/
         
         $('#save').click(function() {
             var formData = new FormData($('#myform')[0]);
@@ -220,11 +220,16 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="">Enquired Model No</label>
-                        <input type="text" class="form-control" name="enquiry_items" id="enquiry_items"
-                               placeholder="Enquiry Items" value="<?php echo(set_value('enquiry_items')) ?>">
-                                <span class="help-block"></span>
-                        <?php echo(form_error('enquiry_items')) ?>
+                    <label for="">Select Enquiry Item</label>
+                    <div class="clearfix">
+                    </div>
+                        <?php foreach ($category as $cat): ?>
+                            
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="category[]" value="<?php echo($cat->category) ?>"><?php echo($cat->category) ?>
+                                </label>
+                           
+                        <?php endforeach ?>
                     </div>
                 </div>
                 <div class="col-md-4">
