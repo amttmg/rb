@@ -584,7 +584,7 @@
                 
             </div>
             <div class="modal-footer">
-                <button type="button" id="ok" class="btn btn-primary">OK</button>
+                <button type="button" id="snap_ok" class="btn btn-primary">OK</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -603,7 +603,7 @@
 
             $(document).ready(function() {
 
-                $('#ok').click(function() {
+                $('#snap_ok').click(function() {
                    $('#snap_image_code').val($.scriptcam.getFrameAsBase64());
                    $('#modal-snap').modal('hide');
                    $('#snaped_image').attr("src","data:image/png;base64,"+$.scriptcam.getFrameAsBase64());
@@ -616,7 +616,7 @@
                     cornerRadius:20,
                     cornerColor:'e3e5e2',
                     onWebcamReady:onWebcamReady,
-                       path:'<?php echo(base_url("template/plugins/cam/")) ?>/',
+                    path:'<?php echo(base_url("template/plugins/cam/")) ?>/',
                     uploadImage:'upload.gif',
                     onPictureAsBase64:base64_tofield_and_image
                 });

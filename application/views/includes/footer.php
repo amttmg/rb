@@ -224,6 +224,7 @@
 <script type="text/javascript">
         $(document).ready(function() {
 
+
             var order_id='';
 
             $('.order_notification').click(function(){
@@ -253,14 +254,18 @@
 
             var enquiry_id='';
             $('.enquiry_notification').click(function() {
+                $('.overlay').show();
                 $('#enquiry_notification_form #days').empty();
                 var options='';
                 var i;
+
                for (i = 1; i < 1+$(this).data('datediff') ; i++) {
                    options+='<option value="+'+i+' days" >'+i+' days</option>';
                  }
+
                  $('#enquiry_notification_form #days').append(options)
                 enquiry_id=$(this).data('enquiryid');
+                enquiry_table(enquiry_id);
                 $('#enquiry_notification_modal').modal('show');
 
                 
@@ -286,5 +291,35 @@
             });
              
         });
+
+        function enquiry_table (enquiry_id) 
+        {
+            $.ajax({
+                url: '<?php echo(site_url("enquiry/get_enquiry")) ?>/'+enquiry_id,
+                type: 'POST',
+                dataType: 'json',
+                success:function(data)
+                {
+                    $('.overlay').hide();
+                    console.log(data)
+                    var table;
+                    table='<tr><td class="text-bold">Name </td><td>'+data.fname+' '+data.mname+' '+data.lname+'</td></tr>';
+                    table+='<tr><td class="text-bold">Contact No. </td><td>'+data.phone1+', '+data.phone2+'</td></tr>';
+                    table+='<tr><td class="text-bold">Enquiry Item </td><td>'+data.enquiry_items+'</td></tr>';
+                    table+='<tr><td class="text-bold">Enquiry Type </td><td>'+data.enquiry_type+'</td></tr>';
+                    table+='<tr><td class="text-bold">Intended Purchase Mode </td><td>'+data.intended_purchasemode+'</td></tr>';
+                    table+='<tr><td class="text-bold">Enquiry Date </td><td>'+data.enquiry_date+'</td></tr>';
+                    table+='<tr><td class="text-bold">Followup Date </td><td>'+data.followup_date+'</td></tr>';
+
+                    $('#notification_enquiry').html(table);
+                    
+                }
+
+            })
+            .fail(function(data) {
+                console.log(data);
+            });
+            
+        }
     </script>
 

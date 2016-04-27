@@ -238,7 +238,7 @@
     </div>
 
     <div class="modal fade" id="enquiry_notification_modal">
-        <div class="modal-dialog modal-sm">
+        <div class="modal-dialog modal-md">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -247,11 +247,21 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                            <a class="btn btn-default" href="#" role="button">View Enquiry Detail</a>
+                           <table class="table table-hover tbl-bordered">
+                              <tbody id="notification_enquiry">
+                                  
+                              </tbody>
+                           </table>
+                           <div class="overlay" style="visibility: hidden">
+                              <i class="fa fa-refresh fa-spin"></i>  Please Wait.....
+                              <h1></h1>
+                            </div>
+
                         </div>
+
                     </div>
                     <div class="row">
-                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
                             <form id="enquiry_notification_form">
                                 <div class="form-group">
                                     <label for="">Remind me after</label>
@@ -267,9 +277,10 @@
                            
                         </div>
                     </div>
+
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="enquiry_ok" class="btn btn-primary">Save </button>
+                    <button type="button" id="enquiry_ok" class="btn btn-primary">Ok </button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>

@@ -184,9 +184,11 @@ class Enquiry extends CI_Controller
 
     public function get_enquiry($id)
     {
-        $this->load->database();
+        $this->db->select('tbl_enquiry.*,tbl_customers.fname,tbl_customers.mname,tbl_customers.lname,tbl_customers.phone1,tbl_customers.phone2');
+        $this->db->from('tbl_enquiry');
+        $this->db->join('tbl_customers','tbl_customers.customer_id=tbl_enquiry.customer_id');
         $this->db->where('enquiry_id',$id);
-        $data=$this->db->get('tbl_enquiry')->row();
+        $data=$this->db->get()->row();
        echo json_encode($data);
     }
 
