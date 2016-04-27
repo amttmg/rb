@@ -75,6 +75,11 @@ class Customer extends CI_Controller
            
             $existing_customer = "";
             $inhouse_refer_id = "";
+            
+            $this->db->trans_begin();
+            $this->customer->insert($this->image_name);
+            $this->customer->insert_family($this->images);
+
             if ($this->input->post('refered_id')) {
                 if ($this->input->post('customer_refer') == 0) {
                     $dt = explode(':', $this->input->post('reference'));
@@ -83,11 +88,11 @@ class Customer extends CI_Controller
                     $dt = explode(':', $this->input->post('reference'));
                     $inhouse_refer_id = $dt[1];
                 }
+
+                $this->customer->insert_refer($this->input->post('customer_refer'), $inhouse_refer_id, $existing_customer, $this->session->userdata('customer_id'));
             }
-            $this->db->trans_begin();
-            $this->customer->insert($this->image_name);
-            $this->customer->insert_family($this->images);
-            $this->customer->insert_refer($this->input->post('customer_refer'), $inhouse_refer_id, $existing_customer, $this->session->userdata('customer_id'));
+
+            
             if ($this->db->trans_status() === FALSE) {
                 $this->db->trans_rollback();
             } else {
