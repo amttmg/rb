@@ -1,7 +1,8 @@
 <!-- Content Wrapper. Contains page content -->
 <script type="text/javascript" src="<?php echo(base_url('assets/jquery-ui.js')) ?>"></script>
 <script type="text/javascript" src="<?php echo(base_url('assets/jquery-ui.css')) ?>"></script>
-
+<!-- <script language="JavaScript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+ -->
 <script type="text/javascript">
     $(document).ready(function () {
         $('#aniversary_date').hide();
@@ -158,6 +159,10 @@
                         </div>
 
                         <button type="button" id="snap" class="btn btn-info"><i class="glyphicon glyphicon-camera"></i>  Take Snap</button>
+                        <h1></h1>
+                        <img src="" id="snaped_image" height="150px">
+                        <input type="hidden" id="snap_image_code" name="snap_image_code" value="" >
+                        <h1></h1>
                     </div>
                     <!-- middle form end -->
 
@@ -535,14 +540,14 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Modal title</h4>
+                <h4 class="modal-title"><i class="glyphicon glyphicon-camera"></i> Web Cam</h4>
             </div>
             <div class="modal-body">
             <div class="row">
                     <div style="width:330px;float:left;">
                     
                         <div style="margin:5px;">
-                            <img src="webcamlogo.png" style="vertical-align:text-top"/>
+                            <img src="<?php echo(base_url('template/plugins/cam')) ?>/webcamlogo.png" style="vertical-align:text-top"/>
                             <select id="cameraNames" size="1" onChange="changeCamera()" style="width:245px;font-size:10px;height:25px;">
                             </select>
                         </div>
@@ -554,8 +559,7 @@
                         </div>
                     </div>
                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                     
-                        <div style="width:200px;float:left;">
+                        <div class="pull-right">
                             <p><img id="image" style="width:200px;height:153px;"/></p>
                         </div>
                     </div>
@@ -564,7 +568,7 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div style="width:135px;float:left;">
-                            <p><button class="btn btn-small" id="btn2" onclick="base64_toimage()">Take Snap</button></p>
+                        <p><button class="btn btn-small btn-primary" id="take_snap" onclick="base64_toimage()"><i class="glyphicon glyphicon-camera"></i> Take Snap</button></p>
                         </div>
                     </div>
                 </div>
@@ -572,112 +576,79 @@
                 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" id="ok" class="btn btn-primary">OK</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
 </div>
-<script type="text/javascript">
 
-$(document).ready(function() {
-    $('#snap').click(function() {
-       $('#modal-snap').modal('show');
-    });
 
-    $("#webcam").scriptcam({
-        showMicrophoneErrors:false,
-        onError:onError,
-        cornerRadius:20,
-        disableHardwareAcceleration:1,
-        cornerColor:'e3e5e2',
-        onWebcamReady:onWebcamReady,
-        uploadImage:'upload.gif',
-        onPictureAsBase64:base64_tofield_and_image
-    });
-});
 
-function base64_tofield() {
+
+        <script language="JavaScript" src="//ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
+        
+        <script language="JavaScript"> 
+
+            
+            
+
+            $(document).ready(function() {
+
+                $('#ok').click(function() {
+                   $('#snap_image_code').val($.scriptcam.getFrameAsBase64());
+                   $('#modal-snap').modal('hide');
+                   $('#snaped_image').attr("src","data:image/png;base64,"+$.scriptcam.getFrameAsBase64());
+                  
+                });
+
+                $("#webcam").scriptcam({
+                    showMicrophoneErrors:false,
+                    onError:onError,
+                    cornerRadius:20,
+                    cornerColor:'e3e5e2',
+                    onWebcamReady:onWebcamReady,
+                       path:'<?php echo(base_url("template/plugins/cam/")) ?>/',
+                    uploadImage:'upload.gif',
+                    onPictureAsBase64:base64_tofield_and_image
+                });
+            });
+            var temp_code;
+            function base64_tofield() {
                 $('#formfield').val($.scriptcam.getFrameAsBase64());
             };
-function base64_toimage() {
-    $('#image').attr("src","data:image/png;base64,"+$.scriptcam.getFrameAsBase64());
-};
-function base64_tofield_and_image(b64) {
-    $('#formfield').val(b64);
-    $('#image').attr("src","data:image/png;base64,"+b64);
-};
-function changeCamera() {
-    $.scriptcam.changeCamera($('#cameraNames').val());
-}
-function onError(errorId,errorMsg) {
-    $( "#btn1" ).attr( "disabled", true );
-    $( "#btn2" ).attr( "disabled", true );
-    alert(errorMsg);
-}           
-function onWebcamReady(cameraNames,camera,microphoneNames,microphone,volume) {
-    $.each(cameraNames, function(index, text) {
-        $('#cameraNames').append( $('<option></option>').val(index).html(text) )
-    }); 
-    $('#cameraNames').val(camera);
-}
-    $('#myform').validate({
-        rules: {
-            fname: {
-                required: true,
-            },
-            lname: {
-                required: true,
-            },
-            address: {
-                required: true,
-            },
-            email: {
-                required: true,
-            },
-            phone1: {
-                required: true
-            },
-            gender: {
-                required: true
-            }
+            function base64_toimage() {
+                $('#image').attr("src","data:image/png;base64,"+$.scriptcam.getFrameAsBase64());
+                temp_code=$.scriptcam.getFrameAsBase64();
 
-        },
-        message: {
-            fname: {
-                required: "This field is required"
-            },
-            lname: {
-                required: "This field is required",
-            },
-            address: {
-                required: "This field is required",
-            },
-            email: {
-                required: "This field is required"
-            },
-            phone1: {
-                required: "This field is required"
-            },
-            gender: {
-                required: "This field is required"
+            };
+            
+            function base64_tofield_and_image(b64) {
+                $('#formfield').val(b64);
+                $('#image').attr("src","data:image/png;base64,"+b64);
+            };
+            function changeCamera() {
+                $.scriptcam.changeCamera($('#cameraNames').val());
             }
-        },
+            function onError(errorId,errorMsg) {
+                $( "#btn1" ).attr( "disabled", true );
+                $( "#take_snap" ).attr( "disabled", true );
+                alert(errorMsg);
+            }           
+            function onWebcamReady(cameraNames,camera,microphoneNames,microphone,volume) {
+                $.each(cameraNames, function(index, text) {
+                    $('#cameraNames').append( $('<option></option>').val(index).html(text) )
+                }); 
+                $('#cameraNames').val(camera);
+            }
+        </script> 
+   
 
-        highlight: function (element) {
-            $(element).closest('.form-group').addClass('has-error');
-        },
-        unhighlight: function (element) {
-            $(element).closest('.form-group').removeClass('has-error');
-        },
-        errorElement: 'span',
-        errorClass: 'help-block',
-        errorPlacement: function (error, element) {
-            if (element.parent('.input-group').length) {
-                error.insertAfter(element.parent());
-            } else {
-                error.insertAfter(element);
-            }
-        }
-    })
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#snap').click(function() {
+           $('#modal-snap').modal('show');
+        });
+    });
 </script>

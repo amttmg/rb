@@ -215,8 +215,8 @@
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url() ?>template/dist/js/demo.js"></script>
 <script src="<?php echo base_url() ?>template/plugins/imageview/jquery.magnific-popup.min.js"></script>
-<script language="JavaScript" src="//ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
-<script src="<?php echo base_url() ?>template/plugins/cam/scriptcam.js"></script>
+<!-- <script language="JavaScript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script> -->
+<script language="JavaScript" src="<?php echo(base_url('template/plugins/cam')) ?>/scriptcam.js"></script>
 
 </body>
 </html>

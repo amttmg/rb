@@ -60,6 +60,19 @@ class Customer extends CI_Controller
         }
         $this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
         if ($this->form_validation->run() == TRUE) {
+
+            if ($this->input->post('snap_image_code')) 
+           {
+                define('UPLOAD_DIR', 'uploads/');
+                $img = str_replace(' ', '+', $this->input->post('snap_image_code'));
+                $data = base64_decode($img);
+                 $file_name=uniqid() . '.PNG';
+                $file = UPLOAD_DIR .$file_name ;
+                $success = file_put_contents($file, $data);
+                $this->image_name=$file_name;
+
+           }
+           
             $existing_customer = "";
             $inhouse_refer_id = "";
             if ($this->input->post('refered_id')) {
