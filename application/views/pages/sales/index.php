@@ -258,10 +258,7 @@
 
 <script>
     $(document).ready(function () {
-
-        $('.image-link').magnificPopup({type:'image'});
-
-
+        
         fill_combobox('order/fill_combobox', 'customer_list');
 
         $("input").change(function(){

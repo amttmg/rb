@@ -548,7 +548,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title"><i class="glyphicon glyphicon-camera"></i> Web Cam</h4>
+                <h4 class="modal-title"><i class="glyphicon glyphicon-camera fa-3x text-green"></i></h4>
             </div>
             <div class="modal-body">
             <div class="row">
@@ -563,6 +563,7 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <input type="hidden" id="temp_code">
                         <div id="webcam">
                         </div>
                     </div>
@@ -604,9 +605,12 @@
             $(document).ready(function() {
 
                 $('#snap_ok').click(function() {
-                   $('#snap_image_code').val($.scriptcam.getFrameAsBase64());
+                   /*$('#snap_image_code').val($.scriptcam.getFrameAsBase64());*/
+                   $('#snap_image_code').val($('#temp_code').val());
                    $('#modal-snap').modal('hide');
-                   $('#snaped_image').attr("src","data:image/png;base64,"+$.scriptcam.getFrameAsBase64());
+                  /* $('#snaped_image').attr("src","data:image/png;base64,"+$.scriptcam.getFrameAsBase64());*/
+                  var img=$('#image').attr('src');
+                  $('#snaped_image').attr('src', img);
                   
                 });
 
@@ -627,7 +631,8 @@
             };
             function base64_toimage() {
                 $('#image').attr("src","data:image/png;base64,"+$.scriptcam.getFrameAsBase64());
-                temp_code=$.scriptcam.getFrameAsBase64();
+                /*temp_code=$.scriptcam.getFrameAsBase64();*/
+                $('#temp_code').val($.scriptcam.getFrameAsBase64());
 
             };
             

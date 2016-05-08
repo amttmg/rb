@@ -34,7 +34,8 @@
 				$data['orders']=array(
 					'order_id'=>$order->order_id,
 					'customer'=>$order->fname.' '.$order->mname.' '.$order->lname,
-					'date_diff'=>$diff->format("%a")
+					'date_diff'=>$diff->format("%a"),
+					'deadline_date'=>$order->deadline_date
 					);
 				
 				$master[]=$order;

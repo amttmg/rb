@@ -149,7 +149,7 @@
                             
                               <?php foreach ($order_notification as  $order): ?>
                                   <li>
-                                    <a href="#" data-orderid="<?php  echo($order->order_id) ?>" class="order_notification">
+                                    <a href="#" data-orderid="<?php  echo($order->order_id) ?>" data-deadlinedate="<?php  echo($order->deadline_date) ?>" class="order_notification">
                                      <?php echo($order->fname.' '.$order->mname.' '.$order->lname) ?>(deadline date <?php echo($order->deadline_date) ?>)
                                     </a>
                                   </li>
@@ -219,6 +219,7 @@
                                         <option value="+5 days">5 days</option>
                                     </select>
                                 </div>
+                                <span id="deadline_date"></span>
                             </form>
                            
                         </div>

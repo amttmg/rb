@@ -229,6 +229,7 @@
 
             $('.order_notification').click(function(){
                 order_id=$(this).data('orderid');
+                $('#deadline_date').html('<p class="text-red"><b>Deadline Date: </b>'+$(this).data('deadlinedate')+'</p>')
                $('#modal-order-notification').modal('show');
                $('#on_progress').attr('href',"<?php echo(site_url('order_progress_detail/view_progress')) ?>"+'/'+$(this).data('orderid'));
             });
