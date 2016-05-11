@@ -1,5 +1,6 @@
 <?php 
 
+
 	function swap_log($card_no)
 	{
 		$CI =& get_instance();
