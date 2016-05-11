@@ -35,7 +35,7 @@ class Enquiry extends CI_Controller
 
     function newEnquiry()
     {
-       
+
         $data['title'] = "Create Customer";
         $data['content'] = $this->load->view('pages/enquiry/newenquiry','', true);
         $this->parser->parse('template/page_template', $data);
@@ -61,19 +61,19 @@ class Enquiry extends CI_Controller
         $this->form_validation->set_rules('reference_img5', 'Reference image5', 'callback_validate_image[reference_img5]');
         $this->form_validation->set_rules('remarks', 'Remarks', 'trim|min_length[2]|max_length[200]');
         $this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
-        
+
         if ($this->form_validation->run() == True) {
 
             $enquiry_id=$this->enquiry->insert('default');
 
             $this->save_enquiry_items($enquiry_id);
 
-            if ($this->image_name) 
+            if ($this->image_name)
             {
                  $this->m_enquiryimage->insert($enquiry_id,$this->image_name);
             }
              $master['message'] = "Customer enquiry saved successfully !";
-           
+
         } else {
             $master['status'] = false;
             foreach ($_POST as $key => $value) {
@@ -92,8 +92,8 @@ class Enquiry extends CI_Controller
     {
         if ($card_no != '') {
 
-            swap_log($card_no);
-            
+            swap_log_remarks($card_no,'Enquiry');
+
             $customerid = $this->customer->getCustomerID($card_no);
             if ($customerid > 0) {
                  $customer['category']=$this->db->get('tbl_product_category')->result();
@@ -147,10 +147,10 @@ class Enquiry extends CI_Controller
             $this->enquiry->disable_enquiry($id);
         }
         else//run when enquiry need to be enabled
-        {   
+        {
             $this->enquiry->enable_enquiry($id);
         }
-        
+
         redirect('enquiry','refresh');
     }
     public function update_enquiry()
@@ -199,7 +199,7 @@ class Enquiry extends CI_Controller
         $this->db->where('enquiry_id',$id);
 
         $enquiry_items=$this->db->get('tbl_enquiry_items')->result_array();
-        if ($enquiry_items) 
+        if ($enquiry_items)
         {
             $temp['enquiry_items']=$enquiry_items;
         }
@@ -207,7 +207,7 @@ class Enquiry extends CI_Controller
         {
              $temp['enquiry_items']=false;
         }
-        
+
         array_push($master, $temp);
        echo json_encode($master);
     }
@@ -222,11 +222,11 @@ class Enquiry extends CI_Controller
 
     public function save_enquiry_items($enquiry_id)
     {
-       
+
         $category=$this->input->post('category');
-        if ($category) 
+        if ($category)
         {
-           foreach ($category as $value) 
+           foreach ($category as $value)
            {
                $data=array(
                 'enquiry_id'=>$enquiry_id,
@@ -238,5 +238,5 @@ class Enquiry extends CI_Controller
     }
 
 
-    
+
 }

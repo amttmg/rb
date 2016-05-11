@@ -192,7 +192,7 @@
                     <div class="form-group">
                         <label for="">Enquiry Medium</label>
                         <select name="enquiry_type" id="enquiry_type" class="form-control">
-                            <option value="">Select Enquiry Type</option>
+                            <option value="">Select Enquiry Medium</option>
                             <?php foreach ($enquiry_type as $type) {
                                 ?>
                                 <option value="<?php echo $type->enquirytype_id ?>"><?php echo $type->enquiry_type ?></option>
@@ -237,7 +237,8 @@
                         <label for="">Intended Purchase Mode</label>
                        <select name="intended_purchasemode" class="form-control">
                            <option value="Cash">Cash</option>
-                           <option value="Credit Card">Credit Card</option>
+                           <option value="Cheque">Cheque</option>
+                           <option value="Credit">Credit</option>
                        </select>
                         <span class="help-block"></span>
                         <?php echo(form_error('intended_purchasemode')) ?>
@@ -314,8 +315,8 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <button type="button" id="save"  class="btn btn-primary btn-sm">Save </button>
-                    <button type="submit" class="btn btn-primary btn-sm">Order Product</button>
+                    <button type="button" id="save"  class="btn btn-primary">Save </button>
+
                 </div>
             </div>
             <?php echo(form_close()) ?>

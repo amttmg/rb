@@ -126,9 +126,24 @@
                         </div>
                         <div class="form-group">
                             <label>Choose Image</label>
-                            <input type="file" name="photo" tabindex="12">
+                            <input  accept="image/gif, image/jpeg, image/png" id="src" type="file" name="photo" tabindex="12">
                             <?php echo(form_error('photo')); ?>
                         </div>
+                        <script>
+                            function showImage(src,target) {
+                                var fr=new FileReader();
+                                // when image is loaded, set the src of the image where you want to display it
+                                fr.onload = function(e) { target.src = this.result; };
+                                src.addEventListener("change",function() {
+                                    // fill fr with image data
+                                    fr.readAsDataURL(src.files[0]);
+                                });
+                            }
+
+                            var src = document.getElementById("src");
+                            var target = document.getElementById("snaped_image");
+                            showImage(src,target);
+                        </script>
 
 
                     </div>
